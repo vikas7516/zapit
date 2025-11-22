@@ -62,61 +62,87 @@ class ZapitCategoryPage {
         const w = window.open(shareUrl, '_blank', 'width=600,height=400,scrollbars=yes,resizable=yes,noopener,noreferrer');
         if (w) { try { w.opener = null; } catch (_) { } }
     }
-    const toolSlug = (toolName || '').toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
+    setupToolCards() {
+        const toolCards = document.querySelectorAll('.tools-grid .tool-card');
+        const categoryEl = document.querySelector('.category-hero-title');
+        const category = categoryEl ? categoryEl.textContent.trim() : 'Category';
+
+        const CATEGORY_SLUGS = {
+            'Text & Content Tools': 'text-tools',
+            'Image & Design Tools': 'image-tools',
+            'PDF & Document Tools': 'pdf-tools',
+            'Math Calculators': 'math-calculators',
+            'Unit Converters': 'unit-converters',
+            'Developer & Web Tools': 'dev-tools',
+            'Security & Network Tools': 'security-tools',
+            'Audio & Video Tools': 'audio-video-tools',
+            'Health & Fitness Calculators': 'health-fitness-calculators',
+            'Financial Calculators': 'financial-calculators',
+            'Utility & Fun Tools': 'utility-tools'
+        };
+
+        const catSlug = CATEGORY_SLUGS[category] || (category || '').toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
+        // Update href attributes to match actual directory structure
+        toolCards.forEach(card => {
+            const toolNameEl = card.querySelector('.tool-name');
+            const toolName = toolNameEl ? toolNameEl.textContent.trim() : 'tool';
+            const toolSlug = (toolName || '').toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
             card.setAttribute('href', `/${catSlug}/${toolSlug}`);
         });
-toolCards.forEach(card => {
-    card.addEventListener('click', (e) => {
-        // Navigate to SEO slug path. Coming Soon + _redirects will resolve it.
-        const toolNameEl = card.querySelector('.tool-name');
-        const toolName = toolNameEl ? toolNameEl.textContent.trim() : 'Tool';
-        const toolSlug = (toolName || '').toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-        const target = `/${catSlug}/${toolSlug}`;
 
-        // Respect modifier/middle clicks: open in new tab
-        const isMiddle = e.button === 1;
-        const newTab = e.ctrlKey || e.metaKey || e.shiftKey || isMiddle;
-        e.preventDefault();
-        if (newTab) {
-            const w = window.open(target, '_blank', 'noopener');
-            if (w) { try { w.opener = null; } catch (_) { } }
-        } else {
-            window.location.href = target;
-        }
-    });
-});
-    }
+        toolCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                const toolNameEl = card.querySelector('.tool-name');
+                const toolName = toolNameEl ? toolNameEl.textContent.trim() : 'Tool';
+                const toolSlug = (toolName || '').toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+                const target = `/${catSlug}/${toolSlug}`;
 
-setupSmoothScrolling() {
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
+                // Respect modifier/middle clicks: open in new tab
+                const isMiddle = e.button === 1;
+                const newTab = e.ctrlKey || e.metaKey || e.shiftKey || isMiddle;
+                e.preventDefault();
+                if (newTab) {
+                    const w = window.open(target, '_blank', 'noopener');
+                    if (w) { try { w.opener = null; } catch (_) { } }
+                } else {
+                    window.location.href = target;
+                }
+            });
         });
-    });
-}
-
-updateCategoryStats() {
-    const statsEl = document.querySelector('.category-stats');
-    const tools = document.querySelectorAll('.tools-grid .tool-card');
-    if (statsEl && tools) {
-        statsEl.textContent = `${tools.length} tools available`;
     }
-}
 
-updateFooterYear() {
-    const year = new Date().getFullYear();
-    document.querySelectorAll('.footer-copyright').forEach(el => {
-        el.textContent = `© ${year} Zapit. All rights reserved.`;
-    });
-}
+    setupSmoothScrolling() {
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    }
+
+    updateCategoryStats() {
+        const statsEl = document.querySelector('.category-stats');
+        const tools = document.querySelectorAll('.tools-grid .tool-card');
+        if (statsEl && tools) {
+            statsEl.textContent = `${tools.length} tools available`;
+        }
+    }
+
+    updateFooterYear() {
+        const year = new Date().getFullYear();
+        document.querySelectorAll('.footer-copyright').forEach(el => {
+            el.textContent = `© ${year} Zapit. All rights reserved.`;
+        });
+    }
 }
 
 // Initialize on DOM ready
