@@ -1,65 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zapit - Free Online Tools</title>
-    <meta name="description" content="Free online tools for text processing, image editing, calculations, and more. No registration required.">
-    
+    <meta name="description"
+        content="Free online tools for text processing, image editing, calculations, and more. No registration required.">
+
     <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
     <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
     <link rel="icon" type="image/png" sizes="48x48" href="icons/favicon-48.png">
     <link rel="icon" href="icons/favicon.ico">
-        <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
-        <script>
-        (function(){
-            try{
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <script>
+        (function () {
+            try {
                 var css = document.getElementById('site-theme-css');
                 var tt = document.getElementById('theme-toggle-css');
                 var isFile = location.protocol === 'file:';
                 var cssVar = getComputedStyle(document.documentElement).getPropertyValue('--color-blue');
                 var needFallback = isFile || !cssVar;
-                if(needFallback){
+                if (needFallback) {
                     if (css && css.href && css.href.indexOf('/assets/css/style.css') !== -1) css.href = 'assets/css/style.css';
                     if (tt && tt.href && tt.href.indexOf('/assets/elements/theme-toggle.css') !== -1) tt.href = 'assets/elements/theme-toggle.css';
                 }
-            }catch(_){/* noop */}
+            } catch (_) {/* noop */ }
         })();
-        </script>
+    </script>
     <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
     <link rel="manifest" href="site.webmanifest">
     <link rel="canonical" href="https://zapit.me/" />
     <meta name="theme-color" content="#3b82f6">
-    <meta name="msapplication-navbutton-color" content="#3b82f6"> <!-- Windows Phone -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <!-- Safari/iOS -->
-    <!-- Note: Firefox and Opera do not support theme color via meta tag. CSS fallback below provides compatibility. -->
-    <style>
-        /* Fallback for browsers that do not support theme-color meta tag (e.g., Firefox, Opera) */
-        html {
-            background-color: #3b82f6 !important;
-        }
-        body {
-            background-color: #fff;
-        }
-        @media (prefers-color-scheme: dark) {
-            html {
-                background-color: #1e293b !important;
-            }
-            body {
-                background-color: #0f172a;
-            }
-        }
-    </style>
     <meta property="og:title" content="Zapit - Free Online Tools" />
-    <meta property="og:description" content="Free online tools for text, images, PDFs, calculators, and more. No sign-up." />
+    <meta property="og:description"
+        content="Free online tools for text, images, PDFs, calculators, and more. No sign-up." />
     <meta property="og:url" content="https://zapit.me/" />
     <meta property="og:image" content="https://zapit.me/icons/favicon-512.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Zapit - Free Online Tools" />
     <meta name="twitter:description" content="Free online tools for text, images, PDFs, calculators, and more." />
     <meta name="twitter:image" content="https://zapit.me/icons/logo.jpg" />
-        <script id="categoriesData" type="application/json">
+    <script id="categoriesData" type="application/json">
             {
                 "categories": [
                     { "name": "Text & Content Tools", "count": 15, "href": "/text-tools", "color": "blue" },
@@ -77,6 +60,7 @@
             }
         </script>
 </head>
+
 <body>
     <!-- Header -->
     <header class="site-header">
@@ -89,7 +73,7 @@
                         <span class="brand-tagline">A Zap Away From Done</span>
                     </span>
                 </a>
-                
+
                 <div class="header-right">
                     <nav class="breadcrumb" id="breadcrumb"></nav>
                 </div>
@@ -103,32 +87,30 @@
         <section class="hero">
             <div class="container">
                 <h1 class="hero-title">Free Online Tools</h1>
-                
+
                 <!-- Search Bar -->
                 <div class="search-container">
                     <div class="search-wrapper">
-                        <input 
-                            type="text" 
-                            id="searchInput"
+                        <input type="text" id="searchInput"
                             placeholder="Search for tools... (e.g., image compressor, json formatter)"
-                            class="search-input"
-                        >
+                            class="search-input">
                         <button class="search-button" aria-label="Search">
                             <svg class="search-icon" viewBox="0 0 24 24">
                                 <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
                         </button>
                     </div>
-                    
+
                     <!-- Search Results -->
                     <div id="searchResults" class="search-results hidden"></div>
                 </div>
-                
+
                 <!-- Introduction -->
                 <p class="hero-description">
-                    A collection of powerful, privacy-focused tools for text processing, image editing, calculations, and more. 
-                    <span class="highlight green">No registration required</span> • 
-                    <span class="highlight blue">Works in your browser</span> • 
+                    A collection of powerful, privacy-focused tools for text processing, image editing, calculations,
+                    and more.
+                    <span class="highlight green">No registration required</span> •
+                    <span class="highlight blue">Works in your browser</span> •
                     <span class="highlight red">Completely free</span>
                 </p>
             </div>
@@ -141,13 +123,14 @@
                     <h2 class="section-title">Choose Your Tool Category</h2>
                     <p class="section-subtitle">Find the perfect tool for your task</p>
                 </div>
-                
+
                 <div class="categories-grid">
                     <!-- Text & Content Tools -->
                     <a href="/text-tools" class="category-card blue" title="Opens Text & Content Tools">
                         <div class="category-icon">📝</div>
                         <h3 class="category-title">Text & Content Tools</h3>
-                        <p class="category-description">Text formatting, case conversion, and content processing tools</p>
+                        <p class="category-description">Text formatting, case conversion, and content processing tools
+                        </p>
                         <span class="category-count">15 tools available • opens category page</span>
                     </a>
 
@@ -195,7 +178,8 @@
                     <a href="/security-tools" class="category-card indigo" title="Opens Security & Network Tools">
                         <div class="category-icon">🔒</div>
                         <h3 class="category-title">Security & Network Tools</h3>
-                        <p class="category-description">Password generators, hash calculators, and security utilities</p>
+                        <p class="category-description">Password generators, hash calculators, and security utilities
+                        </p>
                         <span class="category-count">9 tools available • opens category page</span>
                     </a>
 
@@ -208,7 +192,8 @@
                     </a>
 
                     <!-- Health & Fitness Calculators -->
-                    <a href="/health-fitness-calculators" class="category-card teal" title="Opens Health & Fitness Calculators">
+                    <a href="/health-fitness-calculators" class="category-card teal"
+                        title="Opens Health & Fitness Calculators">
                         <div class="category-icon">💪</div>
                         <h3 class="category-title">Health & Fitness Calculators</h3>
                         <p class="category-description">BMI, BMR, calorie calculators and more</p>
@@ -241,42 +226,54 @@
                     <h2 class="section-title">Why Choose Zapit?</h2>
                     <p class="section-subtitle">Built for speed, privacy, and simplicity</p>
                 </div>
-                
+
                 <div class="info-grid">
                     <div class="info-card">
                         <div class="info-icon blue">🛠️</div>
                         <h3 class="info-title">Comprehensive Collection</h3>
-                        <p class="info-description">Zapit offers an extensive collection of online tools covering text processing, image editing, calculations, development utilities, and more. From simple conversions to complex document processing.</p>
+                        <p class="info-description">Zapit offers an extensive collection of online tools covering text
+                            processing, image editing, calculations, development utilities, and more. From simple
+                            conversions to complex document processing.</p>
                     </div>
 
                     <div class="info-card">
                         <div class="info-icon green">⚡</div>
                         <h3 class="info-title">Lightning Fast & Easy</h3>
-                        <p class="info-description">Our tools are designed for speed and simplicity. Clean, intuitive interfaces mean you can accomplish tasks quickly without learning complex software. Just upload, process, and download.</p>
+                        <p class="info-description">Our tools are designed for speed and simplicity. Clean, intuitive
+                            interfaces mean you can accomplish tasks quickly without learning complex software. Just
+                            upload, process, and download.</p>
                     </div>
 
                     <div class="info-card">
                         <div class="info-icon red">🔐</div>
                         <h3 class="info-title">Privacy & Security First</h3>
-                        <p class="info-description">Your files are processed securely with encrypted transfers. Most tools work entirely in your browser, meaning your data never leaves your device. Complete client-side processing.</p>
+                        <p class="info-description">Your files are processed securely with encrypted transfers. Most
+                            tools work entirely in your browser, meaning your data never leaves your device. Complete
+                            client-side processing.</p>
                     </div>
 
                     <div class="info-card">
                         <div class="info-icon yellow">🌐</div>
                         <h3 class="info-title">No Installation Required</h3>
-                        <p class="info-description">All Zapit tools work directly in your web browser. No software downloads, no installations, no updates to manage. Access your tools instantly from any device.</p>
+                        <p class="info-description">All Zapit tools work directly in your web browser. No software
+                            downloads, no installations, no updates to manage. Access your tools instantly from any
+                            device.</p>
                     </div>
 
                     <div class="info-card">
                         <div class="info-icon purple">📱</div>
                         <h3 class="info-title">Universal Compatibility</h3>
-                        <p class="info-description">Zapit works on all modern devices and browsers. Whether you're on Windows, Mac, Linux, iOS, or Android, our tools deliver consistent performance across all platforms.</p>
+                        <p class="info-description">Zapit works on all modern devices and browsers. Whether you're on
+                            Windows, Mac, Linux, iOS, or Android, our tools deliver consistent performance across all
+                            platforms.</p>
                     </div>
 
                     <div class="info-card">
                         <div class="info-icon indigo">🆓</div>
                         <h3 class="info-title">Completely Free</h3>
-                        <p class="info-description">Use all Zapit tools without charge, registration, or hidden fees. Our mission is to provide essential digital tools to everyone, supported by minimal advertising.</p>
+                        <p class="info-description">Use all Zapit tools without charge, registration, or hidden fees.
+                            Our mission is to provide essential digital tools to everyone, supported by minimal
+                            advertising.</p>
                     </div>
                 </div>
             </div>
@@ -286,13 +283,18 @@
         <section class="about-section">
             <div class="container">
                 <h2 class="section-title">About Zapit</h2>
-                
+
                 <div class="about-content">
-                    <p>Zapit was created with a simple mission: make essential digital tools accessible to everyone. We believe that powerful utilities for text processing, image editing, calculations, and document management shouldn't be locked behind expensive software or complicated installations.</p>
-                    
-                    <p>Our team is passionate about building fast, secure, and user-friendly tools that respect your privacy. By focusing on client-side processing and minimal data collection, we ensure your files and information stay under your control.</p>
-                    
-                    <p>Whether you're a student, professional, developer, or just someone who needs to get things done, Zapit provides the digital tools you need, when you need them, completely free.</p>
+                    <p>Zapit was created with a simple mission: make essential digital tools accessible to everyone. We
+                        believe that powerful utilities for text processing, image editing, calculations, and document
+                        management shouldn't be locked behind expensive software or complicated installations.</p>
+
+                    <p>Our team is passionate about building fast, secure, and user-friendly tools that respect your
+                        privacy. By focusing on client-side processing and minimal data collection, we ensure your files
+                        and information stay under your control.</p>
+
+                    <p>Whether you're a student, professional, developer, or just someone who needs to get things done,
+                        Zapit provides the digital tools you need, when you need them, completely free.</p>
                 </div>
             </div>
         </section>
@@ -305,17 +307,18 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                                        <div class="footer-brand-row">
-                                                <img src="icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
-                                                <span class="footer-brand-text">
-                                                    <h3 class="footer-logo">Zapit</h3>
-                                                    <div class="footer-tagline">A Zap Away From Done</div>
-                                                </span>
-                                        </div>
-                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-brand-row">
+                        <img src="icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration
+                        required.</p>
                     <div class="footer-copyright">© Zapit. All rights reserved.</div>
                 </div>
-                
+
                 <div class="footer-links">
                     <h4 class="footer-title">Legal</h4>
                     <ul class="footer-list">
@@ -330,4 +333,5 @@
 
     <script src="assets/js/script.js"></script>
 </body>
+
 </html>
