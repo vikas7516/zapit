@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Speed Changer - Audio & Video Tools - Zapit</title>
+    <meta name="description" content="Change audio playback speed and pitch. Speed up or slow down audio files while preserving quality with professional controls.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/audio-video-tools/speed-changer">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">⚡</div>
+                    <h1 class="tool-title">Audio Speed Changer</h1>
+                    <p class="tool-description">Change audio playback speed and pitch with professional quality preservation</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-layout">
+                    <!-- Upload Section -->
+                    <div class="upload-section">
+                        <div class="upload-header">
+                            <h3>Load Audio File</h3>
+                            <div class="file-info" id="fileInfo">No file selected</div>
+                        </div>
+
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-icon">🎵</div>
+                            <p class="upload-text">
+                                <strong>Click to select audio file</strong> or drag and drop
+                            </p>
+                            <p class="upload-formats">Supports: MP3, WAV, M4A, OGG, FLAC</p>
+                            <input type="file" id="audioFileInput" accept="audio/*" hidden>
+                        </div>
+                    </div>
+
+                    <!-- Speed Controls -->
+                    <div class="speed-section hidden" id="speedSection">
+                        <div class="speed-header">
+                            <h3>Speed & Pitch Controls</h3>
+                            <div class="audio-controls">
+                                <button class="btn-play" id="playBtn">▶️ Play Original</button>
+                                <button class="btn-play-modified" id="playModifiedBtn">▶️ Play Modified</button>
+                                <button class="btn-stop" id="stopBtn">⏹️ Stop</button>
+                            </div>
+                        </div>
+
+                        <div class="speed-controls">
+                            <div class="control-group">
+                                <label class="control-title">Playback Speed</label>
+                                <div class="speed-slider-container">
+                                    <input type="range" id="speedSlider" min="0.25" max="4" value="1" step="0.05" aria-label="Playback speed multiplier">
+                                    <div class="speed-display">
+                                        <span class="speed-value" id="speedValue">1.00x</span>
+                                        <div class="speed-presets">
+                                            <button class="preset-btn" data-speed="0.5">0.5x</button>
+                                            <button class="preset-btn" data-speed="0.75">0.75x</button>
+                                            <button class="preset-btn" data-speed="1" data-default>1x</button>
+                                            <button class="preset-btn" data-speed="1.25">1.25x</button>
+                                            <button class="preset-btn" data-speed="1.5">1.5x</button>
+                                            <button class="preset-btn" data-speed="2">2x</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <small class="control-help">0.25x (Very Slow) to 4x (Very Fast)</small>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-title">Pitch Adjustment</label>
+                                <div class="pitch-slider-container">
+                                    <input type="range" id="pitchSlider" min="-12" max="12" value="0" step="0.1" aria-label="Pitch adjustment in semitones">
+                                    <div class="pitch-display">
+                                        <span class="pitch-value" id="pitchValue">0.0 semitones</span>
+                                        <div class="pitch-presets">
+                                            <button class="preset-btn" data-pitch="-6">-6</button>
+                                            <button class="preset-btn" data-pitch="-3">-3</button>
+                                            <button class="preset-btn" data-pitch="0" data-default>0</button>
+                                            <button class="preset-btn" data-pitch="3">+3</button>
+                                            <button class="preset-btn" data-pitch="6">+6</button>
+                                            <button class="preset-btn" data-pitch="12">+12</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <small class="control-help">-12 (One octave down) to +12 (One octave up)</small>
+                            </div>
+
+                            <div class="mode-selection">
+                                <label class="option-title">Processing Mode</label>
+                                <div class="radio-group">
+                                    <label class="radio-option">
+                                        <input type="radio" name="processingMode" value="speed-only" checked>
+                                        <span class="radio-label">Speed Only</span>
+                                        <small>Change speed, pitch changes accordingly</small>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="processingMode" value="preserve-pitch">
+                                        <span class="radio-label">Preserve Pitch</span>
+                                        <small>Change speed while keeping original pitch</small>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="processingMode" value="independent">
+                                        <span class="radio-label">Independent Control</span>
+                                        <small>Adjust speed and pitch separately</small>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="preview-info">
+                            <div class="info-cards">
+                                <div class="info-card">
+                                    <div class="info-label">Original Duration</div>
+                                    <div class="info-value" id="originalDuration">-</div>
+                                </div>
+                                <div class="info-card">
+                                    <div class="info-label">New Duration</div>
+                                    <div class="info-value" id="newDuration">-</div>
+                                </div>
+                                <div class="info-card">
+                                    <div class="info-label">Time Saved/Added</div>
+                                    <div class="info-value" id="timeDifference">-</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="waveform-container">
+                            <canvas id="waveformCanvas" width="800" height="150"></canvas>
+                            <div class="waveform-info">
+                                <span>Audio Waveform Preview</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Export Section -->
+                    <div class="export-section hidden" id="exportSection">
+                        <div class="export-header">
+                            <h3>Export Modified Audio</h3>
+                        </div>
+
+                        <div class="export-settings">
+                            <div class="setting-group">
+                                <label for="exportFormat">Output Format</label>
+                                <select id="exportFormat">
+                                    <option value="wav">WAV (Uncompressed)</option>
+                                    <option value="webm">WebM</option>
+                                </select>
+                            </div>
+
+                            <div class="setting-group">
+                                <label for="exportQuality">Sample Rate</label>
+                                <select id="exportQuality">
+                                    <option value="48000">48 kHz (Professional)</option>
+                                    <option value="44100" selected>44.1 kHz (CD Quality)</option>
+                                    <option value="22050">22 kHz (Medium)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="export-actions">
+                            <button class="btn-process" id="processBtn">⚡ Apply Speed Changes</button>
+                            <button class="btn-download hidden" id="downloadBtn">⬇️ Download Modified Audio</button>
+                        </div>
+
+                        <div class="export-info">
+                            <div class="processed-audio-player hidden" id="processedPlayer">
+                                <h4>Modified Audio Preview</h4>
+                                <audio controls id="processedAudio"></audio>
+                                <div class="modification-stats" id="modificationStats">
+                                    <div class="stat-item">
+                                        <span>Speed Applied:</span>
+                                        <span id="appliedSpeed">-</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span>Pitch Shift:</span>
+                                        <span id="appliedPitch">-</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span>Final Duration:</span>
+                                        <span id="finalDuration">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructions Section -->
+        <section class="instructions-section">
+            <div class="container">
+                <h2 class="section-title">How to Use Audio Speed Changer</h2>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <div class="instruction-icon">📁</div>
+                        <h3>Upload Audio</h3>
+                        <p>Select or drag an audio file to modify its speed and pitch</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">⚡</div>
+                        <h3>Adjust Speed</h3>
+                        <p>Use sliders or presets to change playback speed from 0.25x to 4x</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">🎵</div>
+                        <h3>Fine-tune Pitch</h3>
+                        <p>Adjust pitch independently or preserve it during speed changes</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">⬇️</div>
+                        <h3>Download Result</h3>
+                        <p>Process and download your speed-modified audio file</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <h2 class="section-title">Features</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🎛️</div>
+                        <h4>Flexible Speed Control</h4>
+                        <p>Adjust speed from 0.25x to 4x with precise control and presets</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎼</div>
+                        <h4>Independent Pitch Control</h4>
+                        <p>Change pitch separately from speed with semitone precision</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📊</div>
+                        <h4>Real-time Preview</h4>
+                        <p>Hear changes instantly and compare with original audio</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <h4>Privacy Protected</h4>
+                        <p>All processing happens locally - your files never leave your device</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

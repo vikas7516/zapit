@@ -1,0 +1,62 @@
+# Cloudflare Pages Redirects & Rewrites
+# Domain redirects for consistency
+http://zapit.me/* https://zapit.me/:splat 301!
+https://www.zapit.me/* https://zapit.me/:splat 301!
+
+# Clean URL Category Routing (internal rewrites - URLs stay clean)
+/calculators-converters          /categories/calculators-converters/       200
+/text-content-tools              /categories/text-content-tools/           200
+/image-design-tools              /categories/image-design-tools/           200
+/pdf-document-tools              /categories/pdf-document-tools/           200
+/developer-web-tools             /categories/developer-web-tools/          200
+/security-network-tools          /categories/security-network-tools/       200
+/audio-video-tools               /categories/audio-video-tools/            200
+/miscellaneous-fun-tools         /categories/miscellaneous-fun-tools/      200
+
+# Tool Pages Routing (future-proofing for when tools are added)
+/:category/:tool                 /categories/:category/:tool/              200
+
+# SEO-safe redirects from old URLs to new clean URLs (301 permanent redirects)
+/online-tools/tools/Calculators%20%26%20Converters/calculator-tools.html  /calculators-converters    301!
+/online-tools/tools/Text%20%26%20Content%20Tools/text-tools.html           /text-content-tools        301!
+/online-tools/tools/Image%20%26%20Design%20Tools/image-tools.html          /image-design-tools        301!
+/online-tools/tools/PDF%20%26%20Document%20Tools/pdf-tools.html            /pdf-document-tools        301!
+/online-tools/tools/Developer%20%26%20Web%20Tools/developer-tools.html     /developer-web-tools       301!
+/online-tools/tools/Security%20%26%20Network%20Tools/security-tools.html  /security-network-tools    301!
+/online-tools/tools/Media%20tools/media-tools.html                        /audio-video-tools         301!
+/online-tools/tools/Fun%20Tools/misc-tools.html                           /miscellaneous-fun-tools   301!
+
+# Alternative encoded URLs
+/online-tools/tools/Calculators\ &\ Converters/calculator-tools.html     /calculators-converters    301!
+/online-tools/tools/Text\ &\ Content\ Tools/text-tools.html              /text-content-tools        301!
+/online-tools/tools/Image\ &\ Design\ Tools/image-tools.html             /image-design-tools        301!
+/online-tools/tools/PDF\ &\ Document\ Tools/pdf-tools.html               /pdf-document-tools        301!
+/online-tools/tools/Developer\ &\ Web\ Tools/developer-tools.html        /developer-web-tools       301!
+/online-tools/tools/Security\ &\ Network\ Tools/security-tools.html      /security-network-tools    301!
+/online-tools/tools/Media\ tools/media-tools.html                        /audio-video-tools         301!
+/online-tools/tools/Fun\ Tools/misc-tools.html                           /miscellaneous-fun-tools   301!
+
+# Legacy redirects for any old category files in root
+/calculators-converters.html     /calculators-converters     301!
+/text-content-tools.html         /text-content-tools         301!
+/image-design-tools.html         /image-design-tools         301!
+/pdf-document-tools.html         /pdf-document-tools         301!
+/developer-web-tools.html        /developer-web-tools        301!
+/security-network-tools.html     /security-network-tools     301!
+/audio-video-tools.html          /audio-video-tools          301!
+/miscellaneous-fun-tools.html    /miscellaneous-fun-tools    301!
+
+# Tool-specific routes
+/developer-web-tools/json-formatter-validator  /tools/json-formatter-validator/  200
+
+# Coming Soon for tools that don't exist yet
+/text-content-tools/*            /coming-soon.html?category=Text%20%26%20Content%20Tools&tool=:splat      200
+/image-design-tools/*            /coming-soon.html?category=Image%20%26%20Design%20Tools&tool=:splat      200
+/pdf-document-tools/*            /coming-soon.html?category=PDF%20%26%20Document%20Tools&tool=:splat      200
+/calculators-converters/*        /coming-soon.html?category=Calculators%20%26%20Converters&tool=:splat  200
+/security-network-tools/*        /coming-soon.html?category=Security%20%26%20Network%20Tools&tool=:splat  200
+/audio-video-tools/*             /coming-soon.html?category=Audio%20%26%20Video%20Tools&tool=:splat       200
+/miscellaneous-fun-tools/*       /coming-soon.html?category=Miscellaneous%20%26%20Fun%20Tools&tool=:splat 200
+
+# SPA fallback for any unmatched routes
+/*                               /index.html                                 200

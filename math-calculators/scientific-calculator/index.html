@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator - ZapIt Tools</title>
+    <meta name="description" content="Advanced scientific calculator with trigonometric functions, logarithms, exponentials, memory functions, and expression evaluation. Perfect for students and professionals.">
+    <meta name="keywords" content="scientific calculator, trigonometry, logarithm, exponential, math calculator, advanced calculator">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Scientific Calculator - ZapIt Tools">
+    <meta property="og:description" content="Advanced scientific calculator with trigonometric functions, logarithms, exponentials, memory functions, and expression evaluation. Perfect for students and professionals.">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../assets/css/variables.css">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="light.css">
+    <link rel="stylesheet" href="dark.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../../" class="nav-brand">
+                <img src="../../icons/logo.jpg" alt="ZapIt Tools" class="nav-logo">
+                <span>ZapIt Tools</span>
+            </a>
+            <div class="nav-menu">
+                <a href="../../" class="nav-link">Home</a>
+                <a href="../" class="nav-link">Math Calculators</a>
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Scientific Calculator</h1>
+                <p class="hero-description">
+                    Advanced scientific calculator with trigonometric functions, logarithms, exponentials, 
+                    memory functions, and expression evaluation. Perfect for students, engineers, and professionals.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">📐</span>
+                        <span class="stat-label">Trigonometry</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">🧮</span>
+                        <span class="stat-label">Advanced</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">💾</span>
+                        <span class="stat-label">Memory</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <main class="container">
+        <div class="tool-layout">
+            <div class="tool-main">
+                <div class="calculator">
+                    <!-- Display -->
+                    <div class="calculator-display">
+                        <div class="display-secondary" id="secondaryDisplay"></div>
+                        <div class="display-main" id="mainDisplay">0</div>
+                        <div class="display-info">
+                            <span class="angle-mode" id="angleMode">DEG</span>
+                            <span class="memory-indicator" id="memoryIndicator"></span>
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="calculator-controls">
+                        <div class="control-row">
+                            <button class="control-btn" id="modeToggle" title="Toggle Angle Mode">DEG</button>
+                            <button class="control-btn" id="clearAll">AC</button>
+                            <button class="control-btn" id="clearEntry">CE</button>
+                            <button class="control-btn" id="backspace">⌫</button>
+                        </div>
+                    </div>
+
+                    <!-- Button Grid -->
+                    <div class="calculator-grid">
+                        <!-- Row 1: Memory Functions -->
+                        <button class="calc-btn memory-btn" data-action="mc">MC</button>
+                        <button class="calc-btn memory-btn" data-action="mr">MR</button>
+                        <button class="calc-btn memory-btn" data-action="m+">M+</button>
+                        <button class="calc-btn memory-btn" data-action="m-">M-</button>
+                        <button class="calc-btn memory-btn" data-action="ms">MS</button>
+
+                        <!-- Row 2: Advanced Functions -->
+                        <button class="calc-btn function-btn" data-action="2nd">2nd</button>
+                        <button class="calc-btn function-btn" data-action="π">π</button>
+                        <button class="calc-btn function-btn" data-action="e">e</button>
+                        <button class="calc-btn function-btn" data-action="x!">x!</button>
+                        <button class="calc-btn function-btn" data-action="(">(</button>
+
+                        <!-- Row 3: Trigonometric Functions -->
+                        <button class="calc-btn trig-btn" data-action="sin">sin</button>
+                        <button class="calc-btn trig-btn" data-action="cos">cos</button>
+                        <button class="calc-btn trig-btn" data-action="tan">tan</button>
+                        <button class="calc-btn function-btn" data-action="ln">ln</button>
+                        <button class="calc-btn function-btn" data-action=")">)</button>
+
+                        <!-- Row 4: Logarithmic Functions -->
+                        <button class="calc-btn function-btn" data-action="log">log</button>
+                        <button class="calc-btn function-btn" data-action="x²">x²</button>
+                        <button class="calc-btn function-btn" data-action="x³">x³</button>
+                        <button class="calc-btn function-btn" data-action="xʸ">xʸ</button>
+                        <button class="calc-btn operator-btn" data-action="÷">÷</button>
+
+                        <!-- Row 5: Root Functions -->
+                        <button class="calc-btn function-btn" data-action="√">√</button>
+                        <button class="calc-btn function-btn" data-action="∛">∛</button>
+                        <button class="calc-btn function-btn" data-action="ʸ√x">ʸ√x</button>
+                        <button class="calc-btn function-btn" data-action="10ˣ">10ˣ</button>
+                        <button class="calc-btn operator-btn" data-action="×">×</button>
+
+                        <!-- Row 6: Numbers -->
+                        <button class="calc-btn number-btn" data-action="7">7</button>
+                        <button class="calc-btn number-btn" data-action="8">8</button>
+                        <button class="calc-btn number-btn" data-action="9">9</button>
+                        <button class="calc-btn function-btn" data-action="eˣ">eˣ</button>
+                        <button class="calc-btn operator-btn" data-action="-">−</button>
+
+                        <!-- Row 7: Numbers -->
+                        <button class="calc-btn number-btn" data-action="4">4</button>
+                        <button class="calc-btn number-btn" data-action="5">5</button>
+                        <button class="calc-btn number-btn" data-action="6">6</button>
+                        <button class="calc-btn function-btn" data-action="1/x">1/x</button>
+                        <button class="calc-btn operator-btn" data-action="+">+</button>
+
+                        <!-- Row 8: Numbers -->
+                        <button class="calc-btn number-btn" data-action="1">1</button>
+                        <button class="calc-btn number-btn" data-action="2">2</button>
+                        <button class="calc-btn number-btn" data-action="3">3</button>
+                        <button class="calc-btn function-btn" data-action="|x|">|x|</button>
+                        <button class="calc-btn equals-btn" data-action="=" rowspan="2">=</button>
+
+                        <!-- Row 9: Numbers -->
+                        <button class="calc-btn function-btn" data-action="±">±</button>
+                        <button class="calc-btn number-btn" data-action="0">0</button>
+                        <button class="calc-btn number-btn" data-action=".">.</button>
+                        <button class="calc-btn function-btn" data-action="Rand">Rand</button>
+                    </div>
+                </div>
+
+                <!-- History Panel -->
+                <div class="history-panel">
+                    <div class="history-header">
+                        <h3>History</h3>
+                        <button class="clear-history-btn" id="clearHistory">Clear</button>
+                    </div>
+                    <div class="history-list" id="historyList">
+                        <div class="history-empty">No calculations yet</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Information Panel -->
+            <div class="tool-sidebar">
+                <div class="info-card">
+                    <h3>Function Guide</h3>
+                    <div class="function-guide">
+                        <div class="function-group">
+                            <h4>Basic Operations</h4>
+                            <div class="function-list">
+                                <div class="function-item">
+                                    <span class="function-key">+, −, ×, ÷</span>
+                                    <span class="function-desc">Arithmetic operations</span>
+                                </div>
+                                <div class="function-item">
+                                    <span class="function-key">x², x³</span>
+                                    <span class="function-desc">Square and cube</span>
+                                </div>
+                                <div class="function-item">
+                                    <span class="function-key">√, ∛</span>
+                                    <span class="function-desc">Square and cube root</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="function-group">
+                            <h4>Advanced Functions</h4>
+                            <div class="function-list">
+                                <div class="function-item">
+                                    <span class="function-key">sin, cos, tan</span>
+                                    <span class="function-desc">Trigonometric functions</span>
+                                </div>
+                                <div class="function-item">
+                                    <span class="function-key">ln, log</span>
+                                    <span class="function-desc">Natural and base-10 logarithm</span>
+                                </div>
+                                <div class="function-item">
+                                    <span class="function-key">eˣ, 10ˣ</span>
+                                    <span class="function-desc">Exponential functions</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="function-group">
+                            <h4>Memory Functions</h4>
+                            <div class="function-list">
+                                <div class="function-item">
+                                    <span class="function-key">MS</span>
+                                    <span class="function-desc">Memory Store</span>
+                                </div>
+                                <div class="function-item">
+                                    <span class="function-key">MR</span>
+                                    <span class="function-desc">Memory Recall</span>
+                                </div>
+                                <div class="function-item">
+                                    <span class="function-key">M+, M-</span>
+                                    <span class="function-desc">Memory Add/Subtract</span>
+                                </div>
+                                <div class="function-item">
+                                    <span class="function-key">MC</span>
+                                    <span class="function-desc">Memory Clear</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Keyboard Shortcuts</h3>
+                    <div class="shortcut-list">
+                        <div class="shortcut-item">
+                            <span class="shortcut-key">0-9</span>
+                            <span class="shortcut-desc">Numbers</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-key">+ - * /</span>
+                            <span class="shortcut-desc">Basic operations</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-key">Enter, =</span>
+                            <span class="shortcut-desc">Calculate</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-key">Escape</span>
+                            <span class="shortcut-desc">Clear all</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-key">Backspace</span>
+                            <span class="shortcut-desc">Delete last digit</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-key">( )</span>
+                            <span class="shortcut-desc">Parentheses</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Constants</h3>
+                    <div class="constants-list">
+                        <div class="constant-item">
+                            <span class="constant-symbol">π</span>
+                            <span class="constant-value">3.14159265359</span>
+                            <span class="constant-desc">Pi</span>
+                        </div>
+                        <div class="constant-item">
+                            <span class="constant-symbol">e</span>
+                            <span class="constant-value">2.71828182846</span>
+                            <span class="constant-desc">Euler's number</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Angle Modes</h3>
+                    <div class="angle-modes">
+                        <div class="mode-item">
+                            <span class="mode-name">DEG</span>
+                            <span class="mode-desc">Degrees (0° to 360°)</span>
+                        </div>
+                        <div class="mode-item">
+                            <span class="mode-name">RAD</span>
+                            <span class="mode-desc">Radians (0 to 2π)</span>
+                        </div>
+                        <div class="mode-item">
+                            <span class="mode-name">GRAD</span>
+                            <span class="mode-desc">Gradians (0 to 400)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ZapIt Tools</h3>
+                    <p>Professional scientific calculator for students, engineers, and professionals with advanced mathematical functions.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Math Tools</h4>
+                    <ul>
+                        <li><a href="../age-calculator/">Age Calculator</a></li>
+                        <li><a href="../percentage-calculator/">Percentage Calculator</a></li>
+                        <li><a href="./">Scientific Calculator</a></li>
+                        <li><a href="../date-difference-calculator/">Date Calculator</a></li>
+                        <li><a href="../amortization-calculator/">Amortization Calculator</a></li>
+                        <li><a href="../inflation-calculator/">Inflation Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="../../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../../terms.html">Terms of Service</a></li>
+                        <li><a href="../../contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ZapIt Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/theme.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

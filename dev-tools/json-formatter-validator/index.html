@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Formatter & Validator - Developer Tools - Zapit</title>
+    <meta name="description" content="Format, validate, minify, and beautify JSON data. Detect errors and view JSON in a tree structure with syntax highlighting.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/dev-tools/json-formatter-validator">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">📄</div>
+                    <h1 class="tool-title">JSON Formatter & Validator</h1>
+                    <p class="tool-description">Format, validate, minify, and beautify JSON data with syntax highlighting</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-card">
+                    <!-- Input Section -->
+                    <div class="input-section">
+                        <div class="section-header">
+                            <h3>Input JSON</h3>
+                            <div class="header-actions">
+                                <button id="load-sample" class="btn btn-outline">Load Sample</button>
+                                <button id="clear-input" class="btn btn-outline">Clear</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="json-input">Enter or paste your JSON data:</label>
+                            <textarea id="json-input" placeholder="Paste your JSON data here..." rows="12"></textarea>
+                            <div class="input-info">
+                                <span class="char-count">Characters: <span id="char-count">0</span></span>
+                                <span class="status" id="validation-status">Ready</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="actions-section">
+                        <div class="action-group">
+                            <button id="format-btn" class="btn btn-primary">Format JSON</button>
+                            <button id="minify-btn" class="btn btn-primary">Minify JSON</button>
+                            <button id="validate-btn" class="btn btn-outline">Validate Only</button>
+                        </div>
+                        <div class="format-options">
+                            <label class="option-label">
+                                <span>Indent Size:</span>
+                                <select id="indent-size">
+                                    <option value="2">2 spaces</option>
+                                    <option value="4" selected>4 spaces</option>
+                                    <option value="tab">Tab</option>
+                                </select>
+                            </label>
+                            <label class="option-checkbox">
+                                <input type="checkbox" id="sort-keys">
+                                <span>Sort Keys</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Output Section -->
+                    <div class="output-section">
+                        <div class="section-header">
+                            <h3>Formatted JSON</h3>
+                            <div class="header-actions">
+                                <button id="copy-output" class="btn btn-outline">Copy Result</button>
+                                <button id="download-json" class="btn btn-outline">Download</button>
+                            </div>
+                        </div>
+                        <div class="output-container">
+                            <pre id="json-output" class="json-output"></pre>
+                        </div>
+                        <div class="output-info">
+                            <span class="size-info">Size: <span id="output-size">0 bytes</span></span>
+                            <span class="compression-ratio" id="compression-ratio"></span>
+                        </div>
+                    </div>
+
+                    <!-- Tree View Section -->
+                    <div class="tree-section">
+                        <div class="section-header">
+                            <h3>Tree View</h3>
+                            <div class="header-actions">
+                                <button id="expand-all" class="btn btn-outline">Expand All</button>
+                                <button id="collapse-all" class="btn btn-outline">Collapse All</button>
+                            </div>
+                        </div>
+                        <div class="tree-container">
+                            <div id="json-tree" class="json-tree"></div>
+                        </div>
+                    </div>
+
+                    <!-- Error Display -->
+                    <div class="error-section hidden" id="error-section">
+                        <div class="section-header">
+                            <h3>Validation Errors</h3>
+                        </div>
+                        <div class="error-container">
+                            <div id="error-details" class="error-details"></div>
+                        </div>
+                    </div>
+
+                    <!-- Statistics -->
+                    <div class="stats-section">
+                        <h3>JSON Statistics</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-label">Total Objects:</span>
+                                <span class="stat-value" id="stat-objects">-</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Total Arrays:</span>
+                                <span class="stat-value" id="stat-arrays">-</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Total Properties:</span>
+                                <span class="stat-value" id="stat-properties">-</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Max Depth:</span>
+                                <span class="stat-value" id="stat-depth">-</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Data Types:</span>
+                                <span class="stat-value" id="stat-types">-</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">File Size:</span>
+                                <span class="stat-value" id="stat-size">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Panel -->
+                <div class="info-panel">
+                    <h3>About JSON</h3>
+                    <p>JSON (JavaScript Object Notation) is a lightweight data-interchange format that's easy for humans to read and write, and easy for machines to parse and generate.</p>
+                    
+                    <div class="json-features">
+                        <h4>Tool Features</h4>
+                        <ul>
+                            <li><strong>Format & Beautify:</strong> Convert minified JSON to readable format</li>
+                            <li><strong>Minify:</strong> Remove unnecessary whitespace to reduce file size</li>
+                            <li><strong>Validate:</strong> Check for syntax errors and invalid structure</li>
+                            <li><strong>Tree View:</strong> Visualize JSON structure in an interactive tree</li>
+                            <li><strong>Statistics:</strong> Analyze JSON structure and complexity</li>
+                            <li><strong>Sort Keys:</strong> Alphabetically sort object keys</li>
+                        </ul>
+                    </div>
+
+                    <div class="json-syntax">
+                        <h4>JSON Syntax Rules</h4>
+                        <ul>
+                            <li>Data is in name/value pairs</li>
+                            <li>Data is separated by commas</li>
+                            <li>Curly braces {} hold objects</li>
+                            <li>Square brackets [] hold arrays</li>
+                            <li>Strings must be in double quotes</li>
+                            <li>Numbers, booleans, and null don't need quotes</li>
+                        </ul>
+                    </div>
+
+                    <div class="json-example">
+                        <h4>Valid JSON Example</h4>
+                        <pre><code>{
+  "name": "John Doe",
+  "age": 30,
+  "city": "New York",
+  "hobbies": ["reading", "coding"],
+  "active": true,
+  "spouse": null
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

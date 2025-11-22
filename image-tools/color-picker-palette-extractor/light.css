@@ -1,0 +1,597 @@
+/* Color Picker & Palette Tool - Light Theme */
+
+/* Tool-specific variables */
+:root {
+    --tool-bg: #ffffff;
+    --tool-border: #e5e7eb;
+    --tool-border-hover: #d1d5db;
+    --tool-text: #111827;
+    --tool-text-secondary: #6b7280;
+    --tool-input-bg: #ffffff;
+    --tool-input-border: #d1d5db;
+    --tool-input-focus: #3b82f6;
+    --tool-button-bg: #f9fafb;
+    --tool-button-hover: #f3f4f6;
+    --tool-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    --tool-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Tool Hero */
+.tool-hero {
+    background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+    padding: var(--space-16) 0 var(--space-12);
+    border-bottom: 1px solid var(--tool-border);
+}
+
+.tool-hero-content {
+    text-align: center;
+}
+
+.tool-icon-large {
+    font-size: 4rem;
+    margin-bottom: var(--space-4);
+    display: block;
+}
+
+.tool-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--tool-text);
+    margin-bottom: var(--space-3);
+}
+
+.tool-description {
+    font-size: 1.125rem;
+    color: var(--tool-text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Tool Interface */
+.tool-interface {
+    padding: var(--space-12) 0;
+    background: var(--color-gray-50);
+}
+
+/* Upload Section */
+.upload-section {
+    background: var(--tool-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--tool-border);
+    margin-bottom: var(--space-8);
+    box-shadow: var(--tool-shadow);
+}
+
+.upload-area {
+    padding: var(--space-12);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px dashed var(--tool-border);
+    border-radius: var(--radius-lg);
+    margin: var(--space-6);
+}
+
+.upload-area:hover {
+    border-color: var(--tool-input-focus);
+    background: #f8fafc;
+}
+
+.upload-area.dragover {
+    border-color: var(--tool-input-focus);
+    background: #eff6ff;
+}
+
+.upload-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-4);
+    color: var(--tool-text-secondary);
+}
+
+.upload-text h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--tool-text);
+    margin-bottom: var(--space-2);
+}
+
+.upload-text p {
+    color: var(--tool-text-secondary);
+    margin-bottom: var(--space-4);
+}
+
+.browse-link {
+    color: var(--tool-input-focus);
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.browse-link:hover {
+    text-decoration: underline;
+}
+
+.upload-formats {
+    font-size: 0.875rem;
+    color: var(--tool-text-secondary);
+}
+
+.upload-error {
+    padding: var(--space-4);
+    background: #fef2f2;
+    color: #dc2626;
+    border-top: 1px solid var(--tool-border);
+    font-size: 0.875rem;
+    display: none;
+}
+
+.upload-error.show {
+    display: block;
+}
+
+/* Main Content */
+.main-content {
+    background: var(--tool-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--tool-border);
+    box-shadow: var(--tool-shadow);
+    overflow: hidden;
+}
+
+.main-content.hidden {
+    display: none;
+}
+
+.content-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+    .content-layout {
+        grid-template-columns: 1fr 350px;
+    }
+}
+
+/* Canvas Section */
+.canvas-section {
+    padding: var(--space-6);
+    border-bottom: 1px solid var(--tool-border);
+}
+
+@media (min-width: 1024px) {
+    .canvas-section {
+        border-bottom: none;
+        border-right: 1px solid var(--tool-border);
+    }
+}
+
+.canvas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-4);
+}
+
+.canvas-header h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--tool-text);
+    margin: 0;
+}
+
+.canvas-controls {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.canvas-container {
+    position: relative;
+    text-align: center;
+    border: 1px solid var(--tool-border);
+    border-radius: var(--radius-base);
+    overflow: hidden;
+    background: var(--color-gray-50);
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#imageCanvas {
+    max-width: 100%;
+    max-height: 500px;
+    cursor: crosshair;
+    display: block;
+}
+
+.crosshair {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    pointer-events: none;
+    display: none;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3);
+}
+
+.color-preview {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--tool-bg);
+    border: 1px solid var(--tool-border);
+    border-radius: var(--radius-base);
+    padding: var(--space-3);
+    display: none;
+    box-shadow: var(--tool-shadow);
+}
+
+.preview-color {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-base);
+    border: 1px solid var(--tool-border);
+    margin-bottom: var(--space-2);
+}
+
+.preview-coords {
+    font-size: 0.75rem;
+    color: var(--tool-text-secondary);
+    text-align: center;
+}
+
+.canvas-info {
+    text-align: center;
+    margin-top: var(--space-3);
+    font-size: 0.875rem;
+    color: var(--tool-text-secondary);
+}
+
+/* Sidebar */
+.sidebar {
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+/* Current Color */
+.current-color-section h3,
+.palette-section h3,
+.picked-colors-section h3,
+.export-section h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--tool-text);
+    margin-bottom: var(--space-4);
+}
+
+.current-color {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.color-swatch {
+    width: 100%;
+    height: 60px;
+    border-radius: var(--radius-base);
+    border: 1px solid var(--tool-border);
+    background: #f0f0f0;
+}
+
+.color-values {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.color-value {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.color-value label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--tool-text);
+    min-width: 40px;
+}
+
+.color-value input {
+    flex: 1;
+    padding: var(--space-2);
+    border: 1px solid var(--tool-input-border);
+    border-radius: var(--radius-base);
+    background: var(--tool-input-bg);
+    color: var(--tool-text);
+    font-size: 0.75rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.copy-btn {
+    padding: var(--space-1);
+    border: 1px solid var(--tool-input-border);
+    border-radius: var(--radius-base);
+    background: var(--tool-button-bg);
+    color: var(--tool-text);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 30px;
+}
+
+.copy-btn:hover {
+    background: var(--tool-button-hover);
+    border-color: var(--tool-border-hover);
+}
+
+/* Palette Section */
+.palette-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-4);
+}
+
+.palette-header h3 {
+    margin-bottom: 0;
+}
+
+.palette-container {
+    min-height: 100px;
+    border: 1px solid var(--tool-border);
+    border-radius: var(--radius-base);
+    padding: var(--space-4);
+}
+
+.palette-placeholder {
+    text-align: center;
+    color: var(--tool-text-secondary);
+    font-size: 0.875rem;
+    padding: var(--space-8) 0;
+}
+
+.palette-colors {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+    gap: var(--space-2);
+}
+
+.palette-color {
+    aspect-ratio: 1;
+    border-radius: var(--radius-base);
+    border: 1px solid var(--tool-border);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    position: relative;
+}
+
+.palette-color:hover {
+    transform: scale(1.1);
+    z-index: 10;
+}
+
+/* Picked Colors */
+.picked-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-4);
+}
+
+.picked-header h3 {
+    margin-bottom: 0;
+}
+
+.picked-colors {
+    min-height: 80px;
+    border: 1px solid var(--tool-border);
+    border-radius: var(--radius-base);
+    padding: var(--space-3);
+}
+
+.picked-placeholder {
+    text-align: center;
+    color: var(--tool-text-secondary);
+    font-size: 0.875rem;
+    padding: var(--space-4) 0;
+}
+
+.picked-color-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+.picked-color {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-base);
+    border: 1px solid var(--tool-border);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    position: relative;
+}
+
+.picked-color:hover {
+    transform: scale(1.2);
+}
+
+/* Export Section */
+.export-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.export-format {
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--tool-input-border);
+    border-radius: var(--radius-base);
+    background: var(--tool-input-bg);
+    color: var(--tool-text);
+    font-size: 0.875rem;
+    cursor: pointer;
+}
+
+/* Buttons */
+.btn-primary {
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-blue);
+    color: white;
+    border: none;
+    border-radius: var(--radius-base);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: var(--tool-shadow-lg);
+}
+
+.btn-secondary {
+    padding: var(--space-2) var(--space-3);
+    background: var(--tool-button-bg);
+    color: var(--tool-text);
+    border: 1px solid var(--tool-input-border);
+    border-radius: var(--radius-base);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.btn-secondary:hover {
+    background: var(--tool-button-hover);
+    border-color: var(--tool-border-hover);
+}
+
+.btn-icon {
+    font-size: 1rem;
+}
+
+/* Instructions & Features - same as other tools */
+.instructions-section {
+    padding: var(--space-16) 0;
+    background: var(--tool-bg);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--tool-text);
+    margin-bottom: var(--space-12);
+}
+
+.instructions-grid {
+    display: grid;
+    gap: var(--space-8);
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+    .instructions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .instructions-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.instruction-item {
+    text-align: center;
+}
+
+.instruction-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-4);
+    display: block;
+}
+
+.instruction-item h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--tool-text);
+    margin-bottom: var(--space-3);
+}
+
+.instruction-item p {
+    color: var(--tool-text-secondary);
+    line-height: 1.6;
+    font-size: 0.875rem;
+}
+
+.features-section {
+    padding: var(--space-16) 0;
+    background: var(--color-gray-50);
+}
+
+.features-grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.feature-item {
+    text-align: center;
+    padding: var(--space-4);
+    background: var(--tool-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--tool-border);
+    box-shadow: var(--tool-shadow);
+}
+
+.feature-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-3);
+    display: block;
+}
+
+.feature-item h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--tool-text);
+    margin-bottom: var(--space-2);
+}
+
+.feature-item p {
+    color: var(--tool-text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+/* Hidden state utility */
+.hidden {
+    display: none !important;
+}

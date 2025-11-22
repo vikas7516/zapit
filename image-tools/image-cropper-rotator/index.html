@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Cropper & Rotator - Image Tools - Zapit</title>
+    <meta name="description" content="Crop and rotate images with precision controls. Professional image editing tool with aspect ratio presets and rotation options.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/image-tools/image-cropper-rotator">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">✂️</div>
+                    <h1 class="tool-title">Image Cropper & Rotator</h1>
+                    <p class="tool-description">Crop and rotate images with precision controls and aspect ratio presets</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+                
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <span class="theme-toggle-sun">☀️</span>
+                    <span class="theme-toggle-moon">🌙</span>
+                </button>
+                
+                <!-- Mobile Menu Toggle -->
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Tool Hero Section -->
+    <section class="tool-hero">
+        <div class="container">
+            <div class="tool-hero-content">
+                <span class="tool-icon-large">🖼️</span>
+                <h1 class="tool-title">Image Cropper & Rotator</h1>
+                <p class="tool-description">
+                    Crop and rotate images with precision controls. Professional image editing tool with aspect ratio presets and rotation options.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Interface -->
+    <section class="tool-interface">
+        <div class="container">
+            <div class="tool-layout">
+                        Crop and rotate images with precision controls. Apply transformations, 
+                        set custom crop areas, and maintain aspect ratios for perfect results.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Tool Interface -->
+            <div class="tool-container">
+                <!-- Upload Section -->
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📁</div>
+                        <h3>Select or Drop Image</h3>
+                        <p>Support for JPEG, PNG, WebP, BMP, GIF files up to 50MB</p>
+                        <button type="button" class="btn-primary" id="browseBtn">
+                            <span>Browse Files</span>
+                        </button>
+                        <input type="file" id="fileInput" accept="image/*" aria-label="Select image file to crop and rotate">
+                    </div>
+                    <div class="upload-error" id="uploadError"></div>
+                </div>
+
+                <!-- Settings Section -->
+                <div class="settings-section hidden" id="settingsSection">
+                    <h3>Image Editing Settings</h3>
+                    
+                    <div class="settings-grid">
+                        <!-- Rotation Settings -->
+                        <div class="setting-group">
+                            <label class="setting-label">Rotation</label>
+                            <div class="rotation-controls">
+                                <div class="rotation-buttons">
+                                    <button type="button" class="btn-outline btn-small" id="rotateLeft90">
+                                        <span>↶ 90°</span>
+                                    </button>
+                                    <button type="button" class="btn-outline btn-small" id="rotateRight90">
+                                        <span>↷ 90°</span>
+                                    </button>
+                                    <button type="button" class="btn-outline btn-small" id="rotate180">
+                                        <span>↻ 180°</span>
+                                    </button>
+                                </div>
+                                <div class="slider-container">
+                                    <label for="rotationSlider">Custom Rotation: <span id="rotationValue">0°</span></label>
+                                    <input type="range" id="rotationSlider" min="0" max="360" value="0" class="slider" aria-label="Rotation angle in degrees">
+                                    <div class="slider-labels">
+                                        <span>0°</span>
+                                        <span>180°</span>
+                                        <span>360°</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Flip Settings -->
+                        <div class="setting-group">
+                            <label class="setting-label">Flip</label>
+                            <div class="flip-controls">
+                                <button type="button" class="btn-outline" id="flipHorizontal">
+                                    <span>↔️ Flip Horizontal</span>
+                                </button>
+                                <button type="button" class="btn-outline" id="flipVertical">
+                                    <span>↕️ Flip Vertical</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Crop Settings -->
+                        <div class="setting-group">
+                            <label class="setting-label">Crop Settings</label>
+                            <div class="crop-controls">
+                                <div class="aspect-ratio-presets">
+                                    <label>Aspect Ratio:</label>
+                                    <div class="preset-buttons">
+                                        <button type="button" class="ratio-btn active" data-ratio="free">Free</button>
+                                        <button type="button" class="ratio-btn" data-ratio="1:1">1:1</button>
+                                        <button type="button" class="ratio-btn" data-ratio="4:3">4:3</button>
+                                        <button type="button" class="ratio-btn" data-ratio="16:9">16:9</button>
+                                        <button type="button" class="ratio-btn" data-ratio="3:2">3:2</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="crop-dimensions">
+                                    <div class="dimension-row">
+                                        <div class="input-group">
+                                            <label for="cropX">X Position</label>
+                                            <input type="number" id="cropX" min="0" value="0" placeholder="0" aria-label="Crop X position">
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="cropY">Y Position</label>
+                                            <input type="number" id="cropY" min="0" value="0" placeholder="0" aria-label="Crop Y position">
+                                        </div>
+                                    </div>
+                                    <div class="dimension-row">
+                                        <div class="input-group">
+                                            <label for="cropWidth">Width</label>
+                                            <input type="number" id="cropWidth" min="1" placeholder="Auto" aria-label="Crop width">
+                                        </div>
+                                        <div class="input-group">
+                                            <label for="cropHeight">Height</label>
+                                            <input type="number" id="cropHeight" min="1" placeholder="Auto" aria-label="Crop height">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="crop-options">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="maintainAspectRatio" checked class="checkbox">
+                                        Maintain aspect ratio when cropping
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="centerCrop" class="checkbox">
+                                        Center crop automatically
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quality Settings -->
+                        <div class="setting-group">
+                            <label for="qualitySlider" class="setting-label">
+                                Output Quality: <span id="qualityValue">90%</span>
+                            </label>
+                            <div class="slider-container">
+                                <input type="range" id="qualitySlider" min="10" max="100" value="90" class="slider" aria-label="Output quality percentage">
+                                <div class="slider-labels">
+                                    <span>10%</span>
+                                    <span>50%</span>
+                                    <span>100%</span>
+                                </div>
+                            </div>
+                            <p class="setting-hint">Higher quality = larger file size</p>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-section">
+                        <button type="button" class="btn-secondary" id="resetBtn">
+                            <span>🔄 Reset All</span>
+                        </button>
+                        <button type="button" class="btn-primary btn-large" id="processBtn">
+                            <span>✂️ Process Image</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="results-section hidden" id="resultsSection">
+                    <h3>Processing Results</h3>
+                    
+                    <div class="image-comparison">
+                        <!-- Original Image -->
+                        <div class="image-card">
+                            <div class="image-header">
+                                <h4>Original</h4>
+                                <span class="image-info" id="originalInfo">-</span>
+                            </div>
+                            <div class="image-preview">
+                                <img id="originalImage" alt="Original image">
+                            </div>
+                        </div>
+
+                        <!-- Processed Image -->
+                        <div class="image-card">
+                            <div class="image-header">
+                                <h4>Processed</h4>
+                                <span class="image-info" id="processedInfo">-</span>
+                            </div>
+                            <div class="image-preview">
+                                <img id="processedImage" alt="Processed image">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="result-actions">
+                        <button type="button" class="btn-primary" id="downloadBtn">
+                            <span>📥 Download Processed Image</span>
+                        </button>
+                        <button type="button" class="btn-secondary" id="processAnotherBtn">
+                            <span>🔄 Process Another Image</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="features-section">
+                <h2>Image Cropper & Rotator Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">✂️</div>
+                        <h3>Precision Cropping</h3>
+                        <p>Crop images with pixel-perfect precision using custom coordinates or aspect ratio presets.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <h3>Flexible Rotation</h3>
+                        <p>Rotate images with preset angles (90°, 180°) or use custom rotation from 0° to 360°.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔁</div>
+                        <h3>Flip Operations</h3>
+                        <p>Flip images horizontally or vertically to create mirror effects or correct orientation.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📐</div>
+                        <h3>Aspect Ratios</h3>
+                        <p>Use predefined aspect ratios (1:1, 4:3, 16:9, 3:2) or crop with complete freedom.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚙️</div>
+                        <h3>Quality Control</h3>
+                        <p>Adjust output quality to balance between file size and image clarity.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Privacy First</h3>
+                        <p>All processing happens in your browser. No files are uploaded to our servers.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Section -->
+            <div class="info-section">
+                <h2>About Image Cropping & Rotation</h2>
+                <div class="info-content">
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h3>Image Cropping</h3>
+                            <p>Cropping allows you to remove unwanted areas and focus on the important parts of your image. Use aspect ratio presets for social media or custom dimensions for specific needs.</p>
+                        </div>
+                        <div class="info-card">
+                            <h3>Image Rotation</h3>
+                            <p>Rotation helps correct image orientation or create artistic effects. Use quick 90° increments or precise custom angles for perfect positioning.</p>
+                        </div>
+                        <div class="info-card">
+                            <h3>Aspect Ratios</h3>
+                            <p>Different platforms require different aspect ratios. 1:1 for Instagram posts, 16:9 for YouTube thumbnails, and 4:3 for traditional photos.</p>
+                        </div>
+                        <div class="info-card">
+                            <h3>Quality Settings</h3>
+                            <p>Higher quality settings preserve more detail but result in larger files. Lower quality reduces file size but may introduce compression artifacts.</p>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Features -->
+    <section class="tool-features">
+        <div class="container">
+            <div class="features-header">
+                <h2>Key Features</h2>
+                <p>Everything you need for professional image cropping and rotation</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">✂️</div>
+                    <h3>Precision Cropping</h3>
+                    <p>Crop images with pixel-perfect precision using custom coordinates or visual selection.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Flexible Rotation</h3>
+                    <p>Rotate images with preset angles (90°, 180°) or use custom rotation from 0° to 360°.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔁</div>
+                    <h3>Flip Operations</h3>
+                    <p>Flip images horizontally or vertically to create mirror effects or correct orientation.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📐</div>
+                    <h3>Aspect Ratios</h3>
+                    <p>Use predefined aspect ratios (1:1, 4:3, 16:9, 3:2) or crop with complete freedom.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Quality Control</h3>
+                    <p>Adjust output quality to balance between file size and image clarity.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Privacy First</h3>
+                    <p>All processing happens in your browser. No files are uploaded to our servers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Info -->
+    <section class="tool-info">
+        <div class="container">
+            <div class="info-header">
+                <h2>About Image Cropping & Rotation</h2>
+                <p>Learn how to make the most of our image editing tools</p>
+            </div>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Image Cropping</h3>
+                    <p>Cropping allows you to remove unwanted areas and focus on the important parts of your image. Use aspect ratio presets for social media or custom dimensions for specific needs.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Image Rotation</h3>
+                    <p>Rotation helps correct image orientation or create artistic effects. Use quick 90° increments or precise custom angles for perfect positioning.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Aspect Ratios</h3>
+                    <p>Different platforms require different aspect ratios. 1:1 for Instagram posts, 16:9 for YouTube thumbnails, and 4:3 for traditional photos.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Quality Settings</h3>
+                    <p>Higher quality settings preserve more detail but result in larger files. Lower quality reduces file size but may introduce compression artifacts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ZapIt Tools</h3>
+                    <p>Professional image cropping and rotation made simple. Transform your images with precision and ease.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Image Tools</h4>
+                    <a href="../image-compressor/">Image Compressor</a>
+                    <a href="../image-resizer/">Image Resizer</a>
+                    <a href="../image-format-converter/">Format Converter</a>
+                    <a href="../add-watermark/">Add Watermark</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Other Tools</h4>
+                    <a href="../../dev-tools/">Dev Tools</a>
+                    <a href="../../text-tools/">Text Tools</a>
+                    <a href="../../unit-converters/">Converters</a>
+                    <a href="../../utility-fun-tools/">Utility Tools</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ZapIt Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/common.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>

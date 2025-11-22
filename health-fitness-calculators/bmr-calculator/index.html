@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMR Calculator - Health & Fitness - Zapit</title>
+    <meta name="description" content="Calculate your Basal Metabolic Rate (BMR) using the Mifflin-St Jeor equation. Get accurate calorie burn estimates at rest.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link rel="canonical" href="https://zapit.me/health-fitness-calculators/bmr-calculator">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">🔥</div>
+                    <h1 class="tool-title">BMR Calculator</h1>
+                    <p class="tool-description">Calculate your Basal Metabolic Rate - the calories your body burns at rest</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-container">
+                    <!-- BMR Calculator Form -->
+                    <div class="calculator-panel">
+                        <h3>Calculate Your BMR</h3>
+                        
+                        <div class="unit-toggle">
+                            <button id="metricBtn" class="unit-btn active">Metric</button>
+                            <button id="imperialBtn" class="unit-btn">Imperial</button>
+                        </div>
+
+                        <div class="input-section">
+                            <!-- Personal Information -->
+                            <div class="input-group">
+                                <div class="input-row">
+                                    <label for="gender">Gender:</label>
+                                    <div class="gender-toggle">
+                                        <button id="maleBtn" class="gender-btn active" data-gender="male">
+                                            <span class="gender-icon">👨</span>
+                                            Male
+                                        </button>
+                                        <button id="femaleBtn" class="gender-btn" data-gender="female">
+                                            <span class="gender-icon">👩</span>
+                                            Female
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="input-row">
+                                    <label for="age">Age:</label>
+                                    <div class="input-with-unit">
+                                        <input type="number" id="age" placeholder="25" min="1" max="120" step="1">
+                                        <span class="unit">years</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Metric Inputs -->
+                            <div id="metricInputs" class="input-group">
+                                <div class="input-row">
+                                    <label for="heightCm">Height:</label>
+                                    <div class="input-with-unit">
+                                        <input type="number" id="heightCm" placeholder="170" min="50" max="250" step="0.1">
+                                        <span class="unit">cm</span>
+                                    </div>
+                                </div>
+                                <div class="input-row">
+                                    <label for="weightKg">Weight:</label>
+                                    <div class="input-with-unit">
+                                        <input type="number" id="weightKg" placeholder="70" min="20" max="300" step="0.1">
+                                        <span class="unit">kg</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Imperial Inputs -->
+                            <div id="imperialInputs" class="input-group hidden">
+                                <div class="input-row">
+                                    <label for="heightFt">Height:</label>
+                                    <div class="height-imperial">
+                                        <div class="input-with-unit">
+                                            <input type="number" id="heightFt" placeholder="5" min="3" max="8" step="1">
+                                            <span class="unit">ft</span>
+                                        </div>
+                                        <div class="input-with-unit">
+                                            <input type="number" id="heightIn" placeholder="7" min="0" max="11" step="1">
+                                            <span class="unit">in</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-row">
+                                    <label for="weightLbs">Weight:</label>
+                                    <div class="input-with-unit">
+                                        <input type="number" id="weightLbs" placeholder="154" min="50" max="700" step="0.1">
+                                        <span class="unit">lbs</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button id="calculateBtn" class="calculate-btn">Calculate BMR</button>
+                        </div>
+                    </div>
+
+                    <!-- Results Panel -->
+                    <div id="resultsPanel" class="results-panel hidden">
+                        <h3>Your BMR Results</h3>
+                        
+                        <div class="bmr-display">
+                            <div class="bmr-value">
+                                <span id="bmrValue">0</span>
+                                <span class="bmr-unit">calories/day</span>
+                            </div>
+                            <div class="bmr-description">
+                                This is the number of calories your body burns at complete rest
+                            </div>
+                        </div>
+
+                        <div class="bmr-breakdown">
+                            <h4>Energy Breakdown</h4>
+                            <div class="breakdown-chart">
+                                <div class="breakdown-item">
+                                    <div class="breakdown-bar">
+                                        <div class="breakdown-fill brain brain-width"></div>
+                                    </div>
+                                    <div class="breakdown-info">
+                                        <span class="breakdown-label">Brain & Nervous System</span>
+                                        <span class="breakdown-percentage">~20%</span>
+                                    </div>
+                                </div>
+                                <div class="breakdown-item">
+                                    <div class="breakdown-bar">
+                                        <div class="breakdown-fill heart heart-width"></div>
+                                    </div>
+                                    <div class="breakdown-info">
+                                        <span class="breakdown-label">Heart & Circulation</span>
+                                        <span class="breakdown-percentage">~15%</span>
+                                    </div>
+                                </div>
+                                <div class="breakdown-item">
+                                    <div class="breakdown-bar">
+                                        <div class="breakdown-fill liver liver-width"></div>
+                                    </div>
+                                    <div class="breakdown-info">
+                                        <span class="breakdown-label">Liver & Kidneys</span>
+                                        <span class="breakdown-percentage">~27%</span>
+                                    </div>
+                                </div>
+                                <div class="breakdown-item">
+                                    <div class="breakdown-bar">
+                                        <div class="breakdown-fill muscle muscle-width"></div>
+                                    </div>
+                                    <div class="breakdown-info">
+                                        <span class="breakdown-label">Muscle Maintenance</span>
+                                        <span class="breakdown-percentage">~18%</span>
+                                    </div>
+                                </div>
+                                <div class="breakdown-item">
+                                    <div class="breakdown-bar">
+                                        <div class="breakdown-fill other other-width"></div>
+                                    </div>
+                                    <div class="breakdown-info">
+                                        <span class="breakdown-label">Other Functions</span>
+                                        <span class="breakdown-percentage">~20%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="activity-multipliers">
+                            <h4>Daily Calorie Needs (TDEE)</h4>
+                            <p>Multiply your BMR by activity level to get total daily energy expenditure:</p>
+                            <div class="multiplier-grid">
+                                <div class="multiplier-item">
+                                    <div class="multiplier-header">
+                                        <span class="activity-level">Sedentary</span>
+                                        <span class="multiplier">×1.2</span>
+                                    </div>
+                                    <div class="activity-description">Little to no exercise</div>
+                                    <div class="calculated-calories" id="sedentary">0 cal/day</div>
+                                </div>
+                                <div class="multiplier-item">
+                                    <div class="multiplier-header">
+                                        <span class="activity-level">Light Activity</span>
+                                        <span class="multiplier">×1.375</span>
+                                    </div>
+                                    <div class="activity-description">Light exercise 1-3 days/week</div>
+                                    <div class="calculated-calories" id="light">0 cal/day</div>
+                                </div>
+                                <div class="multiplier-item">
+                                    <div class="multiplier-header">
+                                        <span class="activity-level">Moderate Activity</span>
+                                        <span class="multiplier">×1.55</span>
+                                    </div>
+                                    <div class="activity-description">Moderate exercise 3-5 days/week</div>
+                                    <div class="calculated-calories" id="moderate">0 cal/day</div>
+                                </div>
+                                <div class="multiplier-item">
+                                    <div class="multiplier-header">
+                                        <span class="activity-level">Very Active</span>
+                                        <span class="multiplier">×1.725</span>
+                                    </div>
+                                    <div class="activity-description">Hard exercise 6-7 days/week</div>
+                                    <div class="calculated-calories" id="active">0 cal/day</div>
+                                </div>
+                                <div class="multiplier-item">
+                                    <div class="multiplier-header">
+                                        <span class="activity-level">Extremely Active</span>
+                                        <span class="multiplier">×1.9</span>
+                                    </div>
+                                    <div class="activity-description">Very hard exercise, physical job</div>
+                                    <div class="calculated-calories" id="extreme">0 cal/day</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="actions">
+                            <button id="recalculateBtn" class="secondary-btn">Recalculate</button>
+                            <button id="shareBtn" class="primary-btn">Share Results</button>
+                        </div>
+                    </div>
+
+                    <!-- Information Panel -->
+                    <div class="info-panel">
+                        <h3>About BMR (Basal Metabolic Rate)</h3>
+                        <div class="info-content">
+                            <p>BMR represents the minimum number of calories your body needs to maintain basic physiological functions while at rest, including breathing, circulation, cell production, and nutrient processing.</p>
+                            
+                            <div class="info-sections">
+                                <div class="info-section">
+                                    <h4>🧮 Calculation Method</h4>
+                                    <p>This calculator uses the Mifflin-St Jeor Equation, which is considered the most accurate for most people:</p>
+                                    <div class="formula">
+                                        <div class="formula-item">
+                                            <strong>Men:</strong> BMR = 10 × weight(kg) + 6.25 × height(cm) - 5 × age(years) + 5
+                                        </div>
+                                        <div class="formula-item">
+                                            <strong>Women:</strong> BMR = 10 × weight(kg) + 6.25 × height(cm) - 5 × age(years) - 161
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="info-section">
+                                    <h4>⚡ Factors Affecting BMR</h4>
+                                    <ul>
+                                        <li><strong>Age:</strong> BMR decreases with age (about 2% per decade after 30)</li>
+                                        <li><strong>Gender:</strong> Men typically have higher BMR than women</li>
+                                        <li><strong>Body Size:</strong> Larger bodies burn more calories</li>
+                                        <li><strong>Muscle Mass:</strong> Muscle tissue burns more calories than fat</li>
+                                        <li><strong>Genetics:</strong> Some people naturally have faster metabolisms</li>
+                                    </ul>
+                                </div>
+
+                                <div class="info-section">
+                                    <h4>📈 How to Use Your BMR</h4>
+                                    <ul>
+                                        <li><strong>Weight Loss:</strong> Eat fewer calories than your TDEE</li>
+                                        <li><strong>Weight Maintenance:</strong> Eat approximately your TDEE</li>
+                                        <li><strong>Weight Gain:</strong> Eat more calories than your TDEE</li>
+                                        <li><strong>Never go below BMR:</strong> Eating less than BMR can slow metabolism</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="disclaimer">
+                                <h4>Important Note</h4>
+                                <p>BMR calculations are estimates based on population averages. Individual metabolic rates can vary by ±15% due to genetics, health conditions, medications, and other factors. Consult healthcare professionals for personalized advice.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/assets/js/script.js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Generator - Security Tools - Zapit</title>
+    <meta name="description" content="Generate cryptographically secure random values including numbers, strings, bytes, passwords, and tokens for security applications.">
+    <meta property="og:title" content="Random Generator - Zapit">
+    <meta property="og:description" content="Generate cryptographically secure random values for security applications">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/security-tools/random-generator">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb">
+                        <a href="/">Home</a>
+                        <span class="separator">/</span>
+                        <a href="/security-tools">Security Tools</a>
+                        <span class="separator">/</span>
+                        <span class="current">Random Generator</span>
+                    </nav>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <span class="theme-toggle-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+        <div class="container">
+            <div class="tool-header-content">
+                <div class="tool-icon-large">🎲</div>
+                <h1 class="tool-title">Random Generator</h1>
+                <p class="tool-description">Generate cryptographically secure random values for security applications</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Interface -->
+    <section class="tool-interface">
+        <div class="container">
+            <div class="tool-container">
+                <!-- Generator Type Selection -->
+                <div class="type-panel">
+                    <h3>Random Generator Type</h3>
+                    <div class="type-grid">
+                        <label class="type-card active" data-type="numbers">
+                            <input type="radio" name="generatorType" value="numbers" checked>
+                            <div class="type-icon">🔢</div>
+                            <div class="type-title">Numbers</div>
+                            <div class="type-description">Random integers and decimals</div>
+                        </label>
+                        
+                        <label class="type-card" data-type="strings">
+                            <input type="radio" name="generatorType" value="strings">
+                            <div class="type-icon">🔤</div>
+                            <div class="type-title">Strings</div>
+                            <div class="type-description">Random text with custom charset</div>
+                        </label>
+                        
+                        <label class="type-card" data-type="bytes">
+                            <input type="radio" name="generatorType" value="bytes">
+                            <div class="type-icon">💾</div>
+                            <div class="type-title">Bytes</div>
+                            <div class="type-description">Random binary data</div>
+                        </label>
+                        
+                        <label class="type-card" data-type="tokens">
+                            <input type="radio" name="generatorType" value="tokens">
+                            <div class="type-icon">🎫</div>
+                            <div class="type-title">Tokens</div>
+                            <div class="type-description">API keys and secure tokens</div>
+                        </label>
+                        
+                        <label class="type-card" data-type="colors">
+                            <input type="radio" name="generatorType" value="colors">
+                            <div class="type-icon">🎨</div>
+                            <div class="type-title">Colors</div>
+                            <div class="type-description">Random color values</div>
+                        </label>
+                        
+                        <label class="type-card" data-type="coordinates">
+                            <input type="radio" name="generatorType" value="coordinates">
+                            <div class="type-icon">🌍</div>
+                            <div class="type-title">Coordinates</div>
+                            <div class="type-description">Geographic coordinates</div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Generator Settings -->
+                <div class="settings-panel">
+                    <h3>Generation Settings</h3>
+                    
+                    <!-- Numbers Settings -->
+                    <div class="settings-section" id="numbersSettings">
+                        <div class="settings-grid">
+                            <div class="setting-group">
+                                <label for="numberType">Number Type:</label>
+                                <select id="numberType">
+                                    <option value="integer">Integer</option>
+                                    <option value="decimal">Decimal</option>
+                                </select>
+                            </div>
+                            <div class="setting-group">
+                                <label for="numberMin">Minimum:</label>
+                                <input type="number" id="numberMin" value="1" step="any">
+                            </div>
+                            <div class="setting-group">
+                                <label for="numberMax">Maximum:</label>
+                                <input type="number" id="numberMax" value="100" step="any">
+                            </div>
+                            <div class="setting-group">
+                                <label for="numberCount">Count:</label>
+                                <input type="number" id="numberCount" value="10" min="1" max="1000">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Strings Settings -->
+                    <div class="settings-section hidden" id="stringsSettings">
+                        <div class="settings-grid">
+                            <div class="setting-group">
+                                <label for="stringLength">Length:</label>
+                                <input type="number" id="stringLength" value="16" min="1" max="1000">
+                            </div>
+                            <div class="setting-group">
+                                <label for="stringCount">Count:</label>
+                                <input type="number" id="stringCount" value="10" min="1" max="100">
+                            </div>
+                        </div>
+                        <div class="charset-section">
+                            <label>Character Set:</label>
+                            <div class="charset-options">
+                                <label class="checkbox-option">
+                                    <input type="checkbox" id="includeUppercase" checked>
+                                    <span>Uppercase (A-Z)</span>
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" id="includeLowercase" checked>
+                                    <span>Lowercase (a-z)</span>
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" id="includeNumbers" checked>
+                                    <span>Numbers (0-9)</span>
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" id="includeSymbols">
+                                    <span>Symbols (!@#$%^&*)</span>
+                                </label>
+                            </div>
+                            <div class="custom-charset">
+                                <label for="customCharset">Custom Characters:</label>
+                                <input type="text" id="customCharset" placeholder="Enter custom characters...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bytes Settings -->
+                    <div class="settings-section hidden" id="bytesSettings">
+                        <div class="settings-grid">
+                            <div class="setting-group">
+                                <label for="bytesLength">Length (bytes):</label>
+                                <input type="number" id="bytesLength" value="32" min="1" max="10000">
+                            </div>
+                            <div class="setting-group">
+                                <label for="bytesFormat">Output Format:</label>
+                                <select id="bytesFormat">
+                                    <option value="hex">Hexadecimal</option>
+                                    <option value="base64">Base64</option>
+                                    <option value="binary">Binary</option>
+                                </select>
+                            </div>
+                            <div class="setting-group">
+                                <label for="bytesCount">Count:</label>
+                                <input type="number" id="bytesCount" value="5" min="1" max="50">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tokens Settings -->
+                    <div class="settings-section hidden" id="tokensSettings">
+                        <div class="settings-grid">
+                            <div class="setting-group">
+                                <label for="tokenType">Token Type:</label>
+                                <select id="tokenType">
+                                    <option value="api-key">API Key</option>
+                                    <option value="bearer">Bearer Token</option>
+                                    <option value="session">Session ID</option>
+                                    <option value="csrf">CSRF Token</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+                            </div>
+                            <div class="setting-group">
+                                <label for="tokenLength">Length:</label>
+                                <input type="number" id="tokenLength" value="32" min="8" max="128">
+                            </div>
+                            <div class="setting-group">
+                                <label for="tokenCount">Count:</label>
+                                <input type="number" id="tokenCount" value="5" min="1" max="20">
+                            </div>
+                            <div class="setting-group">
+                                <label for="tokenPrefix">Prefix:</label>
+                                <input type="text" id="tokenPrefix" placeholder="e.g., sk_, api_">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Colors Settings -->
+                    <div class="settings-section hidden" id="colorsSettings">
+                        <div class="settings-grid">
+                            <div class="setting-group">
+                                <label for="colorFormat">Color Format:</label>
+                                <select id="colorFormat">
+                                    <option value="hex">Hex (#RRGGBB)</option>
+                                    <option value="rgb">RGB (r, g, b)</option>
+                                    <option value="hsl">HSL (h, s%, l%)</option>
+                                    <option value="rgba">RGBA (r, g, b, a)</option>
+                                </select>
+                            </div>
+                            <div class="setting-group">
+                                <label for="colorCount">Count:</label>
+                                <input type="number" id="colorCount" value="10" min="1" max="50">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coordinates Settings -->
+                    <div class="settings-section hidden" id="coordinatesSettings">
+                        <div class="settings-grid">
+                            <div class="setting-group">
+                                <label for="coordFormat">Format:</label>
+                                <select id="coordFormat">
+                                    <option value="decimal">Decimal Degrees</option>
+                                    <option value="dms">Degrees Minutes Seconds</option>
+                                </select>
+                            </div>
+                            <div class="setting-group">
+                                <label for="coordPrecision">Precision:</label>
+                                <input type="number" id="coordPrecision" value="6" min="1" max="10">
+                            </div>
+                            <div class="setting-group">
+                                <label for="coordCount">Count:</label>
+                                <input type="number" id="coordCount" value="10" min="1" max="100">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Generation Controls -->
+                <div class="controls-panel">
+                    <div class="generation-actions">
+                        <button id="generateBtn" class="btn btn-primary">🎲 Generate</button>
+                        <button id="regenerateBtn" class="btn btn-outline">🔄 Regenerate</button>
+                        <button id="clearBtn" class="btn btn-outline">🗑️ Clear</button>
+                    </div>
+                    <div class="generation-status" id="generationStatus"></div>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="results-panel">
+                    <div class="results-header">
+                        <h3>Generated Results</h3>
+                        <div class="results-actions">
+                            <button id="copyAllBtn" class="btn btn-outline btn-sm" disabled>📋 Copy All</button>
+                            <button id="copyListBtn" class="btn btn-outline btn-sm" disabled>📝 Copy as List</button>
+                            <button id="downloadBtn" class="btn btn-outline btn-sm" disabled>💾 Download</button>
+                        </div>
+                    </div>
+                    
+                    <div class="results-content">
+                        <div class="results-placeholder" id="resultsPlaceholder">
+                            <div class="placeholder-icon">🎲</div>
+                            <p>Click "Generate" to create random values</p>
+                        </div>
+                        
+                        <div class="random-results" id="randomResults"></div>
+                    </div>
+                    
+                    <div class="results-info" id="resultsInfo"></div>
+                </div>
+
+                <!-- Statistics Panel -->
+                <div class="stats-panel">
+                    <h3>Generation Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value" id="totalGenerated">0</div>
+                            <div class="stat-label">Total Generated</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="entropyBits">0</div>
+                            <div class="stat-label">Entropy (bits)</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="generationType">-</div>
+                            <div class="stat-label">Current Type</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="lastGenerated">-</div>
+                            <div class="stat-label">Last Generated</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Information Section -->
+    <section class="info-section">
+        <div class="container">
+            <h2 class="section-title">How to Use Random Generator</h2>
+            <div class="usage-steps">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Choose Type</h4>
+                        <p>Select the type of random values you want to generate from the available options.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Configure Settings</h4>
+                        <p>Adjust parameters like length, count, format, and constraints for your specific needs.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Generate & Use</h4>
+                        <p>Click generate to create values, then copy individual items or download the complete list.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-features">
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <h4>Cryptographically Secure</h4>
+                    <p>Uses Web Crypto API for high-quality random number generation</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <h4>Multiple Types</h4>
+                    <p>Generate numbers, strings, bytes, tokens, colors, and coordinates</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚙️</div>
+                    <h4>Highly Configurable</h4>
+                    <p>Customize length, count, format, and character sets for each type</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <h4>Statistical Analysis</h4>
+                    <p>View entropy calculations and generation statistics</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/assets/js/global.js"></script>
+    <script src="app.js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    
+    <!-- Tool Theme Handler -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle tool-specific theme CSS switching
+        const toolThemeLink = document.getElementById('tool-theme-css');
+        if (toolThemeLink) {
+            // Initial theme setup
+            const savedTheme = localStorage.getItem('zapit-theme') || 'light';
+            toolThemeLink.href = savedTheme + '.css';
+            
+            // Listen for theme changes
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                        const theme = document.documentElement.getAttribute('data-theme') || 'light';
+                        toolThemeLink.href = theme + '.css';
+                    }
+                });
+            });
+            
+            observer.observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ['data-theme']
+            });
+        }
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Word &amp; Character Counter - Text Tools - Zapit</title>
+	<meta name="description" content="Instantly count words, characters, sentences, and more with live updates and export options.">
+	<meta property="og:title" content="Word &amp; Character Counter - Zapit">
+	<meta property="og:description" content="Analyze text length in real time with detailed breakdowns, reading time estimates, and clipboard tools.">
+	<meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+	<link rel="canonical" href="https://zapit.me/text-tools/word-character-counter">
+	<link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+	<link id="tool-theme-css" rel="stylesheet" href="light.css">
+	<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+	<link rel="icon" href="/icons/favicon.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+</head>
+<body class="tools-page">
+	<header class="site-header">
+		<div class="container">
+			<div class="header-nav">
+				<a href="/index.html" class="brand" aria-label="Zapit Home">
+					<img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+					<span class="brand-text">
+						<span class="brand-title">Zapit</span>
+						<span class="brand-tagline">A Zap Away From Done</span>
+					</span>
+				</a>
+				<div class="header-right">
+					<nav class="breadcrumb">
+						<a href="/">Home</a>
+						<span class="separator">/</span>
+						<a href="/text-tools">Text Tools</a>
+						<span class="separator">/</span>
+						<span class="current">Word &amp; Character Counter</span>
+					</nav>
+					<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+						<span class="theme-toggle-icon">🌙</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="tool-hero">
+			<div class="container">
+				<div class="tool-hero-content">
+					<div class="tool-icon-large">📝</div>
+					<h1 class="tool-title">Word &amp; Character Counter</h1>
+					<p class="tool-description">Measure word counts, characters, sentences, paragraphs, and reading time while you type. Instant analytics with export tools included.</p>
+					<div class="tool-meta">
+						<span class="meta-pill">Live Updating</span>
+						<span class="meta-pill">Detailed Metrics</span>
+						<span class="meta-pill">Copy &amp; Export</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="tool-interface">
+			<div class="container">
+				<div class="tool-layout">
+					<div class="tool-card span-7" aria-labelledby="input-heading">
+						<div class="section-header">
+							<h2 id="input-heading">Input Text</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="loadSampleBtn">Load Sample</button>
+								<button type="button" class="btn btn-secondary" id="clearBtn">Clear</button>
+							</div>
+						</div>
+						<label for="inputText" class="sr-only">Enter text to analyze</label>
+						<textarea id="inputText" class="text-input large" placeholder="Paste or type your content here..." maxlength="50000"></textarea>
+						<div class="helper-row">
+							<span class="helper-text" id="charCount">0 characters</span>
+							<span class="helper-text" id="wordCount">0 words</span>
+						</div>
+						<div class="notification hidden" id="statusBanner" role="status"></div>
+					</div>
+
+					<div class="tool-card span-5" aria-labelledby="options-heading">
+						<div class="section-header">
+							<h2 id="options-heading">Analysis Options</h2>
+						</div>
+						<div class="options-stack">
+							<div class="toggle-grid">
+								<label class="checkbox">
+									<input type="checkbox" id="liveUpdateToggle" checked>
+									<span>Auto-update while typing</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="ignoreNumbersToggle">
+									<span>Ignore standalone numbers</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="ignorePunctuationToggle">
+									<span>Exclude punctuation in counts</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="countAllCharactersToggle" checked>
+									<span>Count spaces &amp; line breaks</span>
+								</label>
+							</div>
+							<div class="field">
+								<label for="readingSpeedSelect">Reading speed</label>
+								<select id="readingSpeedSelect" class="select-input">
+									<option value="200">Average adult (200 wpm)</option>
+									<option value="160">Careful read (160 wpm)</option>
+									<option value="240">Skim read (240 wpm)</option>
+								</select>
+							</div>
+							<div class="button-row">
+								<button type="button" class="btn btn-primary" id="analyzeBtn">Recalculate</button>
+								<button type="button" class="btn btn-outline" id="copyReportBtn">Copy Summary</button>
+								<button type="button" class="btn btn-outline" id="downloadBtn">Download CSV</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="tool-card span-12" aria-labelledby="overview-heading">
+						<div class="section-header">
+							<h2 id="overview-heading">Overview</h2>
+							<div class="toolbar">
+								<span class="badge" id="readingTimeBadge">Reading: 0 min</span>
+								<span class="badge muted" id="speakingTimeBadge">Speaking: 0 min</span>
+							</div>
+						</div>
+						<div class="stats-grid overview">
+							<div class="stat-item">
+								<span class="stat-label">Words</span>
+								<span class="stat-value" id="wordsStat">0</span>
+							</div>
+							<div class="stat-item">
+								<span class="stat-label">Characters (with spaces)</span>
+								<span class="stat-value" id="charactersWithSpacesStat">0</span>
+							</div>
+							<div class="stat-item">
+								<span class="stat-label">Characters (no spaces)</span>
+								<span class="stat-value" id="charactersNoSpacesStat">0</span>
+							</div>
+							<div class="stat-item">
+								<span class="stat-label">Sentences</span>
+								<span class="stat-value" id="sentencesStat">0</span>
+							</div>
+							<div class="stat-item">
+								<span class="stat-label">Paragraphs</span>
+								<span class="stat-value" id="paragraphsStat">0</span>
+							</div>
+							<div class="stat-item">
+								<span class="stat-label">Longest word</span>
+								<span class="stat-value" id="longestWordStat">–</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="tool-card span-6" aria-labelledby="distribution-heading">
+						<div class="section-header">
+							<h2 id="distribution-heading">Distribution</h2>
+						</div>
+						<ul class="detail-list" id="distributionList">
+							<li><strong>Average words per sentence:</strong> <span id="avgWordsPerSentence">0</span></li>
+							<li><strong>Average characters per word:</strong> <span id="avgCharsPerWord">0</span></li>
+							<li><strong>Whitespace ratio:</strong> <span id="whitespaceRatio">0%</span></li>
+							<li><strong>Unique words:</strong> <span id="uniqueWordsStat">0</span></li>
+							<li><strong>Vocabulary density:</strong> <span id="lexicalDensity">0%</span></li>
+						</ul>
+					</div>
+
+					<div class="tool-card span-6 info-card" aria-labelledby="insights-heading">
+						<div class="section-header">
+							<h2 id="insights-heading">Insights &amp; Tips</h2>
+						</div>
+						<ul class="tips-list" id="insightsList">
+							<li>Short paragraphs of 3–4 sentences keep readers engaged. Aim for concise chunks.</li>
+							<li>Reading time is estimated from the selected words-per-minute pace; adjust for your audience.</li>
+							<li>Use the summary export to document length limits for social posts or SEO descriptions.</li>
+							<li>Toggle punctuation or numbers to fine-tune the way counts are calculated.</li>
+							<li>Copy the summary to share stats with teammates or clients quickly.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<div class="footer-brand-row">
+						<img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+						<span class="footer-brand-text">
+							<h3 class="footer-logo">Zapit</h3>
+							<div class="footer-tagline">A Zap Away From Done</div>
+						</span>
+					</div>
+					<p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+					<div class="footer-copyright">© Zapit. All rights reserved.</div>
+				</div>
+				<div class="footer-links">
+					<h4 class="footer-title">Legal</h4>
+					<ul class="footer-list">
+						<li><a href="/privacy.html">Privacy Policy</a></li>
+						<li><a href="/terms.html">Terms of Service</a></li>
+						<li><a href="/contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/js/global.js" defer></script>
+	<script src="app.js" defer></script>
+	<script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+	<script>
+		(function () {
+			const toolTheme = document.getElementById('tool-theme-css');
+			if (!toolTheme) return;
+
+			function applyTheme(theme) {
+				const next = theme === 'dark' ? 'dark.css' : 'light.css';
+				if (toolTheme.getAttribute('href') !== next) {
+					toolTheme.setAttribute('href', next);
+				}
+			}
+
+			const current = document.documentElement.getAttribute('data-theme') || 'light';
+			applyTheme(current);
+
+			const observer = new MutationObserver(function (mutations) {
+				mutations.forEach(function (mutation) {
+					if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+						const theme = document.documentElement.getAttribute('data-theme') || 'light';
+						applyTheme(theme);
+					}
+				});
+			});
+
+			observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+		})();
+	</script>
+</body>
+</html>

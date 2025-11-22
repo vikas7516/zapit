@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percentage Calculator - ZapIt Tools</title>
+    <meta name="description" content="Calculate percentages, percentage changes, discounts, tips, and more. Multi-mode percentage calculator with instant results and detailed explanations.">
+    <meta name="keywords" content="percentage calculator, percent change, discount calculator, tip calculator, percentage increase">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Percentage Calculator - ZapIt Tools">
+    <meta property="og:description" content="Calculate percentages, percentage changes, discounts, tips, and more. Multi-mode percentage calculator with instant results and detailed explanations.">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../assets/css/variables.css">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="light.css">
+    <link rel="stylesheet" href="dark.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../../" class="nav-brand">
+                <img src="../../icons/logo.jpg" alt="ZapIt Tools" class="nav-logo">
+                <span>ZapIt Tools</span>
+            </a>
+            <div class="nav-menu">
+                <a href="../../" class="nav-link">Home</a>
+                <a href="../" class="nav-link">Math Calculators</a>
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Percentage Calculator</h1>
+                <p class="hero-description">
+                    Calculate percentages, percentage changes, discounts, tips, and more with instant results. 
+                    Multiple calculation modes with step-by-step explanations.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">6</span>
+                        <span class="stat-label">Modes</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">💯</span>
+                        <span class="stat-label">Accurate</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">⚡</span>
+                        <span class="stat-label">Instant</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <main class="container">
+        <div class="tool-layout">
+            <div class="tool-main">
+                <!-- Mode Selection -->
+                <div class="mode-selection">
+                    <h2>Choose Calculation Mode</h2>
+                    <div class="mode-grid">
+                        <div class="mode-card active" data-mode="basic">
+                            <div class="mode-icon">📊</div>
+                            <h3>Basic Percentage</h3>
+                            <p>What is X% of Y?</p>
+                            <div class="mode-example">25% of 200 = 50</div>
+                        </div>
+                        
+                        <div class="mode-card" data-mode="reverse">
+                            <div class="mode-icon">🔄</div>
+                            <h3>Reverse Percentage</h3>
+                            <p>X is what % of Y?</p>
+                            <div class="mode-example">50 is 25% of 200</div>
+                        </div>
+                        
+                        <div class="mode-card" data-mode="change">
+                            <div class="mode-icon">📈</div>
+                            <h3>Percentage Change</h3>
+                            <p>% change from X to Y</p>
+                            <div class="mode-example">100 to 125 = +25%</div>
+                        </div>
+                        
+                        <div class="mode-card" data-mode="increase">
+                            <div class="mode-icon">⬆️</div>
+                            <h3>Percentage Increase</h3>
+                            <p>Increase X by Y%</p>
+                            <div class="mode-example">100 + 25% = 125</div>
+                        </div>
+                        
+                        <div class="mode-card" data-mode="decrease">
+                            <div class="mode-icon">⬇️</div>
+                            <h3>Percentage Decrease</h3>
+                            <p>Decrease X by Y%</p>
+                            <div class="mode-example">100 - 25% = 75</div>
+                        </div>
+                        
+                        <div class="mode-card" data-mode="total">
+                            <div class="mode-icon">🎯</div>
+                            <h3>Find Total</h3>
+                            <p>If X is Y%, what's 100%?</p>
+                            <div class="mode-example">50 is 25%, total = 200</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculator Forms -->
+                <div class="calculator-section">
+                    <!-- Basic Percentage -->
+                    <div class="calc-form active" id="basicForm">
+                        <div class="form-header">
+                            <h3>Basic Percentage Calculator</h3>
+                            <p>Calculate what percentage of a number equals another number</p>
+                        </div>
+                        <div class="form-row">
+                            <label>What is</label>
+                            <input type="number" id="basicPercent" placeholder="25" step="any">
+                            <label>% of</label>
+                            <input type="number" id="basicNumber" placeholder="200" step="any">
+                            <label>?</label>
+                        </div>
+                        <div class="result-display" id="basicResult"></div>
+                    </div>
+
+                    <!-- Reverse Percentage -->
+                    <div class="calc-form" id="reverseForm">
+                        <div class="form-header">
+                            <h3>Reverse Percentage Calculator</h3>
+                            <p>Find what percentage one number is of another</p>
+                        </div>
+                        <div class="form-row">
+                            <input type="number" id="reverseNum1" placeholder="50" step="any">
+                            <label>is what % of</label>
+                            <input type="number" id="reverseNum2" placeholder="200" step="any">
+                            <label>?</label>
+                        </div>
+                        <div class="result-display" id="reverseResult"></div>
+                    </div>
+
+                    <!-- Percentage Change -->
+                    <div class="calc-form" id="changeForm">
+                        <div class="form-header">
+                            <h3>Percentage Change Calculator</h3>
+                            <p>Calculate the percentage change between two values</p>
+                        </div>
+                        <div class="form-row">
+                            <label>From</label>
+                            <input type="number" id="changeFrom" placeholder="100" step="any">
+                            <label>to</label>
+                            <input type="number" id="changeTo" placeholder="125" step="any">
+                        </div>
+                        <div class="result-display" id="changeResult"></div>
+                    </div>
+
+                    <!-- Percentage Increase -->
+                    <div class="calc-form" id="increaseForm">
+                        <div class="form-header">
+                            <h3>Percentage Increase Calculator</h3>
+                            <p>Increase a number by a given percentage</p>
+                        </div>
+                        <div class="form-row">
+                            <label>Increase</label>
+                            <input type="number" id="increaseNumber" placeholder="100" step="any">
+                            <label>by</label>
+                            <input type="number" id="increasePercent" placeholder="25" step="any">
+                            <label>%</label>
+                        </div>
+                        <div class="result-display" id="increaseResult"></div>
+                    </div>
+
+                    <!-- Percentage Decrease -->
+                    <div class="calc-form" id="decreaseForm">
+                        <div class="form-header">
+                            <h3>Percentage Decrease Calculator</h3>
+                            <p>Decrease a number by a given percentage</p>
+                        </div>
+                        <div class="form-row">
+                            <label>Decrease</label>
+                            <input type="number" id="decreaseNumber" placeholder="100" step="any">
+                            <label>by</label>
+                            <input type="number" id="decreasePercent" placeholder="25" step="any">
+                            <label>%</label>
+                        </div>
+                        <div class="result-display" id="decreaseResult"></div>
+                    </div>
+
+                    <!-- Find Total -->
+                    <div class="calc-form" id="totalForm">
+                        <div class="form-header">
+                            <h3>Find Total Calculator</h3>
+                            <p>Find the total if you know a part and its percentage</p>
+                        </div>
+                        <div class="form-row">
+                            <label>If</label>
+                            <input type="number" id="totalPart" placeholder="50" step="any">
+                            <label>is</label>
+                            <input type="number" id="totalPercent" placeholder="25" step="any">
+                            <label>%, what is the total?</label>
+                        </div>
+                        <div class="result-display" id="totalResult"></div>
+                    </div>
+                </div>
+
+                <!-- Common Calculations -->
+                <div class="common-calculations">
+                    <h3>Common Percentage Calculations</h3>
+                    <div class="common-grid">
+                        <div class="common-card">
+                            <h4>Tips & Service</h4>
+                            <div class="tip-calculator">
+                                <div class="tip-input">
+                                    <label>Bill Amount: $</label>
+                                    <input type="number" id="tipBill" placeholder="100" step="0.01">
+                                </div>
+                                <div class="tip-buttons">
+                                    <button class="tip-btn" data-tip="15">15%</button>
+                                    <button class="tip-btn" data-tip="18">18%</button>
+                                    <button class="tip-btn" data-tip="20">20%</button>
+                                    <button class="tip-btn" data-tip="25">25%</button>
+                                </div>
+                                <div class="tip-result" id="tipResult"></div>
+                            </div>
+                        </div>
+
+                        <div class="common-card">
+                            <h4>Discounts & Sales</h4>
+                            <div class="discount-calculator">
+                                <div class="discount-input">
+                                    <label>Original Price: $</label>
+                                    <input type="number" id="discountPrice" placeholder="100" step="0.01">
+                                    <label>Discount: %</label>
+                                    <input type="number" id="discountPercent" placeholder="20" step="any">
+                                </div>
+                                <div class="discount-result" id="discountResult"></div>
+                            </div>
+                        </div>
+
+                        <div class="common-card">
+                            <h4>Tax Calculator</h4>
+                            <div class="tax-calculator">
+                                <div class="tax-input">
+                                    <label>Amount: $</label>
+                                    <input type="number" id="taxAmount" placeholder="100" step="0.01">
+                                    <label>Tax Rate: %</label>
+                                    <input type="number" id="taxRate" placeholder="8.5" step="0.01">
+                                </div>
+                                <div class="tax-result" id="taxResult"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculation History -->
+                <div class="calculation-history">
+                    <div class="history-header">
+                        <h3>Calculation History</h3>
+                        <button class="clear-history-btn" id="clearHistory">Clear All</button>
+                    </div>
+                    <div class="history-list" id="historyList">
+                        <div class="history-empty">No calculations yet. Start calculating to see your history!</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Information Panel -->
+            <div class="tool-sidebar">
+                <div class="info-card">
+                    <h3>How to Use</h3>
+                    <div class="info-content">
+                        <div class="info-item">
+                            <h4>Select a Mode</h4>
+                            <p>Choose from 6 different percentage calculation modes depending on what you want to calculate.</p>
+                        </div>
+                        
+                        <div class="info-item">
+                            <h4>Enter Values</h4>
+                            <p>Input your numbers and see instant results as you type. No need to click calculate!</p>
+                        </div>
+                        
+                        <div class="info-item">
+                            <h4>View Results</h4>
+                            <p>See detailed results with explanations and step-by-step breakdowns.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Percentage Formulas</h3>
+                    <div class="formula-list">
+                        <div class="formula-item">
+                            <strong>Basic:</strong> (P/100) × N = Result
+                        </div>
+                        <div class="formula-item">
+                            <strong>Reverse:</strong> (Part/Whole) × 100 = %
+                        </div>
+                        <div class="formula-item">
+                            <strong>Change:</strong> ((New-Old)/Old) × 100 = %
+                        </div>
+                        <div class="formula-item">
+                            <strong>Increase:</strong> N + (N × P/100) = Result
+                        </div>
+                        <div class="formula-item">
+                            <strong>Decrease:</strong> N - (N × P/100) = Result
+                        </div>
+                        <div class="formula-item">
+                            <strong>Total:</strong> Part ÷ (P/100) = Whole
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Quick Reference</h3>
+                    <div class="reference-list">
+                        <div class="reference-item">
+                            <span class="ref-percent">10%</span>
+                            <span class="ref-decimal">= 0.1</span>
+                            <span class="ref-fraction">= 1/10</span>
+                        </div>
+                        <div class="reference-item">
+                            <span class="ref-percent">25%</span>
+                            <span class="ref-decimal">= 0.25</span>
+                            <span class="ref-fraction">= 1/4</span>
+                        </div>
+                        <div class="reference-item">
+                            <span class="ref-percent">33.33%</span>
+                            <span class="ref-decimal">= 0.3333</span>
+                            <span class="ref-fraction">= 1/3</span>
+                        </div>
+                        <div class="reference-item">
+                            <span class="ref-percent">50%</span>
+                            <span class="ref-decimal">= 0.5</span>
+                            <span class="ref-fraction">= 1/2</span>
+                        </div>
+                        <div class="reference-item">
+                            <span class="ref-percent">75%</span>
+                            <span class="ref-decimal">= 0.75</span>
+                            <span class="ref-fraction">= 3/4</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ZapIt Tools</h3>
+                    <p>Professional math calculators for accurate percentage calculations, tips, discounts, and more.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Math Tools</h4>
+                    <ul>
+                        <li><a href="../age-calculator/">Age Calculator</a></li>
+                        <li><a href="./">Percentage Calculator</a></li>
+                        <li><a href="../scientific-calculator/">Scientific Calculator</a></li>
+                        <li><a href="../date-difference-calculator/">Date Calculator</a></li>
+                        <li><a href="../amortization-calculator/">Amortization Calculator</a></li>
+                        <li><a href="../inflation-calculator/">Inflation Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="../../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../../terms.html">Terms of Service</a></li>
+                        <li><a href="../../contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ZapIt Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/theme.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

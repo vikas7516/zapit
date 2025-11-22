@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Calculator - Zapit Financial Tools</title>
+    <meta name="description" content="Calculate your take-home salary, tax deductions, and net income with comprehensive Indian tax calculations including old vs new tax regime comparison.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link rel="canonical" href="https://zapit.me/financial-calculators/salary-calculator">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="calculator-container">
+            <div class="calculator-header">
+                <h1>💰 Salary Calculator</h1>
+                <p>Calculate your take-home salary, tax deductions, and net income with comprehensive Indian tax calculations including old vs new tax regime comparison.</p>
+            </div>
+
+            <div class="calculator-grid">
+                <div class="calculator-card">
+                    <h3>Salary Details</h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="basicSalary">Basic Salary (Annual)</label>
+                        <div class="input-group">
+                            <span class="input-prefix">₹</span>
+                            <input type="number" id="basicSalary" class="form-input has-prefix" value="600000" min="0" step="1000">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="hra">HRA (Annual)</label>
+                        <div class="input-group">
+                            <span class="input-prefix">₹</span>
+                            <input type="number" id="hra" class="form-input has-prefix" value="300000" min="0" step="1000">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="specialAllowance">Special Allowance (Annual)</label>
+                        <div class="input-group">
+                            <span class="input-prefix">₹</span>
+                            <input type="number" id="specialAllowance" class="form-input has-prefix" value="300000" min="0" step="1000">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="bonus">Bonus & Variable Pay (Annual)</label>
+                        <div class="input-group">
+                            <span class="input-prefix">₹</span>
+                            <input type="number" id="bonus" class="form-input has-prefix" value="100000" min="0" step="1000">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="city">City</label>
+                        <select id="city" class="form-select">
+                            <option value="metro">Metro City (Mumbai, Delhi, Kolkata, Chennai)</option>
+                            <option value="non-metro">Non-Metro City</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="calculator-card">
+                    <h3>Tax Regime</h3>
+                    
+                    <div class="tax-regime-toggle">
+                        <button class="regime-option active" data-regime="old">Old Tax Regime</button>
+                        <button class="regime-option" data-regime="new">New Tax Regime</button>
+                    </div>
+                    
+                    <div id="deductionsSection">
+                        <div class="form-group">
+                            <label class="form-label" for="epf">EPF Contribution (Annual)</label>
+                            <div class="input-group">
+                                <span class="input-prefix">₹</span>
+                                <input type="number" id="epf" class="form-input has-prefix" value="21600" min="0" step="100">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="section80c">80C Deductions (PPF, ELSS, etc.)</label>
+                            <div class="input-group">
+                                <span class="input-prefix">₹</span>
+                                <input type="number" id="section80c" class="form-input has-prefix" value="150000" min="0" step="1000" max="150000">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="section80d">80D Medical Insurance</label>
+                            <div class="input-group">
+                                <span class="input-prefix">₹</span>
+                                <input type="number" id="section80d" class="form-input has-prefix" value="25000" min="0" step="1000" max="75000">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="nps">NPS (80CCD(1B))</label>
+                            <div class="input-group">
+                                <span class="input-prefix">₹</span>
+                                <input type="number" id="nps" class="form-input has-prefix" value="50000" min="0" step="1000" max="50000">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="homeLoanInterest">Home Loan Interest (24B)</label>
+                            <div class="input-group">
+                                <span class="input-prefix">₹</span>
+                                <input type="number" id="homeLoanInterest" class="form-input has-prefix" value="0" min="0" step="1000" max="200000">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calculator-card results-section">
+                    <h3>Take-Home Salary Calculation</h3>
+                    
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <div class="result-label">Gross Salary</div>
+                            <div class="result-value" id="grossSalary">₹0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Total Deductions</div>
+                            <div class="result-value" id="totalDeductions">₹0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Taxable Income</div>
+                            <div class="result-value" id="taxableIncome">₹0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Income Tax</div>
+                            <div class="result-value" id="incomeTax">₹0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Take-Home (Annual)</div>
+                            <div class="result-value large" id="takeHomeAnnual">₹0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Take-Home (Monthly)</div>
+                            <div class="result-value large" id="takeHomeMonthly">₹0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="breakdown-section">
+                        <div class="breakdown-card">
+                            <div class="breakdown-title">Tax Breakdown</div>
+                            <div id="taxBreakdown">
+                                <!-- Tax breakdown will be inserted here -->
+                            </div>
+                        </div>
+                        
+                        <div class="breakdown-card">
+                            <div class="breakdown-title">Deduction Breakdown</div>
+                            <div id="deductionBreakdown">
+                                <!-- Deduction breakdown will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comparison-section">
+                <h3>Tax Regime Comparison</h3>
+                <div class="comparison-grid">
+                    <div class="comparison-card" id="oldRegimeCard">
+                        <div class="comparison-title">Old Tax Regime</div>
+                        <div class="comparison-amount" id="oldRegimeTakeHome">₹0</div>
+                        <div class="comparison-difference" id="oldRegimeDiff"></div>
+                    </div>
+                    <div class="comparison-card" id="newRegimeCard">
+                        <div class="comparison-title">New Tax Regime</div>
+                        <div class="comparison-amount" id="newRegimeTakeHome">₹0</div>
+                        <div class="comparison-difference" id="newRegimeDiff"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="monthly-breakdown">
+                <h3>Monthly Breakdown</h3>
+                <div class="monthly-grid">
+                    <div class="monthly-card">
+                        <div class="monthly-label">Gross Monthly</div>
+                        <div class="monthly-value" id="grossMonthly">₹0</div>
+                    </div>
+                    <div class="monthly-card">
+                        <div class="monthly-label">EPF Employee</div>
+                        <div class="monthly-value" id="epfMonthly">₹0</div>
+                    </div>
+                    <div class="monthly-card">
+                        <div class="monthly-label">Professional Tax</div>
+                        <div class="monthly-value" id="ptMonthly">₹200</div>
+                    </div>
+                    <div class="monthly-card">
+                        <div class="monthly-label">Income Tax (TDS)</div>
+                        <div class="monthly-value" id="tdsMonthly">₹0</div>
+                    </div>
+                    <div class="monthly-card">
+                        <div class="monthly-label">Net Monthly</div>
+                        <div class="monthly-value" id="netMonthly">₹0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deduction-section">
+                <h3>Tax Deduction Guidelines</h3>
+                <div class="deduction-grid">
+                    <div class="deduction-group">
+                        <div class="deduction-title">Section 80C (₹1.5L limit)</div>
+                        <ul>
+                            <li>EPF contribution</li>
+                            <li>PPF investment</li>
+                            <li>ELSS mutual funds</li>
+                            <li>Home loan principal</li>
+                            <li>Life insurance premium</li>
+                            <li>NSC, FD (5 years)</li>
+                        </ul>
+                    </div>
+                    <div class="deduction-group">
+                        <div class="deduction-title">Section 80D (₹25K-75K)</div>
+                        <ul>
+                            <li>Self & family: ₹25,000</li>
+                            <li>Parents (senior): ₹50,000</li>
+                            <li>Preventive health checkup: ₹5,000</li>
+                        </ul>
+                    </div>
+                    <div class="deduction-group">
+                        <div class="deduction-title">Section 80CCD(1B)</div>
+                        <ul>
+                            <li>NPS contribution: ₹50,000</li>
+                            <li>Additional to 80C</li>
+                            <li>Equity exposure benefit</li>
+                        </ul>
+                    </div>
+                    <div class="deduction-group">
+                        <div class="deduction-title">Section 24B</div>
+                        <ul>
+                            <li>Home loan interest: ₹2L</li>
+                            <li>Let-out property: No limit</li>
+                            <li>Pre-construction: ₹30K/year</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

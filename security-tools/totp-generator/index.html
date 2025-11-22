@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOTP Generator - Time-Based One-Time Password | ZapIt Tools</title>
+    <meta name="description" content="Generate and validate Time-based One-Time Passwords (TOTP) for 2FA authentication. Create QR codes, manage secrets, and validate TOTP tokens securely.">
+    <meta name="keywords" content="TOTP, 2FA, two-factor authentication, time-based one-time password, google authenticator, qr code generator">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link rel="stylesheet" href="/assets/css/theme-toggle.css">
+</head>
+<body class="tools-page">
+    <main>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <nav class="header-nav">
+                <a href="/" class="brand">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                
+                <div class="header-right">
+                    <nav class="breadcrumb">
+                        <a href="/">Home</a>
+                        <span class="separator">/</span>
+                        <a href="/security-tools">Security Tools</a>
+                        <span class="separator">/</span>
+                        <span class="current">TOTP Generator</span>
+                    </nav>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <span class="theme-toggle-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tool Header -->
+    <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">🔐</div>
+                    <h1 class="tool-title">TOTP Generator</h1>
+                    <p class="tool-description">Generate Time-based One-Time Passwords for secure 2FA authentication</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Secret Management Section -->
+        <section class="secret-section">
+            <h2>🔑 Secret Management</h2>
+            
+            <div class="secret-input-group">
+                <div class="input-methods">
+                    <div class="method-tabs">
+                        <button class="method-tab active" data-method="manual">Manual Entry</button>
+                        <button class="method-tab" data-method="generate">Generate Secret</button>
+                        <button class="method-tab" data-method="import">Import from QR</button>
+                    </div>
+                    
+                    <!-- Manual Entry -->
+                    <div id="manual-method" class="input-method active">
+                        <div class="form-group">
+                            <label for="secret-input">Secret Key (Base32)</label>
+                            <div class="secret-input-container">
+                                <input type="text" id="secret-input" placeholder="Enter your secret key (e.g., JBSWY3DPEHPK3PXP)">
+                                <button id="paste-secret-btn" class="btn btn-outline btn-sm">📋 Paste</button>
+                            </div>
+                            <div class="input-help">
+                                <span>Enter a Base32-encoded secret key from your 2FA app</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="account-name">Account Name</label>
+                                <input type="text" id="account-name" placeholder="e.g., john@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="issuer-name">Issuer</label>
+                                <input type="text" id="issuer-name" placeholder="e.g., Google, GitHub, AWS">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Generate Secret -->
+                    <div id="generate-method" class="input-method hidden">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="secret-length">Secret Length</label>
+                                <select id="secret-length">
+                                    <option value="16">16 bytes (128-bit)</option>
+                                    <option value="20" selected>20 bytes (160-bit)</option>
+                                    <option value="32">32 bytes (256-bit)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <button id="generate-secret-btn" class="btn btn-primary">🎲 Generate New Secret</button>
+                            </div>
+                        </div>
+                        
+                        <div class="generated-secret hidden" id="generated-secret-display">
+                            <div class="secret-display">
+                                <div class="secret-label">Generated Secret:</div>
+                                <div class="secret-value" id="generated-secret-value"></div>
+                                <button id="copy-generated-secret" class="btn btn-outline btn-sm">📋 Copy</button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="gen-account-name">Account Name</label>
+                                <input type="text" id="gen-account-name" placeholder="e.g., john@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="gen-issuer-name">Issuer</label>
+                                <input type="text" id="gen-issuer-name" placeholder="e.g., MyApp, MyService">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Import from QR -->
+                    <div id="import-method" class="input-method hidden">
+                        <div class="qr-import-area">
+                            <div class="file-drop-zone" id="qr-drop-zone">
+                                <div class="drop-zone-content">
+                                    <span class="drop-icon">📷</span>
+                                    <div class="drop-text">
+                                        <strong>Drop QR code image here</strong>
+                                        <span>or click to select file</span>
+                                    </div>
+                                </div>
+                                <input type="file" id="qr-file-input" accept="image/*" class="hidden" aria-label="Select QR code image file">
+                            </div>
+                            
+                            <div class="qr-camera-option">
+                                <button id="camera-scan-btn" class="btn btn-outline">📸 Scan with Camera</button>
+                                <video id="camera-video" class="hidden" autoplay></video>
+                                <canvas id="camera-canvas" class="hidden"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="imported-info hidden" id="imported-info">
+                            <div class="info-row">
+                                <span class="info-label">Secret:</span>
+                                <span class="info-value" id="imported-secret"></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Account:</span>
+                                <span class="info-value" id="imported-account"></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Issuer:</span>
+                                <span class="info-value" id="imported-issuer"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- TOTP Settings -->
+                <div class="totp-settings">
+                    <h3>⚙️ TOTP Configuration</h3>
+                    <div class="settings-row">
+                        <div class="form-group">
+                            <label for="time-step">Time Step (seconds)</label>
+                            <select id="time-step">
+                                <option value="30" selected>30 seconds</option>
+                                <option value="60">60 seconds</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="digits">Code Length</label>
+                            <select id="digits">
+                                <option value="6" selected>6 digits</option>
+                                <option value="8">8 digits</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="algorithm">Algorithm</label>
+                            <select id="algorithm">
+                                <option value="SHA1" selected>SHA-1</option>
+                                <option value="SHA256">SHA-256</option>
+                                <option value="SHA512">SHA-512</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="setup-totp-btn" class="btn btn-primary">🚀 Setup TOTP</button>
+                    <button id="clear-setup-btn" class="btn btn-secondary">🗑️ Clear</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Status Messages -->
+        <div id="setup-status" class="setup-status"></div>
+
+        <!-- TOTP Display Section -->
+        <section class="totp-display-section hidden" id="totp-display-section">
+            <div class="totp-header">
+                <h2>🔢 Current TOTP</h2>
+                <div class="totp-info">
+                    <span class="account-info" id="current-account-info"></span>
+                </div>
+            </div>
+            
+            <div class="totp-main-display">
+                <div class="totp-code-display">
+                    <div class="totp-code" id="current-totp-code">------</div>
+                    <div class="totp-validity">
+                        <div class="validity-text">Valid for <span id="time-remaining">--</span> seconds</div>
+                        <div class="validity-progress">
+                            <div class="progress-bar" id="validity-progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="totp-actions">
+                    <button id="copy-totp-btn" class="btn btn-primary" disabled>📋 Copy Code</button>
+                    <button id="refresh-totp-btn" class="btn btn-outline">🔄 Refresh</button>
+                </div>
+            </div>
+            
+            <!-- QR Code Display -->
+            <div class="qr-section">
+                <h3>📱 Setup QR Code</h3>
+                <div class="qr-display">
+                    <div class="qr-code-container">
+                        <canvas id="qr-canvas"></canvas>
+                    </div>
+                    <div class="qr-info">
+                        <div class="qr-description">
+                            <p>Scan this QR code with your authenticator app:</p>
+                            <ul>
+                                <li>Google Authenticator</li>
+                                <li>Microsoft Authenticator</li>
+                                <li>Authy</li>
+                                <li>1Password</li>
+                            </ul>
+                        </div>
+                        <div class="qr-actions">
+                            <button id="download-qr-btn" class="btn btn-outline">💾 Download QR</button>
+                            <button id="copy-qr-url-btn" class="btn btn-outline">🔗 Copy URL</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Manual Setup Info -->
+                <div class="manual-setup">
+                    <h4>Manual Setup Information</h4>
+                    <div class="setup-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Secret Key:</span>
+                            <span class="detail-value" id="setup-secret-display"></span>
+                            <button class="btn btn-xs btn-outline" onclick="totpGenerator.copySetupSecret()">📋</button>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Account:</span>
+                            <span class="detail-value" id="setup-account-display"></span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Issuer:</span>
+                            <span class="detail-value" id="setup-issuer-display"></span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Algorithm:</span>
+                            <span class="detail-value" id="setup-algorithm-display"></span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Digits:</span>
+                            <span class="detail-value" id="setup-digits-display"></span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Period:</span>
+                            <span class="detail-value" id="setup-period-display"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code History Section -->
+        <section class="history-section hidden" id="history-section">
+            <div class="history-header">
+                <h2>📝 Code History</h2>
+                <div class="history-actions">
+                    <button id="clear-history-btn" class="btn btn-outline btn-sm">🗑️ Clear History</button>
+                </div>
+            </div>
+            
+            <div class="history-list" id="history-list">
+                <div class="history-placeholder">
+                    <p>TOTP codes will appear here as they are generated</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Validation Section -->
+        <section class="validation-section">
+            <h2>✅ Code Validation</h2>
+            <div class="validation-content">
+                <div class="validation-input">
+                    <div class="form-group">
+                        <label for="validate-code">Enter TOTP Code to Validate</label>
+                        <div class="validate-input-container">
+                            <input type="text" id="validate-code" placeholder="Enter 6 or 8 digit code" maxlength="8">
+                            <button id="validate-btn" class="btn btn-primary">✓ Validate</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="validation-result" id="validation-result"></div>
+                
+                <div class="validation-info">
+                    <h4>Validation Notes:</h4>
+                    <ul>
+                        <li>Codes are valid for the configured time window (usually 30 seconds)</li>
+                        <li>Previous and next time windows may also be accepted for clock skew tolerance</li>
+                        <li>Each code can typically only be used once</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics Panel -->
+        <section class="statistics-panel">
+            <h3>📊 Session Statistics</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-value" id="codes-generated">0</span>
+                    <span class="stat-label">Codes Generated</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="codes-validated">0</span>
+                    <span class="stat-label">Codes Validated</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="session-uptime">00:00</span>
+                    <span class="stat-label">Session Time</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="current-algorithm">-</span>
+                    <span class="stat-label">Algorithm</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Tool Information -->
+        <section class="tool-info">
+            <div class="container">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>⏱️ What is TOTP?</h3>
+                        <p>Time-based One-Time Password (TOTP) is a computer algorithm that generates a one-time password using the current time as a source of uniqueness. It's widely used for two-factor authentication (2FA) by services like Google Authenticator, providing an extra layer of security for your accounts.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>🔐 How It Works</h3>
+                        <p>TOTP uses a shared secret key and the current time to generate 6-digit codes that refresh every 30 seconds. The algorithm combines your secret key with the current time window using HMAC-SHA1 cryptography to produce unique, time-sensitive passwords that expire quickly.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>🛡️ Security Benefits</h3>
+                        <p>Even if someone knows your password, they can't access your account without the current TOTP code from your device. This significantly reduces the risk of unauthorized access, as attackers would need both your password and physical access to your authenticator device.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>📱 Compatibility</h3>
+                        <p>Our TOTP generator is compatible with all major authenticator apps including Google Authenticator, Authy, Microsoft Authenticator, and others. You can generate QR codes for easy setup or manually enter the secret key into your preferred authenticator app.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How to Use -->
+        <section class="how-to-use">
+            <div class="container">
+                <h2>📝 How to Use the TOTP Generator</h2>
+                <div class="steps-grid">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Get Secret Key</h3>
+                            <p>Generate a new secret key or import an existing one via QR code, manual entry, or Google Authenticator backup.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Configure Account</h3>
+                            <p>Enter your account name and issuer information for easy identification in your authenticator app.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Generate QR Code</h3>
+                            <p>Create a QR code to easily add the account to your mobile authenticator app by scanning.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Verify & Use</h3>
+                            <p>Test the generated TOTP codes and use them for secure two-factor authentication on your accounts.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cross-Site Promotion -->
+        <section class="cross-promotion">
+            <div class="container">
+                <h2>🔧 Related Security Tools</h2>
+                <div class="tools-grid">
+                    <a href="/security-tools/password-generator" class="tool-card">
+                        <div class="tool-icon">🔐</div>
+                        <h3 class="tool-name">Password Generator</h3>
+                        <p class="tool-desc">Generate strong, secure passwords with customizable options</p>
+                    </a>
+                    
+                    <a href="/security-tools/password-strength-analyzer" class="tool-card">
+                        <div class="tool-icon">🔍</div>
+                        <h3 class="tool-name">Password Strength Analyzer</h3>
+                        <p class="tool-desc">Analyze password strength and get security recommendations</p>
+                    </a>
+                    
+                    <a href="/security-tools/text-encryption" class="tool-card">
+                        <div class="tool-icon">🔒</div>
+                        <h3 class="tool-name">Text Encryption</h3>
+                        <p class="tool-desc">Encrypt and decrypt sensitive text data securely</p>
+                    </a>
+                    
+                    <a href="/security-tools/jwt-decoder" class="tool-card">
+                        <div class="tool-icon">🎫</div>
+                        <h3 class="tool-name">JWT Decoder</h3>
+                        <p class="tool-desc">Decode and validate JSON Web Tokens securely</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="/assets/js/global.js"></script>
+    <script src="app.js"></script>
+    
+    <!-- Theme Handler -->
+    <script>
+        // Theme management for tools
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('zapit-theme') || 'light';
+            const siteThemeCss = document.getElementById('site-theme-css');
+            const toolThemeCss = document.getElementById('tool-theme-css');
+            
+            if (siteThemeCss) {
+                siteThemeCss.href = savedTheme === 'dark' ? '/assets/css/darkstyle.css' : '/assets/css/style.css';
+            }
+            if (toolThemeCss) {
+                toolThemeCss.href = savedTheme + '.css';
+            }
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+
+        // Initialize theme on load
+        initializeTheme();
+
+        // Listen for theme changes from the external toggle
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                    const newTheme = document.documentElement.getAttribute('data-theme');
+                    const siteThemeCss = document.getElementById('site-theme-css');
+                    const toolThemeCss = document.getElementById('tool-theme-css');
+                    
+                    if (siteThemeCss && newTheme) {
+                        siteThemeCss.href = newTheme === 'dark' ? '/assets/css/darkstyle.css' : '/assets/css/style.css';
+                    }
+                    if (toolThemeCss && newTheme) {
+                        toolThemeCss.href = newTheme + '.css';
+                    }
+                }
+            });
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme']
+        });
+    </script>
+    
+    <!-- External Theme Toggle -->
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+</body>
+</html>

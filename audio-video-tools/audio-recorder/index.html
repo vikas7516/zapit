@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Recorder - Audio & Video Tools - Zapit</title>
+    <meta name="description" content="Record high-quality audio directly in your browser using the MediaRecorder API. No software installation required.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/audio-video-tools/audio-recorder">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">🎙️</div>
+                    <h1 class="tool-title">Audio Recorder</h1>
+                    <p class="tool-description">Record high-quality audio directly in your browser with professional controls</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-layout">
+                    <!-- Recorder Section -->
+                    <div class="recorder-section">
+                        <div class="recorder-header">
+                            <h3>Audio Recording</h3>
+                            <div class="recording-status" id="recordingStatus">Ready to Record</div>
+                        </div>
+
+                        <div class="recorder-interface">
+                            <div class="recording-controls">
+                                <button class="btn-record" id="recordBtn">
+                                    <span class="record-icon">🔴</span>
+                                    <span class="record-text">Start Recording</span>
+                                </button>
+                                <button class="btn-stop hidden" id="stopBtn">
+                                    <span class="stop-icon">⏹️</span>
+                                    <span class="stop-text">Stop Recording</span>
+                                </button>
+                                <button class="btn-pause hidden" id="pauseBtn">
+                                    <span class="pause-icon">⏸️</span>
+                                    <span class="pause-text">Pause</span>
+                                </button>
+                            </div>
+
+                            <div class="recording-info">
+                                <div class="timer" id="recordingTimer">00:00</div>
+                                <div class="recording-indicator hidden" id="recordingIndicator">
+                                    <span class="pulse-dot"></span>
+                                    Recording...
+                                </div>
+                            </div>
+
+                            <div class="audio-levels">
+                                <div class="level-label">Input Level:</div>
+                                <div class="level-meter">
+                                    <div class="level-bar" id="levelBar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Settings Section -->
+                    <div class="settings-section">
+                        <div class="settings-header">
+                            <h3>Recording Settings</h3>
+                        </div>
+
+                        <div class="settings-grid">
+                            <div class="setting-group">
+                                <label class="setting-label" for="qualitySelect">Audio Quality</label>
+                                <select id="qualitySelect" class="setting-select">
+                                    <option value="high">High Quality (44.1kHz)</option>
+                                    <option value="medium" selected>Medium Quality (22kHz)</option>
+                                    <option value="low">Low Quality (16kHz)</option>
+                                </select>
+                            </div>
+
+                            <div class="setting-group">
+                                <label class="setting-label" for="formatSelect">Output Format</label>
+                                <select id="formatSelect" class="setting-select">
+                                    <option value="webm">WebM (Recommended)</option>
+                                    <option value="mp4">MP4 (if supported)</option>
+                                    <option value="wav">WAV (Uncompressed)</option>
+                                </select>
+                            </div>
+
+                            <div class="setting-group">
+                                <label class="setting-label" for="micSelect">Microphone</label>
+                                <select id="micSelect" class="setting-select">
+                                    <option value="">Default Microphone</option>
+                                </select>
+                            </div>
+
+                            <div class="setting-group">
+                                <label class="setting-label">
+                                    <input type="checkbox" id="noiseSuppression" checked>
+                                    Noise Suppression
+                                </label>
+                            </div>
+
+                            <div class="setting-group">
+                                <label class="setting-label">
+                                    <input type="checkbox" id="echoCancellation" checked>
+                                    Echo Cancellation
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recordings Section -->
+                    <div class="recordings-section">
+                        <div class="recordings-header">
+                            <h3>Recorded Audio</h3>
+                            <button class="btn-secondary" id="clearAllBtn">Clear All</button>
+                        </div>
+
+                        <div class="recordings-list" id="recordingsList">
+                            <div class="no-recordings">
+                                <div class="no-recordings-icon">🎵</div>
+                                <p>No recordings yet. Start recording to see them here!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructions Section -->
+        <section class="instructions-section">
+            <div class="container">
+                <h2 class="section-title">How to Use Audio Recorder</h2>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <div class="instruction-icon">🎙️</div>
+                        <h3>Grant Permission</h3>
+                        <p>Allow microphone access when prompted by your browser</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">⚙️</div>
+                        <h3>Configure Settings</h3>
+                        <p>Choose quality, format, and microphone settings</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">🔴</div>
+                        <h3>Start Recording</h3>
+                        <p>Click the red record button and start speaking</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">⬇️</div>
+                        <h3>Download Audio</h3>
+                        <p>Stop recording and download your audio file</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <h2 class="section-title">Features</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <h4>Privacy Protected</h4>
+                        <p>All recording happens locally - your audio never leaves your device</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎚️</div>
+                        <h4>Real-time Monitoring</h4>
+                        <p>Visual input level meter to monitor recording quality</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎛️</div>
+                        <h4>Professional Controls</h4>
+                        <p>Noise suppression, echo cancellation, and quality settings</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📱</div>
+                        <h4>Cross-platform</h4>
+                        <p>Works on desktop and mobile browsers with microphone support</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

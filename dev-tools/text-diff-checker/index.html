@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Diff Checker - Developer Tools - Zapit</title>
+    <meta name="description" content="Compare text differences side-by-side with highlighting. Perfect for code review, document comparison, and change detection.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/dev-tools/text-diff-checker">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">🔍</div>
+                    <h1 class="tool-title">Text Diff Checker</h1>
+                    <p class="tool-description">Compare text differences side-by-side with highlighting and detailed change analysis</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <!-- Comparison Options -->
+                <div class="options-panel">
+                    <div class="options-group">
+                        <h4>Comparison Options</h4>
+                        <label class="option-label">
+                            <input type="radio" name="diff-mode" value="words" checked>
+                            Word-by-word comparison
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="diff-mode" value="lines">
+                            Line-by-line comparison
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="diff-mode" value="characters">
+                            Character-by-character comparison
+                        </label>
+                    </div>
+                    
+                    <div class="options-group">
+                        <h4>Display Options</h4>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="ignore-whitespace">
+                            Ignore whitespace differences
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="ignore-case">
+                            Ignore case differences
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="show-line-numbers" checked>
+                            Show line numbers
+                        </label>
+                    </div>
+                    
+                    <div class="options-group">
+                        <h4>Actions</h4>
+                        <button class="btn btn-primary" id="compare-btn">Compare Texts</button>
+                        <button class="btn btn-outline" id="clear-all">Clear All</button>
+                        <button class="btn btn-outline" id="swap-texts">Swap Texts</button>
+                        <button class="btn btn-outline" id="export-diff">Export Diff</button>
+                    </div>
+                </div>
+
+                <!-- Input Areas -->
+                <div class="input-container">
+                    <div class="input-panel">
+                        <div class="input-header">
+                            <h3>Original Text</h3>
+                            <div class="input-actions">
+                                <button class="btn btn-outline btn-sm" id="load-file-1">Load File</button>
+                                <button class="btn btn-outline btn-sm" id="clear-text-1">Clear</button>
+                                <span class="char-count" id="char-count-1">0 characters</span>
+                            </div>
+                        </div>
+                        <textarea 
+                            id="text-1" 
+                            placeholder="Paste your original text here...
+                            
+You can paste code, documents, or any text content.
+Use the options above to customize the comparison.
+
+Example:
+function greet(name) {
+    console.log('Hello, ' + name + '!');
+    return true;
+}"
+                            rows="15"
+                        ></textarea>
+                        <input type="file" id="file-input-1" accept=".txt,.js,.css,.html,.md,.json,.xml,.csv" class="hidden-file-input" title="Load text file">
+                    </div>
+                    
+                    <div class="input-panel">
+                        <div class="input-header">
+                            <h3>Modified Text</h3>
+                            <div class="input-actions">
+                                <button class="btn btn-outline btn-sm" id="load-file-2">Load File</button>
+                                <button class="btn btn-outline btn-sm" id="clear-text-2">Clear</button>
+                                <span class="char-count" id="char-count-2">0 characters</span>
+                            </div>
+                        </div>
+                        <textarea 
+                            id="text-2" 
+                            placeholder="Paste your modified text here...
+                            
+This will be compared against the original text.
+Additions will be highlighted in green.
+Deletions will be highlighted in red.
+
+Example:
+function greet(name, greeting = 'Hello') {
+    console.log(greeting + ', ' + name + '!');
+    return name.length > 0;
+}"
+                            rows="15"
+                        ></textarea>
+                        <input type="file" id="file-input-2" accept=".txt,.js,.css,.html,.md,.json,.xml,.csv" class="hidden-file-input" title="Load text file">
+                    </div>
+                </div>
+
+                <!-- Results Container -->
+                <div class="results-container" id="results-container">
+                    <div class="results-header">
+                        <h3>Comparison Results</h3>
+                        <div class="results-stats" id="results-stats">
+                            <!-- Stats will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Diff Display -->
+                    <div class="diff-display" id="diff-display">
+                        <div class="diff-panel">
+                            <div class="diff-panel-header">
+                                <h4>Original</h4>
+                                <div class="diff-legend">
+                                    <span class="legend-item deleted">Deleted</span>
+                                    <span class="legend-item unchanged">Unchanged</span>
+                                </div>
+                            </div>
+                            <div class="diff-content" id="diff-original"></div>
+                        </div>
+                        
+                        <div class="diff-panel">
+                            <div class="diff-panel-header">
+                                <h4>Modified</h4>
+                                <div class="diff-legend">
+                                    <span class="legend-item added">Added</span>
+                                    <span class="legend-item unchanged">Unchanged</span>
+                                </div>
+                            </div>
+                            <div class="diff-content" id="diff-modified"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Unified Diff -->
+                    <div class="unified-diff" id="unified-diff">
+                        <div class="unified-header">
+                            <h4>Unified Diff</h4>
+                            <button class="btn btn-outline btn-sm" id="copy-unified">Copy</button>
+                        </div>
+                        <pre class="unified-content" id="unified-content"></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Info Panel -->
+        <section class="info-section">
+            <div class="container">
+                <div class="info-panel">
+                    <h3>How to Use Text Diff Checker</h3>
+                    <div class="usage-steps">
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Input Your Texts</h4>
+                                <p>Paste or upload your original and modified texts using the text areas or file upload buttons.</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Choose Comparison Mode</h4>
+                                <p>Select word-by-word, line-by-line, or character-by-character comparison based on your needs.</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Set Options</h4>
+                                <p>Configure whether to ignore whitespace, case differences, and other display options.</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Compare and Analyze</h4>
+                                <p>Click "Compare Texts" to see highlighted differences in side-by-side and unified views.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-features">
+                        <div class="feature-item">
+                            <h4>🔍 Multiple Comparison Modes</h4>
+                            <p>Word, line, or character-level comparisons</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>📁 File Support</h4>
+                            <p>Upload and compare files directly</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>📊 Detailed Statistics</h4>
+                            <p>View addition, deletion, and change counts</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>💾 Export Options</h4>
+                            <p>Export diff results in various formats</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

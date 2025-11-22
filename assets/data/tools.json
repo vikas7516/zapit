@@ -1,0 +1,470 @@
+{
+  "categories": [
+    {
+      "name": "Text & Content Tools",
+      "slug": "text-tools",
+      "tools": [
+        {
+          "name": "Find & Replace",
+          "slug": "find-replace-tool"
+        },
+        {
+          "name": "Lorem Ipsum Generator",
+          "slug": "lorem-ipsum-generator"
+        },
+        {
+          "name": "Markdown to HTML",
+          "slug": "markdown-to-html"
+        },
+        {
+          "name": "Remove Duplicate Lines",
+          "slug": "remove-duplicate-lines"
+        },
+        {
+          "name": "Reverse Text",
+          "slug": "reverse-text"
+        },
+        {
+          "name": "Case Converter",
+          "slug": "text-case-converter"
+        },
+        {
+          "name": "Text Cleaner",
+          "slug": "text-cleaner"
+        },
+        {
+          "name": "Text Comparer",
+          "slug": "text-comparer-diff-checker"
+        },
+        {
+          "name": "Readability Analyzer",
+          "slug": "text-readability-analyzer"
+        },
+        {
+          "name": "Text Sorter",
+          "slug": "text-sorter-randomizer"
+        },
+        {
+          "name": "ASCII Art Generator",
+          "slug": "text-to-ascii-art"
+        },
+        {
+          "name": "URL Slug Generator",
+          "slug": "url-slug-generator"
+        },
+        {
+          "name": "Word Counter",
+          "slug": "word-character-counter"
+        },
+        {
+          "name": "Word Cloud",
+          "slug": "word-cloud-generator"
+        },
+        {
+          "name": "Word Frequency",
+          "slug": "word-frequency-counter"
+        }
+      ]
+    },
+    {
+      "name": "Image & Design Tools",
+      "slug": "image-tools",
+      "tools": [
+        {
+          "name": "Add Watermark",
+          "slug": "add-watermark"
+        },
+        {
+          "name": "Base64 to Image",
+          "slug": "base64-to-image"
+        },
+        {
+          "name": "Color Picker",
+          "slug": "color-picker-palette-extractor"
+        },
+        {
+          "name": "Image Compressor",
+          "slug": "image-compressor"
+        },
+        {
+          "name": "Image Cropper",
+          "slug": "image-cropper-rotator"
+        },
+        {
+          "name": "Format Converter",
+          "slug": "image-format-converter"
+        },
+        {
+          "name": "Image Resizer",
+          "slug": "image-resizer"
+        },
+        {
+          "name": "Image to Base64",
+          "slug": "image-to-base64"
+        },
+        {
+          "name": "Favicon Generator",
+          "slug": "favicon-generator"
+        },
+        {
+          "name": "Meme Generator",
+          "slug": "meme-generator"
+        },
+        {
+          "name": "EXIF Viewer",
+          "slug": "exif-viewer"
+        }
+      ]
+    },
+    {
+      "name": "PDF & Document Tools",
+      "slug": "pdf-tools",
+      "tools": [
+        {
+          "name": "Add Page Numbers",
+          "slug": "add-page-numbers"
+        },
+        {
+          "name": "Compress PDF",
+          "slug": "compress-pdf"
+        },
+        {
+          "name": "PDF Merger",
+          "slug": "pdf-merger"
+        },
+        {
+          "name": "PDF Splitter",
+          "slug": "pdf-splitter"
+        },
+        {
+          "name": "Protect PDF",
+          "slug": "protect-pdf"
+        },
+        {
+          "name": "Rotate PDF",
+          "slug": "rotate-pdf"
+        },
+        {
+          "name": "Unlock PDF",
+          "slug": "unlock-pdf"
+        }
+      ]
+    },
+    {
+      "name": "Math Calculators",
+      "slug": "math-calculators",
+      "tools": [
+        {
+          "name": "Age Calculator",
+          "slug": "age-calculator"
+        },
+        {
+          "name": "Amortization Calculator",
+          "slug": "amortization-calculator"
+        },
+        {
+          "name": "Date Difference",
+          "slug": "date-difference-calculator"
+        },
+        {
+          "name": "Inflation Calculator",
+          "slug": "inflation-calculator"
+        },
+        {
+          "name": "Percentage Calculator",
+          "slug": "percentage-calculator"
+        },
+        {
+          "name": "Scientific Calculator",
+          "slug": "scientific-calculator"
+        }
+      ]
+    },
+    {
+      "name": "Unit Converters",
+      "slug": "unit-converters",
+      "tools": [
+        {
+          "name": "Cooking Converter",
+          "slug": "cooking-converter"
+        },
+        {
+          "name": "Data Size Converter",
+          "slug": "data-size-converter"
+        },
+        {
+          "name": "Number Base Converter",
+          "slug": "number-base-converter"
+        },
+        {
+          "name": "Standard Converters",
+          "slug": "standard-unit-converters"
+        },
+        {
+          "name": "Time Zone Converter",
+          "slug": "time-zone-converter"
+        },
+        {
+          "name": "Typography Converter",
+          "slug": "typography-unit-converter"
+        }
+      ]
+    },
+    {
+      "name": "Developer & Web Tools",
+      "slug": "dev-tools",
+      "tools": [
+        {
+          "name": "Base64 Encoder/Decoder",
+          "slug": "base64-encoder-decoder"
+        },
+        {
+          "name": "Chmod Calculator",
+          "slug": "chmod-calculator"
+        },
+        {
+          "name": "Code Minifier",
+          "slug": "code-minifier-beautifier"
+        },
+        {
+          "name": "Color Palette Generator",
+          "slug": "color-palette-generator"
+        },
+        {
+          "name": "Cron Job Generator",
+          "slug": "cron-job-generator"
+        },
+        {
+          "name": "DNS Lookup",
+          "slug": "dns-lookup-tool"
+        },
+        {
+          "name": "Hash Generator",
+          "slug": "hash-generator-verifier"
+        },
+        {
+          "name": "JSON Formatter",
+          "slug": "json-formatter-validator"
+        },
+        {
+          "name": "JWT Debugger",
+          "slug": "jwt-debugger"
+        },
+        {
+          "name": "Markdown Editor",
+          "slug": "markdown-editor-preview"
+        },
+        {
+          "name": "Regex Tester",
+          "slug": "regex-tester"
+        },
+        {
+          "name": "Text Diff Checker",
+          "slug": "text-diff-checker"
+        },
+        {
+          "name": "Timestamp Converter",
+          "slug": "unix-timestamp-converter"
+        },
+        {
+          "name": "URL Encoder/Decoder",
+          "slug": "url-encoder-decoder"
+        },
+        {
+          "name": "User Agent Checker",
+          "slug": "user-agent-checker"
+        },
+        {
+          "name": "API Request Builder",
+          "slug": "api-request-builder"
+        }
+      ]
+    },
+    {
+      "name": "Security & Network Tools",
+      "slug": "security-tools",
+      "tools": [
+        {
+          "name": "Hash Generator",
+          "slug": "hash-generator"
+        },
+        {
+          "name": "JWT Decoder",
+          "slug": "jwt-decoder"
+        },
+        {
+          "name": "Password Generator",
+          "slug": "password-generator"
+        },
+        {
+          "name": "Password Strength",
+          "slug": "password-strength-analyzer"
+        },
+        {
+          "name": "Random Generator",
+          "slug": "random-generator"
+        },
+        {
+          "name": "Text Encryption",
+          "slug": "text-encryption"
+        },
+        {
+          "name": "TOTP Generator",
+          "slug": "totp-generator"
+        },
+        {
+          "name": "UUID Generator",
+          "slug": "uuid-generator"
+        },
+        {
+          "name": "IP Lookup",
+          "slug": "ip-lookup"
+        }
+      ]
+    },
+    {
+      "name": "Audio & Video Tools",
+      "slug": "audio-video-tools",
+      "tools": [
+        {
+          "name": "Audio Analyzer",
+          "slug": "audio-analyzer"
+        },
+        {
+          "name": "Audio Effects",
+          "slug": "audio-effects"
+        },
+        {
+          "name": "Audio Equalizer",
+          "slug": "audio-equalizer"
+        },
+        {
+          "name": "Audio Merger",
+          "slug": "audio-merger"
+        },
+        {
+          "name": "Audio Recorder",
+          "slug": "audio-recorder"
+        },
+        {
+          "name": "Audio Trimmer",
+          "slug": "audio-trimmer"
+        },
+        {
+          "name": "Audio Visualizer",
+          "slug": "audio-visualizer"
+        },
+        {
+          "name": "BPM Detector",
+          "slug": "bpm-detector"
+        },
+        {
+          "name": "Noise Reducer",
+          "slug": "noise-reducer"
+        },
+        {
+          "name": "Silence Remover",
+          "slug": "silence-remover"
+        },
+        {
+          "name": "Speed Changer",
+          "slug": "speed-changer"
+        },
+        {
+          "name": "Volume Normalizer",
+          "slug": "volume-normalizer"
+        }
+      ]
+    },
+    {
+      "name": "Health & Fitness Calculators",
+      "slug": "health-fitness-calculators",
+      "tools": [
+        {
+          "name": "BMI Calculator",
+          "slug": "bmi-calculator"
+        },
+        {
+          "name": "BMR Calculator",
+          "slug": "bmr-calculator"
+        },
+        {
+          "name": "Calorie Calculator",
+          "slug": "daily-calorie-calculator"
+        },
+        {
+          "name": "Due Date Calculator",
+          "slug": "pregnancy-due-date"
+        }
+      ]
+    },
+    {
+      "name": "Financial Calculators",
+      "slug": "financial-calculators",
+      "tools": [
+        {
+          "name": "Compound Interest",
+          "slug": "compound-interest"
+        },
+        {
+          "name": "Fuel Cost",
+          "slug": "fuel-cost-calculator"
+        },
+        {
+          "name": "Loan EMI",
+          "slug": "loan-emi-calculator"
+        },
+        {
+          "name": "Retirement Savings",
+          "slug": "retirement-savings"
+        },
+        {
+          "name": "Salary Calculator",
+          "slug": "salary-calculator"
+        },
+        {
+          "name": "Tip Calculator",
+          "slug": "tip-calculator"
+        }
+      ]
+    },
+    {
+      "name": "Utility & Fun Tools",
+      "slug": "utility-tools",
+      "tools": [
+        {
+          "name": "CGPA Calculator",
+          "slug": "CGPA-Calculator"
+        },
+        {
+          "name": "Barcode Generator",
+          "slug": "barcode-generator"
+        },
+        {
+          "name": "Decision Wheel",
+          "slug": "decision-wheel"
+        },
+        {
+          "name": "Dice Roller",
+          "slug": "dice-roller"
+        },
+        {
+          "name": "Dummy Data",
+          "slug": "dummy-data-generator"
+        },
+        {
+          "name": "Whiteboard",
+          "slug": "online-whiteboard"
+        },
+        {
+          "name": "QR Code Generator",
+          "slug": "qr-code-generator-reader"
+        },
+        {
+          "name": "Stopwatch",
+          "slug": "stopwatch-timer"
+        }
+      ]
+    }
+  ]
+}

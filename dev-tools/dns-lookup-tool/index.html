@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNS Lookup Tool - Developer Tools - Zapit</title>
+    <meta name="description" content="Perform comprehensive DNS lookups, check DNS records, and analyze domain information for network diagnostics and troubleshooting.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link rel="canonical" href="https://zapit.me/dev-tools/dns-lookup-tool">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">🌐</div>
+                    <h1 class="tool-title">DNS Lookup Tool</h1>
+                    <p class="tool-description">Perform comprehensive DNS lookups, check DNS records, and analyze domain information</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-container">
+
+            <!-- Lookup Form -->
+            <div class="lookup-panel">
+                <h3>DNS Lookup</h3>
+                <div class="lookup-form">
+                    <div class="input-group">
+                        <label for="domainInput">Domain or IP Address:</label>
+                        <div class="input-with-button">
+                            <input type="text" id="domainInput" placeholder="example.com or 8.8.8.8" title="Enter domain name or IP address">
+                            <button id="lookupBtn" class="btn btn-primary">Lookup</button>
+                        </div>
+                    </div>
+                    
+                    <div class="options-group">
+                        <div class="record-types">
+                            <label>Record Types:</label>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="recordA" checked title="A records">
+                                    <span>A</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="recordAAAA" title="AAAA records">
+                                    <span>AAAA</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="recordCNAME" checked title="CNAME records">
+                                    <span>CNAME</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="recordMX" checked title="MX records">
+                                    <span>MX</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="recordTXT" title="TXT records">
+                                    <span>TXT</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="recordNS" title="NS records">
+                                    <span>NS</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="recordSOA" title="SOA records">
+                                    <span>SOA</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="recordPTR" title="PTR records">
+                                    <span>PTR</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="quick-actions">
+                            <button id="selectAllBtn" class="btn btn-outline btn-sm">Select All</button>
+                            <button id="clearAllBtn" class="btn btn-outline btn-sm">Clear All</button>
+                            <button id="commonBtn" class="btn btn-outline btn-sm">Common Only</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div class="loading-container hidden" id="loadingContainer">
+                <div class="loading-spinner"></div>
+                <p>Performing DNS lookup...</p>
+            </div>
+
+            <!-- Results Container -->
+            <div class="results-container hidden" id="resultsContainer">
+                <div class="results-header">
+                    <h3>DNS Lookup Results</h3>
+                    <div class="results-actions">
+                        <button id="exportResults" class="btn btn-outline btn-sm">Export Results</button>
+                        <button id="copyResults" class="btn btn-outline btn-sm">Copy to Clipboard</button>
+                        <button id="clearResults" class="btn btn-outline btn-sm">Clear Results</button>
+                    </div>
+                </div>
+                
+                <div class="domain-summary" id="domainSummary"></div>
+                <div class="records-display" id="recordsDisplay"></div>
+            </div>
+
+            <!-- Quick Tools -->
+            <div class="quick-tools-panel">
+                <h3>Quick Tools</h3>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <h4>🌐 Reverse DNS</h4>
+                        <p>Find domain name from IP address</p>
+                        <input type="text" id="reverseIp" placeholder="192.168.1.1" title="Enter IP address for reverse lookup">
+                        <button id="reverseLookupBtn" class="btn btn-primary btn-sm">Reverse Lookup</button>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <h4>🔍 WHOIS Lookup</h4>
+                        <p>Get domain registration information</p>
+                        <input type="text" id="whoisDomain" placeholder="example.com" title="Enter domain for WHOIS lookup">
+                        <button id="whoisBtn" class="btn btn-primary btn-sm">WHOIS Lookup</button>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <h4>🏃‍♂️ Ping Test</h4>
+                        <p>Test connectivity to domain/IP</p>
+                        <input type="text" id="pingTarget" placeholder="google.com" title="Enter domain or IP to ping">
+                        <button id="pingBtn" class="btn btn-primary btn-sm">Ping Test</button>
+                    </div>
+                    
+                    <div class="tool-card">
+                        <h4>📊 DNS Propagation</h4>
+                        <p>Check DNS propagation worldwide</p>
+                        <input type="text" id="propagationDomain" placeholder="example.com" title="Enter domain to check propagation">
+                        <button id="propagationBtn" class="btn btn-primary btn-sm">Check Propagation</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Lookups -->
+            <div class="recent-lookups-panel">
+                <div class="panel-header">
+                    <h3>Recent Lookups</h3>
+                    <button id="clearHistory" class="btn btn-outline btn-sm">Clear History</button>
+                </div>
+                <div class="recent-lookups-list" id="recentLookupsList">
+                    <div class="empty-state">
+                        <p>No recent lookups. Start by performing a DNS lookup above.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool Information -->
+            <div class="info-section">
+                <div class="info-panel">
+                    <h3>How to Use DNS Lookup Tool</h3>
+                    
+                    <div class="usage-steps">
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Enter Domain or IP</h4>
+                                <p>Type a domain name (like example.com) or IP address (like 8.8.8.8) to lookup DNS records and network information.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Select Record Types</h4>
+                                <p>Choose which DNS record types to query: A, AAAA, CNAME, MX, TXT, NS, SOA, or PTR records based on your needs.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Perform Lookup</h4>
+                                <p>Click "Lookup" to query DNS servers and retrieve comprehensive record information including IP addresses and configurations.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Analyze Results</h4>
+                                <p>Review the detailed DNS records, export results, or use quick tools for reverse DNS, WHOIS, ping tests, and propagation checks.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-features">
+                        <div class="feature-item">
+                            <h4>🔍 Comprehensive Lookup</h4>
+                            <p>Query all major DNS record types in one operation</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <h4>⚡ Quick Tools</h4>
+                            <p>Access reverse DNS, WHOIS, ping, and propagation tools</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <h4>📊 Detailed Results</h4>
+                            <p>View structured DNS data with export capabilities</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <h4>📝 History Tracking</h4>
+                            <p>Keep track of recent lookups for easy reference</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/assets/js/script.js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

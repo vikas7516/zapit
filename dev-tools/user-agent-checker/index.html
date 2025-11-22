@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User-Agent Checker - Developer Tools - Zapit</title>
+    <meta name="description" content="Check your browser's user agent string and get detailed information about your browser, device, and operating system.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/dev-tools/user-agent-checker">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">🌐</div>
+                    <h1 class="tool-title">User-Agent Checker</h1>
+                    <p class="tool-description">Analyze your browser's user agent string and get detailed device information</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-card">
+                    <!-- Current User Agent -->
+                    <div class="current-ua-section">
+                        <h3>Your Current User Agent</h3>
+                        <div class="ua-display">
+                            <textarea id="current-ua" readonly aria-label="Your current user agent string"></textarea>
+                            <button id="copy-ua" class="btn btn-outline copy-btn">Copy</button>
+                        </div>
+                    </div>
+
+                    <!-- Custom User Agent -->
+                    <div class="custom-ua-section">
+                        <h3>Analyze Custom User Agent</h3>
+                        <div class="form-group">
+                            <label for="custom-ua-input">Enter User Agent String:</label>
+                            <textarea id="custom-ua-input" placeholder="Paste a user agent string here to analyze..."></textarea>
+                            <div class="button-group">
+                                <button id="analyze-btn" class="btn btn-primary">Analyze</button>
+                                <button id="clear-btn" class="btn btn-outline">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analysis Results -->
+                    <div class="analysis-section">
+                        <h3>User Agent Analysis</h3>
+                        <div class="analysis-grid">
+                            <!-- Browser Info -->
+                            <div class="info-card">
+                                <h4>Browser Information</h4>
+                                <div class="info-content">
+                                    <div class="info-item">
+                                        <span class="info-label">Browser:</span>
+                                        <span class="info-value" id="browser-name">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Version:</span>
+                                        <span class="info-value" id="browser-version">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Engine:</span>
+                                        <span class="info-value" id="browser-engine">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Engine Version:</span>
+                                        <span class="info-value" id="engine-version">-</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Operating System -->
+                            <div class="info-card">
+                                <h4>Operating System</h4>
+                                <div class="info-content">
+                                    <div class="info-item">
+                                        <span class="info-label">OS:</span>
+                                        <span class="info-value" id="os-name">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Version:</span>
+                                        <span class="info-value" id="os-version">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Architecture:</span>
+                                        <span class="info-value" id="os-arch">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Platform:</span>
+                                        <span class="info-value" id="platform">-</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Device Info -->
+                            <div class="info-card">
+                                <h4>Device Information</h4>
+                                <div class="info-content">
+                                    <div class="info-item">
+                                        <span class="info-label">Device Type:</span>
+                                        <span class="info-value" id="device-type">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Vendor:</span>
+                                        <span class="info-value" id="device-vendor">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Model:</span>
+                                        <span class="info-value" id="device-model">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Touch Support:</span>
+                                        <span class="info-value" id="touch-support">-</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Screen & Features -->
+                            <div class="info-card">
+                                <h4>Screen & Features</h4>
+                                <div class="info-content">
+                                    <div class="info-item">
+                                        <span class="info-label">Screen Resolution:</span>
+                                        <span class="info-value" id="screen-resolution">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Color Depth:</span>
+                                        <span class="info-value" id="color-depth">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Timezone:</span>
+                                        <span class="info-value" id="timezone">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Language:</span>
+                                        <span class="info-value" id="language">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Raw User Agent Breakdown -->
+                    <div class="breakdown-section">
+                        <h3>User Agent Breakdown</h3>
+                        <div class="breakdown-content">
+                            <div class="breakdown-item">
+                                <h5>Product Information</h5>
+                                <div class="breakdown-value" id="product-info">-</div>
+                            </div>
+                            <div class="breakdown-item">
+                                <h5>System Information</h5>
+                                <div class="breakdown-value" id="system-info">-</div>
+                            </div>
+                            <div class="breakdown-item">
+                                <h5>Extensions & Plugins</h5>
+                                <div class="breakdown-value" id="extensions-info">-</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Panel -->
+                <div class="info-panel">
+                    <h3>About User Agent Strings</h3>
+                    <p>A User Agent string is a text string that web browsers send to websites to identify themselves. It contains information about the browser, operating system, device, and other capabilities.</p>
+                    
+                    <div class="ua-format">
+                        <h4>User Agent Format</h4>
+                        <p>User Agent strings typically follow this pattern:</p>
+                        <code>Mozilla/5.0 (Platform; Security; OS-or-CPU; Localization) Gecko/GeckoDate ProductName/ProductVersion</code>
+                    </div>
+
+                    <div class="ua-uses">
+                        <h4>Common Uses</h4>
+                        <ul>
+                            <li><strong>Content Adaptation:</strong> Serve different content for mobile vs desktop</li>
+                            <li><strong>Feature Detection:</strong> Enable/disable features based on browser capabilities</li>
+                            <li><strong>Analytics:</strong> Track browser and device usage statistics</li>
+                            <li><strong>Security:</strong> Block or allow access based on browser type</li>
+                            <li><strong>Debugging:</strong> Identify browser-specific issues</li>
+                        </ul>
+                    </div>
+
+                    <div class="privacy-note">
+                        <h4>Privacy Considerations</h4>
+                        <p>User Agent strings can be used for browser fingerprinting. Modern browsers are working to reduce the amount of identifying information in User Agent strings to improve user privacy.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

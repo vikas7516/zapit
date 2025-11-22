@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unix Timestamp Converter - Developer Tools - Zapit</title>
+    <meta name="description" content="Convert between Unix timestamps and human-readable dates with timezone support and various format options.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/dev-tools/unix-timestamp-converter">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">⏰</div>
+                    <h1 class="tool-title">Unix Timestamp Converter</h1>
+                    <p class="tool-description">Convert between Unix timestamps and human-readable dates with timezone support</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-card">
+                    <!-- Current Time Section -->
+                    <div class="current-time-section">
+                        <div class="section-header">
+                            <h3>Current Time</h3>
+                            <div class="header-actions">
+                                <button id="refresh-time" class="btn btn-outline">Refresh</button>
+                            </div>
+                        </div>
+                        <div class="current-time-display">
+                            <div class="time-card">
+                                <h4>Current Unix Timestamp</h4>
+                                <div class="timestamp-value" id="current-timestamp">-</div>
+                                <button class="copy-btn" id="copy-current-timestamp">Copy</button>
+                            </div>
+                            <div class="time-card">
+                                <h4>Current Human Date</h4>
+                                <div class="date-value" id="current-date">-</div>
+                                <button class="copy-btn" id="copy-current-date">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timestamp to Date Converter -->
+                    <div class="converter-section">
+                        <div class="section-header">
+                            <h3>Timestamp to Date</h3>
+                            <div class="header-actions">
+                                <button id="clear-timestamp" class="btn btn-outline">Clear</button>
+                                <button id="use-current-timestamp" class="btn btn-outline">Use Current</button>
+                            </div>
+                        </div>
+                        <div class="converter-content">
+                            <div class="input-group">
+                                <label for="timestamp-input">Unix Timestamp:</label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="timestamp-input" placeholder="Enter Unix timestamp (e.g., 1672531200)" />
+                                    <div class="timestamp-unit">
+                                        <label for="timestamp-unit" class="visually-hidden">Timestamp Unit</label>
+                                        <select id="timestamp-unit" title="Timestamp Unit">
+                                            <option value="seconds">Seconds</option>
+                                            <option value="milliseconds">Milliseconds</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input-info">
+                                    <span class="validation-status" id="timestamp-validation">Enter a timestamp</span>
+                                </div>
+                            </div>
+                            <div class="result-group">
+                                <h4>Converted Date</h4>
+                                <div class="date-formats" id="timestamp-results">
+                                    <div class="format-item">
+                                        <span class="format-label">ISO 8601:</span>
+                                        <span class="format-value" id="iso-format">-</span>
+                                        <button class="copy-format-btn" data-target="iso-format">Copy</button>
+                                    </div>
+                                    <div class="format-item">
+                                        <span class="format-label">RFC 2822:</span>
+                                        <span class="format-value" id="rfc-format">-</span>
+                                        <button class="copy-format-btn" data-target="rfc-format">Copy</button>
+                                    </div>
+                                    <div class="format-item">
+                                        <span class="format-label">Local:</span>
+                                        <span class="format-value" id="local-format">-</span>
+                                        <button class="copy-format-btn" data-target="local-format">Copy</button>
+                                    </div>
+                                    <div class="format-item">
+                                        <span class="format-label">UTC:</span>
+                                        <span class="format-value" id="utc-format">-</span>
+                                        <button class="copy-format-btn" data-target="utc-format">Copy</button>
+                                    </div>
+                                    <div class="format-item">
+                                        <span class="format-label">Relative:</span>
+                                        <span class="format-value" id="relative-format">-</span>
+                                        <button class="copy-format-btn" data-target="relative-format">Copy</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Date to Timestamp Converter -->
+                    <div class="converter-section">
+                        <div class="section-header">
+                            <h3>Date to Timestamp</h3>
+                            <div class="header-actions">
+                                <button id="clear-date" class="btn btn-outline">Clear</button>
+                                <button id="use-current-date" class="btn btn-outline">Use Current</button>
+                            </div>
+                        </div>
+                        <div class="converter-content">
+                            <div class="date-input-methods">
+                                <div class="input-method-tabs">
+                                    <button class="method-tab active" data-method="picker">Date Picker</button>
+                                    <button class="method-tab" data-method="manual">Manual Entry</button>
+                                </div>
+                                
+                                <div class="input-method picker-method">
+                                    <div class="date-picker-group">
+                                        <div class="form-group">
+                                            <label for="date-picker">Date:</label>
+                                            <input type="date" id="date-picker" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="time-picker">Time:</label>
+                                            <input type="time" id="time-picker" step="1" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="timezone-picker">Timezone:</label>
+                                            <select id="timezone-picker">
+                                                <option value="local">Local Timezone</option>
+                                                <option value="UTC">UTC</option>
+                                                <option value="America/New_York">America/New_York (EST/EDT)</option>
+                                                <option value="America/Los_Angeles">America/Los_Angeles (PST/PDT)</option>
+                                                <option value="Europe/London">Europe/London (GMT/BST)</option>
+                                                <option value="Europe/Paris">Europe/Paris (CET/CEST)</option>
+                                                <option value="Asia/Tokyo">Asia/Tokyo (JST)</option>
+                                                <option value="Asia/Shanghai">Asia/Shanghai (CST)</option>
+                                                <option value="Australia/Sydney">Australia/Sydney (AEST/AEDT)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="input-method manual-method hidden">
+                                    <div class="form-group">
+                                        <label for="manual-date-input">Date String:</label>
+                                        <input type="text" id="manual-date-input" placeholder="Enter date (e.g., 2024-01-01 12:00:00, Jan 1 2024, etc.)" />
+                                        <div class="input-help">
+                                            Supports various formats: ISO 8601, RFC 2822, natural language
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-group">
+                                <h4>Generated Timestamps</h4>
+                                <div class="timestamp-formats" id="date-results">
+                                    <div class="format-item">
+                                        <span class="format-label">Seconds:</span>
+                                        <span class="format-value" id="seconds-timestamp">-</span>
+                                        <button class="copy-format-btn" data-target="seconds-timestamp">Copy</button>
+                                    </div>
+                                    <div class="format-item">
+                                        <span class="format-label">Milliseconds:</span>
+                                        <span class="format-value" id="milliseconds-timestamp">-</span>
+                                        <button class="copy-format-btn" data-target="milliseconds-timestamp">Copy</button>
+                                    </div>
+                                    <div class="format-item">
+                                        <span class="format-label">JavaScript:</span>
+                                        <span class="format-value" id="javascript-timestamp">-</span>
+                                        <button class="copy-format-btn" data-target="javascript-timestamp">Copy</button>
+                                    </div>
+                                </div>
+                                <div class="validation-info">
+                                    <span class="date-validation" id="date-validation">Select or enter a date</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Batch Converter -->
+                    <div class="batch-section">
+                        <div class="section-header">
+                            <h3>Batch Converter</h3>
+                            <div class="header-actions">
+                                <button id="clear-batch" class="btn btn-outline">Clear</button>
+                                <button id="export-batch" class="btn btn-outline">Export CSV</button>
+                            </div>
+                        </div>
+                        <div class="batch-content">
+                            <div class="form-group">
+                                <label for="batch-input">Timestamps (one per line):</label>
+                                <textarea id="batch-input" placeholder="Enter multiple timestamps, one per line..." rows="6"></textarea>
+                            </div>
+                            <div class="batch-controls">
+                                <button id="convert-batch" class="btn btn-primary">Convert All</button>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="batch-milliseconds">
+                                    <span>Input is in milliseconds</span>
+                                </label>
+                            </div>
+                            <div class="batch-results" id="batch-results">
+                                <div class="no-results">Enter timestamps and click "Convert All" to see results</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Timestamps -->
+                    <div class="quick-section">
+                        <h3>Quick Timestamps</h3>
+                        <div class="quick-grid">
+                            <button class="quick-btn" data-offset="0">Now</button>
+                            <button class="quick-btn" data-offset="-3600">1 Hour Ago</button>
+                            <button class="quick-btn" data-offset="-86400">1 Day Ago</button>
+                            <button class="quick-btn" data-offset="-604800">1 Week Ago</button>
+                            <button class="quick-btn" data-offset="-2592000">1 Month Ago</button>
+                            <button class="quick-btn" data-offset="-31536000">1 Year Ago</button>
+                            <button class="quick-btn" data-offset="3600">1 Hour from Now</button>
+                            <button class="quick-btn" data-offset="86400">1 Day from Now</button>
+                            <button class="quick-btn" data-offset="604800">1 Week from Now</button>
+                            <button class="quick-btn" data-offset="2592000">1 Month from Now</button>
+                            <button class="quick-btn" data-offset="31536000">1 Year from Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Panel -->
+                <div class="info-panel">
+                    <h3>About Unix Timestamps</h3>
+                    <p>Unix timestamp (also known as Epoch time) is a system for describing points in time, defined as the number of seconds that have elapsed since 00:00:00 Coordinated Universal Time (UTC), Thursday, 1 January 1970.</p>
+                    
+                    <div class="timestamp-info">
+                        <h4>Key Facts</h4>
+                        <ul>
+                            <li><strong>Epoch Start:</strong> January 1, 1970, 00:00:00 UTC</li>
+                            <li><strong>Resolution:</strong> Typically measured in seconds, sometimes milliseconds</li>
+                            <li><strong>Range:</strong> Can represent dates from 1970 to 2038 (32-bit) or much further (64-bit)</li>
+                            <li><strong>Universal:</strong> Same value represents the same moment worldwide</li>
+                            <li><strong>Programming:</strong> Widely used in databases, APIs, and programming languages</li>
+                        </ul>
+                    </div>
+
+                    <div class="formats-info">
+                        <h4>Common Formats</h4>
+                        <div class="format-examples">
+                            <div class="format-example">
+                                <strong>Seconds:</strong> 1672531200
+                                <span>Standard Unix timestamp</span>
+                            </div>
+                            <div class="format-example">
+                                <strong>Milliseconds:</strong> 1672531200000
+                                <span>JavaScript Date.now() format</span>
+                            </div>
+                            <div class="format-example">
+                                <strong>ISO 8601:</strong> 2023-01-01T00:00:00.000Z
+                                <span>International standard format</span>
+                            </div>
+                            <div class="format-example">
+                                <strong>RFC 2822:</strong> Sun, 01 Jan 2023 00:00:00 GMT
+                                <span>Email and HTTP headers format</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="use-cases">
+                        <h4>Common Use Cases</h4>
+                        <ul>
+                            <li><strong>Database Storage:</strong> Efficient storage of date/time data</li>
+                            <li><strong>API Responses:</strong> Standardized time representation in JSON</li>
+                            <li><strong>Log Files:</strong> Precise timing of events</li>
+                            <li><strong>Caching:</strong> Expiration times for cached data</li>
+                            <li><strong>Scheduling:</strong> Task scheduling and cron jobs</li>
+                            <li><strong>Analytics:</strong> Time-based data analysis</li>
+                        </ul>
+                    </div>
+
+                    <div class="timezone-note">
+                        <h4>Timezone Considerations</h4>
+                        <p>Unix timestamps are always in UTC. When converting to human-readable formats, timezone offsets are applied for display purposes only. The underlying timestamp value remains the same regardless of the viewer's location.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

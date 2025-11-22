@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Text Cleaner - Text Tools - Zapit</title>
+	<meta name="description" content="Clean messy text in seconds. Remove extra spaces, HTML tags, punctuation, digits, emojis, and more with one click and instant previews.">
+	<meta property="og:title" content="Text Cleaner - Zapit">
+	<meta property="og:description" content="Sanitize and tidy any text snippet with customizable cleanup presets and detailed stats.">
+	<meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+	<link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+	<link id="tool-theme-css" rel="stylesheet" href="light.css">
+	<link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+	<link rel="canonical" href="https://zapit.me/text-tools/text-cleaner">
+	<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+	<link rel="icon" href="/icons/favicon.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+	<link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+	<header class="site-header">
+		<div class="container">
+			<div class="header-nav">
+				<a href="/index.html" class="brand" aria-label="Zapit Home">
+					<img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+					<span class="brand-text">
+						<span class="brand-title">Zapit</span>
+						<span class="brand-tagline">A Zap Away From Done</span>
+					</span>
+				</a>
+				<div class="header-right">
+					<nav class="breadcrumb">
+						<a href="/">Home</a>
+						<span class="separator">/</span>
+						<a href="/text-tools">Text Tools</a>
+						<span class="separator">/</span>
+						<span class="current">Text Cleaner</span>
+					</nav>
+					<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+						<span class="theme-toggle-icon">🌙</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="tool-hero">
+			<div class="container">
+				<div class="tool-hero-content">
+					<div class="tool-icon-large">🧽</div>
+					<h1 class="tool-title">Text Cleaner</h1>
+					<p class="tool-description">Paste messy text and clean it with curated presets or fine-grained options. Strip tags, extra spaces, punctuation, or emojis while keeping the parts you need.</p>
+					<div class="tool-meta">
+						<span class="meta-pill">Smart Presets</span>
+						<span class="meta-pill">Regex-Friendly</span>
+						<span class="meta-pill">Offline &amp; Private</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="tool-interface">
+			<div class="container">
+				<div class="tool-layout">
+					<div class="tool-card span-8" aria-labelledby="input-heading">
+						<div class="section-header">
+							<h2 id="input-heading">Input Text</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="loadSampleBtn">Load Sample</button>
+								<button type="button" class="btn btn-secondary" id="clearBtn">Clear</button>
+							</div>
+						</div>
+						<label class="sr-only" for="sourceText">Paste the text you want to clean</label>
+						<textarea id="sourceText" class="text-input large" placeholder="Paste or type your text here..." aria-describedby="input-help"></textarea>
+						<p class="helper-text" id="input-help">Supports up to 200,000 characters. Adjust the cleanup options to match your content and preview the impact instantly.</p>
+						<div class="notification hidden" id="statusBanner" role="status"></div>
+					</div>
+
+					<div class="tool-card span-4" aria-labelledby="options-heading">
+						<div class="section-header">
+							<h2 id="options-heading">Cleanup Options</h2>
+						</div>
+						<fieldset class="options-stack" aria-labelledby="basic-options-heading">
+							<legend id="basic-options-heading" class="stack-title">Core Fixes</legend>
+							<div class="option-grid">
+								<label class="checkbox">
+									<input type="checkbox" id="trimWhitespace" checked>
+									<span>Trim leading and trailing whitespace</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="collapseSpaces" checked>
+									<span>Collapse multiple spaces into one</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="normalizeLinebreaks" checked>
+									<span>Normalize line breaks (CRLF → LF)</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="removeBlankLines">
+									<span>Remove blank or whitespace-only lines</span>
+								</label>
+							</div>
+						</fieldset>
+
+						<fieldset class="options-stack" aria-labelledby="advanced-options-heading">
+							<legend id="advanced-options-heading" class="stack-title">Advanced Filters</legend>
+							<div class="option-grid">
+								<label class="checkbox">
+									<input type="checkbox" id="stripHtml">
+									<span>Strip HTML tags &amp; inline styles</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="stripPunctuation">
+									<span>Remove punctuation symbols</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="stripDigits">
+									<span>Remove digits</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="stripEmojis">
+									<span>Remove emoji &amp; symbols</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="flattenQuotes">
+									<span>Convert curly quotes to straight quotes</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="forceLowercase">
+									<span>Force lowercase output</span>
+								</label>
+							</div>
+						</fieldset>
+
+						<div class="custom-replace" aria-labelledby="custom-heading">
+							<h3 class="stack-title" id="custom-heading">Custom Replace (optional)</h3>
+							<label class="sr-only" for="findPattern">Find pattern (regex or text)</label>
+							<input type="text" class="text-input" id="findPattern" placeholder="Find pattern e.g. \d+ or foo">
+							<label class="sr-only" for="replaceValue">Replace with</label>
+							<input type="text" class="text-input" id="replaceValue" placeholder="Replacement text">
+							<label class="checkbox inline-checkbox">
+								<input type="checkbox" id="useRegex">
+								<span>Treat pattern as regular expression</span>
+							</label>
+						</div>
+
+						<div class="preset-block" aria-labelledby="presets-heading">
+							<h3 class="stack-title" id="presets-heading">Presets</h3>
+							<div class="preset-grid">
+								<button type="button" class="preset-btn" data-preset="readable">Readable paragraphs</button>
+								<button type="button" class="preset-btn" data-preset="slug">Slug friendly</button>
+								<button type="button" class="preset-btn" data-preset="numbers">Numbers only</button>
+								<button type="button" class="preset-btn" data-preset="letters">Letters only</button>
+							</div>
+						</div>
+
+						<div class="button-row">
+							<button type="button" class="btn btn-primary" id="cleanBtn">Clean Text</button>
+							<button type="button" class="btn btn-outline" id="copyOriginalBtn">Copy Original</button>
+						</div>
+					</div>
+
+					<div class="tool-card span-12" aria-labelledby="results-heading">
+						<div class="section-header">
+							<h2 id="results-heading">Results</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-secondary" id="copyResultBtn">Copy Result</button>
+								<button type="button" class="btn btn-outline" id="downloadBtn">Download</button>
+								<button type="button" class="btn btn-outline" id="replaceInputBtn">Replace Input</button>
+							</div>
+						</div>
+						<div class="results-grid">
+							<div class="result-panel">
+								<div class="result-header">
+									<h3>Cleaned Text</h3>
+									<span class="badge" id="changeBadge">No changes yet</span>
+								</div>
+								<pre id="resultOutput" class="result-output" tabindex="0"></pre>
+							</div>
+							<div class="result-panel">
+								<div class="result-header">
+									<h3>Original Preview</h3>
+									<span class="badge muted" id="lengthBadge">0 characters</span>
+								</div>
+								<pre id="originalPreview" class="result-output" tabindex="0"></pre>
+							</div>
+						</div>
+						<div class="stats-grid">
+							<div class="stat-card">
+								<span class="stat-label">Characters Removed</span>
+								<span class="stat-value" id="removedStat">0</span>
+							</div>
+							<div class="stat-card">
+								<span class="stat-label">Words Remaining</span>
+								<span class="stat-value" id="wordStat">0</span>
+							</div>
+							<div class="stat-card">
+								<span class="stat-label">Lines Remaining</span>
+								<span class="stat-value" id="lineStat">0</span>
+							</div>
+							<div class="stat-card">
+								<span class="stat-label">Processing Time</span>
+								<span class="stat-value" id="timeStat">0 ms</span>
+							</div>
+						</div>
+						<div class="change-log" id="changeLog" aria-live="polite"></div>
+					</div>
+
+					<div class="tool-card span-12 info-card">
+						<h2>Cleaning Tips</h2>
+						<ul class="tips-list">
+							<li>Presets toggle multiple options at once. You can tweak individual settings afterward without losing your preset.</li>
+							<li>If you enable <strong>regex mode</strong>, use JavaScript-style patterns (no surrounding slashes). Invalid regexes are safely ignored with a friendly error.</li>
+							<li>Use <strong>Replace Input</strong> to continue editing the cleaned result or run another preset in sequence.</li>
+							<li>The change log summarises everything removed so you can spot unexpected edits before copying the final result.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<div class="footer-brand-row">
+						<img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+						<span class="footer-brand-text">
+							<h3 class="footer-logo">Zapit</h3>
+							<div class="footer-tagline">A Zap Away From Done</div>
+						</span>
+					</div>
+					<p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+					<div class="footer-copyright">© Zapit. All rights reserved.</div>
+				</div>
+
+				<div class="footer-links">
+					<h4 class="footer-title">Legal</h4>
+					<ul class="footer-list">
+						<li><a href="/privacy.html">Privacy Policy</a></li>
+						<li><a href="/terms.html">Terms of Service</a></li>
+						<li><a href="/contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/js/global.js" defer></script>
+	<script src="app.js" defer></script>
+	<script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+	<script>
+		(function () {
+			const toolTheme = document.getElementById('tool-theme-css');
+			if (!toolTheme) return;
+
+			function applyTheme(theme) {
+				const next = theme === 'dark' ? 'dark.css' : 'light.css';
+				if (toolTheme.getAttribute('href') !== next) {
+					toolTheme.setAttribute('href', next);
+				}
+			}
+
+			const current = document.documentElement.getAttribute('data-theme') || 'light';
+			applyTheme(current);
+
+			const observer = new MutationObserver(function (mutations) {
+				mutations.forEach(function (mutation) {
+					if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+						const theme = document.documentElement.getAttribute('data-theme') || 'light';
+						applyTheme(theme);
+					}
+				});
+			});
+
+			observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+		})();
+	</script>
+</body>
+</html>

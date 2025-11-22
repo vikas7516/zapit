@@ -1,0 +1,155 @@
+:root {
+    --status-info: rgba(59, 130, 246, 0.16);
+    --status-success: rgba(34, 197, 94, 0.22);
+    --status-error: rgba(248, 113, 113, 0.22);
+}
+
+.tools-page {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 1), rgba(15, 23, 42, 0.88));
+    color: #e2e8f0;
+}
+
+.tool-card {
+    background: rgba(15, 23, 42, 0.78);
+    border-radius: 1.25rem;
+    padding: 1.75rem;
+    box-shadow: 0 24px 60px rgba(2, 6, 23, 0.65);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+    position: relative;
+}
+
+.tool-card::after {
+    border: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.section-header h2,
+.time-display,
+.field span,
+.repeat-toggle,
+.stat-value,
+.lap-title {
+    color: #f8fafc;
+}
+
+.session-indicator {
+    background: rgba(99, 102, 241, 0.18);
+    color: #c7d2fe;
+}
+
+.session-indicator.active {
+    background: rgba(34, 197, 94, 0.25);
+    color: #bbf7d0;
+}
+
+.sub-display,
+.field-helper,
+.lap-meta,
+.stat-label {
+    color: rgba(148, 163, 184, 0.75);
+}
+
+.text-input,
+.countdown-inputs input {
+    background: rgba(15, 23, 42, 0.65);
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    color: #f8fafc;
+}
+
+.text-input:focus,
+.countdown-inputs input:focus {
+    border-color: rgba(99, 102, 241, 0.65);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+}
+
+.btn-primary {
+    background: linear-gradient(140deg, #6366f1, #3b82f6);
+    color: #f8fafc;
+    box-shadow: 0 18px 38px rgba(99, 102, 241, 0.35);
+}
+
+.btn-secondary {
+    background: rgba(99, 102, 241, 0.9);
+    color: #f8fafc;
+}
+
+.btn-outline {
+    background: rgba(15, 23, 42, 0.7);
+    color: #e2e8f0;
+    border: 1px solid rgba(148, 163, 184, 0.32);
+}
+
+.status {
+    background: var(--status-info);
+    color: #bfdbfe;
+}
+
+.status.success {
+    background: var(--status-success);
+    color: #bbf7d0;
+}
+
+.status.error {
+    background: var(--status-error);
+    color: #fecaca;
+}
+
+.stat {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+.lap-list li {
+    background: rgba(15, 23, 42, 0.65);
+    border: 1px solid rgba(148, 163, 184, 0.28);
+}
+
+.lap-time {
+    color: #cbd5f5;
+}
+
+.lap-diff.positive {
+    color: #86efac;
+}
+
+.lap-diff.negative {
+    color: #fca5a5;
+}
+
+.lap-list .placeholder {
+    color: rgba(148, 163, 184, 0.7);
+}
+
+.lap-fastest {
+    border-color: rgba(34, 197, 94, 0.4);
+    box-shadow: 0 14px 28px rgba(34, 197, 94, 0.28);
+}
+
+.lap-slowest {
+    border-color: rgba(239, 68, 68, 0.4);
+    box-shadow: 0 14px 28px rgba(239, 68, 68, 0.24);
+}
+
+.info-card {
+    background: rgba(30, 64, 175, 0.3);
+}
+
+.tip-block {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+}
+
+.tip-block h3 {
+    color: #c7d2fe;
+}
+
+.tip-block p {
+    color: rgba(226, 232, 240, 0.88);
+}
+
+.footer-description,
+.footeropyright,
+.footer-list a {
+    color: rgba(226, 232, 240, 0.78);
+}

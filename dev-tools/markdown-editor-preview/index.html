@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Editor & Preview - Developer Tools - Zapit</title>
+    <meta name="description" content="Live markdown editor with real-time preview, syntax highlighting, and export options. Perfect for documentation and note-taking.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/dev-tools/markdown-editor-preview">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">📝</div>
+                    <h1 class="tool-title">Markdown Editor & Preview</h1>
+                    <p class="tool-description">Live markdown editor with real-time preview, syntax highlighting, and export options</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <!-- Toolbar -->
+                <div class="toolbar">
+                    <div class="toolbar-section">
+                        <button class="toolbar-btn" id="bold-btn" title="Bold (Ctrl+B)">
+                            <strong>B</strong>
+                        </button>
+                        <button class="toolbar-btn" id="italic-btn" title="Italic (Ctrl+I)">
+                            <em>I</em>
+                        </button>
+                        <button class="toolbar-btn" id="strikethrough-btn" title="Strikethrough">
+                            <s>S</s>
+                        </button>
+                    </div>
+                    
+                    <div class="toolbar-section">
+                        <button class="toolbar-btn" id="heading-btn" title="Heading">H1</button>
+                        <button class="toolbar-btn" id="link-btn" title="Link (Ctrl+K)">🔗</button>
+                        <button class="toolbar-btn" id="image-btn" title="Image">📷</button>
+                        <button class="toolbar-btn" id="code-btn" title="Code Block">{ }</button>
+                    </div>
+                    
+                    <div class="toolbar-section">
+                        <button class="toolbar-btn" id="list-btn" title="Bullet List">• List</button>
+                        <button class="toolbar-btn" id="numbered-list-btn" title="Numbered List">1. List</button>
+                        <button class="toolbar-btn" id="quote-btn" title="Quote">" Quote</button>
+                        <button class="toolbar-btn" id="table-btn" title="Table">📊</button>
+                    </div>
+                    
+                    <div class="toolbar-section">
+                        <button class="toolbar-btn" id="preview-toggle" title="Toggle Preview">👁️</button>
+                        <button class="toolbar-btn" id="fullscreen-btn" title="Fullscreen">⛶</button>
+                    </div>
+                </div>
+
+                <!-- Editor Container -->
+                <div class="editor-container" id="editor-container">
+                    <div class="editor-panel">
+                        <div class="panel-header">
+                            <h3>Markdown Editor</h3>
+                            <div class="editor-stats">
+                                <span id="char-count">0 characters</span>
+                                <span id="word-count">0 words</span>
+                                <span id="line-count">0 lines</span>
+                            </div>
+                        </div>
+                        <textarea id="markdown-editor" placeholder="# Welcome to Markdown Editor
+
+## Getting Started
+Start typing your markdown here...
+
+### Features
+- **Bold text** and *italic text*
+- [Links](https://example.com)
+- Code blocks and `inline code`
+- Lists and tables
+- And much more!
+
+```javascript
+// Code highlighting
+function hello() {
+    console.log('Hello, World!');
+}
+```
+
+| Feature | Status |
+|---------|--------|
+| Live Preview | ✅ |
+| Export | ✅ |
+| Syntax Highlighting | ✅ |"></textarea>
+                    </div>
+                    
+                    <div class="divider" id="divider"></div>
+                    
+                    <div class="preview-panel" id="preview-panel">
+                        <div class="panel-header">
+                            <h3>Live Preview</h3>
+                            <div class="preview-actions">
+                                <button class="btn btn-outline" id="export-html">Export HTML</button>
+                                <button class="btn btn-outline" id="export-md">Export MD</button>
+                                <button class="btn btn-outline" id="copy-html">Copy HTML</button>
+                            </div>
+                        </div>
+                        <div id="markdown-preview" class="markdown-content"></div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <div class="action-group">
+                        <h4>Quick Actions</h4>
+                        <button class="btn btn-outline" id="clear-editor">Clear All</button>
+                        <button class="btn btn-outline" id="load-sample">Load Sample</button>
+                        <button class="btn btn-outline" id="import-file">Import File</button>
+                        <label for="file-input" class="visually-hidden">Import markdown file</label>
+                        <input type="file" id="file-input" accept=".md,.txt" class="hidden-file-input" title="Import markdown file">
+                    </div>
+                    
+                    <div class="action-group">
+                        <h4>View Options</h4>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="line-numbers" checked>
+                            Show Line Numbers
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="word-wrap" checked>
+                            Word Wrap
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="live-preview" checked>
+                            Live Preview
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Info Panel -->
+        <section class="info-section">
+            <div class="container">
+                <div class="info-panel">
+                    <h3>Markdown Syntax Guide</h3>
+                    <div class="syntax-grid">
+                        <div class="syntax-item">
+                            <h4>Headers</h4>
+                            <code># H1<br>## H2<br>### H3</code>
+                        </div>
+                        <div class="syntax-item">
+                            <h4>Text Formatting</h4>
+                            <code>**bold**<br>*italic*<br>~~strikethrough~~</code>
+                        </div>
+                        <div class="syntax-item">
+                            <h4>Links & Images</h4>
+                            <code>[link](url)<br>![alt](image.jpg)</code>
+                        </div>
+                        <div class="syntax-item">
+                            <h4>Lists</h4>
+                            <code>- Item 1<br>- Item 2<br><br>1. First<br>2. Second</code>
+                        </div>
+                        <div class="syntax-item">
+                            <h4>Code</h4>
+                            <code>`inline code`<br><br>```<br>code block<br>```</code>
+                        </div>
+                        <div class="syntax-item">
+                            <h4>Tables</h4>
+                            <code>| Col 1 | Col 2 |<br>|-------|-------|<br>| Cell  | Cell  |</code>
+                        </div>
+                    </div>
+                    
+                    <div class="info-features">
+                        <div class="feature-item">
+                            <h4>📝 Real-time Preview</h4>
+                            <p>See your markdown rendered as you type</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>💾 Export Options</h4>
+                            <p>Export to HTML or download as markdown</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>⌨️ Keyboard Shortcuts</h4>
+                            <p>Quick formatting with familiar shortcuts</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>🔧 Customizable</h4>
+                            <p>Toggle features and adjust view options</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

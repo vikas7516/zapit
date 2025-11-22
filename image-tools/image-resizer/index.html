@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Resizer - Image Tools - Zapit</title>
+    <meta name="description" content="Resize images online with custom dimensions, percentage scaling, and smart cropping. Maintain aspect ratio or set exact dimensions for web and print.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/image-tools/image-resizer">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">📏</div>
+                    <h1 class="tool-title">Image Resizer</h1>
+                    <p class="tool-description">Resize images online with custom dimensions, percentage scaling, and smart cropping</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+            </div>
+            
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <span class="theme-toggle-icon">🌙</span>
+                </button>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Tool Hero -->
+    <section class="tool-hero">
+        <div class="container">
+            <div class="tool-hero-content">
+                <span class="tool-icon-large">📐</span>
+                <h1 class="tool-title">Image Resizer</h1>
+                <p class="tool-description">
+                    Resize images to any dimension with precision. Scale by percentage, set exact pixels, 
+                    or use preset sizes for web, social media, and print applications.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Interface -->
+    <section class="tool-interface">
+        <div class="container">
+            <div class="tool-layout">
+                <!-- Upload Section -->
+                <div class="upload-section" id="uploadSection">
+                    <div class="upload-area" id="uploadArea">
+                        <span class="upload-icon">📁</span>
+                        <div class="upload-text">
+                            <h3>Drop your image here</h3>
+                            <p>or <span class="browse-link" id="browseLink">browse files</span> to resize</p>
+                            <div class="upload-formats">
+                                Supports JPEG, PNG, WebP, BMP, GIF (up to 50MB)
+                            </div>
+                        </div>
+                        <input type="file" id="fileInput" accept="image/*" class="hidden" aria-label="Select image file to resize">
+                    </div>
+                    <div class="upload-error" id="uploadError"></div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="results-section hidden" id="resultsSection">
+                    <div class="results-layout">
+                        <!-- Original Image Preview -->
+                        <div class="preview-section">
+                            <div class="preview-header">
+                                <h3>Original Image</h3>
+                                <div class="preview-info" id="originalInfo">
+                                    Loading...
+                                </div>
+                            </div>
+                            <div class="preview-container">
+                                <img id="originalImage" alt="Original image preview">
+                            </div>
+                        </div>
+
+                        <!-- Resize Controls -->
+                        <div class="controls-section">
+                            <div class="controls-header">
+                                <h3>Resize Settings</h3>
+                            </div>
+                            
+                            <!-- Resize Method -->
+                            <div class="resize-method-section">
+                                <div class="method-tabs">
+                                    <button class="method-tab active" data-method="percentage" id="percentageTab">
+                                        <span class="method-icon">📊</span>
+                                        <span class="method-label">Percentage</span>
+                                    </button>
+                                    <button class="method-tab" data-method="dimensions" id="dimensionsTab">
+                                        <span class="method-icon">📏</span>
+                                        <span class="method-label">Dimensions</span>
+                                    </button>
+                                    <button class="method-tab" data-method="presets" id="presetsTab">
+                                        <span class="method-icon">🎯</span>
+                                        <span class="method-label">Presets</span>
+                                    </button>
+                                </div>
+
+                                <!-- Percentage Method -->
+                                <div class="method-content active" id="percentageMethod">
+                                    <div class="percentage-controls">
+                                        <label class="control-label">Scale Percentage</label>
+                                        <div class="percentage-slider">
+                                            <input type="range" id="percentageSlider" min="5" max="500" value="100" aria-label="Scale percentage">
+                                            <div class="percentage-value" id="percentageValue">100%</div>
+                                        </div>
+                                        <div class="percentage-input-group">
+                                            <input type="number" id="percentageInput" min="5" max="500" value="100" aria-label="Percentage input">
+                                            <span class="input-suffix">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dimensions Method -->
+                                <div class="method-content" id="dimensionsMethod">
+                                    <div class="dimensions-controls">
+                                        <div class="dimension-row">
+                                            <div class="dimension-group">
+                                                <label for="newWidth" class="dimension-label">Width</label>
+                                                <input type="number" id="newWidth" min="1" class="dimension-input" aria-label="New width in pixels">
+                                                <span class="dimension-unit">px</span>
+                                            </div>
+                                            <div class="dimension-link" id="aspectRatioLink" title="Maintain aspect ratio">
+                                                <span class="link-icon">🔗</span>
+                                            </div>
+                                            <div class="dimension-group">
+                                                <label for="newHeight" class="dimension-label">Height</label>
+                                                <input type="number" id="newHeight" min="1" class="dimension-input" aria-label="New height in pixels">
+                                                <span class="dimension-unit">px</span>
+                                            </div>
+                                        </div>
+                                        <div class="aspect-ratio-controls">
+                                            <label class="checkbox-label">
+                                                <input type="checkbox" id="maintainAspectRatio" checked>
+                                                <span class="checkbox-text">Maintain aspect ratio</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Presets Method -->
+                                <div class="method-content" id="presetsMethod">
+                                    <div class="presets-grid">
+                                        <div class="preset-category">
+                                            <h4 class="preset-category-title">Social Media</h4>
+                                            <div class="preset-buttons">
+                                                <button class="preset-btn" data-width="1200" data-height="630" data-name="Facebook Post">
+                                                    Facebook Post<br><span class="preset-size">1200×630</span>
+                                                </button>
+                                                <button class="preset-btn" data-width="1080" data-height="1080" data-name="Instagram Square">
+                                                    Instagram Square<br><span class="preset-size">1080×1080</span>
+                                                </button>
+                                                <button class="preset-btn" data-width="1080" data-height="1920" data-name="Instagram Story">
+                                                    Instagram Story<br><span class="preset-size">1080×1920</span>
+                                                </button>
+                                                <button class="preset-btn" data-width="1200" data-height="675" data-name="Twitter Post">
+                                                    Twitter Post<br><span class="preset-size">1200×675</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="preset-category">
+                                            <h4 class="preset-category-title">Web</h4>
+                                            <div class="preset-buttons">
+                                                <button class="preset-btn" data-width="1920" data-height="1080" data-name="Full HD">
+                                                    Full HD<br><span class="preset-size">1920×1080</span>
+                                                </button>
+                                                <button class="preset-btn" data-width="1280" data-height="720" data-name="HD">
+                                                    HD<br><span class="preset-size">1280×720</span>
+                                                </button>
+                                                <button class="preset-btn" data-width="800" data-height="600" data-name="Web Medium">
+                                                    Web Medium<br><span class="preset-size">800×600</span>
+                                                </button>
+                                                <button class="preset-btn" data-width="400" data-height="300" data-name="Thumbnail">
+                                                    Thumbnail<br><span class="preset-size">400×300</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Resize Options -->
+                            <div class="resize-options">
+                                <div class="option-group">
+                                    <label class="control-label">Resize Mode</label>
+                                    <div class="radio-group">
+                                        <label class="radio-option">
+                                            <input type="radio" name="resizeMode" value="contain" checked>
+                                            <span class="radio-text">Fit (Contain)</span>
+                                        </label>
+                                        <label class="radio-option">
+                                            <input type="radio" name="resizeMode" value="cover">
+                                            <span class="radio-text">Fill (Cover)</span>
+                                        </label>
+                                        <label class="radio-option">
+                                            <input type="radio" name="resizeMode" value="stretch">
+                                            <span class="radio-text">Stretch</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="option-group">
+                                    <label class="control-label">Output Quality</label>
+                                    <div class="quality-control">
+                                        <input type="range" id="qualitySlider" min="10" max="100" value="90" aria-label="Output quality">
+                                        <div class="quality-value" id="qualityValue">90%</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Current Dimensions Display -->
+                            <div class="current-dimensions">
+                                <div class="dimensions-display">
+                                    <div class="dimension-item">
+                                        <span class="dimension-label">Original:</span>
+                                        <span class="dimension-value" id="originalDimensions">-</span>
+                                    </div>
+                                    <div class="dimension-arrow">→</div>
+                                    <div class="dimension-item">
+                                        <span class="dimension-label">New:</span>
+                                        <span class="dimension-value" id="newDimensions">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resized Preview -->
+                    <div class="preview-section">
+                        <div class="preview-header">
+                            <h3>Resized Preview</h3>
+                            <div class="preview-info" id="resizedInfo">
+                                Preview will appear here
+                            </div>
+                        </div>
+                        <div class="preview-container">
+                            <img id="resizedImage" alt="Resized image preview">
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="btn-primary" id="downloadBtn">
+                            <span class="btn-icon">💾</span>
+                            Download Resized Image
+                        </button>
+                        <button class="btn-secondary" id="processAnotherBtn">
+                            <span class="btn-icon">🔄</span>
+                            Resize Another Image
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instructions Section -->
+    <section class="instructions-section">
+        <div class="container">
+            <h2 class="section-title">How to Resize Images</h2>
+            <div class="instructions-grid">
+                <div class="instruction-item">
+                    <span class="instruction-icon">📤</span>
+                    <h3>Upload Image</h3>
+                    <p>Drop your image file or click to browse. Supports all major image formats up to 50MB.</p>
+                </div>
+                <div class="instruction-item">
+                    <span class="instruction-icon">📐</span>
+                    <h3>Choose Method</h3>
+                    <p>Select percentage scaling, exact dimensions, or use preset sizes for social media and web.</p>
+                </div>
+                <div class="instruction-item">
+                    <span class="instruction-icon">🎛️</span>
+                    <h3>Adjust Settings</h3>
+                    <p>Fine-tune resize mode, quality, and aspect ratio options for perfect results.</p>
+                </div>
+                <div class="instruction-item">
+                    <span class="instruction-icon">💾</span>
+                    <h3>Download</h3>
+                    <p>Preview your resized image and download it in the optimal format and quality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resize Modes -->
+    <section class="examples-section">
+        <div class="container">
+            <h2 class="section-title">Resize Modes Explained</h2>
+            <div class="examples-grid">
+                <div class="example-item">
+                    <h4>📦 Fit (Contain)</h4>
+                    <p>Scales the image to fit within the specified dimensions while maintaining aspect ratio. May result in padding if ratios don't match.</p>
+                </div>
+                <div class="example-item">
+                    <h4>🎯 Fill (Cover)</h4>
+                    <p>Scales the image to fill the entire specified area while maintaining aspect ratio. May crop parts of the image if ratios don't match.</p>
+                </div>
+                <div class="example-item">
+                    <h4>📏 Stretch</h4>
+                    <p>Stretches the image to exactly match the specified dimensions. May distort the image if aspect ratios don't match.</p>
+                </div>
+                <div class="example-item">
+                    <h4>🔗 Aspect Ratio</h4>
+                    <p>When enabled, automatically adjusts one dimension to maintain the original proportions when you change the other.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Resizing Features</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <span class="feature-icon">🔒</span>
+                    <h4>Privacy Protected</h4>
+                    <p>All resizing happens in your browser. Your images never leave your device.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <h4>Real-time Preview</h4>
+                    <p>See your resized image instantly as you adjust dimensions and settings.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🎯</span>
+                    <h4>Preset Sizes</h4>
+                    <p>Quick resize for social media, web, and common use cases with one click.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📏</span>
+                    <h4>Precise Control</h4>
+                    <p>Set exact pixel dimensions or scale by percentage with precision.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🎨</span>
+                    <h4>Multiple Modes</h4>
+                    <p>Choose from fit, fill, or stretch modes for different resizing behaviors.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📱</span>
+                    <h4>Mobile Friendly</h4>
+                    <p>Works seamlessly on desktop, tablet, and mobile devices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="../../index.html" class="footer-logo">
+                        <span class="footer-logo-icon">⚡</span>
+                        <span class="footer-logo-text">ZapIt</span>
+                    </a>
+                    <p class="footer-description">
+                        Fast, free, and powerful online tools for developers, designers, and content creators.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Image Tools</h4>
+                        <a href="../image-compressor/">Image Compressor</a>
+                        <a href="../image-resizer/">Image Resizer</a>
+                        <a href="../image-format-converter/">Format Converter</a>
+                        <a href="../color-picker-palette-extractor/">Color Picker</a>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Quick Tools</h4>
+                        <a href="../../dev-tools/base64-encoder-decoder/">Base64 Encode/Decode</a>
+                        <a href="../../dev-tools/json-formatter-validator/">JSON Formatter</a>
+                        <a href="../../text-tools/case-converter/">Case Converter</a>
+                        <a href="../../math-calculators/percentage-calculator/">Percentage Calculator</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 ZapIt Tools. Built for productivity and creativity.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/theme.js"></script>
+    <script src="../../assets/js/navigation.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>

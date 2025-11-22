@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 to Image - Image Tools - Zapit</title>
+    <meta name="description" content="Convert Base64 encoded strings back to image files. Free online decoder for JPG, PNG, GIF, and WebP images.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/image-tools/base64-to-image">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">🧩</div>
+                    <h1 class="tool-title">Base64 to Image</h1>
+                    <p class="tool-description">Convert Base64 encoded strings back to downloadable image files</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-layout">
+                    <!-- Input Section -->
+                    <div class="input-section">
+                        <div class="input-header">
+                            <h3>Base64 Input</h3>
+                            <div class="input-actions">
+                                <button class="btn-secondary" id="pasteBtn">📋 Paste</button>
+                                <button class="btn-secondary" id="clearBtn">🗑️ Clear</button>
+                            </div>
+                        </div>
+                        
+                        <div class="input-container">
+                            <textarea 
+                                id="base64Input" 
+                                placeholder="Paste your Base64 string here...&#10;&#10;You can include or exclude the data URL prefix:&#10;data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQ...&#10;&#10;Or just the Base64 data:&#10;/9j/4AAQSkZJRgABAQAAAQ..."
+                                rows="10"
+                            ></textarea>
+                            <div class="input-info" id="inputInfo">
+                                <span class="input-length">0 characters</span>
+                                <span class="input-format" id="inputFormat"></span>
+                            </div>
+                        </div>
+
+                        <div class="input-error" id="inputError"></div>
+                        
+                        <div class="action-buttons">
+                            <button class="btn-primary" id="convertBtn" disabled>
+                                <span class="btn-icon">🔄</span>
+                                Convert to Image
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Preview Section -->
+                    <div class="preview-section hidden" id="previewSection">
+                        <div class="preview-header">
+                            <h3>Image Preview</h3>
+                            <div class="preview-info" id="previewInfo"></div>
+                        </div>
+                        
+                        <div class="preview-container">
+                            <img id="previewImage" alt="Converted image preview" />
+                        </div>
+                        
+                        <div class="preview-actions">
+                            <button class="btn-primary" id="downloadBtn">
+                                <span class="btn-icon">⬇</span>
+                                Download Image
+                            </button>
+                            <select id="formatSelect" class="format-select" aria-label="Select download format">
+                                <option value="original">Original Format</option>
+                                <option value="png">PNG</option>
+                                <option value="jpeg">JPEG</option>
+                                <option value="webp">WebP</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructions Section -->
+        <section class="instructions-section">
+            <div class="container">
+                <h2 class="section-title">How to Convert Base64 to Image</h2>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <div class="instruction-icon">📝</div>
+                        <h3>Paste Base64</h3>
+                        <p>Copy and paste your Base64 string with or without the data URL prefix</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">🔄</div>
+                        <h3>Convert</h3>
+                        <p>Click convert to decode the Base64 string and generate the image</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">⬇️</div>
+                        <h3>Download</h3>
+                        <p>Preview the image and download in your preferred format</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Examples Section -->
+        <section class="examples-section">
+            <div class="container">
+                <h2 class="section-title">Base64 Format Examples</h2>
+                <div class="examples-grid">
+                    <div class="example-item">
+                        <h4>With Data URL Prefix</h4>
+                        <code class="example-code">data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQ...</code>
+                        <p>Complete data URL with MIME type and encoding information</p>
+                    </div>
+                    <div class="example-item">
+                        <h4>Base64 Only</h4>
+                        <code class="example-code">/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw...</code>
+                        <p>Raw Base64 encoded data without prefix (format detected automatically)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <h2 class="section-title">Features</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <h4>Privacy Protected</h4>
+                        <p>All conversion happens locally in your browser - no data sent to servers</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <h4>Auto Format Detection</h4>
+                        <p>Automatically detects image format from Base64 data or data URL</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📱</div>
+                        <h4>Flexible Input</h4>
+                        <p>Accepts Base64 with or without data URL prefix for convenience</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">💾</div>
+                        <h4>Multiple Formats</h4>
+                        <p>Download in original format or convert to PNG, JPEG, or WebP</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

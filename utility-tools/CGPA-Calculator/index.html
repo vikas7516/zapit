@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CGPA Calculator - Utility Tools - Zapit</title>
+	<meta name="description" content="Calculate semester GPA and cumulative CGPA with ease. Add courses, credits, and grades to get instant academic summaries and exportable reports.">
+	<meta property="og:title" content="CGPA Calculator - Zapit">
+	<meta property="og:description" content="Track GPA across semesters, compute CGPA, and export clean academic summaries.">
+	<meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+	<link rel="canonical" href="https://zapit.me/utility-tools/cgpa-calculator">
+	<link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+	<link id="tool-theme-css" rel="stylesheet" href="light.css">
+	<link rel="stylesheet" href="/assets/elements/theme-toggle.css">
+	<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+	<link rel="icon" href="/icons/favicon.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+	<link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+	<header class="site-header">
+		<div class="container">
+			<div class="header-nav">
+				<a href="/index.html" class="brand" aria-label="Zapit Home">
+					<img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+					<span class="brand-text">
+						<span class="brand-title">Zapit</span>
+						<span class="brand-tagline">A Zap Away From Done</span>
+					</span>
+				</a>
+				<div class="header-right">
+					<nav class="breadcrumb">
+						<a href="/">Home</a>
+						<span class="separator">/</span>
+						<a href="/utility-tools">Utility Tools</a>
+						<span class="separator">/</span>
+						<span class="current">CGPA Calculator</span>
+					</nav>
+					<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+						<span class="theme-toggle-icon">🌙</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="tool-hero">
+			<div class="container">
+				<div class="tool-hero-content">
+					<div class="tool-icon-large">🎓</div>
+					<h1 class="tool-title">CGPA Calculator</h1>
+					<p class="tool-description">Track every semester with confidence. Add courses, credits, and grades to instantly calculate semester GPA, cumulative CGPA, and total credits earned.</p>
+					<div class="tool-meta">
+						<span class="meta-pill">Multiple semesters</span>
+						<span class="meta-pill">Custom grade scales</span>
+						<span class="meta-pill">Export-ready summary</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="tool-interface">
+			<div class="container">
+				<div class="tool-layout">
+					<div class="tool-card span-7" aria-labelledby="courses-heading">
+						<div class="section-header">
+							<h2 id="courses-heading">Semester Courses</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="loadSampleBtn">Load Sample Plan</button>
+								<button type="button" class="btn btn-secondary" id="clearAllBtn">Clear All</button>
+							</div>
+						</div>
+						<div class="semester-actions">
+							<button type="button" class="btn btn-primary" id="addSemesterBtn">Add Semester</button>
+							<span class="helper-text" id="semesterSummary">Semester 1 ready. Add courses to get started.</span>
+						</div>
+						<div class="semester-container" id="semesterContainer" aria-live="polite">
+							<!-- Semester cards rendered by JavaScript -->
+						</div>
+					</div>
+
+					<div class="tool-card span-5" aria-labelledby="summary-heading">
+						<div class="section-header">
+							<h2 id="summary-heading">CGPA Summary</h2>
+						</div>
+						<div class="summary-stats">
+							<div class="summary-card primary">
+								<span class="summary-label">Cumulative CGPA</span>
+								<span class="summary-value" id="cgpaValue">0.00</span>
+							</div>
+							<div class="summary-grid">
+								<div class="summary-card">
+									<span class="summary-label">Total Credits</span>
+									<span class="summary-value" id="totalCredits">0</span>
+								</div>
+								<div class="summary-card">
+									<span class="summary-label">Courses Count</span>
+									<span class="summary-value" id="courseCount">0</span>
+								</div>
+								<div class="summary-card">
+									<span class="summary-label">Best Semester</span>
+									<span class="summary-value" id="bestSemester">–</span>
+								</div>
+								<div class="summary-card">
+									<span class="summary-label">Current Standing</span>
+									<span class="summary-value" id="standingLabel">–</span>
+								</div>
+							</div>
+						</div>
+						<div class="button-row">
+							<button type="button" class="btn btn-primary" id="calculateBtn">Calculate CGPA</button>
+							<button type="button" class="btn btn-outline" id="copySummaryBtn">Copy Summary</button>
+							<button type="button" class="btn btn-outline" id="downloadReportBtn">Download Report</button>
+						</div>
+						<div class="notification hidden" id="statusBanner" role="status"></div>
+						<div class="semester-summary-list" id="semesterSummaryList" aria-live="polite"></div>
+					</div>
+
+					<div class="tool-card span-12" aria-labelledby="breakdown-heading">
+						<div class="section-header">
+							<h2 id="breakdown-heading">Grade Breakdown</h2>
+						</div>
+						<div class="table-wrapper" role="region" aria-live="polite">
+							<table class="breakdown-table" id="resultsTable">
+								<thead>
+									<tr>
+										<th scope="col">Semester</th>
+										<th scope="col">Course</th>
+										<th scope="col">Credits</th>
+										<th scope="col">Grade</th>
+										<th scope="col">Grade Points</th>
+									</tr>
+								</thead>
+								<tbody id="resultsTableBody">
+									<tr class="empty-row">
+										<td colspan="5">Add courses and run the calculator to see detailed results.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class="tool-card span-12 info-card" aria-labelledby="tips-heading">
+						<div class="section-header">
+							<h2 id="tips-heading">Grade Scale &amp; Tips</h2>
+						</div>
+						<div class="info-grid">
+							<div class="info-block">
+								<h3>Default Grade Scale</h3>
+								<table class="grade-scale" aria-describedby="scale-note">
+									<thead>
+										<tr>
+											<th scope="col">Grade</th>
+											<th scope="col">Points</th>
+										</tr>
+									</thead>
+									<tbody id="gradeScaleBody">
+										<tr>
+											<td>A+</td>
+											<td>10</td>
+										</tr>
+										<tr>
+											<td>A</td>
+											<td>9</td>
+										</tr>
+										<tr>
+											<td>B+</td>
+											<td>8</td>
+										</tr>
+										<tr>
+											<td>B</td>
+											<td>7</td>
+										</tr>
+										<tr>
+											<td>C</td>
+											<td>6</td>
+										</tr>
+										<tr>
+											<td>D</td>
+											<td>5</td>
+										</tr>
+										<tr>
+											<td>E</td>
+											<td>4</td>
+										</tr>
+										<tr>
+											<td>F</td>
+											<td>0</td>
+										</tr>
+									</tbody>
+								</table>
+								<p class="helper-text" id="scale-note">Need a different scale? Update grades directly in each course row to match your institution's schema.</p>
+							</div>
+							<div class="info-block">
+								<h3>Tips</h3>
+								<ul class="tips-list">
+									<li>Include every credit-bearing course to keep your CGPA accurate across semesters.</li>
+									<li>Mix theoretical and lab courses—credits can be fractional for lab work or projects.</li>
+									<li>Use the sample plan to understand the workflow, then customize it with your details.</li>
+									<li>Download the final report to share progress updates or archive term-wise performance.</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<div class="footer-brand-row">
+						<img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+						<span class="footer-brand-text">
+							<h3 class="footer-logo">Zapit</h3>
+							<div class="footer-tagline">A Zap Away From Done</div>
+						</span>
+					</div>
+					<p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+					<div class="footeropyright">© Zapit. All rights reserved.</div>
+				</div>
+				<div class="footer-links">
+					<h4 class="footer-title">Legal</h4>
+					<ul class="footer-list">
+						<li><a href="/privacy.html">Privacy Policy</a></li>
+						<li><a href="/terms.html">Terms of Service</a></li>
+						<li><a href="/contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/js/global.js" defer></script>
+	<script src="app.js" defer></script>
+	<script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+	<script>
+		(function () {
+			const toolTheme = document.getElementById('tool-theme-css');
+			if (!toolTheme) return;
+
+			function applyTheme(theme) {
+				const next = theme === 'dark' ? 'dark.css' : 'light.css';
+				if (toolTheme.getAttribute('href') !== next) {
+					toolTheme.setAttribute('href', next);
+				}
+			}
+
+			const current = document.documentElement.getAttribute('data-theme') || 'light';
+			applyTheme(current);
+
+			const observer = new MutationObserver(function (mutations) {
+				mutations.forEach(function (mutation) {
+					if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+						const theme = document.documentElement.getAttribute('data-theme') || 'light';
+						applyTheme(theme);
+					}
+				});
+			});
+
+			observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+		})();
+	</script>
+</body>
+</html>

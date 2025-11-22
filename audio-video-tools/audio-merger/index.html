@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Merger - Audio & Video Tools - Zapit</title>
+    <meta name="description" content="Merge multiple audio files into one seamless track. Combine, sequence, and mix audio files with professional controls.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/audio-video-tools/audio-merger">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">🔗</div>
+                    <h1 class="tool-title">Audio Merger</h1>
+                    <p class="tool-description">Merge multiple audio files into one seamless track with professional mixing controls</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-layout">
+                    <!-- Upload Section -->
+                    <div class="upload-section">
+                        <div class="upload-header">
+                            <h3>Add Audio Files</h3>
+                            <div class="file-count" id="fileCount">0 files added</div>
+                        </div>
+
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-icon">🎵</div>
+                            <p class="upload-text">
+                                <strong>Click to select audio files</strong> or drag and drop
+                            </p>
+                            <p class="upload-formats">Supports: MP3, WAV, M4A, OGG, FLAC</p>
+                            <p class="upload-note">Select multiple files to merge them together</p>
+                            <input type="file" id="audioFileInput" accept="audio/*" multiple hidden>
+                        </div>
+
+                        <div class="add-more-section hidden" id="addMoreSection">
+                            <button class="btn-add-more" id="addMoreBtn">➕ Add More Files</button>
+                            <button class="btn-clear-all" id="clearAllBtn">🗑️ Clear All</button>
+                        </div>
+                    </div>
+
+                    <!-- Track List Section -->
+                    <div class="tracklist-section hidden" id="tracklistSection">
+                        <div class="tracklist-header">
+                            <h3>Audio Tracks</h3>
+                            <div class="merge-controls">
+                                <button class="btn-play-all" id="playAllBtn">▶️ Preview All</button>
+                                <button class="btn-stop" id="stopBtn">⏹️ Stop</button>
+                            </div>
+                        </div>
+
+                        <div class="tracks-container" id="tracksContainer">
+                            <!-- Track items will be dynamically added here -->
+                        </div>
+
+                        <div class="track-stats">
+                            <div class="stat-item">
+                                <span>Total Tracks:</span>
+                                <span id="totalTracks">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>Total Duration:</span>
+                                <span id="totalDuration">0:00</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>Output Size:</span>
+                                <span id="outputSize">0 MB</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Merge Settings -->
+                    <div class="merge-section hidden" id="mergeSection">
+                        <div class="merge-header">
+                            <h3>Merge Settings</h3>
+                        </div>
+
+                        <div class="merge-options">
+                            <div class="option-group">
+                                <label class="option-title">Merge Type</label>
+                                <div class="radio-group">
+                                    <label class="radio-option">
+                                        <input type="radio" name="mergeType" value="sequential" checked>
+                                        <span class="radio-label">Sequential</span>
+                                        <small>Play files one after another</small>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="mergeType" value="overlay">
+                                        <span class="radio-label">Overlay</span>
+                                        <small>Mix all files together</small>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="setting-group">
+                                <label for="crossfadeDuration">Crossfade Duration</label>
+                                <div class="slider-container">
+                                    <input type="range" id="crossfadeDuration" min="0" max="5" value="0.5" step="0.1" aria-label="Crossfade duration in seconds">
+                                    <div class="slider-value" id="crossfadeValue">0.5s</div>
+                                </div>
+                                <small class="setting-help">Smooth transition between tracks</small>
+                            </div>
+
+                            <div class="setting-group">
+                                <label for="gapDuration">Gap Between Tracks</label>
+                                <div class="slider-container">
+                                    <input type="range" id="gapDuration" min="0" max="10" value="0" step="0.1" aria-label="Gap duration in seconds">
+                                    <div class="slider-value" id="gapValue">0.0s</div>
+                                </div>
+                                <small class="setting-help">Silence between tracks (sequential mode only)</small>
+                            </div>
+
+                            <div class="setting-group">
+                                <label for="outputVolume">Output Volume</label>
+                                <div class="slider-container">
+                                    <input type="range" id="outputVolume" min="0" max="200" value="100" step="1" aria-label="Output volume percentage">
+                                    <div class="slider-value" id="volumeValue">100%</div>
+                                </div>
+                                <small class="setting-help">Adjust overall output volume</small>
+                            </div>
+
+                            <div class="checkbox-group">
+                                <label class="checkbox-option">
+                                    <input type="checkbox" id="normalizeOutput" checked>
+                                    <span class="checkbox-label">Normalize Output</span>
+                                    <small>Automatically adjust levels for optimal loudness</small>
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" id="fadeInOut">
+                                    <span class="checkbox-label">Add Fade In/Out</span>
+                                    <small>Smooth fade at beginning and end</small>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Export Section -->
+                    <div class="export-section hidden" id="exportSection">
+                        <div class="export-header">
+                            <h3>Export Merged Audio</h3>
+                        </div>
+
+                        <div class="export-settings">
+                            <div class="setting-group">
+                                <label for="exportFormat">Output Format</label>
+                                <select id="exportFormat">
+                                    <option value="wav">WAV (Uncompressed)</option>
+                                    <option value="webm">WebM</option>
+                                </select>
+                            </div>
+
+                            <div class="setting-group">
+                                <label for="exportQuality">Sample Rate</label>
+                                <select id="exportQuality">
+                                    <option value="48000">48 kHz (Professional)</option>
+                                    <option value="44100" selected>44.1 kHz (CD Quality)</option>
+                                    <option value="22050">22 kHz (Medium)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="export-actions">
+                            <button class="btn-process" id="processBtn">🔗 Merge Audio Files</button>
+                            <button class="btn-download hidden" id="downloadBtn">⬇️ Download Merged Audio</button>
+                        </div>
+
+                        <div class="export-info">
+                            <div class="processed-audio-player hidden" id="processedPlayer">
+                                <h4>Merged Audio Preview</h4>
+                                <audio controls id="processedAudio"></audio>
+                                <div class="merge-stats" id="mergeStats">
+                                    <div class="stat-item">
+                                        <span>Final Duration:</span>
+                                        <span id="finalDuration">-</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span>Files Merged:</span>
+                                        <span id="filesMerged">-</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span>Output Size:</span>
+                                        <span id="finalSize">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructions Section -->
+        <section class="instructions-section">
+            <div class="container">
+                <h2 class="section-title">How to Use Audio Merger</h2>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <div class="instruction-icon">📁</div>
+                        <h3>Select Multiple Files</h3>
+                        <p>Choose multiple audio files to merge them together</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">📝</div>
+                        <h3>Arrange Order</h3>
+                        <p>Drag and drop tracks to reorder them as needed</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">⚙️</div>
+                        <h3>Configure Settings</h3>
+                        <p>Choose merge type, crossfade, gaps, and volume settings</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">⬇️</div>
+                        <h3>Download Result</h3>
+                        <p>Process and download your merged audio file</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <h2 class="section-title">Features</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🔄</div>
+                        <h4>Multiple Merge Modes</h4>
+                        <p>Sequential playback or overlay mixing with professional controls</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎚️</div>
+                        <h4>Smart Crossfading</h4>
+                        <p>Smooth transitions between tracks with adjustable crossfade duration</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📊</div>
+                        <h4>Volume Control</h4>
+                        <p>Individual track volumes and automatic normalization options</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <h4>Privacy Protected</h4>
+                        <p>All processing happens locally - your files never leave your device</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

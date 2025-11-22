@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Splitter - Zapit Tools</title>
+    <meta name="description" content="Split PDF files into individual pages or custom page ranges. Browser-based, secure, and free PDF splitting tool.">
+    <meta name="keywords" content="PDF splitter, split PDF, divide PDF, PDF pages, PDF tools">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="PDF Splitter - Zapit Tools">
+    <meta property="og:description" content="Split PDF files into individual pages or custom page ranges. Browser-based, secure, and free PDF splitting tool.">
+    <meta property="og:url" content="https://zapit.tools/pdf-tools/pdf-splitter/">
+    <meta property="og:type" content="website">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../assets/css/variables.css">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="light.css" id="theme-light">
+    <link rel="stylesheet" href="dark.css" id="theme-dark" disabled>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- PDF-lib Library -->
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="../../">
+                        <img src="../../icons/logo.jpg" alt="Zapit Tools" width="32" height="32">
+                        <span>Zapit Tools</span>
+                    </a>
+                </div>
+                <nav class="nav">
+                    <a href="../../">Home</a>
+                    <a href="../">PDF Tools</a>
+                </nav>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="title-icon">📄</span>
+                        PDF Splitter
+                    </h1>
+                    <p class="hero-description">
+                        Split PDF files into individual pages or custom page ranges. Browser-based processing ensures your documents stay private and secure.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Upload Card -->
+            <section class="upload-card" id="uploadCard">
+                <div class="card-header">
+                    <h3>Upload PDF File</h3>
+                    <div class="upload-actions">
+                        <button class="action-btn" id="clearBtn" title="Clear all">🗑️</button>
+                        <button class="action-btn" id="helpBtn" title="Help">❓</button>
+                    </div>
+                </div>
+                
+                <div class="upload-zone" id="uploadZone">
+                    <input type="file" id="fileInput" accept=".pdf" hidden>
+                    <div class="upload-content">
+                        <div class="upload-icon">📄</div>
+                        <h4>Drag & Drop PDF File Here</h4>
+                        <p>or</p>
+                        <button class="browse-btn" id="browseBtn">
+                            <span>📁</span>
+                            Browse Files
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="file-requirements">
+                    <div class="requirement-item">
+                        <span class="req-icon">📄</span>
+                        <span>PDF files only</span>
+                    </div>
+                    <div class="requirement-item">
+                        <span class="req-icon">⚖️</span>
+                        <span>Max size: 50MB</span>
+                    </div>
+                    <div class="requirement-item">
+                        <span class="req-icon">🔒</span>
+                        <span>Processed locally</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Preview Card -->
+            <section class="preview-card hidden" id="previewCard">
+                <div class="card-header">
+                    <h3>PDF Preview</h3>
+                    <div class="preview-actions">
+                        <span class="page-count" id="pageCount">0 pages</span>
+                        <button class="action-btn" id="selectAllBtn" title="Select all pages">✓</button>
+                        <button class="action-btn" id="deselectAllBtn" title="Deselect all">✗</button>
+                    </div>
+                </div>
+                
+                <div class="file-info-section">
+                    <div class="current-file-info" id="currentFileInfo">
+                        <div class="file-icon">📄</div>
+                        <div class="file-details">
+                            <div class="file-name" id="fileName">No file selected</div>
+                            <div class="file-meta">
+                                <span id="fileSize">0 KB</span>
+                                <span id="filePagesCount">0 pages</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="split-options">
+                    <div class="option-tabs">
+                        <button class="tab-btn active" data-mode="pages">📄 Split by Pages</button>
+                        <button class="tab-btn" data-mode="ranges">📑 Split by Ranges</button>
+                        <button class="tab-btn" data-mode="size">⚖️ Split by Size</button>
+                    </div>
+                    
+                    <!-- Split by Pages Mode -->
+                    <div class="option-content active" id="pagesMode">
+                        <div class="pages-grid" id="pagesGrid">
+                            <!-- Pages will be populated here -->
+                        </div>
+                        <div class="pages-info">
+                            <span id="selectedPagesCount">0 pages selected</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Split by Ranges Mode -->
+                    <div class="option-content" id="rangesMode">
+                        <div class="range-inputs">
+                            <div class="range-presets">
+                                <button class="preset-btn" data-preset="first">First Page</button>
+                                <button class="preset-btn" data-preset="last">Last Page</button>
+                                <button class="preset-btn" data-preset="odd">Odd Pages</button>
+                                <button class="preset-btn" data-preset="even">Even Pages</button>
+                            </div>
+                            <div class="custom-ranges">
+                                <h4>Custom Ranges</h4>
+                                <div class="range-input-group">
+                                    <input type="text" id="rangeInput" placeholder="e.g., 1-3, 5, 7-10" class="range-input">
+                                    <button class="add-range-btn" id="addRangeBtn">Add Range</button>
+                                </div>
+                                <div class="range-examples">
+                                    <small>Examples: "1-3" for pages 1 to 3, "5" for page 5, "1-3,5,7-10" for multiple ranges</small>
+                                </div>
+                                <div class="added-ranges" id="addedRanges">
+                                    <!-- Added ranges will appear here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Split by Size Mode -->
+                    <div class="option-content" id="sizeMode">
+                        <div class="size-options">
+                            <div class="option-group">
+                                <label for="maxPagesPerFile">Maximum pages per file:</label>
+                                <input type="number" id="maxPagesPerFile" min="1" max="100" value="10" class="size-input">
+                            </div>
+                            <div class="size-preview">
+                                <div class="size-info">
+                                    <span>This will create approximately <strong id="estimatedFiles">1</strong> file(s)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="split-actions">
+                    <button class="split-btn" id="splitBtn" disabled>
+                        <span>✂️</span>
+                        Split PDF
+                    </button>
+                </div>
+            </section>
+
+            <!-- Progress Card -->
+            <section class="progress-card hidden" id="progressCard">
+                <div class="card-header">
+                    <h3>Splitting PDF</h3>
+                </div>
+                
+                <div class="progress-content">
+                    <div class="progress-info">
+                        <span class="progress-text">Processing...</span>
+                        <span class="progress-percent" id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="progress-details">
+                        <div class="current-operation" id="currentOperation">Initializing...</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Card -->
+            <section class="results-card hidden" id="resultsCard">
+                <div class="card-header">
+                    <h3>Split Complete</h3>
+                    <div class="results-actions">
+                        <button class="action-btn" id="newSplitBtn" title="Split another PDF">🔄</button>
+                    </div>
+                </div>
+                
+                <div class="results-content">
+                    <div class="success-state">
+                        <div class="success-icon">✅</div>
+                        <h4>PDF Split Successfully!</h4>
+                        <div class="split-summary" id="splitSummary">
+                            <!-- Summary will be populated here -->
+                        </div>
+                        
+                        <div class="download-section">
+                            <div class="download-options">
+                                <button class="download-all-btn" id="downloadAllBtn">
+                                    <span>📦</span>
+                                    Download All Files (ZIP)
+                                </button>
+                            </div>
+                            
+                            <div class="individual-files" id="individualFiles">
+                                <!-- Individual file download buttons will appear here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Info Cards -->
+            <section class="info-card">
+                <h3>How to Split PDF Files</h3>
+                <div class="step-list">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Upload Your PDF</h4>
+                            <p>Drag and drop your PDF file or click "Browse Files" to select it from your device.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Choose Split Method</h4>
+                            <p>Select individual pages, define custom ranges, or split by maximum pages per file.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Download Split Files</h4>
+                            <p>Download individual files or get all split PDFs in a convenient ZIP archive.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-card">
+                <h3>Key Features</h3>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-content">
+                            <h4>100% Secure & Private</h4>
+                            <p>All processing happens in your browser. Your files never leave your device.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-content">
+                            <h4>Fast Processing</h4>
+                            <p>Instant splitting with no waiting time or server uploads required.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-content">
+                            <h4>Flexible Options</h4>
+                            <p>Split by individual pages, custom ranges, or maximum pages per file.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📱</div>
+                        <div class="feature-content">
+                            <h4>Works Everywhere</h4>
+                            <p>Compatible with all modern browsers on desktop and mobile devices.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-card">
+                <h3>Common Use Cases</h3>
+                <div class="use-cases">
+                    <div class="use-case">
+                        <div class="case-icon">📊</div>
+                        <span>Extract specific pages from reports</span>
+                    </div>
+                    <div class="use-case">
+                        <div class="case-icon">📚</div>
+                        <span>Separate chapters from ebooks</span>
+                    </div>
+                    <div class="use-case">
+                        <div class="case-icon">📝</div>
+                        <span>Split forms into individual documents</span>
+                    </div>
+                    <div class="use-case">
+                        <div class="case-icon">📋</div>
+                        <span>Divide large manuals into sections</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>PDF Tools</h4>
+                    <ul>
+                        <li><a href="../pdf-merger/">PDF Merger</a></li>
+                        <li><a href="../pdf-splitter/">PDF Splitter</a></li>
+                        <li><a href="../compress-pdf/">PDF Compressor</a></li>
+                        <li><a href="../protect-pdf/">PDF Protector</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Other Tools</h4>
+                    <ul>
+                        <li><a href="../../image-tools/">Image Tools</a></li>
+                        <li><a href="../../text-tools/">Text Tools</a></li>
+                        <li><a href="../../dev-tools/">Dev Tools</a></li>
+                        <li><a href="../../math-calculators/">Math Calculators</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="../../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../../terms.html">Terms of Service</a></li>
+                        <li><a href="../../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Zapit Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/theme.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

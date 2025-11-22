@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Effects - Apply Professional Audio Effects | Zapit</title>
+    <meta name="description" content="Apply professional audio effects including reverb, delay, distortion, and more. Real-time preview with download functionality.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../../assets/css/header.css">
+    <link rel="stylesheet" href="../../assets/css/footer.css">
+    
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="light.css" id="theme-style">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header"></header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="tool-header">
+            <h1>🎛️ Audio Effects</h1>
+            <p>Apply professional audio effects including reverb, delay, distortion, and more with real-time preview</p>
+        </div>
+
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <div class="upload-header">
+                <h3>📁 Upload Audio File</h3>
+                <p class="file-info" id="fileInfo">Select an audio file to start applying effects</p>
+            </div>
+            
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">🎵</div>
+                <div class="upload-text" id="uploadText">
+                    <strong>Click to upload</strong> or drag & drop your audio file here
+                </div>
+                <div class="upload-formats">Supports: MP3, WAV, OGG, M4A, FLAC</div>
+                <div class="upload-note">Maximum file size: 100MB</div>
+            </div>
+            
+            <input type="file" id="fileInput" accept="audio/*" class="file-input" aria-label="Select audio file for effects processing">
+        </section>
+
+        <!-- Effects Section -->
+        <section class="effects-section hidden" id="effectsSection">
+            <div class="effects-header">
+                <h3>🎛️ Audio Effects</h3>
+                <div class="audio-controls">
+                    <button id="btnPlay" class="btn-play">▶️ Play Original</button>
+                    <button id="btnStop" class="btn-stop">⏹️ Stop</button>
+                    <button id="btnPreview" class="btn-preview">🔊 Preview Effects</button>
+                    <button id="btnExport" class="btn-export">📤 Export</button>
+                </div>
+            </div>
+
+            <div class="effects-controls">
+                <!-- Reverb Effect -->
+                <div class="control-group">
+                    <label class="control-title">
+                        <input type="checkbox" id="enableReverb" class="effect-toggle"> 🌊 Reverb
+                    </label>
+                    <div class="effect-controls" id="reverbControls">
+                        <div class="slider-container">
+                            <label>Room Size</label>
+                            <input type="range" id="reverbRoom" min="0" max="1" step="0.1" value="0.5" aria-label="Reverb room size">
+                            <span class="slider-value" id="reverbRoomValue">0.5</span>
+                            <div class="control-help">Controls the virtual room size (0 = small room, 1 = large hall)</div>
+                        </div>
+                        <div class="slider-container">
+                            <label>Decay Time</label>
+                            <input type="range" id="reverbDecay" min="0.1" max="10" step="0.1" value="2" aria-label="Reverb decay time">
+                            <span class="slider-value" id="reverbDecayValue">2.0s</span>
+                            <div class="control-help">How long the reverb tail lasts</div>
+                        </div>
+                        <div class="slider-container">
+                            <label>Wet/Dry Mix</label>
+                            <input type="range" id="reverbMix" min="0" max="1" step="0.05" value="0.3" aria-label="Reverb wet dry mix">
+                            <span class="slider-value" id="reverbMixValue">30%</span>
+                            <div class="control-help">Balance between original (dry) and reverb (wet) signal</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delay Effect -->
+                <div class="control-group">
+                    <label class="control-title">
+                        <input type="checkbox" id="enableDelay" class="effect-toggle"> ⏱️ Delay
+                    </label>
+                    <div class="effect-controls" id="delayControls">
+                        <div class="slider-container">
+                            <label>Delay Time</label>
+                            <input type="range" id="delayTime" min="10" max="2000" step="10" value="250" aria-label="Delay time in milliseconds">
+                            <span class="slider-value" id="delayTimeValue">250ms</span>
+                            <div class="control-help">Time between original sound and echo</div>
+                        </div>
+                        <div class="slider-container">
+                            <label>Feedback</label>
+                            <input type="range" id="delayFeedback" min="0" max="0.9" step="0.05" value="0.3" aria-label="Delay feedback amount">
+                            <span class="slider-value" id="delayFeedbackValue">30%</span>
+                            <div class="control-help">Amount of delay signal fed back (creates multiple echoes)</div>
+                        </div>
+                        <div class="slider-container">
+                            <label>Wet/Dry Mix</label>
+                            <input type="range" id="delayMix" min="0" max="1" step="0.05" value="0.25" aria-label="Delay wet dry mix">
+                            <span class="slider-value" id="delayMixValue">25%</span>
+                            <div class="control-help">Balance between original and delayed signal</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Distortion Effect -->
+                <div class="control-group">
+                    <label class="control-title">
+                        <input type="checkbox" id="enableDistortion" class="effect-toggle"> 🔥 Distortion
+                    </label>
+                    <div class="effect-controls" id="distortionControls">
+                        <div class="slider-container">
+                            <label>Drive</label>
+                            <input type="range" id="distortionDrive" min="1" max="50" step="1" value="5" aria-label="Distortion drive amount">
+                            <span class="slider-value" id="distortionDriveValue">5</span>
+                            <div class="control-help">Amount of distortion/overdrive applied</div>
+                        </div>
+                        <div class="slider-container">
+                            <label>Tone</label>
+                            <input type="range" id="distortionTone" min="100" max="8000" step="100" value="2000" aria-label="Distortion tone frequency">
+                            <span class="slider-value" id="distortionToneValue">2000Hz</span>
+                            <div class="control-help">High-frequency cutoff for warmer/brighter tone</div>
+                        </div>
+                        <div class="slider-container">
+                            <label>Output Level</label>
+                            <input type="range" id="distortionLevel" min="0" max="2" step="0.1" value="0.8" aria-label="Distortion output level">
+                            <span class="slider-value" id="distortionLevelValue">80%</span>
+                            <div class="control-help">Final output volume compensation</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter Effect -->
+                <div class="control-group">
+                    <label class="control-title">
+                        <input type="checkbox" id="enableFilter" class="effect-toggle"> 🎛️ Filter
+                    </label>
+                    <div class="effect-controls" id="filterControls">
+                        <div class="option-group">
+                            <label class="option-title">Filter Type</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" name="filter-type" value="lowpass" checked aria-label="Low pass filter">
+                                    <span class="radio-label">Low Pass</span>
+                                    <small>Removes high frequencies (warmer sound)</small>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="filter-type" value="highpass" aria-label="High pass filter">
+                                    <span class="radio-label">High Pass</span>
+                                    <small>Removes low frequencies (brighter sound)</small>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" name="filter-type" value="bandpass" aria-label="Band pass filter">
+                                    <span class="radio-label">Band Pass</span>
+                                    <small>Only allows a specific frequency range</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slider-container">
+                            <label>Cutoff Frequency</label>
+                            <input type="range" id="filterFrequency" min="80" max="8000" step="10" value="1000" aria-label="Filter cutoff frequency">
+                            <span class="slider-value" id="filterFrequencyValue">1000Hz</span>
+                            <div class="control-help">Frequency where the filter starts to take effect</div>
+                        </div>
+                        <div class="slider-container">
+                            <label>Resonance (Q)</label>
+                            <input type="range" id="filterQ" min="0.5" max="20" step="0.5" value="1" aria-label="Filter resonance Q factor">
+                            <span class="slider-value" id="filterQValue">1.0</span>
+                            <div class="control-help">Sharpness of the filter (higher = more pronounced)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compressor Effect -->
+                <div class="control-group">
+                    <label class="control-title">
+                        <input type="checkbox" id="enableCompressor" class="effect-toggle"> 📈 Compressor
+                    </label>
+                    <div class="effect-controls" id="compressorControls">
+                        <div class="slider-container">
+                            <label>Threshold</label>
+                            <input type="range" id="compressorThreshold" min="-60" max="0" step="1" value="-24" aria-label="Compressor threshold">
+                            <span class="slider-value" id="compressorThresholdValue">-24dB</span>
+                            <div class="control-help">Level above which compression starts</div>
+                        </div>
+                        <div class="slider-container">
+                            <label>Ratio</label>
+                            <input type="range" id="compressorRatio" min="1" max="20" step="1" value="4" aria-label="Compressor ratio">
+                            <span class="slider-value" id="compressorRatioValue">4:1</span>
+                            <div class="control-help">Amount of compression applied</div>
+                        </div>
+                        <div class="slider-container">
+                            <label>Attack</label>
+                            <input type="range" id="compressorAttack" min="0" max="1" step="0.01" value="0.003" aria-label="Compressor attack time">
+                            <span class="slider-value" id="compressorAttackValue">3ms</span>
+                            <div class="control-help">How quickly compression starts</div>
+                        </div>
+                        <div class="slider-container">
+                            <label>Release</label>
+                            <input type="range" id="compressorRelease" min="0" max="1" step="0.01" value="0.25" aria-label="Compressor release time">
+                            <span class="slider-value" id="compressorReleaseValue">250ms</span>
+                            <div class="control-help">How quickly compression stops</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Effect Preview Info -->
+            <div class="preview-info" id="previewInfo">
+                <h4>📊 Effect Status</h4>
+                <div class="info-cards">
+                    <div class="info-card">
+                        <div class="info-label">Active Effects</div>
+                        <div class="info-value" id="activeEffects">0</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Processing Load</div>
+                        <div class="info-value" id="processingLoad">Low</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Latency</div>
+                        <div class="info-value" id="latencyInfo">~5ms</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Output Level</div>
+                        <div class="info-value" id="outputLevel">100%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Waveform Visualization -->
+            <div class="waveform-container">
+                <canvas id="waveformCanvas" width="800" height="200"></canvas>
+                <div class="waveform-info">Real-time audio visualization with effects applied</div>
+            </div>
+        </section>
+
+        <!-- Export Section -->
+        <section class="export-section hidden" id="exportSection">
+            <div class="export-header">
+                <h3>💾 Export Processed Audio</h3>
+            </div>
+
+            <div class="export-settings">
+                <div class="setting-group">
+                    <label for="exportFormat">Output Format</label>
+                    <select id="exportFormat">
+                        <option value="wav">WAV (Uncompressed)</option>
+                        <option value="mp3">MP3 (Compressed)</option>
+                    </select>
+                    <div class="setting-help">WAV provides highest quality, MP3 creates smaller files</div>
+                </div>
+
+                <div class="setting-group">
+                    <label for="exportQuality">Quality</label>
+                    <select id="exportQuality">
+                        <option value="high">High (48kHz/24-bit)</option>
+                        <option value="standard" selected>Standard (44.1kHz/16-bit)</option>
+                        <option value="web">Web (44.1kHz/16-bit MP3)</option>
+                    </select>
+                    <div class="setting-help">Higher quality means larger file size</div>
+                </div>
+
+                <div class="setting-group">
+                    <label for="exportNormalize">Normalize Output</label>
+                    <select id="exportNormalize">
+                        <option value="none">No Normalization</option>
+                        <option value="peak" selected>Peak Normalization</option>
+                        <option value="rms">RMS Normalization</option>
+                    </select>
+                    <div class="setting-help">Ensures consistent output levels</div>
+                </div>
+            </div>
+
+            <div class="export-actions">
+                <button id="btnProcess" class="btn-process">
+                    🔄 Process Audio
+                </button>
+                <button id="btnDownload" class="btn-download hidden">
+                    💾 Download Processed Audio
+                </button>
+            </div>
+
+            <div class="processed-audio-player hidden" id="processedAudioContainer">
+                <h4>🎵 Processed Audio Preview</h4>
+                <audio id="processedAudioPlayer" controls></audio>
+                <div class="processed-stats" id="processedStats">
+                    <div class="info-cards">
+                        <div class="info-card">
+                            <div class="info-label">Duration</div>
+                            <div class="info-value" id="processedDuration">--</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-label">File Size</div>
+                            <div class="info-value" id="processedSize">--</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-label">Peak Level</div>
+                            <div class="info-value" id="processedPeak">--</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-label">Effects Applied</div>
+                            <div class="info-value" id="processedEffects">--</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer"></footer>
+
+    <!-- Scripts -->
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

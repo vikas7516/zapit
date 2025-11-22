@@ -1,0 +1,131 @@
+        /* Dark theme for Compound Interest Calculator */
+        [data-theme="dark"] .calculator-container {
+            background: #1a202c;
+        }
+        
+        [data-theme="dark"] .calculator-header h1 {
+            color: #f7fafc;
+        }
+        
+        [data-theme="dark"] .calculator-header p {
+            color: #a0aec0;
+        }
+        
+        [data-theme="dark"] .input-section,
+        [data-theme="dark"] .results-section,
+        [data-theme="dark"] .projection-section,
+        [data-theme="dark"] .comparison-section,
+        [data-theme="dark"] .goal-section,
+        [data-theme="dark"] .info-section {
+            background: #2d3748;
+            border: 1px solid #4a5568;
+        }
+        
+        [data-theme="dark"] .input-section h3,
+        [data-theme="dark"] .results-section h3,
+        [data-theme="dark"] .projection-section h3,
+        [data-theme="dark"] .comparison-section h3,
+        [data-theme="dark"] .goal-section h3,
+        [data-theme="dark"] .info-section h3 {
+            color: #f7fafc;
+        }
+        
+        [data-theme="dark"] .form-label {
+            color: #e2e8f0;
+        }
+        
+        [data-theme="dark"] .form-input,
+        [data-theme="dark"] .form-select {
+            background: #4a5568;
+            border-color: #718096;
+            color: #f7fafc;
+        }
+        
+        [data-theme="dark"] .form-input:focus,
+        [data-theme="dark"] .form-select:focus {
+            background: #2d3748;
+            border-color: #68d391;
+        }
+        
+        [data-theme="dark"] .input-prefix,
+        [data-theme="dark"] .input-suffix {
+            color: #a0aec0;
+        }
+        
+        [data-theme="dark"] .result-card {
+            background: #2a4040;
+            border-color: #4a7c7c;
+        }
+        
+        [data-theme="dark"] .result-label {
+            color: #e2e8f0;
+        }
+        
+        [data-theme="dark"] .result-value {
+            color: #f7fafc;
+        }
+        
+        [data-theme="dark"] .result-value.primary {
+            color: #68d391;
+        }
+        
+        [data-theme="dark"] .chart-container {
+            background: #4a5568;
+        }
+        
+        [data-theme="dark"] .projection-table th {
+            background: #2a4040;
+            color: #f7fafc;
+        }
+        
+        [data-theme="dark"] .projection-table th,
+        [data-theme="dark"] .projection-table td {
+            border-bottom-color: #4a5568;
+            color: #e2e8f0;
+        }
+        
+        [data-theme="dark"] .projection-table tbody tr:hover {
+            background: #2a4040;
+        }
+        
+        [data-theme="dark"] .projection-table tbody tr:nth-child(5n) {
+            background: #1a2d2d;
+        }
+        
+        [data-theme="dark"] .comparison-card {
+            background: #2d3748;
+            border-color: #4a5568;
+            color: #e2e8f0;
+        }
+        
+        [data-theme="dark"] .comparison-card.best {
+            border-color: #68d391;
+            background: #1a2d1a;
+        }
+        
+        [data-theme="dark"] .goal-input {
+            background: #4a5568;
+        }
+        
+        [data-theme="dark"] .goal-result {
+            background: #2a4040;
+            border-color: #4a7c7c;
+        }
+        
+        [data-theme="dark"] .export-btn {
+            border-color: #68d391;
+            color: #68d391;
+        }
+        
+        [data-theme="dark"] .export-btn:hover {
+            background: #68d391;
+            color: #1a202c;
+        }
+        
+        [data-theme="dark"] .info-title {
+            color: #f7fafc;
+        }
+        
+        [data-theme="dark"] .info-desc {
+            color: #a0aec0;
+        }

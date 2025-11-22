@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Calorie Calculator - Health & Fitness - Zapit</title>
+    <meta name="description" content="Calculate your daily calorie needs (TDEE) based on activity level and goals. Get personalized recommendations for weight loss, maintenance, or gain.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link rel="canonical" href="https://zapit.me/health-fitness-calculators/daily-calorie-calculator">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">🍽️</div>
+                    <h1 class="tool-title">Daily Calorie Calculator</h1>
+                    <p class="tool-description">Calculate your Total Daily Energy Expenditure (TDEE) and get personalized calorie recommendations</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-container">
+                    <!-- Calculator Form -->
+                    <div class="calculator-panel">
+                        <h3>Calculate Your Daily Calorie Needs</h3>
+                        
+                        <div class="step-indicator">
+                            <div class="step active" data-step="1">
+                                <div class="step-number">1</div>
+                                <div class="step-label">Basic Info</div>
+                            </div>
+                            <div class="step" data-step="2">
+                                <div class="step-number">2</div>
+                                <div class="step-label">Activity Level</div>
+                            </div>
+                            <div class="step" data-step="3">
+                                <div class="step-number">3</div>
+                                <div class="step-label">Goals</div>
+                            </div>
+                        </div>
+
+                        <!-- Step 1: Basic Information -->
+                        <div id="step1" class="step-content active">
+                            <div class="unit-toggle">
+                                <button id="metricBtn" class="unit-btn active">Metric</button>
+                                <button id="imperialBtn" class="unit-btn">Imperial</button>
+                            </div>
+
+                            <div class="input-section">
+                                <div class="input-group">
+                                    <div class="input-row">
+                                        <label for="gender">Gender:</label>
+                                        <div class="gender-toggle">
+                                            <button id="maleBtn" class="gender-btn active" data-gender="male">
+                                                <span class="gender-icon">👨</span>
+                                                Male
+                                            </button>
+                                            <button id="femaleBtn" class="gender-btn" data-gender="female">
+                                                <span class="gender-icon">👩</span>
+                                                Female
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="input-row">
+                                        <label for="age">Age:</label>
+                                        <div class="input-with-unit">
+                                            <input type="number" id="age" placeholder="25" min="1" max="120" step="1">
+                                            <span class="unit">years</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Metric Inputs -->
+                                <div id="metricInputs" class="input-group">
+                                    <div class="input-row">
+                                        <label for="heightCm">Height:</label>
+                                        <div class="input-with-unit">
+                                            <input type="number" id="heightCm" placeholder="170" min="50" max="250" step="0.1">
+                                            <span class="unit">cm</span>
+                                        </div>
+                                    </div>
+                                    <div class="input-row">
+                                        <label for="weightKg">Weight:</label>
+                                        <div class="input-with-unit">
+                                            <input type="number" id="weightKg" placeholder="70" min="20" max="300" step="0.1">
+                                            <span class="unit">kg</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Imperial Inputs -->
+                                <div id="imperialInputs" class="input-group hidden">
+                                    <div class="input-row">
+                                        <label for="heightFt">Height:</label>
+                                        <div class="height-imperial">
+                                            <div class="input-with-unit">
+                                                <input type="number" id="heightFt" placeholder="5" min="3" max="8" step="1">
+                                                <span class="unit">ft</span>
+                                            </div>
+                                            <div class="input-with-unit">
+                                                <input type="number" id="heightIn" placeholder="7" min="0" max="11" step="1">
+                                                <span class="unit">in</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input-row">
+                                        <label for="weightLbs">Weight:</label>
+                                        <div class="input-with-unit">
+                                            <input type="number" id="weightLbs" placeholder="154" min="50" max="700" step="0.1">
+                                            <span class="unit">lbs</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button id="nextStep1" class="step-btn">Next: Activity Level</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Activity Level -->
+                        <div id="step2" class="step-content">
+                            <h4>Select Your Activity Level</h4>
+                            <p class="step-description">Choose the option that best describes your typical day:</p>
+                            
+                            <div class="activity-options">
+                                <div class="activity-option" data-activity="sedentary">
+                                    <div class="activity-header">
+                                        <div class="activity-icon">🪑</div>
+                                        <div class="activity-info">
+                                            <div class="activity-name">Sedentary</div>
+                                            <div class="activity-multiplier">×1.2</div>
+                                        </div>
+                                    </div>
+                                    <div class="activity-description">
+                                        Little to no exercise, desk job, mostly sitting throughout the day
+                                    </div>
+                                </div>
+
+                                <div class="activity-option" data-activity="light">
+                                    <div class="activity-header">
+                                        <div class="activity-icon">🚶</div>
+                                        <div class="activity-info">
+                                            <div class="activity-name">Light Activity</div>
+                                            <div class="activity-multiplier">×1.375</div>
+                                        </div>
+                                    </div>
+                                    <div class="activity-description">
+                                        Light exercise 1-3 days per week, some walking, light sports
+                                    </div>
+                                </div>
+
+                                <div class="activity-option" data-activity="moderate">
+                                    <div class="activity-header">
+                                        <div class="activity-icon">🏃</div>
+                                        <div class="activity-info">
+                                            <div class="activity-name">Moderate Activity</div>
+                                            <div class="activity-multiplier">×1.55</div>
+                                        </div>
+                                    </div>
+                                    <div class="activity-description">
+                                        Moderate exercise 3-5 days per week, regular gym visits, sports
+                                    </div>
+                                </div>
+
+                                <div class="activity-option" data-activity="active">
+                                    <div class="activity-header">
+                                        <div class="activity-icon">💪</div>
+                                        <div class="activity-info">
+                                            <div class="activity-name">Very Active</div>
+                                            <div class="activity-multiplier">×1.725</div>
+                                        </div>
+                                    </div>
+                                    <div class="activity-description">
+                                        Hard exercise 6-7 days per week, athlete training, physical job
+                                    </div>
+                                </div>
+
+                                <div class="activity-option" data-activity="extreme">
+                                    <div class="activity-header">
+                                        <div class="activity-icon">🏋️</div>
+                                        <div class="activity-info">
+                                            <div class="activity-name">Extremely Active</div>
+                                            <div class="activity-multiplier">×1.9</div>
+                                        </div>
+                                    </div>
+                                    <div class="activity-description">
+                                        Very hard exercise, physical job + exercise, training 2x per day
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="step-navigation">
+                                <button id="prevStep2" class="step-btn secondary">Previous</button>
+                                <button id="nextStep2" class="step-btn">Next: Goals</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Goals -->
+                        <div id="step3" class="step-content">
+                            <h4>What's Your Goal?</h4>
+                            <p class="step-description">Select your primary fitness goal:</p>
+                            
+                            <div class="goal-options">
+                                <div class="goal-option" data-goal="lose">
+                                    <div class="goal-icon">📉</div>
+                                    <div class="goal-name">Lose Weight</div>
+                                    <div class="goal-description">Create a caloric deficit for weight loss</div>
+                                </div>
+
+                                <div class="goal-option" data-goal="maintain">
+                                    <div class="goal-icon">⚖️</div>
+                                    <div class="goal-name">Maintain Weight</div>
+                                    <div class="goal-description">Maintain current weight and body composition</div>
+                                </div>
+
+                                <div class="goal-option" data-goal="gain">
+                                    <div class="goal-icon">📈</div>
+                                    <div class="goal-name">Gain Weight</div>
+                                    <div class="goal-description">Create a caloric surplus for weight gain</div>
+                                </div>
+                            </div>
+
+                            <div id="weightChangeRate" class="weight-change-section hidden">
+                                <label for="weeklyGoal">Weekly Goal:</label>
+                                <select id="weeklyGoal">
+                                    <option value="0.25">0.25 kg (0.5 lbs) per week - Slow</option>
+                                    <option value="0.5" selected>0.5 kg (1 lb) per week - Moderate</option>
+                                    <option value="0.75">0.75 kg (1.5 lbs) per week - Aggressive</option>
+                                    <option value="1">1 kg (2 lbs) per week - Very Aggressive</option>
+                                </select>
+                            </div>
+
+                            <div class="step-navigation">
+                                <button id="prevStep3" class="step-btn secondary">Previous</button>
+                                <button id="calculateBtn" class="step-btn">Calculate Calories</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results Panel -->
+                    <div id="resultsPanel" class="results-panel hidden">
+                        <h3>Your Daily Calorie Recommendations</h3>
+                        
+                        <div class="calories-display">
+                            <div class="bmr-section">
+                                <div class="calorie-label">BMR (Basal Metabolic Rate)</div>
+                                <div class="calorie-value" id="bmrDisplay">0</div>
+                                <div class="calorie-description">Calories burned at rest</div>
+                            </div>
+                            
+                            <div class="tdee-section">
+                                <div class="calorie-label">TDEE (Total Daily Energy Expenditure)</div>
+                                <div class="calorie-value primary" id="tdeeDisplay">0</div>
+                                <div class="calorie-description">Calories needed to maintain weight</div>
+                            </div>
+                            
+                            <div class="goal-section">
+                                <div class="calorie-label" id="goalLabel">For Your Goal</div>
+                                <div class="calorie-value goal" id="goalDisplay">0</div>
+                                <div class="calorie-description" id="goalDescription">Recommended daily calories</div>
+                            </div>
+                        </div>
+
+                        <div class="macros-breakdown">
+                            <h4>Recommended Macronutrient Breakdown</h4>
+                            <div class="macros-grid">
+                                <div class="macro-item protein">
+                                    <div class="macro-header">
+                                        <span class="macro-name">Protein</span>
+                                        <span class="macro-percentage">25-30%</span>
+                                    </div>
+                                    <div class="macro-grams" id="proteinGrams">0g</div>
+                                    <div class="macro-calories" id="proteinCalories">0 cal</div>
+                                </div>
+                                <div class="macro-item carbs">
+                                    <div class="macro-header">
+                                        <span class="macro-name">Carbohydrates</span>
+                                        <span class="macro-percentage">40-50%</span>
+                                    </div>
+                                    <div class="macro-grams" id="carbsGrams">0g</div>
+                                    <div class="macro-calories" id="carbsCalories">0 cal</div>
+                                </div>
+                                <div class="macro-item fats">
+                                    <div class="macro-header">
+                                        <span class="macro-name">Fats</span>
+                                        <span class="macro-percentage">20-30%</span>
+                                    </div>
+                                    <div class="macro-grams" id="fatsGrams">0g</div>
+                                    <div class="macro-calories" id="fatsCalories">0 cal</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recommendations">
+                            <h4>Tips for Success</h4>
+                            <div id="tipsContent"></div>
+                        </div>
+
+                        <div class="actions">
+                            <button id="recalculateBtn" class="secondary-btn">Recalculate</button>
+                            <button id="shareBtn" class="primary-btn">Share Results</button>
+                        </div>
+                    </div>
+
+                    <!-- Information Panel -->
+                    <div class="info-panel">
+                        <h3>About Daily Calorie Needs</h3>
+                        <div class="info-content">
+                            <p>Your Total Daily Energy Expenditure (TDEE) represents the total number of calories you burn in a day, including your Basal Metabolic Rate (BMR) plus calories burned through physical activity.</p>
+                            
+                            <div class="info-sections">
+                                <div class="info-section">
+                                    <h4>🔥 TDEE Components</h4>
+                                    <ul>
+                                        <li><strong>BMR (60-75%):</strong> Calories burned at rest for basic body functions</li>
+                                        <li><strong>TEF (8-15%):</strong> Thermic Effect of Food - calories burned digesting food</li>
+                                        <li><strong>NEAT (15-30%):</strong> Non-Exercise Activity Thermogenesis - daily activities</li>
+                                        <li><strong>EAT (15-30%):</strong> Exercise Activity Thermogenesis - planned exercise</li>
+                                    </ul>
+                                </div>
+
+                                <div class="info-section">
+                                    <h4>⚖️ Caloric Balance</h4>
+                                    <ul>
+                                        <li><strong>Deficit:</strong> Eat less than TDEE to lose weight (500 cal = ~0.5kg/week)</li>
+                                        <li><strong>Maintenance:</strong> Eat equal to TDEE to maintain weight</li>
+                                        <li><strong>Surplus:</strong> Eat more than TDEE to gain weight (500 cal = ~0.5kg/week)</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="disclaimer">
+                                <h4>Important Note</h4>
+                                <p>These calculations provide estimates based on established formulas. Individual needs may vary due to genetics, medical conditions, medications, and other factors. Consult healthcare professionals for personalized nutrition advice.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/assets/js/script.js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

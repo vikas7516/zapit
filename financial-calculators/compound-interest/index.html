@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compound Interest Calculator - Zapit Financial Tools</title>
+    <meta name="description" content="Calculate compound interest growth, compare investment scenarios, and visualize wealth building over time with detailed projections.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link rel="canonical" href="https://zapit.me/financial-calculators/compound-interest">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+</head>
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="calculator-container">
+            <div class="calculator-header">
+                <h1>💹 Compound Interest Calculator</h1>
+                <p>Calculate the power of compound interest and visualize how your investments grow over time. Compare different scenarios and plan your financial future.</p>
+            </div>
+
+            <div class="calculator-grid">
+                <div class="input-section">
+                    <h3>Investment Details</h3>
+                    <form id="compoundForm">
+                        <div class="form-group">
+                            <label class="form-label" for="principal">Initial Investment</label>
+                            <div class="input-group">
+                                <span class="input-prefix">₹</span>
+                                <input type="number" id="principal" class="form-input has-prefix" value="100000" min="1000" max="10000000" step="1000">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="monthlyContribution">Monthly Contribution</label>
+                            <div class="input-group">
+                                <span class="input-prefix">₹</span>
+                                <input type="number" id="monthlyContribution" class="form-input has-prefix" value="5000" min="0" max="100000" step="500">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="annualRate">Annual Interest Rate</label>
+                            <div class="input-group">
+                                <input type="number" id="annualRate" class="form-input has-suffix" value="12" min="0.1" max="30" step="0.1">
+                                <span class="input-suffix">%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="timePeriod">Investment Period</label>
+                            <div class="input-group">
+                                <input type="number" id="timePeriod" class="form-input has-suffix" value="20" min="1" max="50" step="1">
+                                <span class="input-suffix">years</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="compoundingFrequency">Compounding Frequency</label>
+                            <select id="compoundingFrequency" class="form-select">
+                                <option value="1">Annually</option>
+                                <option value="2">Semi-Annually</option>
+                                <option value="4">Quarterly</option>
+                                <option value="12" selected>Monthly</option>
+                                <option value="365">Daily</option>
+                            </select>
+                        </div>
+                        
+                        <button type="button" id="calculateBtn" class="calculate-btn">Calculate Growth</button>
+                    </form>
+                </div>
+
+                <div class="results-section">
+                    <h3>Investment Summary</h3>
+                    <div class="results-summary">
+                        <div class="result-card">
+                            <div class="result-label">Final Amount</div>
+                            <div class="result-value primary" id="finalAmount">₹0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Total Invested</div>
+                            <div class="result-value" id="totalInvested">₹0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Interest Earned</div>
+                            <div class="result-value" id="interestEarned">₹0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Growth Multiple</div>
+                            <div class="result-value" id="growthMultiple">0x</div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="growthChart" width="600" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="goal-section">
+                <h3>Investment Goal Calculator</h3>
+                <p>Calculate how much you need to invest to reach your financial goal.</p>
+                <div class="goal-calculator">
+                    <div class="goal-input">
+                        <div class="form-group">
+                            <label class="form-label" for="targetAmount">Target Amount</label>
+                            <div class="input-group">
+                                <span class="input-prefix">₹</span>
+                                <input type="number" id="targetAmount" class="form-input has-prefix" value="1000000" min="10000" step="10000">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="goalTimeframe">Time to Goal</label>
+                            <div class="input-group">
+                                <input type="number" id="goalTimeframe" class="form-input has-suffix" value="10" min="1" max="50" step="1">
+                                <span class="input-suffix">years</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="goalRate">Expected Annual Return</label>
+                            <div class="input-group">
+                                <input type="number" id="goalRate" class="form-input has-suffix" value="12" min="0.1" max="30" step="0.1">
+                                <span class="input-suffix">%</span>
+                            </div>
+                        </div>
+                        <button type="button" id="calculateGoalBtn" class="calculate-btn">Calculate Required Investment</button>
+                    </div>
+                    
+                    <div class="goal-result">
+                        <h4>Required Investment</h4>
+                        <div class="goal-result-item">
+                            <div class="result-label">Monthly SIP Amount</div>
+                            <div class="result-value primary" id="requiredSIP">₹0</div>
+                        </div>
+                        <div class="goal-result-item">
+                            <div class="result-label">One-time Investment</div>
+                            <div class="result-value" id="requiredLumpsum">₹0</div>
+                        </div>
+                        <div class="goal-result-item">
+                            <div class="result-label">Total Investment</div>
+                            <div class="result-value" id="totalSIPInvestment">₹0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="projection-section">
+                <h3>Year-by-Year Projection</h3>
+                <div class="export-buttons">
+                    <button class="export-btn" onclick="exportProjectionToPDF()">Export PDF</button>
+                    <button class="export-btn" onclick="exportProjectionToExcel()">Export Excel</button>
+                </div>
+                
+                <div class="projection-scroll">
+                    <table class="projection-table" id="projectionTable">
+                        <thead>
+                            <tr>
+                                <th>Year</th>
+                                <th>Beginning Balance</th>
+                                <th>Annual Contribution</th>
+                                <th>Interest Earned</th>
+                                <th>Ending Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody id="projectionBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="comparison-section">
+                <h3>Investment Scenario Comparison</h3>
+                <p>See how different rates and contribution amounts affect your wealth building.</p>
+                <div class="investment-comparison" id="investmentComparison">
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>Understanding Compound Interest</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-icon">📈</div>
+                        <div class="info-title">The Power of Compounding</div>
+                        <div class="info-desc">Interest earns interest, creating exponential growth over time</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">⏰</div>
+                        <div class="info-title">Time is Your Friend</div>
+                        <div class="info-desc">Starting early gives compound interest more time to work its magic</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">🔁</div>
+                        <div class="info-title">Regular Contributions</div>
+                        <div class="info-desc">Consistent monthly investments amplify the compounding effect</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">📊</div>
+                        <div class="info-title">Compound Formula</div>
+                        <div class="info-desc">A = P(1 + r/n)^(nt) + PMT × [((1 + r/n)^(nt) - 1) / (r/n)]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

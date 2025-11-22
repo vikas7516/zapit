@@ -1,0 +1,413 @@
+/* Cron Job Generator - Light Theme */
+
+.tool-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+.input-section, .result-section, .presets-section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.presets-section {
+    border-bottom: none;
+}
+
+.method-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.tab-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background: transparent;
+    color: #6b7280;
+    cursor: pointer;
+    border-radius: 8px 8px 0 0;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.tab-btn.active {
+    background: #3b82f6;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.frequency-section h4, .result-section h3, .presets-section h3 {
+    color: #1f2937;
+    margin: 0 0 1.5rem 0;
+    font-size: 1.25rem;
+}
+
+.frequency-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.radio-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.75rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.radio-item:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.radio-item input[type="radio"] {
+    display: none;
+}
+
+.radio-mark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #d1d5db;
+    border-radius: 50%;
+    margin-right: 0.75rem;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.radio-item input[type="radio"]:checked + .radio-mark {
+    border-color: #3b82f6;
+    background: #3b82f6;
+}
+
+.radio-item input[type="radio"]:checked + .radio-mark::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: white;
+}
+
+.custom-options {
+    display: none;
+}
+
+.custom-options.active {
+    display: block;
+}
+
+.cron-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.field-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.9rem;
+}
+
+.field-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    background: #ffffff;
+    color: #374151;
+    transition: border-color 0.2s ease;
+}
+
+.field-group input:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.time-selector h5 {
+    color: #1f2937;
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+}
+
+.time-inputs {
+    display: flex;
+    gap: 1rem;
+}
+
+.time-input {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.time-input label {
+    font-weight: 600;
+    color: #374151;
+}
+
+.time-input select {
+    padding: 0.5rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #374151;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    background: #ffffff;
+    color: #374151;
+}
+
+.form-group small {
+    display: block;
+    margin-top: 0.25rem;
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+.cron-result {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.expression-display {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.expression-value {
+    font-family: 'Courier New', monospace;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #3b82f6;
+    background: #ffffff;
+    padding: 0.75rem;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+
+.copy-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    color: #6b7280;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.expression-breakdown {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.field-explanation {
+    text-align: center;
+    flex: 1;
+    min-width: 80px;
+}
+
+.field-value {
+    display: block;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f2937;
+    background: #ffffff;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #d1d5db;
+    margin-bottom: 0.25rem;
+}
+
+.field-label {
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.human-readable, .next-runs {
+    margin-bottom: 1.5rem;
+}
+
+.human-readable h4, .next-runs h4 {
+    color: #1f2937;
+    margin: 0 0 0.75rem 0;
+    font-size: 1rem;
+}
+
+.human-readable p {
+    color: #374151;
+    font-size: 1.1rem;
+    font-weight: 500;
+    background: #ecfdf5;
+    padding: 1rem;
+    border-radius: 6px;
+    border-left: 4px solid #10b981;
+    margin: 0;
+}
+
+.next-runs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.next-runs li {
+    padding: 0.75rem;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    font-family: 'Courier New', monospace;
+    color: #374151;
+}
+
+.preset-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.preset-btn {
+    background: #ffffff;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.preset-btn:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.preset-btn strong {
+    display: block;
+    font-family: 'Courier New', monospace;
+    color: #3b82f6;
+    margin-bottom: 0.25rem;
+}
+
+.preset-btn span {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.info-panel {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 2rem;
+    border: 1px solid #e2e8f0;
+}
+
+.format-diagram {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.format-field {
+    text-align: center;
+    flex: 1;
+    min-width: 80px;
+}
+
+.format-field strong {
+    display: block;
+    font-size: 1.5rem;
+    color: #3b82f6;
+    margin-bottom: 0.25rem;
+}
+
+.format-field span {
+    display: block;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+}
+
+.format-field small {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+    .tool-card {
+        padding: 1.5rem;
+    }
+    
+    .frequency-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .cron-fields {
+        grid-template-columns: 1fr;
+    }
+    
+    .expression-breakdown {
+        flex-direction: column;
+    }
+    
+    .time-inputs {
+        flex-direction: column;
+    }
+    
+    .format-diagram {
+        flex-direction: column;
+    }
+}

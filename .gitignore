@@ -1,0 +1,42 @@
+# Node modules (if using build tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build outputs
+dist/
+build/
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Backup files
+*.backup
+*_backup.*
+*_OLD_*
+*_old.*
+*_temp.*
+*_new.*
+style_corrected_header.txt
+style_header_fixed.txt
+CSS_FIX_INSTRUCTIONS.md
+
+# Brain/workspace files
+.gemini/

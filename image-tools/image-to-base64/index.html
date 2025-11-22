@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to Base64 - Image Tools - Zapit</title>
+    <meta name="description" content="Convert images to Base64 encoded strings. Free online tool for encoding JPG, PNG, GIF, and WebP images.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/image-tools/image-to-base64">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">🧬</div>
+                    <h1 class="tool-title">Image to Base64</h1>
+                    <p class="tool-description">Convert images to Base64 encoded strings for embedding in CSS, HTML, or code</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-layout">
+                    <!-- Upload Section -->
+                    <div class="upload-section" id="uploadSection">
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-icon">📁</div>
+                            <div class="upload-text">
+                                <h3>Drop your image here</h3>
+                                <p>or <span class="browse-link">click to browse</span></p>
+                                <div class="upload-formats">JPG, PNG, GIF, WebP • Max 10MB</div>
+                            </div>
+                            <input type="file" id="fileInput" accept="image/*" hidden>
+                        </div>
+                        <div class="upload-error" id="uploadError"></div>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div class="results-section hidden" id="resultsSection">
+                        <div class="results-layout">
+                            <!-- Preview -->
+                            <div class="preview-section">
+                                <div class="preview-header">
+                                    <h3>Image Preview</h3>
+                                    <div class="preview-info" id="previewInfo"></div>
+                                </div>
+                                <div class="preview-container">
+                                    <img id="previewImage" alt="Image preview" />
+                                </div>
+                            </div>
+
+                            <!-- Output -->
+                            <div class="output-section">
+                                <div class="output-header">
+                                    <h3>Base64 Output</h3>
+                                    <div class="output-actions">
+                                        <button class="btn-secondary" id="copyBtn">📋 Copy</button>
+                                        <button class="btn-secondary" id="downloadBtn">💾 Download</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="output-options">
+                                    <div class="option-group">
+                                        <label class="option-label">Output Format</label>
+                                        <div class="radio-group">
+                                            <label class="radio-option">
+                                                <input type="radio" name="outputFormat" value="dataurl" checked>
+                                                <span class="radio-label">Data URL</span>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="outputFormat" value="base64only">
+                                                <span class="radio-label">Base64 Only</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="option-group">
+                                        <label class="option-label">Optimize Quality</label>
+                                        <div class="quality-control">
+                                            <input type="range" id="qualitySlider" min="0.1" max="1" step="0.1" value="0.9" aria-label="Image quality slider">
+                                            <span class="quality-value">90%</span>
+                                        </div>
+                                        <div class="quality-note">Lower quality = smaller Base64 size</div>
+                                    </div>
+                                </div>
+
+                                <div class="output-container">
+                                    <textarea 
+                                        id="base64Output" 
+                                        readonly 
+                                        placeholder="Base64 output will appear here..."
+                                        rows="8"
+                                    ></textarea>
+                                    <div class="output-info">
+                                        <span class="output-length" id="outputLength">0 characters</span>
+                                        <span class="output-size" id="outputSize">0 KB</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="btn-primary" id="newImageBtn">
+                                <span class="btn-icon">🔄</span>
+                                Convert Another Image
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructions Section -->
+        <section class="instructions-section">
+            <div class="container">
+                <h2 class="section-title">How to Convert Image to Base64</h2>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <div class="instruction-icon">📸</div>
+                        <h3>Upload Image</h3>
+                        <p>Drop or select the image file you want to convert</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">⚙️</div>
+                        <h3>Choose Format</h3>
+                        <p>Select data URL or Base64-only output format</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">🎛️</div>
+                        <h3>Adjust Quality</h3>
+                        <p>Optimize file size by adjusting the quality slider</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">📋</div>
+                        <h3>Copy or Download</h3>
+                        <p>Copy the Base64 string or download as a text file</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Usage Examples Section -->
+        <section class="examples-section">
+            <div class="container">
+                <h2 class="section-title">Usage Examples</h2>
+                <div class="examples-grid">
+                    <div class="example-item">
+                        <h4>CSS Background Image</h4>
+                        <code class="example-code">background-image: url(data:image/png;base64,iVBORw0KGgoAAAANS...);</code>
+                        <p>Embed images directly in CSS without external file references</p>
+                    </div>
+                    <div class="example-item">
+                        <h4>HTML Image Tag</h4>
+                        <code class="example-code">&lt;img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQ..." alt="Image"&gt;</code>
+                        <p>Display images in HTML without requiring separate image files</p>
+                    </div>
+                    <div class="example-item">
+                        <h4>JavaScript Data</h4>
+                        <code class="example-code">const imageData = "data:image/png;base64,iVBORw0KGgoAAAANS...";</code>
+                        <p>Store image data as string variables in JavaScript applications</p>
+                    </div>
+                    <div class="example-item">
+                        <h4>Email Templates</h4>
+                        <code class="example-code">&lt;img src="data:image/gif;base64,R0lGODlhAQABAIAAAP..." /&gt;</code>
+                        <p>Include images in email templates without external dependencies</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <h2 class="section-title">Features</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <h4>Privacy Protected</h4>
+                        <p>All conversion happens locally - your images never leave your device</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <h4>Instant Conversion</h4>
+                        <p>Immediate Base64 encoding with real-time preview</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎛️</div>
+                        <h4>Quality Control</h4>
+                        <p>Adjust compression to balance quality and file size</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📋</div>
+                        <h4>Multiple Formats</h4>
+                        <p>Output as data URL or Base64-only for different use cases</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📱</div>
+                        <h4>All Image Types</h4>
+                        <p>Supports JPG, PNG, GIF, WebP, and other common formats</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">💾</div>
+                        <h4>Easy Export</h4>
+                        <p>One-click copy to clipboard or download as text file</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

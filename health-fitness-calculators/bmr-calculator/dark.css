@@ -1,0 +1,29 @@
+/* BMR Calculator - Dark Theme */
+
+/* Dark theme variables */
+:root[data-theme="dark"] {
+    --card-bg: #1f2937;
+    --border-color: #374151;
+    --bg-secondary: #111827;
+    --text-color: #f9fafb;
+    --text-muted: #9ca3af;
+    --primary-color: #3b82f6;
+    --primary-dark: #2563eb;
+    --primary-color-alpha: rgba(59, 130, 246, 0.1);
+    --hover-bg: #374151;
+    --warning-color: #fbbf24;
+}
+
+/* Dark theme specific adjustments */
+:root[data-theme="dark"] .gender-btn {
+    background: var(--card-bg);
+    color: var(--text-color);
+}
+
+:root[data-theme="dark"] .gender-btn:hover {
+    background: var(--hover-bg);
+}
+
+:root[data-theme="dark"] .multiplier-item:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}

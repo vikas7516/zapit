@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Text to ASCII Art Generator - Text Tools - Zapit</title>
+	<meta name="description" content="Convert text into ASCII art banners using popular figlet fonts. Preview instantly, copy, or download the stylized output with light/dark themes.">
+	<meta property="og:title" content="Text to ASCII Art Generator - Zapit">
+	<meta property="og:description" content="Generate ASCII art banners with multiple fonts, alignment controls, and export options.">
+	<meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+	<link rel="canonical" href="https://zapit.me/text-tools/text-to-ascii-art">
+	<link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+	<link id="tool-theme-css" rel="stylesheet" href="light.css">
+	<link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+	<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+	<link rel="icon" href="/icons/favicon.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+	<link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+	<header class="site-header">
+		<div class="container">
+			<div class="header-nav">
+				<a href="/index.html" class="brand" aria-label="Zapit Home">
+					<img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+					<span class="brand-text">
+						<span class="brand-title">Zapit</span>
+						<span class="brand-tagline">A Zap Away From Done</span>
+					</span>
+				</a>
+				<div class="header-right">
+					<nav class="breadcrumb">
+						<a href="/">Home</a>
+						<span class="separator">/</span>
+						<a href="/text-tools">Text Tools</a>
+						<span class="separator">/</span>
+						<span class="current">Text to ASCII Art</span>
+					</nav>
+					<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+						<span class="theme-toggle-icon">🌙</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="tool-hero">
+			<div class="container">
+				<div class="tool-hero-content">
+					<div class="tool-icon-large">🅰️</div>
+					<h1 class="tool-title">Text to ASCII Art Generator</h1>
+					<p class="tool-description">Transform words into retro ASCII banners using curated figlet fonts. Perfect for terminal art, READMEs, and playful headers.</p>
+					<div class="tool-meta">
+						<span class="meta-pill">20+ Fonts</span>
+						<span class="meta-pill">Smart Wrapping</span>
+						<span class="meta-pill">Copy &amp; Download</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="tool-interface">
+			<div class="container">
+				<div class="tool-layout">
+					<div class="tool-card span-6" aria-labelledby="input-heading">
+						<div class="section-header">
+							<h2 id="input-heading">Enter Text</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="loadSampleBtn">Load Sample</button>
+								<button type="button" class="btn btn-secondary" id="clearBtn">Clear</button>
+							</div>
+						</div>
+						<label class="sr-only" for="inputText">Text to convert</label>
+						<textarea id="inputText" class="text-input large" placeholder="Write your phrase or paste multiple lines of text..." maxlength="200"></textarea>
+						<div class="helper-row">
+							<span class="helper-text" id="charCount">0 / 200 characters</span>
+							<span class="helper-text" id="lineCount">0 lines</span>
+						</div>
+						<div class="notification hidden" id="statusBanner" role="status"></div>
+					</div>
+
+					<div class="tool-card span-6" aria-labelledby="options-heading">
+						<div class="section-header">
+							<h2 id="options-heading">Font &amp; Layout</h2>
+						</div>
+						<div class="options-stack">
+							<div class="field">
+								<label for="fontSelect">ASCII Font</label>
+								<select id="fontSelect" class="select-input" aria-label="Select ASCII font"></select>
+							</div>
+							<div class="field">
+								<label for="alignSelect">Alignment</label>
+								<select id="alignSelect" class="select-input">
+									<option value="left">Left</option>
+									<option value="center">Center</option>
+									<option value="right">Right</option>
+								</select>
+							</div>
+							<div class="toggle-grid">
+								<label class="checkbox">
+									<input type="checkbox" id="smushToggle" checked>
+									<span>Enable smushing (collapsed characters)</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="hardWrapToggle">
+									<span>Hard wrap output (80 chars)</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="trimBlankLines" checked>
+									<span>Trim blank edges</span>
+								</label>
+							</div>
+						</div>
+						<div class="button-row">
+							<button type="button" class="btn btn-primary" id="renderBtn">Generate ASCII Art</button>
+							<button type="button" class="btn btn-outline" id="copyOutputBtn">Copy Output</button>
+							<button type="button" class="btn btn-outline" id="downloadBtn">Download TXT</button>
+						</div>
+					</div>
+
+					<div class="tool-card span-12" aria-labelledby="preview-heading">
+						<div class="section-header">
+							<h2 id="preview-heading">ASCII Art Preview</h2>
+							<div class="toolbar">
+								<span class="badge" id="fontBadge">No font selected</span>
+								<span class="badge muted" id="dimensionBadge">–</span>
+							</div>
+						</div>
+						<div class="preview-shell" role="region" aria-live="polite">
+							<pre id="asciiOutput" class="ascii-output" tabindex="0">Start typing to generate ASCII art...</pre>
+						</div>
+					</div>
+
+					<div class="tool-card span-5 stats-card" aria-labelledby="stats-heading">
+						<div class="section-header">
+							<h2 id="stats-heading">Output Stats</h2>
+						</div>
+						<div class="stats-grid">
+							<div class="stat-item">
+								<span class="stat-label">Lines</span>
+								<span class="stat-value" id="outputLinesStat">0</span>
+							</div>
+							<div class="stat-item">
+								<span class="stat-label">Max width</span>
+								<span class="stat-value" id="outputWidthStat">0</span>
+							</div>
+							<div class="stat-item">
+								<span class="stat-label">Characters</span>
+								<span class="stat-value" id="outputCharsStat">0</span>
+							</div>
+							<div class="stat-item">
+								<span class="stat-label">Render time</span>
+								<span class="stat-value" id="renderTimeStat">0 ms</span>
+							</div>
+						</div>
+						<p class="stats-note" id="statsNote">Awaiting input.</p>
+					</div>
+
+					<div class="tool-card span-7 info-card" aria-labelledby="tips-heading">
+						<div class="section-header">
+							<h2 id="tips-heading">Tips &amp; Font Notes</h2>
+						</div>
+						<ul class="tips-list" id="tipsList">
+							<li><strong>Smushing</strong> removes gaps between characters for tight banners. Disable if letters overlap oddly.</li>
+							<li><strong>Hard wrap</strong> keeps lines within 80 characters (handy for README headers).</li>
+							<li>Try fonts like <code>ANSI Shadow</code>, <code>Ogre</code>, and <code>Small Slant</code> for bold styles.</li>
+							<li>ASCII art output copies as plain text, ready for terminals, code comments, or chat apps.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<div class="footer-brand-row">
+						<img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+						<span class="footer-brand-text">
+							<h3 class="footer-logo">Zapit</h3>
+							<div class="footer-tagline">A Zap Away From Done</div>
+						</span>
+					</div>
+					<p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+					<div class="footer-copyright">© Zapit. All rights reserved.</div>
+				</div>
+
+				<div class="footer-links">
+					<h4 class="footer-title">Legal</h4>
+					<ul class="footer-list">
+						<li><a href="/privacy.html">Privacy Policy</a></li>
+						<li><a href="/terms.html">Terms of Service</a></li>
+						<li><a href="/contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/js/global.js" defer></script>
+	<script src="app.js" defer></script>
+	<script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+	<script>
+		(function () {
+			const toolTheme = document.getElementById('tool-theme-css');
+			if (!toolTheme) return;
+
+			function applyTheme(theme) {
+				const next = theme === 'dark' ? 'dark.css' : 'light.css';
+				if (toolTheme.getAttribute('href') !== next) {
+					toolTheme.setAttribute('href', next);
+				}
+			}
+
+			const current = document.documentElement.getAttribute('data-theme') || 'light';
+			applyTheme(current);
+
+			const observer = new MutationObserver(function (mutations) {
+				mutations.forEach(function (mutation) {
+					if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+						const theme = document.documentElement.getAttribute('data-theme') || 'light';
+						applyTheme(theme);
+					}
+				});
+			});
+
+			observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+		})();
+	</script>
+</body>
+</html>

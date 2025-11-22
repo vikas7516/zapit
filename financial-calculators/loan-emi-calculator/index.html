@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan EMI Calculator - Zapit Financial Tools</title>
+    <meta name="description" content="Calculate loan EMI, total interest, and payment schedule. Compare different loan options with detailed amortization tables and charts.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link rel="canonical" href="https://zapit.me/financial-calculators/loan-emi-calculator">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+</head>
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="calculator-container">
+            <div class="calculator-header">
+                <h1>🏠 Loan EMI Calculator</h1>
+                <p>Calculate your monthly loan payments, total interest, and payment schedule. Compare different loan options and export detailed amortization tables.</p>
+            </div>
+
+            <div class="calculator-grid">
+                <div class="input-section">
+                    <h3>Loan Details</h3>
+                    <form id="emiForm">
+                        <div class="form-group">
+                            <label class="form-label" for="loanAmount">Loan Amount</label>
+                            <div class="input-group">
+                                <span class="input-prefix">₹</span>
+                                <input type="number" id="loanAmount" class="form-input has-prefix" value="1000000" min="1000" max="50000000" step="1000">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="interestRate">Annual Interest Rate</label>
+                            <div class="input-group">
+                                <input type="number" id="interestRate" class="form-input has-suffix" value="9.5" min="0.1" max="50" step="0.1">
+                                <span class="input-suffix">%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="loanTenure">Loan Tenure</label>
+                            <div class="input-group">
+                                <input type="number" id="loanTenure" class="form-input has-suffix" value="20" min="1" max="50" step="1">
+                                <span class="input-suffix">years</span>
+                            </div>
+                        </div>
+                        
+                        <button type="button" id="calculateBtn" class="calculate-btn">Calculate EMI</button>
+                    </form>
+                </div>
+
+                <div class="results-section">
+                    <h3>EMI Summary</h3>
+                    <div class="results-summary">
+                        <div class="result-card">
+                            <div class="result-label">Monthly EMI</div>
+                            <div class="result-value primary" id="emiAmount">₹0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Total Interest</div>
+                            <div class="result-value warning" id="totalInterest">₹0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Total Amount</div>
+                            <div class="result-value" id="totalAmount">₹0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Interest Percentage</div>
+                            <div class="result-value" id="interestPercentage">0%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="emiChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="amortization-section">
+                <div class="amortization-header">
+                    <h3>Payment Schedule</h3>
+                    <div class="export-buttons">
+                        <button class="export-btn" onclick="exportToPDF()">Export PDF</button>
+                        <button class="export-btn" onclick="exportToExcel()">Export Excel</button>
+                    </div>
+                </div>
+                
+                <div class="amortization-scroll">
+                    <table class="amortization-table" id="amortizationTable">
+                        <thead>
+                            <tr>
+                                <th>Year</th>
+                                <th>Opening Balance</th>
+                                <th>EMI Payment</th>
+                                <th>Interest</th>
+                                <th>Principal</th>
+                                <th>Closing Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody id="amortizationBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="comparison-section">
+                <h3>Loan Comparison</h3>
+                <p>Compare this loan with different interest rates and tenures to find the best option.</p>
+                <div class="loan-comparison" id="loanComparison">
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>How EMI Calculation Works</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-icon">📊</div>
+                        <div class="info-title">EMI Formula</div>
+                        <div class="info-desc">EMI = P × r × (1 + r)ⁿ / ((1 + r)ⁿ - 1)</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">💰</div>
+                        <div class="info-title">Principal & Interest</div>
+                        <div class="info-desc">Early payments have higher interest, later payments reduce principal faster</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">📈</div>
+                        <div class="info-title">Total Cost</div>
+                        <div class="info-desc">Total amount = EMI × number of payments. Interest is total minus principal</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">⏰</div>
+                        <div class="info-title">Prepayment Benefits</div>
+                        <div class="info-desc">Extra payments toward principal reduce total interest significantly</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

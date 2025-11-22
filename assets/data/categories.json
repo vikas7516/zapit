@@ -1,0 +1,70 @@
+{
+  "categories": [
+    {
+      "name": "Text & Content Tools",
+      "count": 15,
+      "href": "/text-tools",
+      "color": "blue"
+    },
+    {
+      "name": "Image & Design Tools",
+      "count": 11,
+      "href": "/image-tools",
+      "color": "green"
+    },
+    {
+      "name": "PDF & Document Tools",
+      "count": 7,
+      "href": "/pdf-tools",
+      "color": "red"
+    },
+    {
+      "name": "Math Calculators",
+      "count": 6,
+      "href": "/math-calculators",
+      "color": "yellow"
+    },
+    {
+      "name": "Unit Converters",
+      "count": 6,
+      "href": "/unit-converters",
+      "color": "blue"
+    },
+    {
+      "name": "Developer & Web Tools",
+      "count": 16,
+      "href": "/dev-tools",
+      "color": "purple"
+    },
+    {
+      "name": "Security & Network Tools",
+      "count": 9,
+      "href": "/security-tools",
+      "color": "indigo"
+    },
+    {
+      "name": "Audio & Video Tools",
+      "count": 13,
+      "href": "/audio-video-tools",
+      "color": "pink"
+    },
+    {
+      "name": "Health & Fitness Calculators",
+      "count": 4,
+      "href": "/health-fitness-calculators",
+      "color": "teal"
+    },
+    {
+      "name": "Financial Calculators",
+      "count": 6,
+      "href": "/financial-calculators",
+      "color": "emerald"
+    },
+    {
+      "name": "Utility & Fun Tools",
+      "count": 8,
+      "href": "/utility-tools",
+      "color": "orange"
+    }
+  ]
+}

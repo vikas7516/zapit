@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Dummy Data Generator - Utility Tools - Zapit</title>
+	<meta name="description" content="Generate realistic dummy data instantly. Create JSON, CSV, or table-ready records with customizable fields and export options.">
+	<meta property="og:title" content="Dummy Data Generator - Zapit">
+	<meta property="og:description" content="Build mock datasets fast with configurable fields, formats, and copy/download actions.">
+	<meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+	<link rel="canonical" href="https://zapit.me/utility-tools/dummy-data-generator">
+	<link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+	<link id="tool-theme-css" rel="stylesheet" href="light.css">
+	<link rel="stylesheet" href="/assets/elements/theme-toggle.css">
+	<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+	<link rel="icon" href="/icons/favicon.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+	<link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+	<header class="site-header">
+		<div class="container">
+			<div class="header-nav">
+				<a href="/index.html" class="brand" aria-label="Zapit Home">
+					<img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+					<span class="brand-text">
+						<span class="brand-title">Zapit</span>
+						<span class="brand-tagline">A Zap Away From Done</span>
+					</span>
+				</a>
+				<div class="header-right">
+					<nav class="breadcrumb">
+						<a href="/">Home</a>
+						<span class="separator">/</span>
+						<a href="/utility-tools">Utility Tools</a>
+						<span class="separator">/</span>
+						<span class="current">Dummy Data Generator</span>
+					</nav>
+					<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+						<span class="theme-toggle-icon">🌙</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="tool-hero">
+			<div class="container">
+				<div class="tool-hero-content">
+					<div class="tool-icon-large">🗂️</div>
+					<h1 class="tool-title">Dummy Data Generator</h1>
+					<p class="tool-description">Create realistic mock datasets in seconds. Mix and match fields, tweak formats, and export clean JSON or CSV output.</p>
+					<div class="tool-meta">
+						<span class="meta-pill">JSON &amp; CSV Export</span>
+						<span class="meta-pill">Customizable Fields</span>
+						<span class="meta-pill">Offline &amp; Private</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="tool-interface">
+			<div class="container">
+				<div class="tool-layout">
+					<div class="tool-card span-7" aria-labelledby="config-heading">
+						<div class="section-header">
+							<h2 id="config-heading">Dataset Configuration</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="loadPresetBtn">Load Starter Preset</button>
+								<button type="button" class="btn btn-secondary" id="clearBtn">Clear</button>
+							</div>
+						</div>
+						<div class="grid grid-two">
+							<div class="field">
+								<label for="recordCountInput">Number of records</label>
+								<input type="number" id="recordCountInput" class="text-input" value="25" min="1" max="1000">
+							</div>
+							<div class="field">
+								<label for="formatSelect">Output format</label>
+								<select id="formatSelect" class="select-input">
+									<option value="table">Table preview</option>
+									<option value="json">JSON</option>
+									<option value="csv">CSV</option>
+									<option value="sql">SQL insert</option>
+								</select>
+							</div>
+						</div>
+						<div class="toggle-grid">
+							<label class="checkbox">
+								<input type="checkbox" id="includeHeadersToggle" checked>
+								<span>Include headers / keys</span>
+							</label>
+							<label class="checkbox">
+								<input type="checkbox" id="consistentSeedToggle">
+								<span>Use deterministic seed (repeatable)</span>
+							</label>
+							<label class="checkbox">
+								<input type="checkbox" id="smartLoremToggle" checked>
+								<span>Use smart Lorem ipsum snippets</span>
+							</label>
+						</div>
+						<div class="helper-row">
+							<span class="helper-text" id="configSummary">Ready to generate 25 records.</span>
+							<span class="helper-text">All data is random and generated locally.</span>
+						</div>
+						<div class="notification hidden" id="statusBanner" role="status"></div>
+					</div>
+
+					<div class="tool-card span-5" aria-labelledby="fields-heading">
+						<div class="section-header">
+							<h2 id="fields-heading">Select Fields</h2>
+						</div>
+						<div class="field-picker">
+							<div class="field-picker-top">
+								<input type="search" id="fieldSearch" class="text-input" placeholder="Search fields (name, email, address...)" aria-label="Filter fields">
+								<button type="button" class="btn btn-outline" id="toggleAllBtn">Select all</button>
+							</div>
+							<div class="field-groups" id="fieldGroups">
+								<!-- Field checkboxes rendered by JS -->
+							</div>
+						</div>
+					</div>
+
+					<div class="tool-card span-12" aria-labelledby="output-heading">
+						<div class="section-header">
+							<h2 id="output-heading">Generated Output</h2>
+							<div class="toolbar">
+								<span class="badge" id="recordBadge">0 records</span>
+								<span class="badge muted" id="fieldBadge">0 fields selected</span>
+							</div>
+						</div>
+						<div class="button-row">
+							<button type="button" class="btn btn-primary" id="generateBtn">Generate Data</button>
+							<button type="button" class="btn btn-outline" id="copyBtn">Copy Output</button>
+							<button type="button" class="btn btn-outline" id="downloadBtn">Download</button>
+						</div>
+						<div class="output-wrapper" id="outputWrapper">
+							<div class="table-output" id="tableOutput" role="region" aria-live="polite">
+								<table>
+									<thead id="tableHead"></thead>
+									<tbody id="tableBody"></tbody>
+								</table>
+							</div>
+							<pre class="code-output hidden" id="codeOutput" tabindex="0"></pre>
+						</div>
+						<div class="stats-grid" id="statsGrid">
+							<div class="stat-card">
+								<span class="stat-label">Generation time</span>
+								<span class="stat-value" id="timeStat">–</span>
+							</div>
+							<div class="stat-card">
+								<span class="stat-label">Data size</span>
+								<span class="stat-value" id="sizeStat">–</span>
+							</div>
+							<div class="stat-card">
+								<span class="stat-label">Unique seed</span>
+								<span class="stat-value" id="seedStat">–</span>
+							</div>
+							<div class="stat-card">
+								<span class="stat-label">Selected fields</span>
+								<span class="stat-value" id="selectionStat">–</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="tool-card span-12 info-card" aria-labelledby="tips-heading">
+						<div class="section-header">
+							<h2 id="tips-heading">Mock Data Tips</h2>
+						</div>
+						<ul class="tips-list" id="tipsList">
+							<li>Enable deterministic seed when you need repeatable results for testing suites.</li>
+							<li>Switch formats to JSON or SQL for direct database seeding or API contract mocks.</li>
+							<li>Use smart Lorem snippets for paragraphs that feel more natural than single sentences.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<div class="footer-brand-row">
+						<img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+						<span class="footer-brand-text">
+							<h3 class="footer-logo">Zapit</h3>
+							<div class="footer-tagline">A Zap Away From Done</div>
+						</span>
+					</div>
+					<p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+					<div class="footeropyright">© Zapit. All rights reserved.</div>
+				</div>
+				<div class="footer-links">
+					<h4 class="footer-title">Legal</h4>
+					<ul class="footer-list">
+						<li><a href="/privacy.html">Privacy Policy</a></li>
+						<li><a href="/terms.html">Terms of Service</a></li>
+						<li><a href="/contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/js/global.js" defer></script>
+	<script src="app.js" defer></script>
+	<script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+	<script>
+		(function () {
+			const toolTheme = document.getElementById('tool-theme-css');
+			if (!toolTheme) return;
+
+			function applyTheme(theme) {
+				const next = theme === 'dark' ? 'dark.css' : 'light.css';
+				if (toolTheme.getAttribute('href') !== next) {
+					toolTheme.setAttribute('href', next);
+				}
+			}
+
+			const current = document.documentElement.getAttribute('data-theme') || 'light';
+			applyTheme(current);
+
+			const observer = new MutationObserver(function (mutations) {
+				mutations.forEach(function (mutation) {
+					if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+						const theme = document.documentElement.getAttribute('data-theme') || 'light';
+						applyTheme(theme);
+					}
+				});
+			});
+
+			observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+		})();
+	</script>
+</body>
+</html>

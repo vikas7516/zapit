@@ -1,0 +1,819 @@
+/* Inflation Calculator Light Theme */
+
+.calculator-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f0f2f5;
+}
+
+.card-header h3 {
+    color: #1a1a1a;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Mode Selection */
+.calculation-mode {
+    display: flex;
+    gap: 8px;
+    background: #f8f9fa;
+    padding: 4px;
+    border-radius: 8px;
+}
+
+.mode-btn {
+    padding: 8px 16px;
+    border: none;
+    background: transparent;
+    color: #666;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.mode-btn:hover {
+    background: #e9ecef;
+    color: #333;
+}
+
+.mode-btn.active {
+    background: #007bff;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+/* Input Sections */
+.calculation-section {
+    margin-bottom: 24px;
+}
+
+.calculation-section.hidden {
+    display: none;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    color: #333;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+/* Currency Input */
+.currency-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.currency-symbol {
+    position: absolute;
+    left: 12px;
+    color: #666;
+    font-weight: 500;
+    z-index: 2;
+}
+
+.amount-input {
+    width: 100%;
+    padding: 12px 12px 12px 32px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    background: #fff;
+}
+
+.amount-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* Rate Input */
+.rate-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.rate-input-field {
+    width: 100%;
+    padding: 12px 32px 12px 12px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.rate-input-field:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.rate-symbol {
+    position: absolute;
+    right: 12px;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Year Input */
+.year-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.year-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* Calculate Button */
+.calculate-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.calculate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
+}
+
+.calculate-btn:active {
+    transform: translateY(0);
+}
+
+/* Results Card */
+.results-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.results-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.action-btn {
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border: 1px solid #e1e5e9;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1.1rem;
+}
+
+.action-btn:hover {
+    background: #e9ecef;
+    transform: translateY(-1px);
+}
+
+/* Results Content */
+.results-placeholder {
+    text-align: center;
+    padding: 48px 24px;
+    color: #666;
+}
+
+.placeholder-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+}
+
+.results-placeholder h4 {
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.error-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: #dc3545;
+}
+
+.error-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+}
+
+.error-state h4 {
+    color: #dc3545;
+    margin-bottom: 8px;
+}
+
+/* Results Summary */
+.results-summary {
+    margin-bottom: 32px;
+}
+
+.result-primary {
+    text-align: center;
+    padding: 24px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    margin-bottom: 24px;
+    border: 2px solid #e1e5e9;
+}
+
+.result-amount {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.amount-label {
+    color: #666;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.amount-value {
+    color: #007bff;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.amount-context {
+    color: #666;
+    font-size: 1rem;
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.result-item {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e1e5e9;
+}
+
+.result-label {
+    color: #666;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.result-value {
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.result-value.negative {
+    color: #dc3545;
+}
+
+.result-value.positive {
+    color: #28a745;
+}
+
+/* Analysis Section */
+.analysis-section {
+    margin-top: 32px;
+    padding: 24px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #e1e5e9;
+}
+
+.analysis-section h4 {
+    color: #333;
+    margin-bottom: 16px;
+    font-size: 1.2rem;
+}
+
+.analysis-content p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.analysis-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Projection Table */
+.projection-table {
+    margin-top: 32px;
+}
+
+.projection-table h4 {
+    color: #333;
+    margin-bottom: 16px;
+    font-size: 1.2rem;
+}
+
+.table-container {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e1e5e9;
+}
+
+.projection-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.projection-table th {
+    background: #f8f9fa;
+    color: #333;
+    font-weight: 600;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 2px solid #e1e5e9;
+}
+
+.projection-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f2f5;
+    color: #555;
+}
+
+.projection-table tr:hover {
+    background: #f8f9fa;
+}
+
+.table-summary td {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+}
+
+.table-final td {
+    font-weight: 600;
+    background: #f8f9fa;
+}
+
+/* Historical Data Card */
+.historical-data-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.data-view-select {
+    padding: 8px 12px;
+    border: 1px solid #e1e5e9;
+    border-radius: 6px;
+    background: #fff;
+    color: #333;
+    cursor: pointer;
+}
+
+.loading-historical {
+    text-align: center;
+    padding: 48px 24px;
+    color: #666;
+}
+
+.loading-icon {
+    font-size: 2rem;
+    margin-bottom: 16px;
+}
+
+/* Historical Tables */
+.historical-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e1e5e9;
+}
+
+.historical-table th {
+    background: #f8f9fa;
+    color: #333;
+    font-weight: 600;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 2px solid #e1e5e9;
+}
+
+.historical-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f2f5;
+    color: #555;
+}
+
+.historical-table tr:hover {
+    background: #f8f9fa;
+}
+
+.historical-table .positive {
+    color: #dc3545;
+}
+
+.historical-table .negative {
+    color: #28a745;
+}
+
+/* Decades Data */
+.decades-data {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.decade-item {
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e1e5e9;
+}
+
+.decade-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.decade-period {
+    font-weight: 600;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.decade-rate {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.decade-rate.positive {
+    color: #dc3545;
+}
+
+.decade-rate.negative {
+    color: #28a745;
+}
+
+.decade-note {
+    color: #666;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Events Data */
+.events-data {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.event-item {
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e1e5e9;
+}
+
+.event-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.event-year {
+    font-weight: 600;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.event-rate {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.event-rate.positive {
+    color: #dc3545;
+}
+
+.event-rate.negative {
+    color: #28a745;
+}
+
+.event-name {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.event-impact {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Information Cards */
+.info-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.info-card h3 {
+    color: #1a1a1a;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Example Buttons */
+.example-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.example-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: #f8f9fa;
+    border: 2px solid #e1e5e9;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.example-btn:hover {
+    background: #e9ecef;
+    border-color: #007bff;
+    transform: translateY(-2px);
+}
+
+.example-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.example-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.example-name {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.example-desc {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+/* Economic Stats */
+.economic-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e1e5e9;
+}
+
+.stat-item .stat-label {
+    color: #666;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.stat-item .stat-value {
+    color: #007bff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.stat-item .stat-date {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+/* Concept List */
+.concept-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.concept-item h4 {
+    color: #333;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.concept-item p {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Impact Examples */
+.impact-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.impact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #e1e5e9;
+}
+
+.impact-item.positive {
+    background: rgba(40, 167, 69, 0.05);
+    border-color: rgba(40, 167, 69, 0.2);
+}
+
+.impact-item.negative {
+    background: rgba(220, 53, 69, 0.05);
+    border-color: rgba(220, 53, 69, 0.2);
+}
+
+.impact-item.neutral {
+    background: rgba(108, 117, 125, 0.05);
+    border-color: rgba(108, 117, 125, 0.2);
+}
+
+.impact-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.impact-content h4 {
+    color: #333;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.impact-content p {
+    color: #666;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Tips List */
+.tips-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tip-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e1e5e9;
+}
+
+.tip-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.tip-item span:last-child {
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .input-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .result-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .calculation-mode {
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    .mode-btn {
+        text-align: center;
+    }
+    
+    .amount-value {
+        font-size: 2rem;
+    }
+    
+    .example-btn {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+    
+    .decade-header,
+    .event-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    
+    .results-actions {
+        align-self: flex-end;
+    }
+}

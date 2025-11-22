@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us - Zapit</title>
+  <meta name="description" content="Contact Zapit" />
+  <link rel="canonical" href="https://zapit.me/contact.html" />
+  <meta property="og:title" content="Contact Us - Zapit" />
+  <meta property="og:description" content="Get in touch with the Zapit team." />
+  <meta property="og:url" content="https://zapit.me/contact.html" />
+  <meta property="og:image" content="https://zapit.me/icons/favicon-512.png" />
+  <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="stylesheet" href="/assets/elements/theme-toggle.css" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="icons/favicon-48.png" />
+  <link rel="icon" href="icons/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#3b82f6" />
+  <meta name="msapplication-navbutton-color" content="#3b82f6" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="#3b82f6" />
+  <link rel="canonical" href="https://zapit.me/contact.html" />
+</head>
+<body>
+  
+
+  <main>
+    
+    <section class="hero">
+      <div class="container">
+        <h1 class="hero-title">Contact Us</h1>
+        <p class="hero-description">Have a question, a request, or feedback? Send us a message.</p>
+      </div>
+    </section>
+
+    <section class="container container-narrow">
+      <form id="contactForm" class="card">
+        <div class="form-field">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" class="input" placeholder="Your name" required />
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" class="input" placeholder="you@example.com" required />
+        </div>
+        <div class="form-field">
+          <label for="subject">Subject</label>
+          <input id="subject" name="subject" type="text" class="input" placeholder="How can we help?" required />
+        </div>
+        <div class="form-field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" class="textarea" rows="6" placeholder="Write your message..." required></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="submitBtn">Send Message</button>
+          <span id="formStatus" aria-live="polite"></span>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand-row"><img src="icons/logo.jpg" alt="Zapit" class="footer-logo-img" /><span class="footer-brand-text"><h3 class="footer-logo">Zapit</h3><div class="footer-tagline">A Zap Away From Done</div></span></div>
+          <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+          <div class="footer-copyright">© Zapit. All rights reserved.</div>
+        </div>
+        <div class="footer-links">
+          <h4 class="footer-title">Legal</h4>
+          <ul class="footer-list">
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="contact.html" aria-current="page">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script src="assets/js/header.js" defer></script>
+  <script src="assets/js/contact.js"></script>
+  <script src="assets/js/script.js"></script>
+  <script src="assets/elements/theme-toggle.js" defer></script>
+</body>
+</html>

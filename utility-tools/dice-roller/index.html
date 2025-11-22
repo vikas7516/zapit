@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Dice Roller - Utility Tools - Zapit</title>
+	<meta name="description" content="Roll virtual dice with advanced modes like advantage, exploding dice, and custom modifiers. Track history and share results instantly.">
+	<meta property="og:title" content="Dice Roller - Zapit">
+	<meta property="og:description" content="Roll unlimited dice with advantage, modifiers, and detailed stats.">
+	<meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+	<link rel="canonical" href="https://zapit.me/utility-tools/dice-roller">
+	<link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+	<link id="tool-theme-css" rel="stylesheet" href="light.css">
+	<link rel="stylesheet" href="/assets/elements/theme-toggle.css">
+	<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+	<link rel="icon" href="/icons/favicon.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+	<link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+	<header class="site-header">
+		<div class="container">
+			<div class="header-nav">
+				<a href="/index.html" class="brand" aria-label="Zapit Home">
+					<img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+					<span class="brand-text">
+						<span class="brand-title">Zapit</span>
+						<span class="brand-tagline">A Zap Away From Done</span>
+					</span>
+				</a>
+				<div class="header-right">
+					<nav class="breadcrumb">
+						<a href="/">Home</a>
+						<span class="separator">/</span>
+						<a href="/utility-tools">Utility Tools</a>
+						<span class="separator">/</span>
+						<span class="current">Dice Roller</span>
+					</nav>
+					<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+						<span class="theme-toggle-icon">🌙</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="tool-hero">
+			<div class="container">
+				<div class="tool-hero-content">
+					<div class="tool-icon-large">🎲</div>
+					<h1 class="tool-title">Dice Roller</h1>
+					<p class="tool-description">Roll classic RPG dice with precision. Mix dice types, add modifiers, toggle advantage, and instantly share polished results with your group.</p>
+					<div class="tool-meta">
+						<span class="meta-pill">Advantage &amp; Disadvantage</span>
+						<span class="meta-pill">Exploding Dice</span>
+						<span class="meta-pill">Detailed History</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="tool-interface">
+			<div class="container">
+				<div class="tool-layout">
+					<div class="tool-card span-5" aria-labelledby="controls-heading">
+						<div class="section-header">
+							<h2 id="controls-heading">Roll Controls</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="presetDnD">DnD Standard (4d6 drop lowest)</button>
+								<button type="button" class="btn btn-outline" id="presetAdvantage">Advantage d20 Check</button>
+							</div>
+						</div>
+						<div class="control-grid">
+							<label class="field">
+								<span>Number of dice</span>
+								<input type="number" id="diceCount" class="text-input" min="1" max="50" value="2">
+							</label>
+							<label class="field">
+								<span>Dice sides</span>
+								<select id="diceSides" class="text-input">
+									<option value="4">d4</option>
+									<option value="6" selected>d6</option>
+									<option value="8">d8</option>
+									<option value="10">d10</option>
+									<option value="12">d12</option>
+									<option value="20">d20</option>
+									<option value="100">d100</option>
+									<option value="custom">Custom</option>
+								</select>
+							</label>
+							<label class="field" id="customSidesField" hidden>
+								<span>Custom sides</span>
+								<input type="number" id="customSides" class="text-input" min="2" max="999" value="6">
+							</label>
+							<label class="field">
+								<span>Modifier</span>
+								<input type="number" id="modifierInput" class="text-input" min="-999" max="999" value="0">
+							</label>
+							<label class="field">
+								<span>Roll mode</span>
+								<select id="modeSelect" class="text-input">
+									<option value="standard">Standard</option>
+									<option value="advantage">Advantage</option>
+									<option value="disadvantage">Disadvantage</option>
+									<option value="exploding">Exploding</option>
+								</select>
+							</label>
+							<label class="field checkbox-row">
+								<input type="checkbox" id="dropLowestToggle">
+								<span>Drop the lowest die</span>
+							</label>
+						</div>
+						<div class="button-row">
+							<button type="button" class="btn btn-primary" id="rollBtn">Roll Dice</button>
+							<button type="button" class="btn btn-secondary" id="clearBtn">Clear</button>
+						</div>
+						<div class="status" id="statusBanner" role="status"></div>
+					</div>
+
+					<div class="tool-card span-3" aria-labelledby="result-heading">
+						<div class="section-header">
+							<h2 id="result-heading">Latest Result</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="copyResultBtn">Copy result</button>
+							</div>
+						</div>
+						<div class="result-display">
+							<div class="total" id="totalValue">0</div>
+							<div class="result-meta">
+								<span class="label">Breakdown</span>
+								<div class="dice-breakdown" id="diceBreakdown">Roll to see each die value.</div>
+							</div>
+							<div class="summary-grid">
+								<div class="summary-item">
+									<span class="summary-label">Highest</span>
+									<span class="summary-value" id="maxValue">–</span>
+								</div>
+								<div class="summary-item">
+									<span class="summary-label">Lowest</span>
+									<span class="summary-value" id="minValue">–</span>
+								</div>
+								<div class="summary-item">
+									<span class="summary-label">Average</span>
+									<span class="summary-value" id="avgValue">–</span>
+								</div>
+								<div class="summary-item">
+									<span class="summary-label">Modifier</span>
+									<span class="summary-value" id="modifierValue">0</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="tool-card span-4" aria-labelledby="history-heading">
+						<div class="section-header">
+							<h2 id="history-heading">Roll History</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="exportHistoryBtn">Download log</button>
+								<button type="button" class="btn btn-outline" id="clearHistoryBtn">Clear history</button>
+							</div>
+						</div>
+						<ul class="history-list" id="historyList">
+							<li class="placeholder">Your last twenty rolls will appear here.</li>
+						</ul>
+					</div>
+
+					<div class="tool-card span-12 info-card" aria-labelledby="insights-heading">
+						<div class="section-header">
+							<h2 id="insights-heading">Roll Insights</h2>
+						</div>
+						<div class="insights-grid">
+							<div class="insight-block">
+								<h3>Smart advantage</h3>
+								<p>Advantage and disadvantage automatically roll twice behind the scenes and pick the higher or lower total. Modifiers are applied after the selection.</p>
+							</div>
+							<div class="insight-block">
+								<h3>Exploding dice</h3>
+								<p>When the highest face is rolled on exploding mode, another die of the same type is added and keeps rolling until no max value appears.</p>
+							</div>
+							<div class="insight-block">
+								<h3>Keep your log</h3>
+								<p>Download the history as a tidy text file for campaign notes or share quick summaries with your party.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<div class="footer-brand-row">
+						<img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+						<span class="footer-brand-text">
+							<h3 class="footer-logo">Zapit</h3>
+							<div class="footer-tagline">A Zap Away From Done</div>
+						</span>
+					</div>
+					<p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+					<div class="footeropyright">© Zapit. All rights reserved.</div>
+				</div>
+				<div class="footer-links">
+					<h4 class="footer-title">Legal</h4>
+					<ul class="footer-list">
+						<li><a href="/privacy.html">Privacy Policy</a></li>
+						<li><a href="/terms.html">Terms of Service</a></li>
+						<li><a href="/contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/js/global.js" defer></script>
+	<script src="app.js" defer></script>
+	<script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+	<script>
+		(function () {
+			const toolTheme = document.getElementById('tool-theme-css');
+			if (!toolTheme) return;
+			function applyTheme(theme) {
+				const next = theme === 'dark' ? 'dark.css' : 'light.css';
+				if (toolTheme.getAttribute('href') !== next) {
+					toolTheme.setAttribute('href', next);
+				}
+			}
+			const current = document.documentElement.getAttribute('data-theme') || 'light';
+			applyTheme(current);
+			const observer = new MutationObserver((mutations) => {
+				mutations.forEach((mutation) => {
+					if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+						const theme = document.documentElement.getAttribute('data-theme') || 'light';
+						applyTheme(theme);
+					}
+				});
+			});
+			observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+		})();
+	</script>
+</body>
+</html>

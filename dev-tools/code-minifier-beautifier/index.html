@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Minifier & Beautifier - Developer Tools - Zapit</title>
+    <meta name="description" content="Minify or beautify HTML, CSS, and JavaScript code. Optimize your code for production or format it for better readability.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/dev-tools/code-minifier-beautifier">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">✨</div>
+                    <h1 class="tool-title">Code Minifier & Beautifier</h1>
+                    <p class="tool-description">Minify or beautify HTML, CSS, and JavaScript code for optimization or readability</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-card">
+                    <!-- Language Selection -->
+                    <div class="language-section">
+                        <h3>Select Code Language</h3>
+                        <div class="language-tabs">
+                            <button class="lang-btn active" data-lang="html">HTML</button>
+                            <button class="lang-btn" data-lang="css">CSS</button>
+                            <button class="lang-btn" data-lang="javascript">JavaScript</button>
+                            <button class="lang-btn" data-lang="json">JSON</button>
+                        </div>
+                    </div>
+
+                    <!-- Input Section -->
+                    <div class="input-section">
+                        <div class="form-group">
+                            <div class="textarea-header">
+                                <label for="code-input">Input Code:</label>
+                                <div class="input-stats">
+                                    <span class="char-count">Characters: <span id="input-chars">0</span></span>
+                                    <span class="line-count">Lines: <span id="input-lines">0</span></span>
+                                </div>
+                            </div>
+                            <textarea id="code-input" placeholder="Paste your code here..." spellcheck="false"></textarea>
+                        </div>
+
+                        <div class="button-group">
+                            <button id="minify-btn" class="btn btn-primary">
+                                <span class="btn-icon">🗜️</span>
+                                Minify Code
+                            </button>
+                            <button id="beautify-btn" class="btn btn-secondary">
+                                <span class="btn-icon">✨</span>
+                                Beautify Code
+                            </button>
+                            <button id="clear-btn" class="btn btn-outline">
+                                <span class="btn-icon">🗑️</span>
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Options Section -->
+                    <div class="options-section">
+                        <h4>Options</h4>
+                        <div class="options-grid">
+                            <!-- HTML Options -->
+                            <div class="option-group html-options">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="html-remove-comments" checked>
+                                    <span class="checkmark"></span>
+                                    Remove comments
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="html-collapse-whitespace" checked>
+                                    <span class="checkmark"></span>
+                                    Collapse whitespace
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="html-remove-empty-attrs">
+                                    <span class="checkmark"></span>
+                                    Remove empty attributes
+                                </label>
+                            </div>
+
+                            <!-- CSS Options -->
+                            <div class="option-group css-options hidden">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="css-remove-comments" checked>
+                                    <span class="checkmark"></span>
+                                    Remove comments
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="css-merge-rules">
+                                    <span class="checkmark"></span>
+                                    Merge duplicate rules
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="css-remove-unused">
+                                    <span class="checkmark"></span>
+                                    Remove unused selectors
+                                </label>
+                            </div>
+
+                            <!-- JavaScript Options -->
+                            <div class="option-group js-options hidden">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="js-remove-comments" checked>
+                                    <span class="checkmark"></span>
+                                    Remove comments
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="js-mangle-names">
+                                    <span class="checkmark"></span>
+                                    Mangle variable names
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="js-remove-console">
+                                    <span class="checkmark"></span>
+                                    Remove console statements
+                                </label>
+                            </div>
+
+                            <!-- JSON Options -->
+                            <div class="option-group json-options hidden">
+                                <div class="form-group">
+                                    <label for="json-indent">Indentation:</label>
+                                    <select id="json-indent">
+                                        <option value="2">2 spaces</option>
+                                        <option value="4" selected>4 spaces</option>
+                                        <option value="tab">Tab</option>
+                                    </select>
+                                </div>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="json-sort-keys">
+                                    <span class="checkmark"></span>
+                                    Sort keys alphabetically
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Output Section -->
+                    <div class="output-section">
+                        <div class="form-group">
+                            <div class="textarea-header">
+                                <label for="code-output">Output Code:</label>
+                                <div class="output-stats">
+                                    <span class="char-count">Characters: <span id="output-chars">0</span></span>
+                                    <span class="line-count">Lines: <span id="output-lines">0</span></span>
+                                    <span class="compression-ratio hidden">Compression: <span id="compression">0%</span></span>
+                                </div>
+                            </div>
+                            <textarea id="code-output" readonly spellcheck="false"></textarea>
+                            <button id="copy-output" class="btn btn-outline copy-btn">
+                                <span class="btn-icon">📋</span>
+                                Copy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Panel -->
+                <div class="info-panel">
+                    <h3>About Code Minification & Beautification</h3>
+                    <p>Code minification reduces file size by removing unnecessary characters, while beautification improves code readability by adding proper formatting and indentation.</p>
+                    
+                    <div class="info-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">🗜️</div>
+                            <h4>Minification</h4>
+                            <p>Reduces file size by removing whitespace, comments, and unnecessary characters</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">✨</div>
+                            <h4>Beautification</h4>
+                            <p>Formats code with proper indentation and line breaks for better readability</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">⚡</div>
+                            <h4>Multi-Language</h4>
+                            <p>Supports HTML, CSS, JavaScript, and JSON with language-specific optimizations</p>
+                        </div>
+                    </div>
+
+                    <div class="tips-section">
+                        <h4>Usage Tips</h4>
+                        <ul>
+                            <li>Use minification for production code to reduce file size and load times</li>
+                            <li>Use beautification to make minified or poorly formatted code readable</li>
+                            <li>Always test your code after minification to ensure it still works correctly</li>
+                            <li>Keep original source files for development and debugging</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

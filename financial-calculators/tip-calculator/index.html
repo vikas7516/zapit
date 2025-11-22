@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip Calculator - Zapit Financial Tools</title>
+    <meta name="description" content="Calculate tips, split bills among friends, and determine total costs with tax. Perfect for restaurants, deliveries, and group dining.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link rel="canonical" href="https://zapit.me/financial-calculators/tip-calculator">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="calculator-container">
+            <div class="calculator-header">
+                <h1>🍽️ Tip Calculator</h1>
+                <p>Calculate tips, split bills among friends, and determine total costs. Perfect for restaurants, deliveries, and group dining experiences.</p>
+            </div>
+
+            <div class="calculator-card">
+                <div class="input-section">
+                    <h3>Bill Details</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="billAmount">Bill Amount</label>
+                            <div class="input-group">
+                                <span class="input-prefix">₹</span>
+                                <input type="number" id="billAmount" class="form-input has-prefix" value="1000" min="0" step="0.01">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="taxRate">Tax Rate (Optional)</label>
+                            <div class="input-group">
+                                <input type="number" id="taxRate" class="form-input has-suffix" value="0" min="0" max="50" step="0.1">
+                                <span class="input-suffix">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="tipPercentage">Tip Percentage</label>
+                        <div class="input-group">
+                            <input type="number" id="tipPercentage" class="form-input has-suffix" value="15" min="0" max="50" step="0.5">
+                            <span class="input-suffix">%</span>
+                        </div>
+                        <div class="tip-buttons">
+                            <button class="tip-btn" data-tip="10">10%</button>
+                            <button class="tip-btn" data-tip="15">15%</button>
+                            <button class="tip-btn" data-tip="18">18%</button>
+                            <button class="tip-btn" data-tip="20">20%</button>
+                            <button class="tip-btn" data-tip="25">25%</button>
+                            <button class="tip-btn" data-tip="0">No Tip</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-rating">
+                    <div class="rating-title">How was the service?</div>
+                    <div class="rating-options">
+                        <button class="rating-btn" data-rating="poor">
+                            <span class="rating-emoji">😞</span>
+                            <div class="rating-text">Poor</div>
+                            <div class="rating-tip">10-12%</div>
+                        </button>
+                        <button class="rating-btn" data-rating="fair">
+                            <span class="rating-emoji">😐</span>
+                            <div class="rating-text">Fair</div>
+                            <div class="rating-tip">13-17%</div>
+                        </button>
+                        <button class="rating-btn" data-rating="good">
+                            <span class="rating-emoji">😊</span>
+                            <div class="rating-text">Good</div>
+                            <div class="rating-tip">18-22%</div>
+                        </button>
+                        <button class="rating-btn" data-rating="excellent">
+                            <span class="rating-emoji">🤩</span>
+                            <div class="rating-text">Excellent</div>
+                            <div class="rating-tip">23%+</div>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="results-section">
+                    <h3>Bill Summary</h3>
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <div class="result-label">Tip Amount</div>
+                            <div class="result-value" id="tipAmount">₹0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Tax Amount</div>
+                            <div class="result-value" id="taxAmount">₹0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Total Amount</div>
+                            <div class="result-value large" id="totalAmount">₹0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Total with Tip</div>
+                            <div class="result-value large" id="totalWithTip">₹0</div>
+                        </div>
+                    </div>
+
+                    <div class="split-section">
+                        <h4>Split the Bill</h4>
+                        <div class="split-controls">
+                            <span class="form-label">Number of People:</span>
+                            <div class="people-counter">
+                                <button class="counter-btn" id="decreasePeople">−</button>
+                                <span class="people-count" id="peopleCount">1</span>
+                                <button class="counter-btn" id="increasePeople">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="split-results">
+                            <div class="split-card">
+                                <div class="split-label">Per Person (Bill Only)</div>
+                                <div class="split-value" id="perPersonBill">₹0</div>
+                            </div>
+                            <div class="split-card">
+                                <div class="split-label">Per Person (Tip)</div>
+                                <div class="split-value" id="perPersonTip">₹0</div>
+                            </div>
+                            <div class="split-card">
+                                <div class="split-label">Per Person (Total)</div>
+                                <div class="split-value" id="perPersonTotal">₹0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>Tipping Guidelines</h3>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-icon">🍴</div>
+                        <div class="info-title">Restaurants</div>
+                        <div class="info-desc">15-20% for good service, 18-25% for excellent service</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">🚗</div>
+                        <div class="info-title">Food Delivery</div>
+                        <div class="info-desc">10-15% of the order value, minimum ₹20-50</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">☕</div>
+                        <div class="info-title">Coffee Shops</div>
+                        <div class="info-desc">₹10-20 per drink or 10-15% for table service</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">🍺</div>
+                        <div class="info-title">Bars</div>
+                        <div class="info-desc">₹20-50 per drink or 15-20% of the total bill</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">🏨</div>
+                        <div class="info-title">Hotels</div>
+                        <div class="info-desc">₹20-100 for housekeeping, ₹50-200 for concierge</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">✂️</div>
+                        <div class="info-title">Personal Services</div>
+                        <div class="info-desc">15-20% for haircuts, spa services, and beauty treatments</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

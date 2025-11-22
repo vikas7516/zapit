@@ -1,0 +1,192 @@
+/* Pregnancy Due Date Calculator - Dark Theme */
+
+/* Method Selection - Dark Theme */
+.dark .method-option {
+    border-color: var(--dark-border);
+    background: var(--dark-card-bg);
+}
+
+.dark .method-option:hover {
+    border-color: var(--primary-color);
+    background: var(--dark-hover-bg);
+}
+
+.dark .method-option.active {
+    border-color: var(--primary-color);
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.dark .method-info h3 {
+    color: var(--dark-text);
+}
+
+.dark .method-info p {
+    color: var(--dark-text-muted);
+}
+
+/* Forms - Dark Theme */
+.dark .weeks-days-input label {
+    color: var(--dark-text-muted);
+}
+
+.dark input[type="date"],
+.dark input[type="number"],
+.dark select {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+    color: var(--dark-text);
+}
+
+.dark input[type="date"]:focus,
+.dark input[type="number"]:focus,
+.dark select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Due Date Display - Dark Theme */
+.dark .due-date-display {
+    background: var(--dark-bg-secondary);
+}
+
+.dark .due-date-main h2 {
+    color: var(--dark-text);
+}
+
+.dark .due-date-meta span {
+    color: var(--dark-text-muted);
+}
+
+.dark .progress-ring-bg {
+    stroke: var(--dark-border);
+}
+
+.dark .progress-text span {
+    color: var(--primary-color);
+}
+
+.dark .progress-text small {
+    color: var(--dark-text-muted);
+}
+
+/* Important Dates - Dark Theme */
+.dark .important-dates h3 {
+    color: var(--dark-text);
+}
+
+.dark .date-item {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+}
+
+.dark .date-info h4 {
+    color: var(--dark-text);
+}
+
+.dark .date-info span {
+    color: var(--primary-color);
+}
+
+/* Trimester Information - Dark Theme */
+.dark .trimester-info h3 {
+    color: var(--dark-text);
+}
+
+.dark .trimester-tabs {
+    border-bottom-color: var(--dark-border);
+}
+
+.dark .trimester-tab {
+    color: var(--dark-text-muted);
+}
+
+.dark .trimester-tab:hover {
+    color: var(--dark-text);
+}
+
+.dark .trimester-tab.active {
+    color: var(--primary-color);
+}
+
+.dark .trimester-content {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+}
+
+.dark .trimester-overview h4 {
+    color: var(--dark-text);
+}
+
+.dark .trimester-overview p {
+    color: var(--dark-text-muted);
+}
+
+.dark .development-milestones h5 {
+    color: var(--dark-text);
+}
+
+.dark .development-milestones li {
+    color: var(--dark-text-muted);
+}
+
+/* Checklist - Dark Theme */
+.dark .checklist-item {
+    background: var(--dark-hover-bg);
+}
+
+.dark .checklist-item span:last-child {
+    color: var(--dark-text);
+}
+
+/* Dark mode specific enhancements */
+.dark .due-date-value {
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.dark .date-item {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.dark .trimester-content {
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
+/* Progress ring animation in dark mode */
+.dark .progress-ring-progress {
+    filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+}
+
+/* Method icons glow effect */
+.dark .method-option.active .method-icon {
+    filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.3));
+}
+
+/* Date icons enhancement */
+.dark .date-icon {
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.1));
+}
+
+/* Smooth transitions for dark mode */
+.dark .method-option,
+.dark .date-item,
+.dark .trimester-content,
+.dark .checklist-item {
+    transition: all 0.3s ease;
+}
+
+/* Loading states in dark mode */
+.dark .loading-skeleton {
+    background: linear-gradient(90deg, 
+        var(--dark-border) 25%, 
+        rgba(255, 255, 255, 0.1) 50%, 
+        var(--dark-border) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}

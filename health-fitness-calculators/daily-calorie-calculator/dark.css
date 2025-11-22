@@ -1,0 +1,207 @@
+/* Daily Calorie Calculator - Dark Theme */
+
+/* Step Indicator - Dark Theme */
+.dark .step-number {
+    background: var(--border-color);
+    color: var(--text-muted);
+}
+
+.dark .step.active .step-number {
+    background: var(--primary-color);
+    color: var(--dark-text);
+}
+
+.dark .step-label {
+    color: var(--text-muted);
+}
+
+.dark .step.active .step-label {
+    color: var(--text-color);
+}
+
+/* Activity Options - Dark Theme */
+.dark .activity-option {
+    border-color: var(--dark-border);
+    background: var(--dark-card-bg);
+}
+
+.dark .activity-option:hover {
+    border-color: var(--primary-color);
+    background: var(--dark-hover-bg);
+}
+
+.dark .activity-option.selected {
+    border-color: var(--primary-color);
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.dark .activity-name {
+    color: var(--dark-text);
+}
+
+.dark .activity-description {
+    color: var(--dark-text-muted);
+}
+
+/* Goal Options - Dark Theme */
+.dark .goal-option {
+    border-color: var(--dark-border);
+    background: var(--dark-card-bg);
+}
+
+.dark .goal-option:hover {
+    border-color: var(--primary-color);
+    background: var(--dark-hover-bg);
+}
+
+.dark .goal-option.selected {
+    border-color: var(--primary-color);
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.dark .goal-name {
+    color: var(--dark-text);
+}
+
+.dark .goal-description {
+    color: var(--dark-text-muted);
+}
+
+/* Weight Change Section - Dark Theme */
+.dark .weight-change-section label {
+    color: var(--dark-text);
+}
+
+.dark .weight-change-section select {
+    border-color: var(--dark-border);
+    background: var(--dark-card-bg);
+    color: var(--dark-text);
+}
+
+/* Step Navigation - Dark Theme */
+.dark .step-btn.secondary {
+    color: var(--dark-text);
+    border-color: var(--dark-border);
+}
+
+.dark .step-btn.secondary:hover {
+    background: var(--dark-hover-bg);
+}
+
+/* Calories Display - Dark Theme */
+.dark .bmr-section,
+.dark .tdee-section,
+.dark .goal-section {
+    background: var(--dark-bg-secondary);
+}
+
+.dark .calorie-label {
+    color: var(--dark-text-muted);
+}
+
+.dark .calorie-value {
+    color: var(--dark-text);
+}
+
+.dark .calorie-description {
+    color: var(--dark-text-muted);
+}
+
+/* Macros Breakdown - Dark Theme */
+.dark .macros-breakdown {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+}
+
+.dark .macro-item.protein {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.25));
+    color: #fbbf24;
+}
+
+.dark .macro-item.carbs {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.25));
+    color: #22c55e;
+}
+
+.dark .macro-item.fats {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.25));
+    color: #ef4444;
+}
+
+/* Recommendations - Dark Theme */
+.dark .recommendations {
+    background: var(--dark-bg-secondary);
+}
+
+.dark .tip-item {
+    background: var(--dark-card-bg);
+}
+
+.dark .tip-content h5 {
+    color: var(--dark-text);
+}
+
+.dark .tip-content p {
+    color: var(--dark-text-muted);
+}
+
+.dark .step-description {
+    color: var(--dark-text-muted);
+}
+
+/* Dark mode specific styling */
+.dark .step-indicator {
+    border-bottom: 1px solid var(--dark-border);
+    padding-bottom: 2rem;
+}
+
+.dark .calorie-value.goal {
+    color: #10b981;
+}
+
+/* Dark mode form elements */
+.dark input[type="number"],
+.dark input[type="text"],
+.dark select {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+    color: var(--dark-text);
+}
+
+.dark input[type="number"]:focus,
+.dark input[type="text"]:focus,
+.dark select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Dark mode radio buttons */
+.dark input[type="radio"] {
+    accent-color: var(--primary-color);
+}
+
+/* Dark mode animations */
+.dark .calorie-value {
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.dark .macro-item {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Loading states in dark mode */
+.dark .loading-skeleton {
+    background: linear-gradient(90deg, 
+        var(--dark-border) 25%, 
+        rgba(255, 255, 255, 0.1) 50%, 
+        var(--dark-border) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Decision Wheel - Utility Tools - Zapit</title>
+	<meta name="description" content="Spin a modern decision wheel with customizable entries, spin physics, and shareable results. Perfect for giveaways, teams, and classrooms.">
+	<meta property="og:title" content="Decision Wheel - Zapit">
+	<meta property="og:description" content="Add options, spin the wheel, and pick a winner instantly.">
+	<meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+	<link rel="canonical" href="https://zapit.me/utility-tools/decision-wheel">
+	<link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+	<link id="tool-theme-css" rel="stylesheet" href="light.css">
+	<link rel="stylesheet" href="/assets/elements/theme-toggle.css">
+	<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+	<link rel="icon" href="/icons/favicon.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+	<link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+	<header class="site-header">
+		<div class="container">
+			<div class="header-nav">
+				<a href="/index.html" class="brand" aria-label="Zapit Home">
+					<img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+					<span class="brand-text">
+						<span class="brand-title">Zapit</span>
+						<span class="brand-tagline">A Zap Away From Done</span>
+					</span>
+				</a>
+				<div class="header-right">
+					<nav class="breadcrumb">
+						<a href="/">Home</a>
+						<span class="separator">/</span>
+						<a href="/utility-tools">Utility Tools</a>
+						<span class="separator">/</span>
+						<span class="current">Decision Wheel</span>
+					</nav>
+					<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+						<span class="theme-toggle-icon">🌙</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="tool-hero">
+			<div class="container">
+				<div class="tool-hero-content">
+					<div class="tool-icon-large">🎯</div>
+					<h1 class="tool-title">Decision Wheel</h1>
+					<p class="tool-description">Add choices, spin the wheel, and celebrate the winner. Configure spin duration, shuffle entries, and keep a history of every pick.</p>
+					<div class="tool-meta">
+						<span class="meta-pill">Physics-based Spin</span>
+						<span class="meta-pill">Shareable Results</span>
+						<span class="meta-pill">Offline Friendly</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="tool-interface">
+			<div class="container">
+				<div class="tool-layout">
+					<div class="tool-card span-5" aria-labelledby="entries-heading">
+						<div class="section-header">
+							<h2 id="entries-heading">Wheel Entries</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="shuffleBtn">Shuffle</button>
+								<button type="button" class="btn btn-secondary" id="clearBtn">Clear</button>
+							</div>
+						</div>
+						<label class="field" for="entriesInput">
+							<span class="field-label">Choices (one per line)</span>
+							<textarea id="entriesInput" class="text-input large" placeholder="Type each option on a new line"></textarea>
+						</label>
+						<div class="helper-row">
+							<span class="helper-text" id="entryCount">0 options loaded</span>
+							<button type="button" class="btn btn-outline" id="loadSampleBtn">Load sample list</button>
+						</div>
+						<div class="notice" id="statusBanner" role="status"></div>
+					</div>
+
+					<div class="tool-card span-3" aria-labelledby="settings-heading">
+						<div class="section-header">
+							<h2 id="settings-heading">Spin Settings</h2>
+						</div>
+						<div class="settings-grid">
+							<label class="field">
+								<span>Spin duration (s)</span>
+								<input type="number" id="durationInput" class="text-input" min="2" max="12" step="0.5" value="6">
+							</label>
+							<label class="field">
+								<span>Easing style</span>
+								<select id="easingSelect" class="text-input">
+									<option value="easeOut">Ease out</option>
+									<option value="easeInOut">Ease in-out</option>
+									<option value="linear">Linear</option>
+								</select>
+							</label>
+							<label class="field">
+								<span>Remove winner after spin</span>
+								<label class="checkbox">
+									<input type="checkbox" id="removeWinnerToggle">
+									<span>Remove automatically</span>
+								</label>
+							</label>
+							<label class="field">
+								<span>Sound effects</span>
+								<label class="checkbox">
+									<input type="checkbox" id="soundToggle" checked>
+									<span>Play tick sound</span>
+								</label>
+							</label>
+						</div>
+						<div class="button-column">
+							<button type="button" class="btn btn-primary" id="spinBtn">Spin the Wheel</button>
+							<button type="button" class="btn btn-outline" id="copyWinnerBtn">Copy latest result</button>
+						</div>
+						<div class="stats">
+							<div class="stat">
+								<span class="stat-label">Total spins</span>
+								<span class="stat-value" id="spinCount">0</span>
+							</div>
+							<div class="stat">
+								<span class="stat-label">Last result</span>
+								<span class="stat-value" id="lastResult">–</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="tool-card span-4" aria-labelledby="history-heading">
+						<div class="section-header">
+							<h2 id="history-heading">History</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="clearHistoryBtn">Clear history</button>
+							</div>
+						</div>
+						<ul class="history-list" id="historyList">
+							<li class="placeholder">Spin the wheel to see the winners log here.</li>
+						</ul>
+					</div>
+
+					<div class="tool-card span-12 wheel-card" aria-labelledby="wheel-heading">
+						<div class="section-header">
+							<h2 id="wheel-heading">Live Wheel</h2>
+						</div>
+						<div class="wheel-wrapper">
+							<canvas id="wheelCanvas" width="520" height="520" aria-label="Decision wheel"></canvas>
+							<div class="pointer" aria-hidden="true"></div>
+							<div class="wheel-empty" id="wheelEmpty">Add at least two options to spin the wheel.</div>
+						</div>
+					</div>
+
+					<div class="tool-card span-12 info-card" aria-labelledby="tips-heading">
+						<div class="section-header">
+							<h2 id="tips-heading">Tips for Fair Spins</h2>
+						</div>
+						<div class="info-grid">
+							<div class="info-block">
+								<h3>Balance your list</h3>
+								<p>Keep option lengths similar and avoid duplicate entries. The wheel uses equal slice sizes for each choice.</p>
+							</div>
+							<div class="info-block">
+								<h3>Use remove-after-win</h3>
+								<p>Enable the remove toggle for raffles where each participant should only win once.</p>
+							</div>
+							<div class="info-block">
+								<h3>Share the results</h3>
+								<p>Use the copy button after every spin to keep your team chat or classroom updated on winners.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<div class="footer-brand-row">
+						<img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+						<span class="footer-brand-text">
+							<h3 class="footer-logo">Zapit</h3>
+							<div class="footer-tagline">A Zap Away From Done</div>
+						</span>
+					</div>
+					<p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+					<div class="footeropyright">© Zapit. All rights reserved.</div>
+				</div>
+				<div class="footer-links">
+					<h4 class="footer-title">Legal</h4>
+					<ul class="footer-list">
+						<li><a href="/privacy.html">Privacy Policy</a></li>
+						<li><a href="/terms.html">Terms of Service</a></li>
+						<li><a href="/contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/js/global.js" defer></script>
+	<script src="app.js" defer></script>
+	<script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+	<script>
+		(function () {
+			const toolTheme = document.getElementById('tool-theme-css');
+			if (!toolTheme) return;
+			function applyTheme(theme) {
+				const next = theme === 'dark' ? 'dark.css' : 'light.css';
+				if (toolTheme.getAttribute('href') !== next) {
+					toolTheme.setAttribute('href', next);
+				}
+			}
+			const current = document.documentElement.getAttribute('data-theme') || 'light';
+			applyTheme(current);
+			const observer = new MutationObserver(function (mutations) {
+				mutations.forEach(function (mutation) {
+					if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+						const theme = document.documentElement.getAttribute('data-theme') || 'light';
+						applyTheme(theme);
+					}
+				});
+			});
+			observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+		})();
+	</script>
+</body>
+</html>

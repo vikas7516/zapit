@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Text Sorter &amp; Randomizer - Text Tools - Zapit</title>
+	<meta name="description" content="Sort, shuffle, and clean lines of text instantly. Choose alphabetical, natural, or length-based sorting, remove duplicates, and export results without leaving your browser.">
+	<meta property="og:title" content="Text Sorter &amp; Randomizer - Zapit">
+	<meta property="og:description" content="Flexible line sorting and shuffling with case controls, duplicate removal, sampling, and clipboard/download options.">
+	<meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+	<link rel="canonical" href="https://zapit.me/text-tools/text-sorter-randomizer">
+	<link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+	<link id="tool-theme-css" rel="stylesheet" href="light.css">
+	<link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+	<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+	<link rel="icon" href="/icons/favicon.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+	<link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+	<header class="site-header">
+		<div class="container">
+			<div class="header-nav">
+				<a href="/index.html" class="brand" aria-label="Zapit Home">
+					<img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+					<span class="brand-text">
+						<span class="brand-title">Zapit</span>
+						<span class="brand-tagline">A Zap Away From Done</span>
+					</span>
+				</a>
+				<div class="header-right">
+					<nav class="breadcrumb">
+						<a href="/">Home</a>
+						<span class="separator">/</span>
+						<a href="/text-tools">Text Tools</a>
+						<span class="separator">/</span>
+						<span class="current">Text Sorter &amp; Randomizer</span>
+					</nav>
+					<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+						<span class="theme-toggle-icon">🌙</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="tool-hero">
+			<div class="container">
+				<div class="tool-hero-content">
+					<div class="tool-icon-large">🔄</div>
+					<h1 class="tool-title">Text Sorter &amp; Randomizer</h1>
+					<p class="tool-description">Arrange lists in seconds. Sort alphabetically, by length, or naturally, shuffle items, extract samples, and remove duplicates with precision toggles.</p>
+					<div class="tool-meta">
+						<span class="meta-pill">Alphabetical &amp; Natural Sorts</span>
+						<span class="meta-pill">Fair Shuffling</span>
+						<span class="meta-pill">Duplicate Controls</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="tool-interface">
+			<div class="container">
+				<div class="tool-layout">
+					<div class="tool-card span-8" aria-labelledby="input-heading">
+						<div class="section-header">
+							<h2 id="input-heading">Input Lines</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="loadSampleBtn">Load Sample</button>
+								<button type="button" class="btn btn-secondary" id="clearBtn">Clear</button>
+								<button type="button" class="btn btn-outline" id="copyInputBtn">Copy Input</button>
+							</div>
+						</div>
+						<label class="sr-only" for="inputText">Lines to process</label>
+						<textarea id="inputText" class="text-input large" spellcheck="false" placeholder="Paste items to sort or shuffle. Each entry should be on its own line..."></textarea>
+						<div class="helper-row">
+							<span class="helper-text" id="lineCount">0 lines</span>
+							<span class="helper-text" id="charCount">0 characters</span>
+						</div>
+						<div class="notification hidden" id="statusBanner" role="status"></div>
+					</div>
+
+					<div class="tool-card span-4" aria-labelledby="options-heading">
+						<div class="section-header">
+							<h2 id="options-heading">Processing Options</h2>
+						</div>
+						<div class="options-stack">
+							<h3 class="stack-title">Line Handling</h3>
+							<label class="checkbox">
+								<input type="checkbox" id="trimLines" checked>
+								<span>Trim leading/trailing spaces</span>
+							</label>
+							<label class="checkbox">
+								<input type="checkbox" id="removeBlanks" checked>
+								<span>Remove empty lines</span>
+							</label>
+							<label class="checkbox">
+								<input type="checkbox" id="dedupe" checked>
+								<span>Remove duplicates</span>
+							</label>
+							<label class="checkbox">
+								<input type="checkbox" id="caseSensitive">
+								<span>Case-sensitive comparisons</span>
+							</label>
+							<label class="checkbox">
+								<input type="checkbox" id="naturalSort" checked>
+								<span>Natural order (numbers inside text)</span>
+							</label>
+						</div>
+						<div class="sorter-grid">
+							<div class="field">
+								<label for="sortMode">Sort Mode</label>
+								<select id="sortMode" class="select-input">
+									<option value="alpha">Alphabetical</option>
+									<option value="length">By Length</option>
+									<option value="input">Input Order</option>
+								</select>
+							</div>
+							<div class="field">
+								<label for="sampleSize">Random Sample</label>
+								<input type="number" id="sampleSize" min="0" value="0" class="number-input" aria-describedby="sampleHelp">
+								<span class="helper-text" id="sampleHelp">0 to disable sampling.</span>
+							</div>
+						</div>
+						<div class="button-row">
+							<button type="button" class="btn btn-primary" id="sortAscBtn">Sort Ascending</button>
+							<button type="button" class="btn btn-outline" id="sortDescBtn">Sort Descending</button>
+							<button type="button" class="btn btn-secondary" id="shuffleBtn">Shuffle Lines</button>
+						</div>
+						<div class="button-row">
+							<button type="button" class="btn btn-outline" id="copyOutputBtn">Copy Output</button>
+							<button type="button" class="btn btn-outline" id="downloadBtn">Download TXT</button>
+						</div>
+					</div>
+
+					<div class="tool-card span-12" aria-labelledby="results-heading">
+						<div class="section-header">
+							<h2 id="results-heading">Results</h2>
+							<div class="toolbar">
+								<span class="badge" id="operationBadge">No operation yet</span>
+							</div>
+						</div>
+						<div class="results-layout">
+							<div class="result-panel">
+								<h3>Processed Output</h3>
+								<label class="sr-only" for="outputText">Processed output lines</label>
+								<textarea id="outputText" class="text-output" readonly></textarea>
+							</div>
+							<div class="stats-panel">
+								<h3>Line Statistics</h3>
+								<div class="stats-grid">
+									<div class="stat-card">
+										<span class="stat-label">Total lines</span>
+										<span class="stat-value" id="totalLinesStat">0</span>
+									</div>
+									<div class="stat-card">
+										<span class="stat-label">Unique lines</span>
+										<span class="stat-value" id="uniqueLinesStat">0</span>
+									</div>
+									<div class="stat-card">
+										<span class="stat-label">Blank lines</span>
+										<span class="stat-value" id="blankLinesStat">0</span>
+									</div>
+									<div class="stat-card">
+										<span class="stat-label">Duplicates removed</span>
+										<span class="stat-value" id="dedupeStat">0</span>
+									</div>
+									<div class="stat-card">
+										<span class="stat-label">Last action</span>
+										<span class="stat-value" id="lastActionStat">–</span>
+									</div>
+									<div class="stat-card">
+										<span class="stat-label">Processing time</span>
+										<span class="stat-value" id="timeStat">0 ms</span>
+									</div>
+								</div>
+								<p class="stats-note" id="statsNote">No output yet.</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="tool-card span-12 info-card">
+						<h2>Pro Tips</h2>
+						<ul class="tips-list">
+							<li>Natural sort handles values like <code>Item 2</code> and <code>Item 10</code> in human order. Disable for strict ASCII ordering.</li>
+							<li>Use the random sample field to pull a subset after sorting or shuffling. A sample of 5 returns the first five entries of the current result.</li>
+							<li>Duplicates are compared after trimming and case normalization (unless you enable case sensitivity).</li>
+							<li>Combine sorting and shuffling: sort, then shuffle, or vice versa. The operation badge shows the latest action.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<div class="footer-brand-row">
+						<img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+						<span class="footer-brand-text">
+							<h3 class="footer-logo">Zapit</h3>
+							<div class="footer-tagline">A Zap Away From Done</div>
+						</span>
+					</div>
+					<p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+					<div class="footer-copyright">© Zapit. All rights reserved.</div>
+				</div>
+
+				<div class="footer-links">
+					<h4 class="footer-title">Legal</h4>
+					<ul class="footer-list">
+						<li><a href="/privacy.html">Privacy Policy</a></li>
+						<li><a href="/terms.html">Terms of Service</a></li>
+						<li><a href="/contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/js/global.js" defer></script>
+	<script src="app.js" defer></script>
+	<script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+	<script>
+		(function () {
+			const toolTheme = document.getElementById('tool-theme-css');
+			if (!toolTheme) return;
+
+			function applyTheme(theme) {
+				const next = theme === 'dark' ? 'dark.css' : 'light.css';
+				if (toolTheme.getAttribute('href') !== next) {
+					toolTheme.setAttribute('href', next);
+				}
+			}
+
+			const current = document.documentElement.getAttribute('data-theme') || 'light';
+			applyTheme(current);
+
+			const observer = new MutationObserver(function (mutations) {
+				mutations.forEach(function (mutation) {
+					if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+						const theme = document.documentElement.getAttribute('data-theme') || 'light';
+						applyTheme(theme);
+					}
+				});
+			});
+
+			observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+		})();
+	</script>
+</body>
+</html>

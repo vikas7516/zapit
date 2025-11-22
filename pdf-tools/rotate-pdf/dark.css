@@ -1,0 +1,544 @@
+/* PDF Rotator Dark Theme Styles */
+
+/* Dark Theme Variables - Applied via data-theme="dark" on html */
+[data-theme="dark"] {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --surface-color: #334155;
+    --card-bg: #1e293b;
+    --hover-color: #475569;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border-color: #475569;
+    --primary-color: #3b82f6;
+    --primary-dark: #2563eb;
+    --success-color: #22c55e;
+    --error-color: #ef4444;
+    --warning-color: #f59e0b;
+}
+
+/* Dark Theme Overrides */
+[data-theme="dark"] .upload-card {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .upload-card.completed {
+    background: linear-gradient(135deg, var(--card-bg) 0%, rgba(34, 197, 94, 0.1) 100%);
+    border-color: var(--success-color);
+}
+
+[data-theme="dark"] .upload-zone {
+    border-color: var(--border-color);
+    background: rgba(51, 65, 85, 0.3);
+}
+
+[data-theme="dark"] .upload-zone.drag-over {
+    border-color: var(--primary-color);
+    background: rgba(59, 130, 246, 0.1);
+}
+
+[data-theme="dark"] .upload-zone::before {
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.15), transparent);
+}
+
+[data-theme="dark"] .upload-zone h4 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .upload-zone p {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .browse-btn {
+    background: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+}
+
+[data-theme="dark"] .browse-btn:hover {
+    background: var(--primary-dark);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+[data-theme="dark"] .requirement-item {
+    color: var(--text-secondary);
+}
+
+/* Rotation Card Dark Theme */
+[data-theme="dark"] .rotation-card {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .rotation-card.completed {
+    background: linear-gradient(135deg, var(--card-bg) 0%, rgba(34, 197, 94, 0.1) 100%);
+    border-color: var(--success-color);
+}
+
+[data-theme="dark"] .card-header {
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .card-header h3 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .current-file-name {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .action-btn {
+    background: var(--surface-color);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .action-btn:hover {
+    background: var(--hover-color);
+}
+
+/* File Info Display Dark Theme */
+[data-theme="dark"] .file-info-display {
+    background: var(--surface-color);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .info-label {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .info-value {
+    color: var(--text-primary);
+}
+
+/* Batch Controls Dark Theme */
+[data-theme="dark"] .batch-btn {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .batch-btn:hover {
+    border-color: var(--primary-color);
+    background: var(--hover-color);
+}
+
+[data-theme="dark"] .rotation-btn {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .rotation-btn:hover {
+    border-color: var(--primary-color);
+    background: var(--hover-color);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Page Navigation Dark Theme */
+[data-theme="dark"] .nav-btn {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .nav-btn:hover:not(:disabled) {
+    border-color: var(--primary-color);
+    background: var(--hover-color);
+}
+
+[data-theme="dark"] .page-indicator {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .page-input {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .page-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+[data-theme="dark"] .individual-btn {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .individual-btn:hover {
+    border-color: var(--primary-color);
+    background: var(--hover-color);
+}
+
+/* Pages Grid Dark Theme */
+[data-theme="dark"] .pages-grid {
+    background: var(--surface-color);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .page-thumbnail {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .page-thumbnail:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .page-thumbnail.selected {
+    border-color: var(--primary-color);
+    background: rgba(59, 130, 246, 0.1);
+}
+
+[data-theme="dark"] .page-thumbnail.current {
+    border-color: var(--success-color);
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3);
+}
+
+[data-theme="dark"] .page-preview {
+    background: #475569;
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .page-number {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .page-rotate-btn {
+    background: var(--surface-color);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .page-rotate-btn:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+[data-theme="dark"] .page-selection label {
+    color: var(--text-secondary);
+}
+
+/* Apply Actions Dark Theme */
+[data-theme="dark"] .apply-btn {
+    background: var(--primary-color);
+}
+
+[data-theme="dark"] .apply-btn:hover:not(:disabled) {
+    background: var(--primary-dark);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+[data-theme="dark"] .reset-btn {
+    background: var(--surface-color);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .reset-btn:hover:not(:disabled) {
+    border-color: var(--error-color);
+    color: var(--error-color);
+}
+
+/* Progress Card Dark Theme */
+[data-theme="dark"] .progress-card {
+    background: var(--card-bg);
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .progress-card.completed {
+    background: linear-gradient(135deg, var(--card-bg) 0%, rgba(34, 197, 94, 0.1) 100%);
+    border-color: var(--success-color);
+}
+
+[data-theme="dark"] .progress-text {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .progress-percent {
+    color: var(--primary-color);
+}
+
+[data-theme="dark"] .progress-bar-container {
+    background: var(--border-color);
+}
+
+[data-theme="dark"] .progress-bar {
+    background: linear-gradient(90deg, var(--primary-color), #60a5fa);
+}
+
+[data-theme="dark"] .current-operation {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .rotation-item {
+    background: var(--surface-color);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .rotation-label {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .rotation-value {
+    color: var(--text-primary);
+}
+
+/* Results Card Dark Theme */
+[data-theme="dark"] .results-card {
+    background: var(--card-bg);
+    border-color: var(--success-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .success-state h4 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .rotation-stats h5 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .stat-item {
+    background: var(--surface-color);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .stat-label {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .stat-value {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .rotation-details h5 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .details-list {
+    background: var(--surface-color);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .detail-item {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .detail-page {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .detail-rotation {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .detail-angle {
+    color: var(--primary-color);
+}
+
+[data-theme="dark"] .no-rotations {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .download-btn {
+    background: var(--success-color);
+}
+
+[data-theme="dark"] .download-btn:hover {
+    background: #16a34a;
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+}
+
+[data-theme="dark"] .file-info {
+    color: var(--text-secondary);
+}
+
+/* Toast System Dark Theme */
+[data-theme="dark"] .toast {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .toast-message {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .toast-close {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .toast-close:hover {
+    background: var(--hover-color);
+    color: var(--text-primary);
+}
+
+/* Enhanced Dark Theme Effects */
+[data-theme="dark"] .upload-zone:hover {
+    border-color: var(--primary-color);
+    background: rgba(59, 130, 246, 0.1);
+}
+
+[data-theme="dark"] .rotation-btn:hover .rotation-icon {
+    transform: scale(1.1);
+}
+
+[data-theme="dark"] .page-thumbnail:hover .page-preview {
+    transform: scale(1.02);
+}
+
+[data-theme="dark"] .apply-btn:hover:not(:disabled) {
+    transform: translateY(-2px) scale(1.02);
+}
+
+[data-theme="dark"] .download-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* Dark Theme Scrollbars */
+[data-theme="dark"] .pages-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+[data-theme="dark"] .pages-grid::-webkit-scrollbar-track {
+    background: var(--surface-color);
+    border-radius: 4px;
+}
+
+[data-theme="dark"] .pages-grid::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+[data-theme="dark"] .pages-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--hover-color);
+}
+
+[data-theme="dark"] .details-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+[data-theme="dark"] .details-list::-webkit-scrollbar-track {
+    background: var(--surface-color);
+    border-radius: 4px;
+}
+
+[data-theme="dark"] .details-list::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+[data-theme="dark"] .details-list::-webkit-scrollbar-thumb:hover {
+    background: var(--hover-color);
+}
+
+/* Dark Theme Specific Animations */
+[data-theme="dark"] .page-thumbnail.selected::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--primary-color), transparent, var(--primary-color));
+    border-radius: 14px;
+    z-index: -1;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        opacity: 0.5;
+    }
+    to {
+        opacity: 0.8;
+    }
+}
+
+/* Dark Theme Focus States */
+[data-theme="dark"] .batch-btn:focus,
+[data-theme="dark"] .rotation-btn:focus,
+[data-theme="dark"] .nav-btn:focus,
+[data-theme="dark"] .individual-btn:focus,
+[data-theme="dark"] .apply-btn:focus,
+[data-theme="dark"] .reset-btn:focus,
+[data-theme="dark"] .download-btn:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+[data-theme="dark"] .page-input:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 1px;
+}
+
+/* Dark Theme Selection States */
+[data-theme="dark"] ::selection {
+    background: rgba(59, 130, 246, 0.3);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] ::-moz-selection {
+    background: rgba(59, 130, 246, 0.3);
+    color: var(--text-primary);
+}
+
+/* Dark Theme Loading States */
+[data-theme="dark"] .apply-btn:disabled,
+[data-theme="dark"] .reset-btn:disabled {
+    background: var(--surface-color);
+    color: var(--text-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .nav-btn:disabled {
+    background: var(--surface-color);
+    color: var(--text-secondary);
+    border-color: var(--border-color);
+}
+
+/* Dark Theme Enhanced Visual Effects */
+[data-theme="dark"] .rotation-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, transparent 50%, rgba(34, 197, 94, 0.05) 100%);
+    border-radius: 16px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+[data-theme="dark"] .rotation-card:hover::before {
+    opacity: 1;
+}
+
+[data-theme="dark"] .upload-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, transparent 50%, rgba(34, 197, 94, 0.05) 100%);
+    border-radius: 16px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+[data-theme="dark"] .upload-card:hover::before {
+    opacity: 1;
+}

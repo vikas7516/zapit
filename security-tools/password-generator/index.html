@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator - Security Tools - Zapit</title>
+    <meta name="description" content="Generate strong, secure passwords with customizable options. Create random passwords with uppercase, lowercase, numbers, and special characters.">
+    <meta property="og:title" content="Password Generator - Zapit">
+    <meta property="og:description" content="Generate strong, secure passwords with customizable options">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/security-tools/password-generator">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb">
+                        <a href="/">Home</a>
+                        <span class="separator">/</span>
+                        <a href="/security-tools">Security Tools</a>
+                        <span class="separator">/</span>
+                        <span class="current">Password Generator</span>
+                    </nav>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <span class="theme-toggle-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+        <div class="container">
+            <div class="tool-header-content">
+                <div class="tool-icon-large">🔐</div>
+                <h1 class="tool-title">Password Generator</h1>
+                <p class="tool-description">Generate strong, secure passwords with customizable options</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Interface -->
+    <section class="tool-interface">
+        <div class="container">
+            <div class="tool-container">
+                <!-- Password Generator -->
+                <div class="generator-panel">
+                    <div class="password-display">
+                        <div class="password-output-wrapper">
+                            <input type="text" id="passwordOutput" class="password-output" readonly placeholder="Generated password will appear here">
+                            <div class="password-actions">
+                                <button id="copyBtn" class="btn btn-outline btn-icon" title="Copy to clipboard">
+                                    📋
+                                </button>
+                                <button id="regenerateBtn" class="btn btn-outline btn-icon" title="Generate new password">
+                                    🔄
+                                </button>
+                            </div>
+                        </div>
+                        <div class="password-strength" id="passwordStrength">
+                            <div class="strength-bar">
+                                <div class="strength-fill" id="strengthFill"></div>
+                            </div>
+                            <div class="strength-text" id="strengthText">Click "Generate Password" to create a password</div>
+                        </div>
+                    </div>
+
+                    <!-- Options -->
+                    <div class="options-panel">
+                        <h3>Password Options</h3>
+                        
+                        <div class="option-group">
+                            <label for="lengthSlider" class="option-label">
+                                Length: <span id="lengthValue">12</span>
+                            </label>
+                            <input type="range" id="lengthSlider" min="4" max="100" value="12" class="slider">
+                        </div>
+
+                        <div class="option-group">
+                            <div class="checkbox-grid">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="includeUppercase" checked>
+                                    <span class="checkmark"></span>
+                                    Uppercase (A-Z)
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="includeLowercase" checked>
+                                    <span class="checkmark"></span>
+                                    Lowercase (a-z)
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="includeNumbers" checked>
+                                    <span class="checkmark"></span>
+                                    Numbers (0-9)
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="includeSymbols" checked>
+                                    <span class="checkmark"></span>
+                                    Symbols (!@#$%^&*)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="option-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="excludeAmbiguous">
+                                <span class="checkmark"></span>
+                                Exclude ambiguous characters (0, O, l, 1, I)
+                            </label>
+                        </div>
+
+                        <div class="option-group">
+                            <label for="customChars" class="option-label">Custom Characters (optional):</label>
+                            <input type="text" id="customChars" placeholder="Add custom characters here" class="text-input">
+                        </div>
+
+                        <div class="generate-section">
+                            <button id="generateBtn" class="btn btn-primary btn-large">Generate Password</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password History -->
+                <div class="history-panel">
+                    <div class="panel-header">
+                        <h3>Recent Passwords</h3>
+                        <button id="clearHistoryBtn" class="btn btn-outline btn-sm">Clear All</button>
+                    </div>
+                    <div class="password-history" id="passwordHistory">
+                        <div class="empty-state">
+                            <p>No passwords generated yet. Create your first password above!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Presets -->
+                <div class="presets-panel">
+                    <h3>Quick Presets</h3>
+                    <div class="presets-grid">
+                        <button class="preset-btn" data-preset="basic">
+                            <div class="preset-title">Basic</div>
+                            <div class="preset-desc">Letters + Numbers</div>
+                        </button>
+                        <button class="preset-btn" data-preset="strong">
+                            <div class="preset-title">Strong</div>
+                            <div class="preset-desc">All Characters</div>
+                        </button>
+                        <button class="preset-btn" data-preset="pin">
+                            <div class="preset-title">PIN</div>
+                            <div class="preset-desc">Numbers Only</div>
+                        </button>
+                        <button class="preset-btn" data-preset="memorable">
+                            <div class="preset-title">Memorable</div>
+                            <div class="preset-desc">No Ambiguous</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Information Section -->
+    <section class="tool-info-section">
+        <div class="container">
+            <h2 class="section-title">About Password Generator</h2>
+            <div class="tool-info-content">
+                <p>Our Password Generator creates strong, secure passwords with customizable criteria to meet any security requirement. Whether you need passwords for personal accounts, business systems, or specific compliance standards, this tool generates cryptographically secure passwords that protect against brute force and dictionary attacks.</p>
+                
+                <div class="tool-benefits">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🔐</div>
+                        <div class="benefit-content">
+                            <h4>Cryptographically Secure</h4>
+                            <p>Uses secure random number generation to create truly unpredictable passwords</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">⚙️</div>
+                        <div class="benefit-content">
+                            <h4>Highly Customizable</h4>
+                            <p>Control length, character sets, and specific requirements to match any policy</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">⚡</div>
+                        <div class="benefit-content">
+                            <h4>Instant Generation</h4>
+                            <p>Generate multiple passwords quickly with batch generation capabilities</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🛡️</div>
+                        <div class="benefit-content">
+                            <h4>100% Client-Side</h4>
+                            <p>All generation happens locally - passwords never leave your browser</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Information Section -->
+    <section class="info-section">
+        <div class="container">
+            <h2 class="section-title">How to Use Password Generator</h2>
+            <div class="usage-steps">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Choose Password Length</h4>
+                        <p>Use the slider to select your desired password length (4-100 characters). Longer passwords are generally more secure.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Select Character Types</h4>
+                        <p>Choose which character types to include: uppercase letters, lowercase letters, numbers, and symbols.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Generate & Copy</h4>
+                        <p>Click "Generate Password" to create a secure password, then copy it to use wherever needed.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-features">
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <h4>Secure Generation</h4>
+                    <p>Uses cryptographically secure random number generation for maximum security</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <h4>Instant Creation</h4>
+                    <p>Generate passwords instantly without any server communication</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <h4>Customizable</h4>
+                    <p>Full control over length, character sets, and complexity requirements</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🛡️</div>
+                    <h4>Privacy First</h4>
+                    <p>All generation happens locally - your passwords never leave your device</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Tools Section -->
+    <section class="related-tools-section">
+        <div class="container">
+            <h2 class="section-title">Explore More Security Tools</h2>
+            <div class="related-tools-grid">
+                <a href="../password-strength-analyzer/" class="tool-card">
+                    <div class="tool-card-icon">🔐</div>
+                    <h3>Password Strength Analyzer</h3>
+                    <p>Analyze password security with comprehensive strength testing and breach detection</p>
+                </a>
+                <a href="../hash-generator/" class="tool-card">
+                    <div class="tool-card-icon">#️⃣</div>
+                    <h3>Hash Generator</h3>
+                    <p>Generate cryptographic hashes using MD5, SHA-256, and other algorithms</p>
+                </a>
+                <a href="../totp-generator/" class="tool-card">
+                    <div class="tool-card-icon">⏰</div>
+                    <h3>TOTP Generator</h3>
+                    <p>Generate time-based one-time passwords for two-factor authentication</p>
+                </a>
+                <a href="../text-encryption/" class="tool-card">
+                    <div class="tool-card-icon">🔒</div>
+                    <h3>Text Encryption</h3>
+                    <p>Encrypt and decrypt text using AES encryption with multiple cipher modes</p>
+                </a>
+                <a href="../uuid-generator/" class="tool-card">
+                    <div class="tool-card-icon">🆔</div>
+                    <h3>UUID Generator</h3>
+                    <p>Generate unique identifiers in multiple formats with bulk generation support</p>
+                </a>
+                <a href="/dev-tools/" class="tool-card">
+                    <div class="tool-card-icon">⚙️</div>
+                    <h3>Developer Tools</h3>
+                    <p>Comprehensive suite of development utilities and code helpers</p>
+                </a>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/assets/js/global.js"></script>
+    <script src="app.js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    
+    <!-- Tool Theme Handler -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle tool-specific theme CSS switching
+        const toolThemeLink = document.getElementById('tool-theme-css');
+        if (toolThemeLink) {
+            // Initial theme setup
+            const savedTheme = localStorage.getItem('zapit-theme') || 'light';
+            toolThemeLink.href = savedTheme + '.css';
+            
+            // Listen for theme changes
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                        const theme = document.documentElement.getAttribute('data-theme') || 'light';
+                        toolThemeLink.href = theme + '.css';
+                    }
+                });
+            });
+            
+            observer.observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ['data-theme']
+            });
+        }
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Merger - ZapIt Tools</title>
+    <meta name="description" content="Merge multiple PDF files into one document. Drag and drop PDFs, reorder pages, and combine them securely in your browser.">
+    <meta name="keywords" content="PDF merger, combine PDFs, merge documents, PDF tools, online PDF merger">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="PDF Merger - ZapIt Tools">
+    <meta property="og:description" content="Merge multiple PDF files into one document. Drag and drop PDFs, reorder pages, and combine them securely in your browser.">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../assets/css/variables.css">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="light.css">
+    <link rel="stylesheet" href="dark.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../../" class="nav-brand">
+                <img src="../../icons/logo.jpg" alt="ZapIt Tools" class="nav-logo">
+                <span>ZapIt Tools</span>
+            </a>
+            <div class="nav-menu">
+                <a href="../../" class="nav-link">Home</a>
+                <a href="../" class="nav-link">PDF Tools</a>
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">PDF Merger</h1>
+                <p class="hero-description">
+                    Combine multiple PDF files into a single document. Drag and drop your PDFs, 
+                    reorder them as needed, and merge them instantly in your browser.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">📄</span>
+                        <span class="stat-label">Multiple Files</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">🔄</span>
+                        <span class="stat-label">Reorder Pages</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">🔒</span>
+                        <span class="stat-label">100% Secure</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="tool-layout">
+            <div class="tool-main">
+                <!-- File Upload Section -->
+                <div class="upload-card">
+                    <div class="card-header">
+                        <h3>Select PDF Files to Merge</h3>
+                        <div class="upload-actions">
+                            <button class="action-btn" id="clearAllBtn" title="Clear All Files">🗑️</button>
+                            <button class="action-btn" id="settingsBtn" title="Merge Settings">⚙️</button>
+                        </div>
+                    </div>
+
+                    <div class="upload-zone" id="uploadZone">
+                        <div class="upload-content">
+                            <div class="upload-icon">📁</div>
+                            <h4>Drag & Drop PDF Files Here</h4>
+                            <p>Or click to browse and select multiple PDF files</p>
+                            <input type="file" id="fileInput" accept=".pdf" multiple hidden>
+                            <button class="browse-btn" id="browseBtn">
+                                <span class="btn-icon">📎</span>
+                                Choose Files
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="file-requirements">
+                        <div class="requirement-item">
+                            <span class="req-icon">✅</span>
+                            <span>PDF files only</span>
+                        </div>
+                        <div class="requirement-item">
+                            <span class="req-icon">📏</span>
+                            <span>Max 10MB per file</span>
+                        </div>
+                        <div class="requirement-item">
+                            <span class="req-icon">📊</span>
+                            <span>Up to 20 files</span>
+                        </div>
+                        <div class="requirement-item">
+                            <span class="req-icon">🔒</span>
+                            <span>Files processed locally</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- File List Section -->
+                <div class="files-card" id="filesCard">
+                    <div class="card-header">
+                        <h3>PDF Files to Merge</h3>
+                        <div class="files-actions">
+                            <span class="file-count" id="fileCount">0 files selected</span>
+                            <button class="merge-btn" id="mergeBtn" disabled>
+                                <span class="btn-icon">🔗</span>
+                                Merge PDFs
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="files-list" id="filesList">
+                        <!-- Files will be added here dynamically -->
+                    </div>
+
+                    <div class="merge-options" id="mergeOptions">
+                        <div class="option-group">
+                            <label for="outputName">Output Filename:</label>
+                            <input type="text" id="outputName" class="filename-input" value="merged-document.pdf" placeholder="Enter filename...">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Section -->
+                <div class="progress-card" id="progressCard">
+                    <div class="card-header">
+                        <h3>Merging PDFs</h3>
+                        <button class="action-btn" id="cancelBtn" title="Cancel">❌</button>
+                    </div>
+                    
+                    <div class="progress-content">
+                        <div class="progress-info">
+                            <span class="progress-text" id="progressText">Preparing files...</span>
+                            <span class="progress-percent" id="progressPercent">0%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="progressBar"></div>
+                        </div>
+                        <div class="progress-details" id="progressDetails">
+                            <span class="current-file" id="currentFile"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="results-card" id="resultsCard">
+                    <div class="card-header">
+                        <h3>Merge Complete!</h3>
+                        <div class="results-actions">
+                            <button class="action-btn" id="newMergeBtn" title="Start New Merge">🔄</button>
+                        </div>
+                    </div>
+                    
+                    <div class="results-content">
+                        <div class="success-state">
+                            <div class="success-icon">✅</div>
+                            <h4>PDFs Successfully Merged!</h4>
+                            <p class="merge-summary" id="mergeSummary"></p>
+                            
+                            <div class="download-section">
+                                <button class="download-btn" id="downloadBtn">
+                                    <span class="btn-icon">💾</span>
+                                    Download Merged PDF
+                                </button>
+                                <div class="file-info" id="fileInfo">
+                                    <span class="file-size" id="fileSize"></span>
+                                    <span class="file-pages" id="filePages"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Information Panel -->
+            <div class="tool-sidebar">
+                <div class="info-card">
+                    <h3>How to Use</h3>
+                    <div class="step-list">
+                        <div class="step-item">
+                            <span class="step-number">1</span>
+                            <div class="step-content">
+                                <h4>Upload Files</h4>
+                                <p>Drag and drop PDF files or click to browse and select multiple PDFs</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <span class="step-number">2</span>
+                            <div class="step-content">
+                                <h4>Reorder Files</h4>
+                                <p>Drag files up or down to change the order they'll appear in the merged PDF</p>
+                            </div>
+                        </div>
+                        <div class="step-item">
+                            <span class="step-number">3</span>
+                            <div class="step-content">
+                                <h4>Merge & Download</h4>
+                                <p>Click "Merge PDFs" and download your combined document</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Features</h3>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <span class="feature-icon">🔒</span>
+                            <div class="feature-content">
+                                <h4>100% Secure</h4>
+                                <p>All processing happens in your browser. Files never leave your device.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">⚡</span>
+                            <div class="feature-content">
+                                <h4>Fast Processing</h4>
+                                <p>Instant merging with no file size or page count limitations.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🎯</span>
+                            <div class="feature-content">
+                                <h4>Drag & Drop</h4>
+                                <p>Intuitive interface with drag-and-drop file reordering.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">📱</span>
+                            <div class="feature-content">
+                                <h4>Mobile Friendly</h4>
+                                <p>Works perfectly on desktop, tablet, and mobile devices.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Tips & Tricks</h3>
+                    <div class="tips-list">
+                        <div class="tip-item">
+                            <span class="tip-icon">💡</span>
+                            <span>You can select multiple files at once using Ctrl+Click (Cmd+Click on Mac)</span>
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">🔄</span>
+                            <span>Drag files to reorder them before merging</span>
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">📝</span>
+                            <span>Rename your output file before merging for better organization</span>
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">🗂️</span>
+                            <span>Remove unwanted files by clicking the × button on each file</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Common Use Cases</h3>
+                    <div class="use-cases">
+                        <div class="use-case">
+                            <span class="case-icon">📊</span>
+                            <span>Combine multiple reports into one document</span>
+                        </div>
+                        <div class="use-case">
+                            <span class="case-icon">📑</span>
+                            <span>Merge contract pages and attachments</span>
+                        </div>
+                        <div class="use-case">
+                            <span class="case-icon">📚</span>
+                            <span>Combine chapters into a complete book</span>
+                        </div>
+                        <div class="use-case">
+                            <span class="case-icon">📋</span>
+                            <span>Merge invoices for accounting purposes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ZapIt Tools</h3>
+                    <p>Professional PDF merger for combining multiple documents. Fast, secure, and completely free to use.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>PDF Tools</h4>
+                    <ul>
+                        <li><a href="../pdf-splitter/">PDF Splitter</a></li>
+                        <li><a href="../compress-pdf/">PDF Compressor</a></li>
+                        <li><a href="../protect-pdf/">Protect PDF</a></li>
+                        <li><a href="../unlock-pdf/">Unlock PDF</a></li>
+                        <li><a href="../rotate-pdf/">Rotate PDF</a></li>
+                        <li><a href="../add-page-numbers/">Add Page Numbers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="../../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../../terms.html">Terms of Service</a></li>
+                        <li><a href="../../contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ZapIt Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="../../assets/js/theme.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

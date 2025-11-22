@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Encryption - Security Tools - Zapit</title>
+    <meta name="description" content="Encrypt and decrypt text using AES encryption with multiple modes. Secure client-side text encryption and decryption tool.">
+    <meta property="og:title" content="Text Encryption - Zapit">
+    <meta property="og:description" content="Secure text encryption and decryption using AES with multiple modes">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link rel="stylesheet" href="/assets/css/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/security-tools/text-encryption">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body class="tools-page">
+    <main>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb">
+                        <a href="/">Home</a>
+                        <span class="separator">/</span>
+                        <a href="/security-tools">Security Tools</a>
+                        <span class="separator">/</span>
+                        <span class="current">Text Encryption</span>
+                    </nav>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <span class="theme-toggle-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tool Header -->
+    <section class="tool-hero">
+        <div class="container">
+            <div class="tool-hero-content">
+                <div class="tool-icon-large">🔐</div>
+                <h1 class="tool-title">Text Encryption</h1>
+                <p class="tool-description">Encrypt and decrypt text using AES with multiple modes and key management</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Interface -->
+    <section class="tool-interface">
+        <div class="container">
+            <div class="tool-container">
+                <!-- Mode Selection -->
+                <div class="mode-panel">
+                    <h3>Operation Mode</h3>
+                    <div class="mode-toggles">
+                        <label class="mode-toggle active" data-mode="encrypt">
+                            <input type="radio" name="mode" value="encrypt" checked>
+                            <span class="mode-icon">🔒</span>
+                            <span class="mode-text">Encrypt</span>
+                        </label>
+                        <label class="mode-toggle" data-mode="decrypt">
+                            <input type="radio" name="mode" value="decrypt">
+                            <span class="mode-icon">🔓</span>
+                            <span class="mode-text">Decrypt</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Settings Panel -->
+                <div class="settings-panel">
+                    <h3>Encryption Settings</h3>
+                    <div class="settings-grid">
+                        <div class="setting-group">
+                            <label for="algorithm">Algorithm:</label>
+                            <select id="algorithm">
+                                <option value="AES">AES (Advanced Encryption Standard)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-group">
+                            <label for="mode">Mode:</label>
+                            <select id="mode">
+                                <option value="CBC">CBC (Cipher Block Chaining)</option>
+                                <option value="CFB">CFB (Cipher Feedback)</option>
+                                <option value="OFB">OFB (Output Feedback)</option>
+                                <option value="CTR">CTR (Counter)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-group">
+                            <label for="keySize">Key Size:</label>
+                            <select id="keySize">
+                                <option value="128">128-bit</option>
+                                <option value="192">192-bit</option>
+                                <option value="256" selected>256-bit</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-group">
+                            <label for="padding">Padding:</label>
+                            <select id="padding">
+                                <option value="Pkcs7">PKCS#7</option>
+                                <option value="Iso97971">ISO/IEC 9797-1</option>
+                                <option value="AnsiX923">ANSI X9.23</option>
+                                <option value="Iso10126">ISO 10126</option>
+                                <option value="ZeroPadding">Zero Padding</option>
+                                <option value="NoPadding">No Padding</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Management -->
+                <div class="key-panel">
+                    <h3>Key Management</h3>
+                    <div class="key-section">
+                        <div class="key-input-group">
+                            <label for="encryptionKey">Encryption Key:</label>
+                            <div class="key-input-wrapper">
+                                <input type="password" id="encryptionKey" placeholder="Enter your encryption key..." class="key-input">
+                                <button id="toggleKeyVisibility" class="btn btn-outline btn-sm" title="Toggle key visibility">👁️</button>
+                                <button id="generateKeyBtn" class="btn btn-outline btn-sm" title="Generate secure key">🎲</button>
+                            </div>
+                        </div>
+                        
+                        <div class="key-strength" id="keyStrength"></div>
+                        
+                        <div class="key-actions">
+                            <button id="deriveKeyBtn" class="btn btn-outline btn-sm">🔑 Derive from Password</button>
+                            <button id="exportKeyBtn" class="btn btn-outline btn-sm">📤 Export Key</button>
+                            <button id="importKeyBtn" class="btn btn-outline btn-sm">📥 Import Key</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Input/Output -->
+                <div class="text-panel">
+                    <div class="text-section">
+                        <div class="section-header">
+                            <h4 id="inputLabel">Text to Encrypt</h4>
+                            <div class="text-actions">
+                                <button id="clearInputBtn" class="btn btn-outline btn-xs">🗑️ Clear</button>
+                                <button id="pasteBtn" class="btn btn-outline btn-xs">📋 Paste</button>
+                                <span class="char-count" id="inputCharCount">0 characters</span>
+                            </div>
+                        </div>
+                        <textarea id="inputText" placeholder="Enter your text here..." rows="8"></textarea>
+                    </div>
+                    
+                    <div class="process-section">
+                        <div class="process-controls">
+                            <button id="processBtn" class="btn btn-primary">🔒 Encrypt Text</button>
+                            <button id="swapBtn" class="btn btn-outline">⇅ Swap</button>
+                        </div>
+                        <div class="process-status" id="processStatus"></div>
+                    </div>
+                    
+                    <div class="text-section">
+                        <div class="section-header">
+                            <h4 id="outputLabel">Encrypted Result</h4>
+                            <div class="text-actions">
+                                <button id="copyOutputBtn" class="btn btn-outline btn-xs" disabled>📋 Copy</button>
+                                <button id="downloadBtn" class="btn btn-outline btn-xs" disabled>💾 Download</button>
+                                <span class="char-count" id="outputCharCount">0 characters</span>
+                            </div>
+                        </div>
+                        <textarea id="outputText" placeholder="Encrypted/decrypted text will appear here..." rows="8" readonly></textarea>
+                    </div>
+                </div>
+
+                <!-- Encryption Info -->
+                <div class="info-panel">
+                    <h3>Encryption Information</h3>
+                    <div class="encryption-details" id="encryptionDetails">
+                        <div class="detail-item">
+                            <label>Algorithm:</label>
+                            <span id="detailAlgorithm">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Mode:</label>
+                            <span id="detailMode">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Key Size:</label>
+                            <span id="detailKeySize">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Padding:</label>
+                            <span id="detailPadding">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>IV Used:</label>
+                            <span id="detailIV">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Output Format:</label>
+                            <span id="detailFormat">Base64</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Notes -->
+                <div class="security-panel">
+                    <h3>Security Notes</h3>
+                    <div class="security-warnings">
+                        <div class="warning-item">
+                            <div class="warning-icon">🛡️</div>
+                            <div class="warning-content">
+                                <h4>Client-Side Processing</h4>
+                                <p>All encryption and decryption happens locally in your browser. Your text and keys never leave your device.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="warning-item">
+                            <div class="warning-icon">🔑</div>
+                            <div class="warning-content">
+                                <h4>Key Security</h4>
+                                <p>Use strong, unique keys. Store your keys securely - losing your key means losing access to encrypted data.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="warning-item">
+                            <div class="warning-icon">⚠️</div>
+                            <div class="warning-content">
+                                <h4>Production Use</h4>
+                                <p>For sensitive data, consider using established encryption libraries and proper key management systems.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Information Section -->
+    <section class="info-section">
+        <div class="container">
+            <h2 class="section-title">How to Use Text Encryption</h2>
+            <div class="usage-steps">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Choose Mode</h4>
+                        <p>Select whether you want to encrypt or decrypt text, then configure encryption settings.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Set Key</h4>
+                        <p>Enter your encryption key or generate a secure one. Use the same key for decryption.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Process Text</h4>
+                        <p>Enter your text and click encrypt or decrypt. Copy or download the result.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-features">
+                <div class="feature-item">
+                    <div class="feature-icon">🔐</div>
+                    <h4>AES Encryption</h4>
+                    <p>Industry-standard AES encryption with multiple modes and key sizes</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔑</div>
+                    <h4>Key Management</h4>
+                    <p>Generate secure keys, derive from passwords, or import/export keys</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🛡️</div>
+                    <h4>Multiple Modes</h4>
+                    <p>Support for CBC, CFB, OFB, and CTR encryption modes</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <h4>Client-Side Only</h4>
+                    <p>All processing happens locally - your data never leaves your browser</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Information -->
+    <section class="tool-info">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>🔒 What is AES Encryption?</h3>
+                    <p>Advanced Encryption Standard (AES) is a symmetric encryption algorithm established by the U.S. National Institute of Standards and Technology. It's widely used worldwide for protecting sensitive data and is considered highly secure when properly implemented.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>🔐 How It Works</h3>
+                    <p>Our tool uses AES encryption with multiple modes (ECB, CBC, CFB, OFB, CTR) and supports 128, 192, and 256-bit key lengths. All encryption happens locally in your browser using the Web Crypto API, ensuring your data never leaves your device.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>🛡️ Security & Privacy</h3>
+                    <p>Your text and passwords are processed entirely client-side using JavaScript. Nothing is sent to our servers, logged, or stored anywhere. This ensures complete privacy and security for your sensitive information.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>🎯 Use Cases</h3>
+                    <p>Perfect for encrypting personal notes, passwords, sensitive documents, or any text you want to keep secure. The encrypted output is base64-encoded for easy copying and storage in databases or text files.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Use -->
+    <section class="how-to-use">
+        <div class="container">
+            <h2>📝 How to Use Text Encryption</h2>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Enter Text</h3>
+                        <p>Type or paste the text you want to encrypt in the input area. Supports any text content including special characters.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Set Password</h3>
+                        <p>Enter a strong password that will be used to encrypt your text. Remember this password - you'll need it to decrypt.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Choose Options</h3>
+                        <p>Select encryption mode (CBC recommended) and key size (256-bit for maximum security).</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Encrypt & Copy</h3>
+                        <p>Click encrypt to generate the secure text. Copy the result and store it safely. Use the same password to decrypt later.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cross-Site Promotion -->
+    <section class="cross-promotion">
+        <div class="container">
+            <h2>🔧 Related Security Tools</h2>
+            <div class="tools-grid">
+                <a href="/security-tools/password-generator" class="tool-card">
+                    <div class="tool-icon">🔐</div>
+                    <h3 class="tool-name">Password Generator</h3>
+                    <p class="tool-desc">Generate strong passwords for your encryption keys</p>
+                </a>
+                
+                <a href="/security-tools/password-strength-analyzer" class="tool-card">
+                    <div class="tool-icon">🔍</div>
+                    <h3 class="tool-name">Password Strength Analyzer</h3>
+                    <p class="tool-desc">Test the strength of your encryption passwords</p>
+                </a>
+                
+                <a href="/security-tools/hash-generator" class="tool-card">
+                    <div class="tool-icon">🔗</div>
+                    <h3 class="tool-name">Hash Generator</h3>
+                    <p class="tool-desc">Generate cryptographic hashes for data integrity</p>
+                </a>
+                
+                <a href="/security-tools/totp-generator" class="tool-card">
+                    <div class="tool-icon">⏱️</div>
+                    <h3 class="tool-name">TOTP Generator</h3>
+                    <p class="tool-desc">Generate time-based codes for two-factor authentication</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/assets/js/global.js"></script>
+    <script src="app.js"></script>
+    
+    <!-- Theme Handler -->
+    <script>
+        // Theme management for tools
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('zapit-theme') || 'light';
+            const siteThemeCss = document.getElementById('site-theme-css');
+            const toolThemeCss = document.getElementById('tool-theme-css');
+            
+            if (siteThemeCss) {
+                siteThemeCss.href = savedTheme === 'dark' ? '/assets/css/darkstyle.css' : '/assets/css/style.css';
+            }
+            if (toolThemeCss) {
+                toolThemeCss.href = savedTheme + '.css';
+            }
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+
+        // Initialize theme on load
+        initializeTheme();
+
+        // Listen for theme changes from the external toggle
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                    const newTheme = document.documentElement.getAttribute('data-theme');
+                    const siteThemeCss = document.getElementById('site-theme-css');
+                    const toolThemeCss = document.getElementById('tool-theme-css');
+                    
+                    if (siteThemeCss && newTheme) {
+                        siteThemeCss.href = newTheme === 'dark' ? '/assets/css/darkstyle.css' : '/assets/css/style.css';
+                    }
+                    if (toolThemeCss && newTheme) {
+                        toolThemeCss.href = newTheme + '.css';
+                    }
+                }
+            });
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme']
+        });
+    </script>
+    
+    <!-- External Theme Toggle -->
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+</body>
+</html>

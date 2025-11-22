@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHMOD Calculator - Developer Tools - Zapit</title>
+    <meta name="description" content="Calculate file permissions with our CHMOD calculator. Convert between octal, symbolic, and human-readable permissions instantly.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/dev-tools/chmod-calculator">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">🧮</div>
+                    <h1 class="tool-title">CHMOD Calculator</h1>
+                    <p class="tool-description">Calculate and convert Unix file permissions between octal, symbolic, and human-readable formats</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-card">
+                    <!-- Input Section -->
+                    <div class="input-section">
+                        <h3>Input Method</h3>
+                        <div class="input-tabs">
+                            <button class="tab-btn active" data-tab="visual">Visual</button>
+                            <button class="tab-btn" data-tab="octal">Octal</button>
+                            <button class="tab-btn" data-tab="symbolic">Symbolic</button>
+                        </div>
+
+                        <!-- Visual Input -->
+                        <div id="visual-tab" class="tab-content active">
+                            <div class="permission-grid">
+                                <!-- Owner Permissions -->
+                                <div class="permission-group">
+                                    <h4>Owner (User)</h4>
+                                    <div class="permission-checkboxes">
+                                        <label class="checkbox-item">
+                                            <input type="checkbox" id="owner-read" data-group="owner" data-permission="read">
+                                            <span class="checkmark"></span>
+                                            Read (r)
+                                        </label>
+                                        <label class="checkbox-item">
+                                            <input type="checkbox" id="owner-write" data-group="owner" data-permission="write">
+                                            <span class="checkmark"></span>
+                                            Write (w)
+                                        </label>
+                                        <label class="checkbox-item">
+                                            <input type="checkbox" id="owner-execute" data-group="owner" data-permission="execute">
+                                            <span class="checkmark"></span>
+                                            Execute (x)
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Group Permissions -->
+                                <div class="permission-group">
+                                    <h4>Group</h4>
+                                    <div class="permission-checkboxes">
+                                        <label class="checkbox-item">
+                                            <input type="checkbox" id="group-read" data-group="group" data-permission="read">
+                                            <span class="checkmark"></span>
+                                            Read (r)
+                                        </label>
+                                        <label class="checkbox-item">
+                                            <input type="checkbox" id="group-write" data-group="group" data-permission="write">
+                                            <span class="checkmark"></span>
+                                            Write (w)
+                                        </label>
+                                        <label class="checkbox-item">
+                                            <input type="checkbox" id="group-execute" data-group="group" data-permission="execute">
+                                            <span class="checkmark"></span>
+                                            Execute (x)
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Other Permissions -->
+                                <div class="permission-group">
+                                    <h4>Others</h4>
+                                    <div class="permission-checkboxes">
+                                        <label class="checkbox-item">
+                                            <input type="checkbox" id="other-read" data-group="other" data-permission="read">
+                                            <span class="checkmark"></span>
+                                            Read (r)
+                                        </label>
+                                        <label class="checkbox-item">
+                                            <input type="checkbox" id="other-write" data-group="other" data-permission="write">
+                                            <span class="checkmark"></span>
+                                            Write (w)
+                                        </label>
+                                        <label class="checkbox-item">
+                                            <input type="checkbox" id="other-execute" data-group="other" data-permission="execute">
+                                            <span class="checkmark"></span>
+                                            Execute (x)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Octal Input -->
+                        <div id="octal-tab" class="tab-content">
+                            <div class="form-group">
+                                <label for="octal-input">Octal Permission (e.g., 755, 644):</label>
+                                <input type="text" id="octal-input" placeholder="Enter 3-digit octal number" maxlength="3" pattern="[0-7]{3}">
+                                <small>Enter a 3-digit number using digits 0-7</small>
+                            </div>
+                        </div>
+
+                        <!-- Symbolic Input -->
+                        <div id="symbolic-tab" class="tab-content">
+                            <div class="form-group">
+                                <label for="symbolic-input">Symbolic Permission (e.g., rwxr-xr-x):</label>
+                                <input type="text" id="symbolic-input" placeholder="Enter symbolic notation" maxlength="9" pattern="[rwx-]{9}">
+                                <small>Enter 9 characters using r, w, x, or - (e.g., rwxr-xr-x)</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div class="results-section">
+                        <h3>Permission Results</h3>
+                        
+                        <div class="result-grid">
+                            <div class="result-card">
+                                <h4>Octal Notation</h4>
+                                <div class="result-value" id="octal-result">000</div>
+                                <button class="copy-btn" data-copy="octal-result">Copy</button>
+                            </div>
+
+                            <div class="result-card">
+                                <h4>Symbolic Notation</h4>
+                                <div class="result-value" id="symbolic-result">---------</div>
+                                <button class="copy-btn" data-copy="symbolic-result">Copy</button>
+                            </div>
+
+                            <div class="result-card">
+                                <h4>Command</h4>
+                                <div class="result-value" id="command-result">chmod 000 filename</div>
+                                <button class="copy-btn" data-copy="command-result">Copy</button>
+                            </div>
+
+                            <div class="result-card full-width">
+                                <h4>Human Readable</h4>
+                                <div class="result-value" id="human-result">No permissions for anyone</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Presets -->
+                    <div class="presets-section">
+                        <h3>Common Permission Presets</h3>
+                        <div class="preset-grid">
+                            <button class="preset-btn" data-permissions="755">
+                                <strong>755</strong>
+                                <span>rwxr-xr-x</span>
+                                <small>Full for owner, read+execute for others</small>
+                            </button>
+                            <button class="preset-btn" data-permissions="644">
+                                <strong>644</strong>
+                                <span>rw-r--r--</span>
+                                <small>Read+write for owner, read for others</small>
+                            </button>
+                            <button class="preset-btn" data-permissions="600">
+                                <strong>600</strong>
+                                <span>rw-------</span>
+                                <small>Read+write for owner only</small>
+                            </button>
+                            <button class="preset-btn" data-permissions="777">
+                                <strong>777</strong>
+                                <span>rwxrwxrwx</span>
+                                <small>Full permissions for everyone</small>
+                            </button>
+                            <button class="preset-btn" data-permissions="700">
+                                <strong>700</strong>
+                                <span>rwx------</span>
+                                <small>Full permissions for owner only</small>
+                            </button>
+                            <button class="preset-btn" data-permissions="666">
+                                <strong>666</strong>
+                                <span>rw-rw-rw-</span>
+                                <small>Read+write for everyone</small>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Panel -->
+                <div class="info-panel">
+                    <h3>About CHMOD Permissions</h3>
+                    <p>CHMOD (Change Mode) is a Unix command used to change file and directory permissions. Understanding these permissions is crucial for system security and proper file access control.</p>
+                    
+                    <div class="info-sections">
+                        <div class="info-section">
+                            <h4>Permission Types</h4>
+                            <ul>
+                                <li><strong>Read (r)</strong> - View file contents or list directory</li>
+                                <li><strong>Write (w)</strong> - Modify file or directory contents</li>
+                                <li><strong>Execute (x)</strong> - Run file or access directory</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h4>User Groups</h4>
+                            <ul>
+                                <li><strong>Owner</strong> - The user who owns the file</li>
+                                <li><strong>Group</strong> - Users in the file's group</li>
+                                <li><strong>Others</strong> - All other users on the system</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h4>Octal Values</h4>
+                            <ul>
+                                <li><strong>4</strong> - Read permission</li>
+                                <li><strong>2</strong> - Write permission</li>
+                                <li><strong>1</strong> - Execute permission</li>
+                                <li><strong>0</strong> - No permission</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

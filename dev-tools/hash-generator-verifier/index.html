@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hash Generator & Verifier - Developer Tools - Zapit</title>
+    <meta name="description" content="Generate and verify MD5, SHA-1, SHA-256, SHA-512, and HMAC hashes for text and files with instant computation.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/dev-tools/hash-generator-verifier">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">🔑</div>
+                    <h1 class="tool-title">Hash Generator & Verifier</h1>
+                    <p class="tool-description">Generate and verify MD5, SHA-1, SHA-256, SHA-512, and HMAC hashes for text and files</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-card">
+                    <div class="tool-tabs">
+                        <button class="tab-btn active" data-tab="text">Text Hash</button>
+                        <button class="tab-btn" data-tab="file">File Hash</button>
+                        <button class="tab-btn" data-tab="verify">Verify Hash</button>
+                        <button class="tab-btn" data-tab="hmac">HMAC</button>
+                    </div>
+
+                    <!-- Text Hash Tab -->
+                    <div id="text-tab" class="tab-content active">
+                        <div class="form-group">
+                            <label for="text-input">Input Text:</label>
+                            <textarea id="text-input" placeholder="Enter text to hash..." rows="4"></textarea>
+                        </div>
+
+                        <div class="hash-algorithms">
+                            <h4>Hash Algorithms</h4>
+                            <div class="algorithm-grid">
+                                <div class="algorithm-item">
+                                    <label class="algorithm-label">
+                                        <input type="checkbox" value="md5" checked>
+                                        MD5
+                                    </label>
+                                </div>
+                                <div class="algorithm-item">
+                                    <label class="algorithm-label">
+                                        <input type="checkbox" value="sha1" checked>
+                                        SHA-1
+                                    </label>
+                                </div>
+                                <div class="algorithm-item">
+                                    <label class="algorithm-label">
+                                        <input type="checkbox" value="sha256" checked>
+                                        SHA-256
+                                    </label>
+                                </div>
+                                <div class="algorithm-item">
+                                    <label class="algorithm-label">
+                                        <input type="checkbox" value="sha512" checked>
+                                        SHA-512
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button id="generate-hashes" class="btn btn-primary">Generate Hashes</button>
+                            <button id="clear-text-hash" class="btn btn-outline">Clear</button>
+                        </div>
+
+                        <div class="hash-results" id="text-hash-results">
+                            <!-- Hash results will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- File Hash Tab -->
+                    <div id="file-tab" class="tab-content">
+                        <div class="file-upload-area" id="file-upload-area">
+                            <div class="upload-icon">📁</div>
+                            <p>Drag & drop a file here or click to browse</p>
+                            <input type="file" id="file-input" accept="*/*" title="Choose file to hash">
+                        </div>
+
+                        <div class="file-info" id="file-info">
+                            <p><strong>File:</strong> <span id="file-name"></span></p>
+                            <p><strong>Size:</strong> <span id="file-size"></span></p>
+                            <p><strong>Type:</strong> <span id="file-type"></span></p>
+                        </div>
+
+                        <div class="hash-algorithms">
+                            <h4>Hash Algorithms</h4>
+                            <div class="algorithm-grid">
+                                <div class="algorithm-item">
+                                    <label class="algorithm-label">
+                                        <input type="checkbox" value="md5" checked class="file-algorithm">
+                                        MD5
+                                    </label>
+                                </div>
+                                <div class="algorithm-item">
+                                    <label class="algorithm-label">
+                                        <input type="checkbox" value="sha1" checked class="file-algorithm">
+                                        SHA-1
+                                    </label>
+                                </div>
+                                <div class="algorithm-item">
+                                    <label class="algorithm-label">
+                                        <input type="checkbox" value="sha256" checked class="file-algorithm">
+                                        SHA-256
+                                    </label>
+                                </div>
+                                <div class="algorithm-item">
+                                    <label class="algorithm-label">
+                                        <input type="checkbox" value="sha512" checked class="file-algorithm">
+                                        SHA-512
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button id="generate-file-hashes" class="btn btn-primary" disabled>Generate File Hashes</button>
+                            <button id="clear-file-hash" class="btn btn-outline">Clear</button>
+                        </div>
+
+                        <div class="hash-results" id="file-hash-results">
+                            <!-- File hash results will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Verify Hash Tab -->
+                    <div id="verify-tab" class="tab-content">
+                        <div class="form-group">
+                            <label for="verify-input">Input Text/Data:</label>
+                            <textarea id="verify-input" placeholder="Enter the original text to verify..." rows="3"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="expected-hash">Expected Hash:</label>
+                            <input type="text" id="expected-hash" placeholder="Enter the hash to verify against...">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="hash-algorithm">Hash Algorithm:</label>
+                            <select id="hash-algorithm">
+                                <option value="md5">MD5</option>
+                                <option value="sha1">SHA-1</option>
+                                <option value="sha256" selected>SHA-256</option>
+                                <option value="sha512">SHA-512</option>
+                            </select>
+                        </div>
+
+                        <div class="button-group">
+                            <button id="verify-hash" class="btn btn-primary">Verify Hash</button>
+                            <button id="clear-verify" class="btn btn-outline">Clear</button>
+                        </div>
+
+                        <div class="verification-result" id="verification-result">
+                            <!-- Verification result will be shown here -->
+                        </div>
+                    </div>
+
+                    <!-- HMAC Tab -->
+                    <div id="hmac-tab" class="tab-content">
+                        <div class="form-group">
+                            <label for="hmac-input">Input Text:</label>
+                            <textarea id="hmac-input" placeholder="Enter text for HMAC..." rows="3"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="hmac-key">Secret Key:</label>
+                            <input type="text" id="hmac-key" placeholder="Enter your secret key...">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="hmac-algorithm">HMAC Algorithm:</label>
+                            <select id="hmac-algorithm">
+                                <option value="sha1">HMAC-SHA1</option>
+                                <option value="sha256" selected>HMAC-SHA256</option>
+                                <option value="sha512">HMAC-SHA512</option>
+                            </select>
+                        </div>
+
+                        <div class="button-group">
+                            <button id="generate-hmac" class="btn btn-primary">Generate HMAC</button>
+                            <button id="clear-hmac" class="btn btn-outline">Clear</button>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="hmac-output">HMAC Result:</label>
+                            <textarea id="hmac-output" readonly rows="2"></textarea>
+                            <button id="copy-hmac" class="btn btn-outline copy-btn">Copy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Panel -->
+                <div class="info-panel">
+                    <h3>About Hash Functions</h3>
+                    <p>Hash functions are cryptographic algorithms that take input data and produce a fixed-size string of bytes. They're essential for data integrity, digital signatures, and password storage.</p>
+                    
+                    <div class="info-features">
+                        <div class="feature-item">
+                            <h4>🔒 Secure</h4>
+                            <p>All hashing happens locally in your browser</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>⚡ Fast</h4>
+                            <p>Instant hash generation and verification</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>🛡️ Multiple Algorithms</h4>
+                            <p>Support for MD5, SHA-1, SHA-256, SHA-512, and HMAC</p>
+                        </div>
+                    </div>
+
+                    <div class="algorithm-info">
+                        <h4>Algorithm Details</h4>
+                        <ul>
+                            <li><strong>MD5:</strong> 128-bit hash (deprecated for security)</li>
+                            <li><strong>SHA-1:</strong> 160-bit hash (legacy use)</li>
+                            <li><strong>SHA-256:</strong> 256-bit hash (recommended)</li>
+                            <li><strong>SHA-512:</strong> 512-bit hash (high security)</li>
+                            <li><strong>HMAC:</strong> Keyed-hash message authentication</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

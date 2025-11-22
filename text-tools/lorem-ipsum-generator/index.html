@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lorem Ipsum Generator - Text Tools - Zapit</title>
+    <meta name="description" content="Instantly generate lorem ipsum filler text as paragraphs, sentences, or words. Customize length, add HTML tags, and copy or download the result in one click.">
+    <meta property="og:title" content="Lorem Ipsum Generator - Zapit">
+    <meta property="og:description" content="Create lorem ipsum placeholder text with flexible controls for designers and writers.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/text-tools/lorem-ipsum-generator">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb">
+                        <a href="/">Home</a>
+                        <span class="separator">/</span>
+                        <a href="/text-tools">Text Tools</a>
+                        <span class="separator">/</span>
+                        <span class="current">Lorem Ipsum Generator</span>
+                    </nav>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <span class="theme-toggle-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">📄</div>
+                    <h1 class="tool-title">Lorem Ipsum Generator</h1>
+                    <p class="tool-description">Craft placeholder content in seconds. Choose paragraphs, sentences, or words and export the result without leaving your browser.</p>
+                    <div class="tool-meta">
+                        <span class="meta-pill">Design &amp; Content Ready</span>
+                        <span class="meta-pill">HTML Tag Support</span>
+                        <span class="meta-pill">Copy &amp; Download</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-layout">
+                    <div class="tool-card span-4" aria-labelledby="options-heading">
+                        <h2 id="options-heading">Generation Options</h2>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="quantity">Amount</label>
+                                <input type="number" id="quantity" class="text-input" value="3" min="1" max="99" step="1">
+                                <p class="helper-text">Choose how much filler text you need.</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="unit">Units</label>
+                                <select id="unit" class="text-input">
+                                    <option value="paragraphs" selected>Paragraphs</option>
+                                    <option value="sentences">Sentences</option>
+                                    <option value="words">Words</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Formatting</label>
+                            <div class="checkbox-grid">
+                                <label class="checkbox">
+                                    <input type="checkbox" id="startClassic" checked>
+                                    <span>Start with "Lorem ipsum dolor sit amet"</span>
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" id="wrapHtml">
+                                    <span>Wrap with semantic HTML tags</span>
+                                </label>
+                                <label class="checkbox">
+                                    <input type="checkbox" id="includeHeadings">
+                                    <span>Include random headings</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="button-group">
+                            <button class="btn btn-primary" id="generateBtn">Generate Text</button>
+                            <button class="btn btn-outline" id="clearBtn">Clear</button>
+                        </div>
+                        <div class="button-row">
+                            <button class="btn btn-secondary" id="copyBtn">Copy Text</button>
+                            <button class="btn btn-outline" id="downloadBtn">Download</button>
+                        </div>
+                        <div class="notification hidden" id="statusBanner" role="alert"></div>
+                    </div>
+
+                    <div class="tool-card span-8" aria-labelledby="output-heading">
+                        <div class="section-header">
+                            <h2 id="output-heading">Generated Text</h2>
+                            <div class="badge" id="lengthBadge">0 characters</div>
+                        </div>
+                        <div class="preview-wrapper">
+                            <pre id="rawPreview" class="preview-output hidden" tabindex="0"></pre>
+                            <div class="preview-tabs">
+                                <button class="tab-btn active" data-target="renderedPreview">Rendered</button>
+                                <button class="tab-btn" data-target="rawPreview">Raw</button>
+                            </div>
+                            <div id="renderedPreview" class="rendered-output" aria-live="polite"></div>
+                        </div>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <span class="stat-label">Paragraphs</span>
+                                <span class="stat-value" id="paragraphCount">0</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-label">Sentences</span>
+                                <span class="stat-value" id="sentenceCount">0</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-label">Words</span>
+                                <span class="stat-value" id="wordCount">0</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-label">Reading Time</span>
+                                <span class="stat-value" id="readingTime">0s</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tool-card span-12 info-card">
+                        <h2>Why use our Lorem Ipsum Generator?</h2>
+                        <ul class="tips-list">
+                            <li><strong>Flexible structure:</strong> Generate the exact number of paragraphs, sentences, or words you need.</li>
+                            <li><strong>HTML ready:</strong> Wrap output in tags like <code>&lt;p&gt;</code>, <code>&lt;h2&gt;</code>, or <code>&lt;li&gt;</code> for rapid layout testing.</li>
+                            <li><strong>Fast &amp; private:</strong> Everything runs in your browser; no text is uploaded or stored.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/global.js" defer></script>
+    <script src="app.js" defer></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script>
+        (function () {
+            const toolTheme = document.getElementById('tool-theme-css');
+            if (!toolTheme) return;
+
+            function applyTheme(theme) {
+                const next = theme === 'dark' ? 'dark.css' : 'light.css';
+                if (toolTheme.getAttribute('href') !== next) {
+                    toolTheme.setAttribute('href', next);
+                }
+            }
+
+            const current = document.documentElement.getAttribute('data-theme') || 'light';
+            applyTheme(current);
+
+            const observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                        const theme = document.documentElement.getAttribute('data-theme') || 'light';
+                        applyTheme(theme);
+                    }
+                });
+            });
+
+            observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        })();
+    </script>
+</body>
+</html>

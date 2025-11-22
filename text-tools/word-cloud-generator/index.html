@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Word Cloud Generator - Text Tools - Zapit</title>
+	<meta name="description" content="Visualize word frequency in your text with interactive, exportable word clouds. Custom colors, shapes, and filters included.">
+	<meta property="og:title" content="Word Cloud Generator - Zapit">
+	<meta property="og:description" content="Create beautiful word clouds from any text. Filter, style, and export your results instantly.">
+	<meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+	<link rel="canonical" href="https://zapit.me/text-tools/word-cloud-generator">
+	<link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+	<link id="tool-theme-css" rel="stylesheet" href="light.css">
+	<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+	<link rel="icon" href="/icons/favicon.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+</head>
+<body class="tools-page">
+	<header class="site-header">
+		<div class="container">
+			<div class="header-nav">
+				<a href="/index.html" class="brand" aria-label="Zapit Home">
+					<img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+					<span class="brand-text">
+						<span class="brand-title">Zapit</span>
+						<span class="brand-tagline">A Zap Away From Done</span>
+					</span>
+				</a>
+				<div class="header-right">
+					<nav class="breadcrumb">
+						<a href="/">Home</a>
+						<span class="separator">/</span>
+						<a href="/text-tools">Text Tools</a>
+						<span class="separator">/</span>
+						<span class="current">Word Cloud Generator</span>
+					</nav>
+					<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+						<span class="theme-toggle-icon">🌙</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="tool-hero">
+			<div class="container">
+				<div class="tool-hero-content">
+					<div class="tool-icon-large">☁️</div>
+					<h1 class="tool-title">Word Cloud Generator</h1>
+					<p class="tool-description">Transform your text into a visual word cloud. Highlight key terms, filter out noise, and export your cloud as an image or CSV.</p>
+					<div class="tool-meta">
+						<span class="meta-pill">Custom Colors</span>
+						<span class="meta-pill">Filter &amp; Sort</span>
+						<span class="meta-pill">Export Image/CSV</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="tool-interface">
+			<div class="container">
+				<div class="tool-layout">
+					<div class="tool-card span-7" aria-labelledby="input-heading">
+						<div class="section-header">
+							<h2 id="input-heading">Input Text</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="loadSampleBtn">Load Sample</button>
+								<button type="button" class="btn btn-secondary" id="clearBtn">Clear</button>
+							</div>
+						</div>
+						<label for="inputText" class="sr-only">Text to visualize</label>
+						<textarea id="inputText" class="text-input large" placeholder="Paste or type your content here..." maxlength="20000"></textarea>
+						<div class="helper-row">
+							<span class="helper-text" id="charCount">0 / 20000 characters</span>
+							<span class="helper-text" id="wordCount">0 words</span>
+						</div>
+						<div class="notification hidden" id="statusBanner" role="status"></div>
+					</div>
+
+					<div class="tool-card span-5" aria-labelledby="options-heading">
+						<div class="section-header">
+							<h2 id="options-heading">Cloud Options</h2>
+						</div>
+						<div class="options-stack">
+							<div class="field">
+								<label for="minFrequencyInput">Minimum frequency</label>
+								<input type="number" min="1" id="minFrequencyInput" class="text-input compact" value="1">
+							</div>
+							<div class="field">
+								<label for="maxWordsInput">Max words in cloud</label>
+								<input type="number" min="10" max="200" id="maxWordsInput" class="text-input compact" value="50">
+							</div>
+							<div class="toggle-grid">
+								<label class="checkbox">
+									<input type="checkbox" id="ignoreCommonToggle" checked>
+									<span>Ignore common stop words</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="caseSensitiveToggle">
+									<span>Case sensitive</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="showCountsToggle" checked>
+									<span>Show word counts</span>
+								</label>
+							</div>
+							<div class="field">
+								<label for="colorSchemeSelect">Color scheme</label>
+								<select id="colorSchemeSelect" class="select-input">
+									<option value="default">Default</option>
+									<option value="vivid">Vivid</option>
+									<option value="pastel">Pastel</option>
+									<option value="mono">Monochrome</option>
+									<option value="random">Random</option>
+								</select>
+							</div>
+							<div class="button-row">
+								<button type="button" class="btn btn-primary" id="generateBtn">Generate Cloud</button>
+								<button type="button" class="btn btn-outline" id="downloadImgBtn">Download PNG</button>
+								<button type="button" class="btn btn-outline" id="downloadCsvBtn">Download CSV</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="tool-card span-12" aria-labelledby="cloud-heading">
+						<div class="section-header">
+							<h2 id="cloud-heading">Word Cloud Preview</h2>
+							<div class="toolbar">
+								<span class="badge" id="cloudWordsBadge">0 words</span>
+								<span class="badge muted" id="cloudColorsBadge">Default</span>
+							</div>
+						</div>
+						<div class="cloud-preview" role="region" aria-live="polite" data-empty="true">
+							<canvas id="wordCloudCanvas" class="cloud-canvas" width="900" height="420"></canvas>
+						</div>
+					</div>
+
+					<div class="tool-card span-5 stats-card" aria-labelledby="stats-heading">
+						<div class="section-header">
+							<h2 id="stats-heading">Cloud Stats</h2>
+						</div>
+						<div class="stats-grid">
+							<div class="stat-item">
+								<span class="stat-label">Unique words</span>
+								<span class="stat-value" id="uniqueWordsStat">0</span>
+							</div>
+							<div class="stat-item">
+								<span class="stat-label">Max frequency</span>
+								<span class="stat-value" id="maxFrequencyStat">0</span>
+							</div>
+							<div class="stat-item">
+								<span class="stat-label">Total words</span>
+								<span class="stat-value" id="totalWordsStat">0</span>
+							</div>
+							<div class="stat-item">
+								<span class="stat-label">Cloud area</span>
+								<span class="stat-value" id="cloudAreaStat">–</span>
+							</div>
+						</div>
+						<p class="stats-note" id="statsNote" role="status" aria-live="polite">Awaiting input.</p>
+					</div>
+
+					<div class="tool-card span-7 info-card" aria-labelledby="tips-heading">
+						<div class="section-header">
+							<h2 id="tips-heading">Tips &amp; Cloud Notes</h2>
+						</div>
+						<ul class="tips-list" id="tipsList">
+							<li>Word clouds highlight the most frequent terms—use filters to focus on what matters.</li>
+							<li>Try different color schemes for presentations or reports.</li>
+							<li>Export your cloud as a PNG for sharing, or as CSV for further analysis.</li>
+							<li>Click on words in the cloud to see their frequency and context.</li>
+							<li>Common stop words (like “the”, “and”, “of”) can be ignored for a cleaner visualization.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<div class="footer-brand-row">
+						<img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+						<span class="footer-brand-text">
+							<h3 class="footer-logo">Zapit</h3>
+							<div class="footer-tagline">A Zap Away From Done</div>
+						</span>
+					</div>
+					<p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+					<div class="footer-copyright">© Zapit. All rights reserved.</div>
+				</div>
+				<div class="footer-links">
+					<h4 class="footer-title">Legal</h4>
+					<ul class="footer-list">
+						<li><a href="/privacy.html">Privacy Policy</a></li>
+						<li><a href="/terms.html">Terms of Service</a></li>
+						<li><a href="/contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/js/global.js" defer></script>
+	<script src="app.js" defer></script>
+	<script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+	<script>
+		(function () {
+			const toolTheme = document.getElementById('tool-theme-css');
+			if (!toolTheme) return;
+
+			function applyTheme(theme) {
+				const next = theme === 'dark' ? 'dark.css' : 'light.css';
+				if (toolTheme.getAttribute('href') !== next) {
+					toolTheme.setAttribute('href', next);
+				}
+			}
+
+			const current = document.documentElement.getAttribute('data-theme') || 'light';
+			applyTheme(current);
+
+			const observer = new MutationObserver(function (mutations) {
+				mutations.forEach(function (mutation) {
+					if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+						const theme = document.documentElement.getAttribute('data-theme') || 'light';
+						applyTheme(theme);
+					}
+				});
+			});
+
+			observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+		})();
+	</script>
+</body>
+</html>

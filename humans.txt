@@ -1,0 +1,6 @@
+/* TEAM */
+Developer: Zapit Team
+Site: https://zapit.me/
+
+/* THANKS */
+Tools: HTML, CSS, JavaScript

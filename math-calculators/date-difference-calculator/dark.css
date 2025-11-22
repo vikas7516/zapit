@@ -1,0 +1,317 @@
+/* Date Difference Calculator Dark Theme */
+
+[data-theme="dark"] .calculator-card {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .card-header {
+    border-bottom-color: #404040;
+}
+
+[data-theme="dark"] .card-header h3 {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .calculation-mode {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .mode-btn {
+    color: #adb5bd;
+}
+
+[data-theme="dark"] .mode-btn:hover {
+    background: #404040;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .mode-btn.active {
+    background: #0d6efd;
+    color: white;
+    box-shadow: 0 2px 4px rgba(13, 110, 253, 0.3);
+}
+
+[data-theme="dark"] .input-group label {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .date-input,
+[data-theme="dark"] .time-input,
+[data-theme="dark"] .number-input,
+[data-theme="dark"] .text-input,
+[data-theme="dark"] .operation-select {
+    background: #2d2d2d;
+    border-color: #404040;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .date-input:focus,
+[data-theme="dark"] .time-input:focus,
+[data-theme="dark"] .number-input:focus,
+[data-theme="dark"] .text-input:focus,
+[data-theme="dark"] .operation-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+}
+
+[data-theme="dark"] .checkbox-label {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .checkmark {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .checkbox-label:hover .checkmark {
+    border-color: #0d6efd;
+}
+
+[data-theme="dark"] .checkbox-label input[type="checkbox"]:checked + .checkmark {
+    background: #0d6efd;
+    border-color: #0d6efd;
+}
+
+[data-theme="dark"] .unit-selector label {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .radio-label {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .radio-mark {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .radio-label:hover .radio-mark {
+    border-color: #0d6efd;
+}
+
+[data-theme="dark"] .radio-label input[type="radio"]:checked + .radio-mark {
+    border-color: #0d6efd;
+    background: #0d6efd;
+}
+
+[data-theme="dark"] .holiday-options label {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .custom-holidays label {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .calculate-btn {
+    background: linear-gradient(135deg, #198754, #20c997);
+}
+
+[data-theme="dark"] .calculate-btn:hover {
+    background: linear-gradient(135deg, #146c43, #1aa179);
+}
+
+[data-theme="dark"] .results-card {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .copy-btn {
+    background: #495057;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .copy-btn:hover {
+    background: #5a6268;
+}
+
+[data-theme="dark"] .results-placeholder,
+[data-theme="dark"] .error-state {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .results-placeholder h4,
+[data-theme="dark"] .error-state h4 {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .error-state .error-icon {
+    color: #ef4444;
+}
+
+[data-theme="dark"] .error-state h4 {
+    color: #ef4444;
+}
+
+[data-theme="dark"] .result-summary {
+    border-bottom-color: #404040;
+}
+
+[data-theme="dark"] .result-value {
+    color: #3b82f6;
+}
+
+[data-theme="dark"] .result-unit {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .result-breakdown {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .detail-item {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .detail-item:hover {
+    background: #404040;
+}
+
+[data-theme="dark"] .detail-item.highlight {
+    background: linear-gradient(135deg, #1e3a8a, #1d4ed8);
+    border-color: #3b82f6;
+}
+
+[data-theme="dark"] .detail-label {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .detail-value {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .detail-item.highlight .detail-value {
+    color: #93c5fd;
+}
+
+[data-theme="dark"] .calculation-summary {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .calc-step {
+    border-bottom-color: #404040;
+}
+
+[data-theme="dark"] .calc-step:last-child {
+    border-top-color: #3b82f6;
+}
+
+[data-theme="dark"] .calc-label {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .calc-value {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .result-step .calc-value {
+    color: #3b82f6;
+}
+
+[data-theme="dark"] .result-dates {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .date-label {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .date-value {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .info-item {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .holidays-list h4 {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .holiday-item {
+    background: #744210;
+    color: #f6e05e;
+    border-color: #92400e;
+}
+
+[data-theme="dark"] .quick-actions {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .quick-actions h4 {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .quick-btn {
+    background: #2d2d2d;
+    color: #d1d5db;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .quick-btn:hover {
+    background: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+}
+
+[data-theme="dark"] .info-card {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .info-card h3 {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .feature-item {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .feature-item:hover {
+    background: #404040;
+}
+
+[data-theme="dark"] .feature-content h4 {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .feature-content p {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .feature-tag {
+    background: #2d2d2d;
+    border-color: #404040;
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .feature-tag:hover {
+    background: #404040;
+}
+
+[data-theme="dark"] .use-case {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .use-case h4 {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .use-case p {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .tip-item {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .notification {
+    background: #198754;
+}

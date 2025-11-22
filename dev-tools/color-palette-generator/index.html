@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Palette Generator - Developer Tools - Zapit</title>
+    <meta name="description" content="Generate beautiful color palettes, extract colors from images, and create harmonious color schemes for your design projects.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link rel="canonical" href="https://zapit.me/dev-tools/color-palette-generator">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">🎨</div>
+                    <h1 class="tool-title">Color Palette Generator</h1>
+                    <p class="tool-description">Generate beautiful color palettes, extract colors from images, and create harmonious color schemes</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-container">
+
+            <!-- Generation Options -->
+            <div class="generation-panel">
+                <h3>Generation Options</h3>
+                <div class="generation-grid">
+                    <div class="generation-option">
+                        <h4>Base Color</h4>
+                        <div class="color-input-group">
+                            <input type="color" id="baseColor" value="#3b82f6" title="Select base color">
+                            <input type="text" id="baseColorHex" value="#3b82f6" placeholder="#000000">
+                            <button id="randomBaseColor" class="btn btn-outline btn-sm">Random</button>
+                        </div>
+                    </div>
+                    
+                    <div class="generation-option">
+                        <h4>Palette Type</h4>
+                        <select id="paletteType" class="form-select" title="Select palette type">
+                            <option value="monochromatic">Monochromatic</option>
+                            <option value="analogous">Analogous</option>
+                            <option value="complementary">Complementary</option>
+                            <option value="triadic">Triadic</option>
+                            <option value="tetradic">Tetradic</option>
+                            <option value="split-complementary">Split Complementary</option>
+                        </select>
+                    </div>
+                    
+                    <div class="generation-option">
+                        <h4>Color Count</h4>
+                        <div class="range-input">
+                            <input type="range" id="colorCount" min="3" max="12" value="5" title="Number of colors in palette">
+                            <span id="colorCountValue">5</span>
+                        </div>
+                    </div>
+                    
+                    <div class="generation-option">
+                        <h4>Actions</h4>
+                        <div class="action-buttons">
+                            <button id="generatePalette" class="btn btn-primary">Generate Palette</button>
+                            <button id="randomPalette" class="btn btn-outline">Random Palette</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Color Extractor -->
+            <div class="extractor-panel">
+                <h3>Extract Colors from Image</h3>
+                <div class="image-upload-area" id="imageUploadArea">
+                    <div class="upload-content">
+                        <div class="upload-icon">🖼️</div>
+                        <p>Drop an image here or click to select</p>
+                        <p class="upload-hint">Supports: JPG, PNG, GIF, WEBP</p>
+                    </div>
+                    <input type="file" id="imageInput" accept="image/*" class="hidden-file-input" title="Select image file">
+                </div>
+                <div class="extraction-options">
+                    <label class="option-label">
+                        <span>Colors to extract:</span>
+                        <input type="range" id="extractCount" min="3" max="15" value="8">
+                        <span id="extractCountValue">8</span>
+                    </label>
+                    <button id="extractColors" class="btn btn-primary" disabled>Extract Colors</button>
+                </div>
+            </div>
+
+            <!-- Generated Palette Display -->
+            <div class="palette-container hidden" id="paletteContainer">
+                <div class="palette-header">
+                    <h3>Generated Palette</h3>
+                    <div class="palette-actions">
+                        <button id="copyPaletteCSS" class="btn btn-outline btn-sm">Copy CSS</button>
+                        <button id="copyPaletteJSON" class="btn btn-outline btn-sm">Copy JSON</button>
+                        <button id="exportPalette" class="btn btn-outline btn-sm">Export</button>
+                    </div>
+                </div>
+                <div class="palette-display" id="paletteDisplay"></div>
+            </div>
+
+            <!-- Color Information Panel -->
+            <div class="color-info-panel hidden" id="colorInfoPanel">
+                <h4>Color Information</h4>
+                <div class="color-details">
+                    <div class="color-preview" id="selectedColorPreview"></div>
+                    <div class="color-values">
+                        <div class="color-value">
+                            <label>HEX:</label>
+                            <input type="text" id="colorHex" readonly title="Hexadecimal color value">
+                            <button class="copy-btn" data-copy="hex">Copy</button>
+                        </div>
+                        <div class="color-value">
+                            <label>RGB:</label>
+                            <input type="text" id="colorRgb" readonly title="RGB color value">
+                            <button class="copy-btn" data-copy="rgb">Copy</button>
+                        </div>
+                        <div class="color-value">
+                            <label>HSL:</label>
+                            <input type="text" id="colorHsl" readonly title="HSL color value">
+                            <button class="copy-btn" data-copy="hsl">Copy</button>
+                        </div>
+                        <div class="color-value">
+                            <label>HSV:</label>
+                            <input type="text" id="colorHsv" readonly title="HSV color value">
+                            <button class="copy-btn" data-copy="hsv">Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Saved Palettes -->
+            <div class="saved-palettes-panel">
+                <div class="panel-header">
+                    <h3>Saved Palettes</h3>
+                    <button id="clearSavedPalettes" class="btn btn-outline btn-sm">Clear All</button>
+                </div>
+                <div class="saved-palettes-grid" id="savedPalettesGrid">
+                    <div class="empty-state">
+                        <p>No saved palettes yet. Generate a palette and save it!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool Information -->
+            <div class="info-section">
+                <div class="info-panel">
+                    <h3>How to Use Color Palette Generator</h3>
+                    
+                    <div class="usage-steps">
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Choose Generation Method</h4>
+                                <p>Select a base color and palette type (monochromatic, analogous, complementary, etc.) or upload an image to extract colors from.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Generate Palette</h4>
+                                <p>Click "Generate Palette" to create a harmonious color scheme, or "Random Palette" for inspiration. Adjust the color count as needed.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Explore Colors</h4>
+                                <p>Click any color in the palette to view detailed information including HEX, RGB, HSL, and HSV values. Copy values instantly.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Export & Save</h4>
+                                <p>Export your palette as CSS variables, JSON data, or save it to your collection for future reference and reuse.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-features">
+                        <div class="feature-item">
+                            <h4>🎨 Smart Generation</h4>
+                            <p>Uses color theory principles to create harmonious palettes</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <h4>🖼️ Image Extraction</h4>
+                            <p>Extract dominant colors from any uploaded image</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <h4>📋 Multiple Formats</h4>
+                            <p>Get colors in HEX, RGB, HSL, and HSV formats</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <h4>💾 Save & Export</h4>
+                            <p>Save palettes locally and export in various formats</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/assets/js/script.js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Difference Calculator - ZapIt Tools</title>
+    <meta name="description" content="Calculate date differences, business days, age calculations, and date arithmetic. Professional date calculator with multiple output formats and timezone support.">
+    <meta name="keywords" content="date calculator, date difference, business days, age calculator, date arithmetic, working days">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Date Difference Calculator - ZapIt Tools">
+    <meta property="og:description" content="Calculate date differences, business days, age calculations, and date arithmetic. Professional date calculator with multiple output formats and timezone support.">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../assets/css/variables.css">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="light.css">
+    <link rel="stylesheet" href="dark.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../../" class="nav-brand">
+                <img src="../../icons/logo.jpg" alt="ZapIt Tools" class="nav-logo">
+                <span>ZapIt Tools</span>
+            </a>
+            <div class="nav-menu">
+                <a href="../../" class="nav-link">Home</a>
+                <a href="../" class="nav-link">Math Calculators</a>
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Date Difference Calculator</h1>
+                <p class="hero-description">
+                    Calculate precise date differences, business days, age calculations, and date arithmetic. 
+                    Perfect for project planning, age verification, and business calculations.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">📅</span>
+                        <span class="stat-label">Date Difference</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">💼</span>
+                        <span class="stat-label">Business Days</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">⏰</span>
+                        <span class="stat-label">Time Zones</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <main class="container">
+        <div class="tool-layout">
+            <div class="tool-main">
+                <!-- Date Input Section -->
+                <div class="calculator-card">
+                    <div class="card-header">
+                        <h3>Date Calculation</h3>
+                        <div class="calculation-mode">
+                            <button class="mode-btn active" data-mode="difference">Date Difference</button>
+                            <button class="mode-btn" data-mode="add">Add/Subtract Days</button>
+                            <button class="mode-btn" data-mode="business">Business Days</button>
+                        </div>
+                    </div>
+
+                    <!-- Date Difference Mode -->
+                    <div class="calculation-section" id="differenceMode">
+                        <div class="input-grid">
+                            <div class="input-group">
+                                <label for="startDate">Start Date</label>
+                                <input type="date" id="startDate" class="date-input">
+                                <label for="startTime">Start Time</label>
+                                <input type="time" id="startTime" class="time-input">
+                            <div class="input-group">
+                                <label for="endDate">End Date</label>
+                                <input type="date" id="endDate" class="date-input">
+                                <label for="endTime">End Time</label>
+                                <input type="time" id="endTime" class="time-input">
+                            </div>
+                            </div>
+                        </div>
+                        
+                        <div class="options-grid">
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="includeTime">
+                                    <span class="checkmark"></span>
+                                    Include Time
+                                </label>
+                            </div>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="excludeWeekends">
+                                    <span class="checkmark"></span>
+                                    Exclude Weekends
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add/Subtract Days Mode -->
+                    <div class="calculation-section hidden" id="addMode">
+                        <div class="input-grid">
+                            <div class="input-group">
+                                <label for="baseDate">Base Date</label>
+                                <input type="date" id="baseDate" class="date-input">
+                            </div>
+                            <div class="input-group">
+                                <label for="daysToAdd">Days to Add/Subtract</label>
+                                <div class="number-input-group">
+                                    <select id="addOperation" class="operation-select" title="Select operation">
+                                        <option value="add">Add</option>
+                                        <option value="subtract">Subtract</option>
+                                    </select>
+                                    <input type="number" id="daysToAdd" class="number-input" placeholder="Enter days" min="0">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="unit-selector">
+                            <label>Time Unit:</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="timeUnit" value="days" checked>
+                                    <span class="radio-mark"></span>
+                                    Days
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="timeUnit" value="weeks">
+                                    <span class="radio-mark"></span>
+                                    Weeks
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="timeUnit" value="months">
+                                    <span class="radio-mark"></span>
+                                    Months
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="timeUnit" value="years">
+                                    <span class="radio-mark"></span>
+                                    Years
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Business Days Mode -->
+                    <div class="calculation-section hidden" id="businessMode">
+                        <div class="input-grid">
+                            <div class="input-group">
+                                <label for="businessStartDate">Start Date</label>
+                                <input type="date" id="businessStartDate" class="date-input">
+                            </div>
+                            <div class="input-group">
+                                <label for="businessEndDate">End Date</label>
+                                <input type="date" id="businessEndDate" class="date-input">
+                            </div>
+                        </div>
+                        
+                        <div class="holiday-options">
+                            <label>Exclude Holidays:</label>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="excludeUS" checked>
+                                    <span class="checkmark"></span>
+                                    US Holidays
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="customHolidays">
+                                    <span class="checkmark"></span>
+                                    Custom Holidays
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="custom-holidays hidden" id="customHolidaysSection">
+                            <label for="holidayDates">Custom Holiday Dates (comma-separated):</label>
+                            <input type="text" id="holidayDates" class="text-input" placeholder="2024-07-04, 2024-12-25">
+                        </div>
+                    </div>
+
+                    <button class="calculate-btn" id="calculateBtn">
+                        <span class="btn-icon">🧮</span>
+                        Calculate
+                    </button>
+                </div>
+
+                <!-- Results Section -->
+                <div class="results-card">
+                    <div class="card-header">
+                        <h3>Results</h3>
+                        <button class="copy-btn" id="copyResults" title="Copy Results">📋</button>
+                    </div>
+                    
+                    <div class="results-content" id="resultsContent">
+                        <div class="results-placeholder">
+                            <div class="placeholder-icon">📅</div>
+                            <h4>Ready to Calculate</h4>
+                            <p>Select dates and click calculate to see detailed results</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h4>Quick Actions</h4>
+                    <div class="quick-buttons">
+                        <button class="quick-btn" data-action="today">Today</button>
+                        <button class="quick-btn" data-action="yesterday">Yesterday</button>
+                        <button class="quick-btn" data-action="tomorrow">Tomorrow</button>
+                        <button class="quick-btn" data-action="week">This Week</button>
+                        <button class="quick-btn" data-action="month">This Month</button>
+                        <button class="quick-btn" data-action="year">This Year</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Information Panel -->
+            <div class="tool-sidebar">
+                <div class="info-card">
+                    <h3>Calculation Types</h3>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <div class="feature-icon">📊</div>
+                            <div class="feature-content">
+                                <h4>Date Difference</h4>
+                                <p>Calculate exact differences between two dates in years, months, days, hours, and minutes.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">➕</div>
+                            <div class="feature-content">
+                                <h4>Add/Subtract Time</h4>
+                                <p>Add or subtract days, weeks, months, or years from any date to find future or past dates.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">💼</div>
+                            <div class="feature-content">
+                                <h4>Business Days</h4>
+                                <p>Calculate working days excluding weekends and holidays. Perfect for project planning.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Features</h3>
+                    <div class="features-grid">
+                        <div class="feature-tag">
+                            <span class="tag-icon">⏰</span>
+                            <span>Time Precision</span>
+                        </div>
+                        <div class="feature-tag">
+                            <span class="tag-icon">🌍</span>
+                            <span>Multiple Formats</span>
+                        </div>
+                        <div class="feature-tag">
+                            <span class="tag-icon">📱</span>
+                            <span>Mobile Friendly</span>
+                        </div>
+                        <div class="feature-tag">
+                            <span class="tag-icon">💾</span>
+                            <span>Save Results</span>
+                        </div>
+                        <div class="feature-tag">
+                            <span class="tag-icon">🎯</span>
+                            <span>High Accuracy</span>
+                        </div>
+                        <div class="feature-tag">
+                            <span class="tag-icon">🔄</span>
+                            <span>Quick Actions</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Common Use Cases</h3>
+                    <div class="use-cases">
+                        <div class="use-case">
+                            <h4>Project Management</h4>
+                            <p>Calculate project duration, milestone dates, and delivery timelines.</p>
+                        </div>
+                        <div class="use-case">
+                            <h4>Age Verification</h4>
+                            <p>Determine exact age in years, months, and days for various purposes.</p>
+                        </div>
+                        <div class="use-case">
+                            <h4>Event Planning</h4>
+                            <p>Plan events, calculate countdown timers, and schedule activities.</p>
+                        </div>
+                        <div class="use-case">
+                            <h4>Financial Planning</h4>
+                            <p>Calculate investment periods, loan terms, and maturity dates.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Tips & Shortcuts</h3>
+                    <div class="tips-list">
+                        <div class="tip-item">
+                            <span class="tip-icon">💡</span>
+                            <span>Use quick action buttons for common date ranges</span>
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">⌨️</span>
+                            <span>Press Tab to navigate between date inputs quickly</span>
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">📋</span>
+                            <span>Click copy button to save results to clipboard</span>
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">🔄</span>
+                            <span>Toggle time inclusion for more precise calculations</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ZapIt Tools</h3>
+                    <p>Professional date difference calculator for project management, planning, and everyday calculations.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Math Tools</h4>
+                    <ul>
+                        <li><a href="../age-calculator/">Age Calculator</a></li>
+                        <li><a href="../percentage-calculator/">Percentage Calculator</a></li>
+                        <li><a href="../scientific-calculator/">Scientific Calculator</a></li>
+                        <li><a href="./">Date Calculator</a></li>
+                        <li><a href="../amortization-calculator/">Amortization Calculator</a></li>
+                        <li><a href="../inflation-calculator/">Inflation Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="../../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../../terms.html">Terms of Service</a></li>
+                        <li><a href="../../contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ZapIt Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/theme.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

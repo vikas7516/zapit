@@ -1,0 +1,106 @@
+/* Dark theme overrides for Salary Calculator */
+.dark-theme .calculator-card {
+    background: #2d3748;
+    color: #e2e8f0;
+}
+
+.dark-theme .calculator-header h1 {
+    color: #e2e8f0;
+}
+
+.dark-theme .calculator-header p {
+    color: #cbd5e0;
+}
+
+.dark-theme .form-label {
+    color: #cbd5e0;
+}
+
+.dark-theme .form-input {
+    background: #4a5568;
+    border-color: #718096;
+    color: #e2e8f0;
+}
+
+.dark-theme .form-input:focus {
+    border-color: #38a169;
+    background: #2d3748;
+}
+
+.dark-theme .form-select {
+    background: #4a5568;
+    border-color: #718096;
+    color: #e2e8f0;
+}
+
+.dark-theme .form-select:focus {
+    border-color: #38a169;
+    background: #2d3748;
+}
+
+.dark-theme .tax-regime-toggle {
+    background: #4a5568;
+}
+
+.dark-theme .comparison-section {
+    background: #2d3748;
+    color: #e2e8f0;
+}
+
+.dark-theme .comparison-card {
+    background: #4a5568;
+    border-color: #718096;
+    color: #e2e8f0;
+}
+
+.dark-theme .comparison-card.recommended {
+    background: #276749;
+    border-color: #38a169;
+}
+
+.dark-theme .comparison-title {
+    color: #e2e8f0;
+}
+
+.dark-theme .comparison-card.recommended .comparison-title {
+    color: #68d391;
+}
+
+.dark-theme .comparison-amount {
+    color: #e2e8f0;
+}
+
+.dark-theme .comparison-card.recommended .comparison-amount {
+    color: #68d391;
+}
+
+.dark-theme .deduction-section {
+    background: #2d3748;
+    color: #e2e8f0;
+}
+
+.dark-theme .deduction-group {
+    background: #4a5568;
+}
+
+.dark-theme .deduction-title {
+    color: #e2e8f0;
+}
+
+.dark-theme .monthly-breakdown {
+    background: #2d3748;
+    color: #e2e8f0;
+}
+
+.dark-theme .monthly-card {
+    background: #4a5568;
+    border-color: #718096;
+}
+
+.dark-theme .monthly-label {
+    color: #cbd5e0;
+}
+
+.dark-theme .monthly-value {
+    color: #e2e8f0;
+}

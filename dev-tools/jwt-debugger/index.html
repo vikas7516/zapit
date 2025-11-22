@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JWT Debugger - Developer Tools - Zapit</title>
+    <meta name="description" content="Decode, inspect, and verify JWT (JSON Web Tokens) with signature validation and payload analysis.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/dev-tools/jwt-debugger">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">🔑</div>
+                    <h1 class="tool-title">JWT Debugger</h1>
+                    <p class="tool-description">Decode, inspect, and verify JSON Web Tokens with signature validation</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-card">
+                    <!-- JWT Input Section -->
+                    <div class="jwt-input-section">
+                        <div class="section-header">
+                            <h3>JWT Token</h3>
+                            <div class="header-actions">
+                                <button id="load-sample" class="btn btn-outline">Load Sample</button>
+                                <button id="clear-input" class="btn btn-outline">Clear</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="jwt-input">Enter your JWT token:</label>
+                            <textarea id="jwt-input" placeholder="Paste your JWT token here..." rows="6"></textarea>
+                            <div class="input-info">
+                                <span class="token-status" id="token-status">No token</span>
+                                <span class="token-parts" id="token-parts">0 parts</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- JWT Parts Visualization -->
+                    <div class="jwt-parts-section">
+                        <h3>JWT Structure</h3>
+                        <div class="jwt-visual" id="jwt-visual">
+                            <div class="jwt-part header">
+                                <div class="part-label">Header</div>
+                                <div class="part-content" id="header-raw">-</div>
+                            </div>
+                            <div class="jwt-separator">.</div>
+                            <div class="jwt-part payload">
+                                <div class="part-label">Payload</div>
+                                <div class="part-content" id="payload-raw">-</div>
+                            </div>
+                            <div class="jwt-separator">.</div>
+                            <div class="jwt-part signature">
+                                <div class="part-label">Signature</div>
+                                <div class="part-content" id="signature-raw">-</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Decoded Sections -->
+                    <div class="decoded-sections">
+                        <!-- Header Section -->
+                        <div class="decoded-section">
+                            <div class="section-header">
+                                <h3>Decoded Header</h3>
+                                <div class="header-actions">
+                                    <button id="copy-header" class="btn btn-outline">Copy</button>
+                                </div>
+                            </div>
+                            <div class="decoded-content">
+                                <pre id="decoded-header" class="decoded-output">No token to decode</pre>
+                            </div>
+                        </div>
+
+                        <!-- Payload Section -->
+                        <div class="decoded-section">
+                            <div class="section-header">
+                                <h3>Decoded Payload</h3>
+                                <div class="header-actions">
+                                    <button id="copy-payload" class="btn btn-outline">Copy</button>
+                                </div>
+                            </div>
+                            <div class="decoded-content">
+                                <pre id="decoded-payload" class="decoded-output">No token to decode</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Signature Verification -->
+                    <div class="signature-section">
+                        <div class="section-header">
+                            <h3>Signature Verification</h3>
+                            <div class="verification-status" id="verification-status">
+                                <span class="status-indicator" id="status-indicator">⚪</span>
+                                <span class="status-text" id="status-text">Not verified</span>
+                            </div>
+                        </div>
+                        <div class="signature-form">
+                            <div class="form-group">
+                                <label for="secret-input">Secret (for HMAC algorithms):</label>
+                                <input type="text" id="secret-input" placeholder="Enter your secret key..." />
+                            </div>
+                            <div class="form-group">
+                                <label for="public-key-input">Public Key (for RSA/ECDSA algorithms):</label>
+                                <textarea id="public-key-input" placeholder="Enter your public key..." rows="4"></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button id="verify-signature" class="btn btn-primary">Verify Signature</button>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="base64-secret">
+                                    <span>Secret is base64 encoded</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Token Analysis -->
+                    <div class="analysis-section">
+                        <h3>Token Analysis</h3>
+                        <div class="analysis-grid">
+                            <div class="analysis-card">
+                                <h4>Claims</h4>
+                                <div class="claims-content" id="claims-content">
+                                    <div class="no-data">No token to analyze</div>
+                                </div>
+                            </div>
+                            <div class="analysis-card">
+                                <h4>Token Info</h4>
+                                <div class="token-info-content" id="token-info-content">
+                                    <div class="info-item">
+                                        <span class="info-label">Algorithm:</span>
+                                        <span class="info-value" id="algorithm">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Type:</span>
+                                        <span class="info-value" id="token-type">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Issued At:</span>
+                                        <span class="info-value" id="issued-at">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Expires At:</span>
+                                        <span class="info-value" id="expires-at">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Not Before:</span>
+                                        <span class="info-value" id="not-before">-</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">Status:</span>
+                                        <span class="info-value" id="token-validity">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Error Display -->
+                    <div class="error-section hidden" id="error-section">
+                        <div class="section-header">
+                            <h3>Errors</h3>
+                        </div>
+                        <div class="error-container">
+                            <div id="error-details" class="error-details"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Panel -->
+                <div class="info-panel">
+                    <h3>About JWT</h3>
+                    <p>JSON Web Token (JWT) is a compact, URL-safe means of representing claims to be transferred between two parties. The claims in a JWT are encoded as a JSON object that is used as the payload of a JSON Web Signature (JWS) structure.</p>
+                    
+                    <div class="jwt-structure">
+                        <h4>JWT Structure</h4>
+                        <p>A JWT consists of three parts separated by dots (.):</p>
+                        <ul>
+                            <li><strong>Header:</strong> Contains the token type and signing algorithm</li>
+                            <li><strong>Payload:</strong> Contains the claims (data)</li>
+                            <li><strong>Signature:</strong> Used to verify the token hasn't been tampered with</li>
+                        </ul>
+                        <div class="jwt-example">
+                            <code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</code>
+                        </div>
+                    </div>
+
+                    <div class="common-claims">
+                        <h4>Standard Claims</h4>
+                        <ul>
+                            <li><strong>iss:</strong> Issuer - who issued the token</li>
+                            <li><strong>sub:</strong> Subject - whom the token refers to</li>
+                            <li><strong>aud:</strong> Audience - intended recipient</li>
+                            <li><strong>exp:</strong> Expiration Time - when the token expires</li>
+                            <li><strong>nbf:</strong> Not Before - when the token becomes valid</li>
+                            <li><strong>iat:</strong> Issued At - when the token was issued</li>
+                            <li><strong>jti:</strong> JWT ID - unique identifier for the token</li>
+                        </ul>
+                    </div>
+
+                    <div class="algorithms">
+                        <h4>Supported Algorithms</h4>
+                        <ul>
+                            <li><strong>HMAC:</strong> HS256, HS384, HS512 (symmetric)</li>
+                            <li><strong>RSA:</strong> RS256, RS384, RS512 (asymmetric)</li>
+                            <li><strong>ECDSA:</strong> ES256, ES384, ES512 (asymmetric)</li>
+                            <li><strong>None:</strong> Unsecured JWTs (not recommended)</li>
+                        </ul>
+                    </div>
+
+                    <div class="security-note">
+                        <h4>Security Note</h4>
+                        <p><strong>Warning:</strong> Never paste production secrets or private keys into online tools. This tool runs entirely in your browser for security, but always use caution with sensitive data.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

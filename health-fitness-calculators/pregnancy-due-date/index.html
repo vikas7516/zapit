@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pregnancy Due Date Calculator - ZapIt Tools</title>
+    <meta name="description" content="Calculate your pregnancy due date and track important milestones. Free pregnancy calculator with detailed trimester breakdown and development stages.">
+    <meta name="keywords" content="pregnancy calculator, due date calculator, pregnancy tracker, trimester calculator, conception date">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Pregnancy Due Date Calculator - ZapIt Tools">
+    <meta property="og:description" content="Calculate your pregnancy due date and track important milestones. Free pregnancy calculator with detailed trimester breakdown and development stages.">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../assets/css/variables.css">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="light.css">
+    <link rel="stylesheet" href="dark.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../../" class="nav-brand">
+                <img src="../../icons/logo.jpg" alt="ZapIt Tools" class="nav-logo">
+                <span>ZapIt Tools</span>
+            </a>
+            <div class="nav-menu">
+                <a href="../../" class="nav-link">Home</a>
+                <a href="../" class="nav-link">Health & Fitness</a>
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Pregnancy Due Date Calculator</h1>
+                <p class="hero-description">
+                    Calculate your pregnancy due date and track important milestones throughout your pregnancy journey. 
+                    Get detailed information about each trimester and baby development stages.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">40</span>
+                        <span class="stat-label">Weeks Average</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Trimesters</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">280</span>
+                        <span class="stat-label">Days Gestation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <main class="container">
+        <div class="tool-layout">
+            <div class="tool-main">
+                <div class="calculator-card">
+                    <div class="calculator-header">
+                        <h2>Calculate Your Due Date</h2>
+                        <p>Choose your calculation method and enter the required information</p>
+                    </div>
+
+                    <!-- Method Selection -->
+                    <div class="method-selection">
+                        <div class="method-options">
+                            <div class="method-option active" data-method="lmp">
+                                <div class="method-icon">📅</div>
+                                <div class="method-info">
+                                    <h3>Last Menstrual Period</h3>
+                                    <p>Most common method - enter the first day of your last period</p>
+                                </div>
+                            </div>
+                            <div class="method-option" data-method="conception">
+                                <div class="method-icon">💕</div>
+                                <div class="method-info">
+                                    <h3>Conception Date</h3>
+                                    <p>If you know when conception occurred</p>
+                                </div>
+                            </div>
+                            <div class="method-option" data-method="ultrasound">
+                                <div class="method-icon">🏥</div>
+                                <div class="method-info">
+                                    <h3>Ultrasound Date</h3>
+                                    <p>Based on ultrasound measurements</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Forms -->
+                    <div class="calculation-form">
+                        <!-- LMP Method -->
+                        <div class="method-form active" id="lmpForm">
+                            <div class="form-group">
+                                <label for="lmpDate">First Day of Last Menstrual Period</label>
+                                <input type="date" id="lmpDate" required>
+                                <small>Select the first day of your last menstrual period</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="cycleLength">Average Cycle Length (days)</label>
+                                <select id="cycleLength">
+                                    <option value="28">28 days (average)</option>
+                                    <option value="21">21 days</option>
+                                    <option value="22">22 days</option>
+                                    <option value="23">23 days</option>
+                                    <option value="24">24 days</option>
+                                    <option value="25">25 days</option>
+                                    <option value="26">26 days</option>
+                                    <option value="27">27 days</option>
+                                    <option value="29">29 days</option>
+                                    <option value="30">30 days</option>
+                                    <option value="31">31 days</option>
+                                    <option value="32">32 days</option>
+                                    <option value="33">33 days</option>
+                                    <option value="34">34 days</option>
+                                    <option value="35">35 days</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Conception Method -->
+                        <div class="method-form" id="conceptionForm">
+                            <div class="form-group">
+                                <label for="conceptionDate">Conception Date</label>
+                                <input type="date" id="conceptionDate" required>
+                                <small>Enter the estimated or known conception date</small>
+                            </div>
+                        </div>
+
+                        <!-- Ultrasound Method -->
+                        <div class="method-form" id="ultrasoundForm">
+                            <div class="form-group">
+                                <label for="ultrasoundDate">Ultrasound Date</label>
+                                <input type="date" id="ultrasoundDate" required>
+                                <small>Date when the ultrasound was performed</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="gestationalAge">Gestational Age at Ultrasound</label>
+                                <div class="weeks-days-input">
+                                    <div>
+                                        <input type="number" id="weeks" min="4" max="42" placeholder="Weeks">
+                                        <label>Weeks</label>
+                                    </div>
+                                    <div>
+                                        <input type="number" id="days" min="0" max="6" placeholder="Days">
+                                        <label>Days</label>
+                                    </div>
+                                </div>
+                                <small>Enter the gestational age as shown on your ultrasound report</small>
+                            </div>
+                        </div>
+
+                        <button class="calculate-btn" id="calculateBtn">
+                            <span>Calculate Due Date</span>
+                            <span class="btn-icon">🤰</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="results-section" id="resultsSection">
+                    <div class="due-date-display">
+                        <div class="due-date-main">
+                            <h2>Your Due Date</h2>
+                            <div class="due-date-value" id="dueDateValue">March 15, 2024</div>
+                            <div class="due-date-meta">
+                                <span id="currentWeek">You are 20 weeks pregnant</span>
+                                <span id="daysRemaining">140 days remaining</span>
+                            </div>
+                        </div>
+                        <div class="pregnancy-progress">
+                            <div class="progress-circle">
+                                <svg class="progress-ring" width="120" height="120">
+                                    <circle class="progress-ring-bg" cx="60" cy="60" r="54" fill="transparent" stroke="currentColor" stroke-width="8"/>
+                                    <circle class="progress-ring-progress" id="progressCircle" cx="60" cy="60" r="54" fill="transparent" stroke="var(--primary-color)" stroke-width="8"/>
+                                </svg>
+                                <div class="progress-text">
+                                    <span id="progressPercentage">50%</span>
+                                    <small>Complete</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Important Dates -->
+                    <div class="important-dates">
+                        <h3>Important Dates & Milestones</h3>
+                        <div class="dates-grid">
+                            <div class="date-item">
+                                <div class="date-icon">🤱</div>
+                                <div class="date-info">
+                                    <h4>Conception Date</h4>
+                                    <span id="conceptionDateResult">June 21, 2023</span>
+                                </div>
+                            </div>
+                            <div class="date-item">
+                                <div class="date-icon">👶</div>
+                                <div class="date-info">
+                                    <h4>End of 1st Trimester</h4>
+                                    <span id="firstTrimesterEnd">September 13, 2023</span>
+                                </div>
+                            </div>
+                            <div class="date-item">
+                                <div class="date-icon">💗</div>
+                                <div class="date-info">
+                                    <h4>End of 2nd Trimester</h4>
+                                    <span id="secondTrimesterEnd">December 6, 2023</span>
+                                </div>
+                            </div>
+                            <div class="date-item">
+                                <div class="date-icon">🍼</div>
+                                <div class="date-info">
+                                    <h4>Full Term (37 weeks)</h4>
+                                    <span id="fullTermDate">February 21, 2024</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trimester Information -->
+                    <div class="trimester-info">
+                        <h3>Current Trimester Information</h3>
+                        <div class="trimester-tabs">
+                            <button class="trimester-tab active" data-trimester="1">1st Trimester</button>
+                            <button class="trimester-tab" data-trimester="2">2nd Trimester</button>
+                            <button class="trimester-tab" data-trimester="3">3rd Trimester</button>
+                        </div>
+                        
+                        <div class="trimester-content active" id="trimester1">
+                            <div class="trimester-overview">
+                                <h4>First Trimester (Weeks 1-12)</h4>
+                                <p>The first trimester is crucial for baby's organ development. You may experience morning sickness, fatigue, and breast tenderness.</p>
+                            </div>
+                            <div class="development-milestones">
+                                <h5>Key Developments:</h5>
+                                <ul>
+                                    <li>Neural tube develops into brain and spinal cord</li>
+                                    <li>Heart begins to beat around week 6</li>
+                                    <li>Major organs start forming</li>
+                                    <li>Baby's size: From poppy seed to lime</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="trimester-content" id="trimester2">
+                            <div class="trimester-overview">
+                                <h4>Second Trimester (Weeks 13-26)</h4>
+                                <p>Often called the "golden period" - energy returns, morning sickness typically subsides, and you may start feeling baby's movements.</p>
+                            </div>
+                            <div class="development-milestones">
+                                <h5>Key Developments:</h5>
+                                <ul>
+                                    <li>Gender can be determined via ultrasound</li>
+                                    <li>Baby develops hearing and can respond to sounds</li>
+                                    <li>Fingerprints form</li>
+                                    <li>Baby's size: From lemon to corn cob</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="trimester-content" id="trimester3">
+                            <div class="trimester-overview">
+                                <h4>Third Trimester (Weeks 27-40)</h4>
+                                <p>Baby's major development is complete, now focusing on growth and weight gain. You may experience increased discomfort as baby grows.</p>
+                            </div>
+                            <div class="development-milestones">
+                                <h5>Key Developments:</h5>
+                                <ul>
+                                    <li>Brain development accelerates</li>
+                                    <li>Lungs mature for breathing</li>
+                                    <li>Baby positions for birth</li>
+                                    <li>Baby's size: From cauliflower to watermelon</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn secondary" id="recalculateBtn">Calculate Again</button>
+                        <button class="btn primary" id="saveResultsBtn">Save Results</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Information Panel -->
+            <div class="tool-sidebar">
+                <div class="info-card">
+                    <h3>About Pregnancy Calculators</h3>
+                    <div class="info-content">
+                        <div class="info-item">
+                            <h4>How Accurate Are Due Dates?</h4>
+                            <p>Due dates are estimates. Only about 5% of babies are born on their exact due date. Most babies arrive within 2 weeks before or after the calculated date.</p>
+                        </div>
+                        
+                        <div class="info-item">
+                            <h4>Different Calculation Methods</h4>
+                            <ul>
+                                <li><strong>LMP Method:</strong> Most common, assumes ovulation 14 days after last period</li>
+                                <li><strong>Conception Date:</strong> More accurate if you know when conception occurred</li>
+                                <li><strong>Ultrasound:</strong> Most accurate in first trimester</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-item">
+                            <h4>Important Notes</h4>
+                            <ul>
+                                <li>Full-term pregnancy ranges from 37-42 weeks</li>
+                                <li>Early ultrasounds are most accurate for dating</li>
+                                <li>Irregular cycles may affect LMP accuracy</li>
+                                <li>Always consult your healthcare provider</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Pregnancy Checklist</h3>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <span class="checklist-icon">✅</span>
+                            <span>Start taking prenatal vitamins</span>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="checklist-icon">✅</span>
+                            <span>Schedule first prenatal appointment</span>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="checklist-icon">✅</span>
+                            <span>Avoid alcohol and smoking</span>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="checklist-icon">✅</span>
+                            <span>Eat a balanced diet</span>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="checklist-icon">✅</span>
+                            <span>Stay hydrated</span>
+                        </div>
+                        <div class="checklist-item">
+                            <span class="checklist-icon">✅</span>
+                            <span>Get adequate rest</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ZapIt Tools</h3>
+                    <p>Professional health and fitness calculators for accurate pregnancy tracking and health monitoring.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Health Tools</h4>
+                    <ul>
+                        <li><a href="../bmi-calculator/">BMI Calculator</a></li>
+                        <li><a href="../bmr-calculator/">BMR Calculator</a></li>
+                        <li><a href="../daily-calorie-calculator/">Calorie Calculator</a></li>
+                        <li><a href="./">Pregnancy Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="../../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../../terms.html">Terms of Service</a></li>
+                        <li><a href="../../contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ZapIt Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/theme.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

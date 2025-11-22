@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXIF Viewer - Image Tools - Zapit</title>
+    <meta name="description"
+        content="View EXIF metadata from your photos online. Check camera settings, location data, date taken, and more. Private and secure.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/image-tools/exif-viewer">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+</head>
+
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <span class="tool-icon-large">📷</span>
+                    <h1 class="tool-title">EXIF Viewer</h1>
+                    <p class="tool-description">
+                        Extract and view hidden metadata from your photos. See camera details, settings, GPS location,
+                        and more.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-layout">
+                    <!-- Upload Section -->
+                    <div class="upload-section" id="uploadSection">
+                        <div class="upload-area" id="uploadArea">
+                            <span class="upload-icon">📁</span>
+                            <div class="upload-text">
+                                <h3>Drop your photo here</h3>
+                                <p>or <span class="browse-link" id="browseLink">browse files</span> to analyze</p>
+                                <div class="upload-formats">
+                                    Supports JPEG, TIFF (Photos with EXIF data)
+                                </div>
+                            </div>
+                            <input type="file" id="fileInput" accept="image/jpeg,image/tiff" class="hidden"
+                                aria-label="Select image file">
+                        </div>
+                        <div class="upload-error" id="uploadError"></div>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div class="results-section hidden" id="resultsSection">
+                        <div class="results-layout">
+                            <!-- Preview Section -->
+                            <div class="preview-section">
+                                <div class="preview-header">
+                                    <h3>Image Preview</h3>
+                                </div>
+                                <div class="preview-container">
+                                    <img id="previewImage" alt="Image preview">
+                                </div>
+                            </div>
+
+                            <!-- Data Display -->
+                            <div class="controls-section">
+                                <div class="controls-header">
+                                    <h3>EXIF Data</h3>
+                                </div>
+
+                                <div class="compression-results" id="exifDataContainer"
+                                    style="max-height: 500px; overflow-y: auto;">
+                                    <p style="text-align: center; color: var(--tool-text-secondary);">No EXIF data
+                                        found.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="action-buttons">
+                            <button class="btn-secondary" id="processAnotherBtn">
+                                <span class="btn-icon">🔄</span>
+                                Analyze Another
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructions Section -->
+        <section class="instructions-section">
+            <div class="container">
+                <h2 class="section-title">How to Use</h2>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <span class="instruction-icon">📤</span>
+                        <h3>Upload Photo</h3>
+                        <p>Upload a JPEG photo taken with a digital camera or smartphone.</p>
+                    </div>
+                    <div class="instruction-item">
+                        <span class="instruction-icon">🔍</span>
+                        <h3>Analyze</h3>
+                        <p>We instantly extract all available metadata embedded in the file.</p>
+                    </div>
+                    <div class="instruction-item">
+                        <span class="instruction-icon">📊</span>
+                        <h3>View Data</h3>
+                        <p>See details like ISO, shutter speed, aperture, date taken, and GPS coordinates.</p>
+                    </div>
+                    <div class="instruction-item">
+                        <span class="instruction-icon">🔒</span>
+                        <h3>Private</h3>
+                        <p>Analysis happens in your browser. Your photos are never uploaded to a server.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <div class="footer-brand-row">
+                            <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                            <span class="footer-brand-text">
+                                <h3 class="footer-logo">Zapit</h3>
+                                <div class="footer-tagline">A Zap Away From Done</div>
+                            </span>
+                        </div>
+                        <p class="footer-description">Free, fast, and private online tools for everyone. No registration
+                            required.</p>
+                        <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                    </div>
+
+                    <div class="footer-links">
+                        <h4 class="footer-title">Legal</h4>
+                        <ul class="footer-list">
+                            <li><a href="/privacy.html">Privacy Policy</a></li>
+                            <li><a href="/terms.html">Terms of Service</a></li>
+                            <li><a href="/contact.html">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="/assets/js/header.js" defer></script>
+    <script src="/assets/elements/theme-toggle.js" defer></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+        /* Dark theme for Retirement Savings Calculator */
+        [data-theme="dark"] .calculator-container {
+            background: #1a202c;
+        }
+        
+        [data-theme="dark"] .calculator-header h1 {
+            color: #f7fafc;
+        }
+        
+        [data-theme="dark"] .calculator-header p {
+            color: #a0aec0;
+        }
+        
+        [data-theme="dark"] .calculator-card,
+        [data-theme="dark"] .scenario-section {
+            background: #2d3748;
+            border: 1px solid #4a5568;
+        }
+        
+        [data-theme="dark"] .form-label {
+            color: #e2e8f0;
+        }
+        
+        [data-theme="dark"] .form-input {
+            background: #4a5568;
+            border-color: #718096;
+            color: #f7fafc;
+        }
+        
+        [data-theme="dark"] .form-input:focus {
+            background: #2d3748;
+            border-color: #63b3ed;
+        }
+        
+        [data-theme="dark"] .input-prefix,
+        [data-theme="dark"] .input-suffix {
+            color: #a0aec0;
+        }
+        
+        [data-theme="dark"] .results-section {
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+        }
+        
+        [data-theme="dark"] .result-card {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        [data-theme="dark"] .chart-container {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        [data-theme="dark"] .recommendation-section {
+            background: #1a3d2e;
+            border-color: #38a169;
+        }
+        
+        [data-theme="dark"] .recommendation-title {
+            color: #68d391;
+        }
+        
+        [data-theme="dark"] .recommendation-item {
+            background: #2d3748;
+            border-left-color: #68d391;
+        }
+        
+        [data-theme="dark"] .recommendation-content h4 {
+            color: #68d391;
+        }
+        
+        [data-theme="dark"] .recommendation-content p {
+            color: #e2e8f0;
+        }
+        
+        [data-theme="dark"] .scenario-tabs {
+            border-bottom-color: #4a5568;
+        }
+        
+        [data-theme="dark"] .scenario-tab {
+            color: #a0aec0;
+        }
+        
+        [data-theme="dark"] .scenario-tab.active {
+            color: #63b3ed;
+            border-bottom-color: #63b3ed;
+        }
+        
+        [data-theme="dark"] .scenario-card,
+        [data-theme="dark"] .milestone-item {
+            background: #4a5568;
+            border-color: #718096;
+        }
+        
+        [data-theme="dark"] .scenario-title {
+            color: #f7fafc;
+        }
+        
+        [data-theme="dark"] .scenario-metric {
+            border-bottom-color: #4a5568;
+        }
+        
+        [data-theme="dark"] .metric-label {
+            color: #a0aec0;
+        }
+        
+        [data-theme="dark"] .metric-value {
+            color: #e2e8f0;
+        }
+        
+        [data-theme="dark"] .milestone-section {
+            border-top-color: #4a5568;
+        }
+        
+        [data-theme="dark"] .milestone-age {
+            color: #63b3ed;
+        }
+        
+        [data-theme="dark"] .milestone-amount {
+            color: #f7fafc;
+        }
+        
+        [data-theme="dark"] .milestone-desc {
+            color: #a0aec0;
+        }

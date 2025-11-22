@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator - ZapIt Tools</title>
+    <meta name="description" content="Calculate your exact age in years, months, days, hours, and minutes. Find your next birthday, zodiac sign, and interesting life statistics.">
+    <meta name="keywords" content="age calculator, birthday calculator, zodiac sign, life statistics, exact age">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Age Calculator - ZapIt Tools">
+    <meta property="og:description" content="Calculate your exact age in years, months, days, hours, and minutes. Find your next birthday, zodiac sign, and interesting life statistics.">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../assets/css/variables.css">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="light.css">
+    <link rel="stylesheet" href="dark.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../../" class="nav-brand">
+                <img src="../../icons/logo.jpg" alt="ZapIt Tools" class="nav-logo">
+                <span>ZapIt Tools</span>
+            </a>
+            <div class="nav-menu">
+                <a href="../../" class="nav-link">Home</a>
+                <a href="../" class="nav-link">Math Calculators</a>
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Age Calculator</h1>
+                <p class="hero-description">
+                    Calculate your exact age in years, months, days, hours, and minutes. 
+                    Discover your zodiac sign, next birthday countdown, and fascinating life statistics.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">🎂</span>
+                        <span class="stat-label">Birthday</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">⭐</span>
+                        <span class="stat-label">Zodiac</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">📊</span>
+                        <span class="stat-label">Statistics</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <main class="container">
+        <div class="tool-layout">
+            <div class="tool-main">
+                <div class="calculator-card">
+                    <div class="calculator-header">
+                        <h2>Calculate Your Age</h2>
+                        <p>Enter your birth date to get detailed age information</p>
+                    </div>
+
+                    <!-- Input Form -->
+                    <div class="age-form">
+                        <div class="form-group">
+                            <label for="birthDate">Birth Date</label>
+                            <input type="date" id="birthDate" required>
+                            <small>Select your date of birth</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="currentDate">Calculate Age On</label>
+                            <input type="date" id="currentDate" required>
+                            <small>Leave as today's date or choose a specific date</small>
+                        </div>
+
+                        <button class="calculate-btn" id="calculateBtn">
+                            <span>Calculate Age</span>
+                            <span class="btn-icon">🎯</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="results-section" id="resultsSection">
+                    <!-- Main Age Display -->
+                    <div class="main-age-display">
+                        <div class="age-hero">
+                            <div class="age-primary">
+                                <span class="age-number" id="primaryAge">25</span>
+                                <span class="age-unit">Years Old</span>
+                            </div>
+                            <div class="age-celebration">🎉</div>
+                        </div>
+                        
+                        <div class="age-breakdown">
+                            <div class="age-item">
+                                <span class="age-value" id="ageYears">25</span>
+                                <span class="age-label">Years</span>
+                            </div>
+                            <div class="age-item">
+                                <span class="age-value" id="ageMonths">300</span>
+                                <span class="age-label">Months</span>
+                            </div>
+                            <div class="age-item">
+                                <span class="age-value" id="ageDays">9125</span>
+                                <span class="age-label">Days</span>
+                            </div>
+                            <div class="age-item">
+                                <span class="age-value" id="ageHours">219000</span>
+                                <span class="age-label">Hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Next Birthday Section -->
+                    <div class="birthday-section">
+                        <h3>Next Birthday</h3>
+                        <div class="birthday-countdown">
+                            <div class="birthday-date">
+                                <div class="birthday-icon">🎂</div>
+                                <div class="birthday-info">
+                                    <div class="birthday-next" id="nextBirthday">March 15, 2024</div>
+                                    <div class="birthday-age" id="nextAge">You'll be 26 years old</div>
+                                </div>
+                            </div>
+                            <div class="countdown-display">
+                                <div class="countdown-item">
+                                    <span class="countdown-number" id="countdownDays">142</span>
+                                    <span class="countdown-label">Days</span>
+                                </div>
+                                <div class="countdown-item">
+                                    <span class="countdown-number" id="countdownHours">15</span>
+                                    <span class="countdown-label">Hours</span>
+                                </div>
+                                <div class="countdown-item">
+                                    <span class="countdown-number" id="countdownMinutes">32</span>
+                                    <span class="countdown-label">Minutes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Zodiac & Life Info -->
+                    <div class="info-grid">
+                        <div class="info-card zodiac-card">
+                            <h4>Zodiac Sign</h4>
+                            <div class="zodiac-display">
+                                <div class="zodiac-icon" id="zodiacIcon">♓</div>
+                                <div class="zodiac-info">
+                                    <div class="zodiac-name" id="zodiacName">Pisces</div>
+                                    <div class="zodiac-dates" id="zodiacDates">Feb 19 - Mar 20</div>
+                                </div>
+                            </div>
+                            <p class="zodiac-description" id="zodiacDescription">
+                                Intuitive, artistic, and compassionate water sign
+                            </p>
+                        </div>
+
+                        <div class="info-card generation-card">
+                            <h4>Generation</h4>
+                            <div class="generation-display">
+                                <div class="generation-icon" id="generationIcon">🌟</div>
+                                <div class="generation-info">
+                                    <div class="generation-name" id="generationName">Millennial</div>
+                                    <div class="generation-years" id="generationYears">1981-1996</div>
+                                </div>
+                            </div>
+                            <p class="generation-description" id="generationDescription">
+                                The first generation to grow up with the internet
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Life Statistics -->
+                    <div class="life-stats">
+                        <h3>Life Statistics</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">💓</div>
+                                <div class="stat-info">
+                                    <div class="stat-number" id="heartbeats">1,000,000,000</div>
+                                    <div class="stat-label">Heartbeats</div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">😴</div>
+                                <div class="stat-info">
+                                    <div class="stat-number" id="sleepDays">3,042</div>
+                                    <div class="stat-label">Days Sleeping</div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">🌍</div>
+                                <div class="stat-info">
+                                    <div class="stat-number" id="earthRotations">9,125</div>
+                                    <div class="stat-label">Earth Rotations</div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">🫁</div>
+                                <div class="stat-info">
+                                    <div class="stat-number" id="breaths">220,000,000</div>
+                                    <div class="stat-label">Breaths Taken</div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">🌅</div>
+                                <div class="stat-info">
+                                    <div class="stat-number" id="sunrises">9,125</div>
+                                    <div class="stat-label">Sunrises Seen</div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">🌕</div>
+                                <div class="stat-info">
+                                    <div class="stat-number" id="moonCycles">309</div>
+                                    <div class="stat-label">Moon Cycles</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Birth Day Information -->
+                    <div class="birth-day-info">
+                        <h3>Your Birth Day</h3>
+                        <div class="birth-details">
+                            <div class="birth-item">
+                                <span class="birth-label">Day of Week:</span>
+                                <span class="birth-value" id="birthDayOfWeek">Wednesday</span>
+                            </div>
+                            <div class="birth-item">
+                                <span class="birth-label">Day of Year:</span>
+                                <span class="birth-value" id="birthDayOfYear">74th day</span>
+                            </div>
+                            <div class="birth-item">
+                                <span class="birth-label">Week of Year:</span>
+                                <span class="birth-value" id="birthWeekOfYear">11th week</span>
+                            </div>
+                            <div class="birth-item">
+                                <span class="birth-label">Season:</span>
+                                <span class="birth-value" id="birthSeason">Spring</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn secondary" id="recalculateBtn">Calculate Again</button>
+                        <button class="btn primary" id="shareBtn">Share Results</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Information Panel -->
+            <div class="tool-sidebar">
+                <div class="info-card">
+                    <h3>About Age Calculation</h3>
+                    <div class="info-content">
+                        <div class="info-item">
+                            <h4>How Age is Calculated</h4>
+                            <p>Age is calculated by finding the difference between your birth date and the selected date, accounting for leap years and varying month lengths.</p>
+                        </div>
+                        
+                        <div class="info-item">
+                            <h4>Zodiac Signs</h4>
+                            <p>Based on traditional Western astrology, zodiac signs are determined by your birth date and represent different personality traits and characteristics.</p>
+                        </div>
+                        
+                        <div class="info-item">
+                            <h4>Life Statistics</h4>
+                            <p>Fun estimates based on average human activity rates. Actual numbers may vary based on individual health, lifestyle, and activities.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Zodiac Signs</h3>
+                    <div class="zodiac-list">
+                        <div class="zodiac-item">♈ Aries (Mar 21 - Apr 19)</div>
+                        <div class="zodiac-item">♉ Taurus (Apr 20 - May 20)</div>
+                        <div class="zodiac-item">♊ Gemini (May 21 - Jun 20)</div>
+                        <div class="zodiac-item">♋ Cancer (Jun 21 - Jul 22)</div>
+                        <div class="zodiac-item">♌ Leo (Jul 23 - Aug 22)</div>
+                        <div class="zodiac-item">♍ Virgo (Aug 23 - Sep 22)</div>
+                        <div class="zodiac-item">♎ Libra (Sep 23 - Oct 22)</div>
+                        <div class="zodiac-item">♏ Scorpio (Oct 23 - Nov 21)</div>
+                        <div class="zodiac-item">♐ Sagittarius (Nov 22 - Dec 21)</div>
+                        <div class="zodiac-item">♑ Capricorn (Dec 22 - Jan 19)</div>
+                        <div class="zodiac-item">♒ Aquarius (Jan 20 - Feb 18)</div>
+                        <div class="zodiac-item">♓ Pisces (Feb 19 - Mar 20)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ZapIt Tools</h3>
+                    <p>Professional math calculators for accurate age calculations, birthday countdowns, and life statistics.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Math Tools</h4>
+                    <ul>
+                        <li><a href="./">Age Calculator</a></li>
+                        <li><a href="../percentage-calculator/">Percentage Calculator</a></li>
+                        <li><a href="../scientific-calculator/">Scientific Calculator</a></li>
+                        <li><a href="../date-difference-calculator/">Date Calculator</a></li>
+                        <li><a href="../amortization-calculator/">Amortization Calculator</a></li>
+                        <li><a href="../inflation-calculator/">Inflation Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="../../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../../terms.html">Terms of Service</a></li>
+                        <li><a href="../../contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ZapIt Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/theme.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

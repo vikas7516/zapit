@@ -1,0 +1,29 @@
+/* DNS Lookup Tool - Dark Theme */
+
+/* Dark theme overrides */
+:root[data-theme="dark"] {
+    --card-bg: #1f2937;
+    --border-color: #374151;
+    --bg-secondary: #111827;
+    --text-color: #f9fafb;
+    --text-muted: #9ca3af;
+    --primary-color: #3b82f6;
+    --primary-dark: #2563eb;
+    --error-color: #ef4444;
+    --error-bg: #1f1f1f;
+    --error-border: #dc2626;
+}
+
+/* Tool-specific dark theme adjustments */
+:root[data-theme="dark"] .record-type-btn {
+    background: var(--card-bg);
+    color: var(--text-color);
+}
+
+:root[data-theme="dark"] .result-table th {
+    background: var(--bg-secondary);
+}
+
+:root[data-theme="dark"] .history-item:hover {
+    background: var(--bg-secondary);
+}

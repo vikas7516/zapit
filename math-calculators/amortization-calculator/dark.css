@@ -1,0 +1,294 @@
+/* Amortization Calculator Dark Theme */
+
+[data-theme="dark"] .calculator-card,
+[data-theme="dark"] .results-summary-card,
+[data-theme="dark"] .schedule-card {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .card-header {
+    border-bottom-color: #404040;
+}
+
+[data-theme="dark"] .card-header h3 {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .loan-type-select,
+[data-theme="dark"] .amount-input,
+[data-theme="dark"] .rate-input-field,
+[data-theme="dark"] .term-input-field,
+[data-theme="dark"] .term-unit-select,
+[data-theme="dark"] .date-input {
+    background: #2d2d2d;
+    border-color: #404040;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .loan-type-select:focus,
+[data-theme="dark"] .amount-input:focus,
+[data-theme="dark"] .rate-input-field:focus,
+[data-theme="dark"] .term-input-field:focus,
+[data-theme="dark"] .term-unit-select:focus,
+[data-theme="dark"] .date-input:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+}
+
+[data-theme="dark"] .currency-symbol,
+[data-theme="dark"] .rate-symbol {
+    color: #adb5bd;
+}
+
+[data-theme="dark"] .input-group label {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .extra-payment-section {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .section-header h4 {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .toggle-slider {
+    background-color: #495057;
+}
+
+[data-theme="dark"] input:checked + .toggle-slider {
+    background-color: #0d6efd;
+}
+
+[data-theme="dark"] .calculate-btn {
+    background: linear-gradient(135deg, #198754, #20c997);
+}
+
+[data-theme="dark"] .calculate-btn:hover {
+    background: linear-gradient(135deg, #146c43, #1aa179);
+}
+
+[data-theme="dark"] .action-btn {
+    background: #495057;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .action-btn:hover {
+    background: #5a6268;
+}
+
+[data-theme="dark"] .action-btn:disabled {
+    background: #343a40;
+    color: #6c757d;
+}
+
+[data-theme="dark"] .summary-placeholder,
+[data-theme="dark"] .error-state,
+[data-theme="dark"] .schedule-placeholder {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .summary-placeholder h4,
+[data-theme="dark"] .error-state h4,
+[data-theme="dark"] .schedule-placeholder h4 {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .error-state .error-icon {
+    color: #ef4444;
+}
+
+[data-theme="dark"] .error-state h4 {
+    color: #ef4444;
+}
+
+[data-theme="dark"] .summary-item {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .summary-item:hover {
+    background: #404040;
+}
+
+[data-theme="dark"] .summary-item.primary {
+    background: linear-gradient(135deg, #0d6efd, #084298);
+    border-color: #084298;
+}
+
+[data-theme="dark"] .summary-item.highlight {
+    background: linear-gradient(135deg, #198754, #20c997);
+    border-color: #20c997;
+}
+
+[data-theme="dark"] .payment-breakdown {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .chart-label {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .view-select {
+    background: #2d2d2d;
+    border-color: #404040;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .view-select:focus {
+    border-color: #0d6efd;
+}
+
+[data-theme="dark"] .control-btn {
+    background: #0d6efd;
+}
+
+[data-theme="dark"] .control-btn:hover {
+    background: #084298;
+}
+
+[data-theme="dark"] .schedule-table th {
+    background: #2d2d2d;
+    color: #d1d5db;
+    border-bottom-color: #404040;
+}
+
+[data-theme="dark"] .schedule-table td {
+    color: #ffffff;
+    border-bottom-color: #404040;
+}
+
+[data-theme="dark"] .schedule-row:hover {
+    background: #2d2d2d;
+}
+
+[data-theme="dark"] .schedule-row:nth-child(even) {
+    background: #232323;
+}
+
+[data-theme="dark"] .schedule-row:nth-child(even):hover {
+    background: #2d2d2d;
+}
+
+[data-theme="dark"] .schedule-gap {
+    background: #2d2d2d;
+}
+
+[data-theme="dark"] .expand-btn {
+    background: #0d6efd;
+}
+
+[data-theme="dark"] .expand-btn:hover {
+    background: #084298;
+}
+
+[data-theme="dark"] .info-card {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .info-card h3 {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .preset-btn {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .preset-btn:hover {
+    background: #404040;
+    border-color: #0d6efd;
+}
+
+[data-theme="dark"] .preset-name {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .preset-desc {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .comparison-section {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .comparison-item {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .comparison-item.current {
+    background: linear-gradient(135deg, #1e3a8a, #1d4ed8);
+    border-color: #3b82f6;
+}
+
+[data-theme="dark"] .comparison-item h4 {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .comparison-item.current h4 {
+    color: #93c5fd;
+}
+
+[data-theme="dark"] .detail-label {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .detail-value {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .savings-summary {
+    background: linear-gradient(135deg, #064e3b, #065f46);
+    border-color: #065f46;
+}
+
+[data-theme="dark"] .savings-label {
+    color: #6ee7b7;
+}
+
+[data-theme="dark"] .savings-value {
+    color: #6ee7b7;
+}
+
+[data-theme="dark"] .feature-item {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .feature-item:hover {
+    background: #404040;
+}
+
+[data-theme="dark"] .feature-content h4 {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .feature-content p {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .term-item {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .term-item h4 {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .term-item p {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .tip-item {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .notification {
+    background: #198754;
+}

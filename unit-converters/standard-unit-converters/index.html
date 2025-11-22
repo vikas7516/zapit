@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Standard Unit Converters - Unit Converters - Zapit</title>
+	<meta name="description" content="Convert length, area, volume, weight, temperature, speed, and time units instantly. Precise, accessible, and exportable results in your browser.">
+	<meta property="og:title" content="Standard Unit Converters - Zapit">
+	<meta property="og:description" content="All-in-one unit converter for length, weight, area, volume, temperature, speed, and time.">
+	<meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+	<link rel="canonical" href="https://zapit.me/unit-converters/standard-unit-converters">
+	<link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+	<link id="tool-theme-css" rel="stylesheet" href="light.css">
+	<link rel="stylesheet" href="/assets/elements/theme-toggle.css">
+	<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+	<link rel="icon" href="/icons/favicon.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+	<link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+	<header class="site-header">
+		<div class="container">
+			<div class="header-nav">
+				<a href="/index.html" class="brand" aria-label="Zapit Home">
+					<img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+					<span class="brand-text">
+						<span class="brand-title">Zapit</span>
+						<span class="brand-tagline">A Zap Away From Done</span>
+					</span>
+				</a>
+				<div class="header-right">
+					<nav class="breadcrumb">
+						<a href="/">Home</a>
+						<span class="separator">/</span>
+						<a href="/unit-converters">Unit Converters</a>
+						<span class="separator">/</span>
+						<span class="current">Standard Unit Converters</span>
+					</nav>
+					<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+						<span class="theme-toggle-icon">🌙</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="tool-hero">
+			<div class="container">
+				<div class="tool-hero-content">
+					<div class="tool-icon-large">📏</div>
+					<h1 class="tool-title">Standard Unit Converters</h1>
+					<p class="tool-description">Switch between metric and imperial units for length, area, volume, weight, temperature, speed, and time. Swap directions, adjust precision, and export results instantly.</p>
+					<div class="tool-meta">
+						<span class="meta-pill">7 Categories</span>
+						<span class="meta-pill">Swap &amp; Copy</span>
+						<span class="meta-pill">CSV Export</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="tool-interface">
+			<div class="container">
+				<div class="tool-layout">
+					<div class="tool-card span-7" aria-labelledby="input-heading">
+						<div class="section-header">
+							<h2 id="input-heading">Convert a Value</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="loadSampleBtn">Load Sample</button>
+								<button type="button" class="btn btn-secondary" id="clearBtn">Clear</button>
+							</div>
+						</div>
+						<div class="field">
+							<label for="valueInput">Value to convert</label>
+							<input type="number" id="valueInput" class="text-input" placeholder="Enter a number" step="any" aria-describedby="valueHelp">
+						</div>
+						<div class="field">
+							<label for="categorySelect">Measurement category</label>
+							<select id="categorySelect" class="select-input" aria-describedby="categoryHelp"></select>
+						</div>
+						<div class="multi-field">
+							<div class="field">
+								<label for="fromUnitSelect">From unit</label>
+								<select id="fromUnitSelect" class="select-input"></select>
+							</div>
+							<button type="button" class="btn btn-secondary swap-btn" id="swapBtn" aria-label="Swap units">
+								<span class="swap-icon">⇄</span>
+								<span class="swap-text">Swap</span>
+							</button>
+							<div class="field">
+								<label for="toUnitSelect">To unit</label>
+								<select id="toUnitSelect" class="select-input"></select>
+							</div>
+						</div>
+						<div class="helper-row" id="valueHelp">
+							<span class="helper-text" id="valueSummary">Awaiting input.</span>
+							<span class="helper-text" id="categoryHelp">Select a category to populate units.</span>
+						</div>
+						<div class="notification hidden" id="statusBanner" role="status"></div>
+					</div>
+
+					<div class="tool-card span-5" aria-labelledby="options-heading">
+						<div class="section-header">
+							<h2 id="options-heading">Options &amp; Actions</h2>
+						</div>
+						<div class="options-stack">
+							<div class="field">
+								<label for="precisionInput">Decimal precision</label>
+								<input type="number" id="precisionInput" class="text-input compact" min="0" max="10" value="2">
+							</div>
+							<div class="toggle-grid">
+								<label class="checkbox">
+									<input type="checkbox" id="autoUpdateToggle" checked>
+									<span>Auto-update as you type</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="showFormulaToggle" checked>
+									<span>Show conversion formula</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="showAllToggle" checked>
+									<span>Show all equivalent units</span>
+								</label>
+							</div>
+							<div class="button-row">
+								<button type="button" class="btn btn-primary" id="convertBtn">Convert Now</button>
+								<button type="button" class="btn btn-outline" id="copyResultBtn">Copy Result</button>
+								<button type="button" class="btn btn-outline" id="downloadCsvBtn">Download CSV</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="tool-card span-12" aria-labelledby="results-heading">
+						<div class="section-header">
+							<h2 id="results-heading">Conversion Result</h2>
+							<div class="toolbar">
+								<span class="badge" id="resultBadge">Result pending</span>
+								<span class="badge muted" id="categoryBadge">No category selected</span>
+							</div>
+						</div>
+						<div class="result-display" role="region" aria-live="polite">
+							<div class="result-value" id="resultValue">Enter a value to convert</div>
+							<div class="result-formula" id="resultFormula">Formula details will appear here when available.</div>
+						</div>
+						<div class="conversion-table-wrapper" id="conversionTableWrapper">
+							<table class="conversion-table" aria-describedby="results-heading">
+								<thead>
+									<tr>
+										<th scope="col">Unit</th>
+										<th scope="col">Symbol</th>
+										<th scope="col">Converted value</th>
+									</tr>
+								</thead>
+								<tbody id="conversionTableBody">
+									<tr class="placeholder">
+										<td colspan="3">Full equivalence table appears here after conversion.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class="tool-card span-5 stats-card" aria-labelledby="stats-heading">
+						<div class="section-header">
+							<h2 id="stats-heading">Quick Stats</h2>
+						</div>
+						<div class="stats-grid">
+							<div class="stat-item">
+								<span class="stat-label">Input</span>
+								<span class="stat-value" id="inputStat">–</span>
+							</div>
+							<div class="stat-item">
+								<span class="stat-label">Output</span>
+								<span class="stat-value" id="outputStat">–</span>
+							</div>
+							<div class="stat-item">
+								<span class="stat-label">Base value</span>
+								<span class="stat-value" id="baseStat">–</span>
+							</div>
+							<div class="stat-item">
+								<span class="stat-label">Precision</span>
+								<span class="stat-value" id="precisionStat">2 decimals</span>
+							</div>
+						</div>
+						<p class="stats-note" id="statsNote" role="status" aria-live="polite">Awaiting input.</p>
+					</div>
+
+					<div class="tool-card span-7 info-card" aria-labelledby="tips-heading">
+						<div class="section-header">
+							<h2 id="tips-heading">Category Insights</h2>
+						</div>
+						<ul class="tips-list" id="tipsList">
+							<li>Select a measurement category to see the most relevant units and quick tips.</li>
+							<li>Use the swap button to reverse any conversion instantly.</li>
+							<li>Download the full conversion table as CSV for documentation or spreadsheets.</li>
+							<li>Adjust precision to suit reporting needs—higher precision for science, lower for everyday use.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<div class="footer-brand-row">
+						<img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+						<span class="footer-brand-text">
+							<h3 class="footer-logo">Zapit</h3>
+							<div class="footer-tagline">A Zap Away From Done</div>
+						</span>
+					</div>
+					<p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+					<div class="footer-copyright">© Zapit. All rights reserved.</div>
+				</div>
+				<div class="footer-links">
+					<h4 class="footer-title">Legal</h4>
+					<ul class="footer-list">
+						<li><a href="/privacy.html">Privacy Policy</a></li>
+						<li><a href="/terms.html">Terms of Service</a></li>
+						<li><a href="/contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/js/global.js" defer></script>
+	<script src="app.js" defer></script>
+	<script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+	<script>
+		(function () {
+			const toolTheme = document.getElementById('tool-theme-css');
+			if (!toolTheme) return;
+
+			function applyTheme(theme) {
+				const next = theme === 'dark' ? 'dark.css' : 'light.css';
+				if (toolTheme.getAttribute('href') !== next) {
+					toolTheme.setAttribute('href', next);
+				}
+			}
+
+			const current = document.documentElement.getAttribute('data-theme') || 'light';
+			applyTheme(current);
+
+			const observer = new MutationObserver(function (mutations) {
+				mutations.forEach(function (mutation) {
+					if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+						const theme = document.documentElement.getAttribute('data-theme') || 'light';
+						applyTheme(theme);
+					}
+				});
+			});
+
+			observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+		})();
+	</script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hash Generator - Security Tools - Zapit</title>
+    <meta name="description" content="Generate cryptographic hashes including MD5, SHA-1, SHA-256, SHA-512, and more. Free online hash calculator with multiple algorithms.">
+    <meta property="og:title" content="Hash Generator - Zapit">
+    <meta property="og:description" content="Generate cryptographic hashes with multiple algorithms">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/security-tools/hash-generator">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb">
+                        <a href="/">Home</a>
+                        <span class="separator">/</span>
+                        <a href="/security-tools">Security Tools</a>
+                        <span class="separator">/</span>
+                        <span class="current">Hash Generator</span>
+                    </nav>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <span class="theme-toggle-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+        <div class="container">
+            <div class="tool-hero-content">
+                <div class="tool-icon-large">#️⃣</div>
+                <h1 class="tool-title">Hash Generator</h1>
+                <p class="tool-description">Generate cryptographic hashes with multiple algorithms</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Interface -->
+    <section class="tool-interface">
+        <div class="container">
+            <div class="tool-container">
+                <!-- Input Panel -->
+                <div class="input-panel">
+                    <h3>Input</h3>
+                    <div class="input-section">
+                        <label for="inputText" class="input-label">Text to Hash:</label>
+                        <textarea id="inputText" class="hash-input" placeholder="Enter text to generate hash..." rows="8"></textarea>
+                        
+                        <div class="input-options">
+                            <div class="file-upload-section">
+                                <label for="fileInput" class="file-upload-label">
+                                    📁 Or select a file to hash
+                                </label>
+                                <input type="file" id="fileInput" class="file-input" accept="*/*">
+                                <div class="file-info" id="fileInfo"></div>
+                            </div>
+                            
+                            <div class="input-encoding">
+                                <label for="inputEncoding">Input Encoding:</label>
+                                <select id="inputEncoding" class="select-input">
+                                    <option value="utf8">UTF-8</option>
+                                    <option value="ascii">ASCII</option>
+                                    <option value="base64">Base64</option>
+                                    <option value="hex">Hexadecimal</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button id="generateBtn" class="btn btn-primary">Generate Hashes</button>
+                            <button id="clearBtn" class="btn btn-outline">Clear All</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="results-panel">
+                    <h3>Hash Results</h3>
+                    <div class="hash-results" id="hashResults">
+                        <div class="empty-state">
+                            <p>Enter text or select a file to generate hashes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Algorithm Selection -->
+                <div class="algorithms-panel">
+                    <h3>Hash Algorithms</h3>
+                    <div class="algorithm-grid">
+                        <label class="algorithm-option">
+                            <input type="checkbox" id="md5" checked>
+                            <span class="algorithm-name">MD5</span>
+                            <span class="algorithm-desc">128-bit (32 hex chars)</span>
+                        </label>
+                        <label class="algorithm-option">
+                            <input type="checkbox" id="sha1" checked>
+                            <span class="algorithm-name">SHA-1</span>
+                            <span class="algorithm-desc">160-bit (40 hex chars)</span>
+                        </label>
+                        <label class="algorithm-option">
+                            <input type="checkbox" id="sha256" checked>
+                            <span class="algorithm-name">SHA-256</span>
+                            <span class="algorithm-desc">256-bit (64 hex chars)</span>
+                        </label>
+                        <label class="algorithm-option">
+                            <input type="checkbox" id="sha384">
+                            <span class="algorithm-name">SHA-384</span>
+                            <span class="algorithm-desc">384-bit (96 hex chars)</span>
+                        </label>
+                        <label class="algorithm-option">
+                            <input type="checkbox" id="sha512">
+                            <span class="algorithm-name">SHA-512</span>
+                            <span class="algorithm-desc">512-bit (128 hex chars)</span>
+                        </label>
+                    </div>
+
+                    <div class="output-options">
+                        <h4>Output Format</h4>
+                        <div class="format-options">
+                            <label class="format-option">
+                                <input type="radio" name="outputFormat" value="hex" checked>
+                                Hexadecimal (lowercase)
+                            </label>
+                            <label class="format-option">
+                                <input type="radio" name="outputFormat" value="HEX">
+                                Hexadecimal (uppercase)
+                            </label>
+                            <label class="format-option">
+                                <input type="radio" name="outputFormat" value="base64">
+                                Base64
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="quick-actions">
+                        <button id="selectAllBtn" class="btn btn-outline btn-sm">Select All</button>
+                        <button id="selectNoneBtn" class="btn btn-outline btn-sm">Select None</button>
+                        <button id="selectCommonBtn" class="btn btn-outline btn-sm">Common Only</button>
+                    </div>
+                </div>
+
+                <!-- Hash Comparison -->
+                <div class="comparison-panel">
+                    <h3>Hash Verification</h3>
+                    <div class="verification-section">
+                        <label for="compareHash">Compare with known hash:</label>
+                        <div class="compare-input-group">
+                            <input type="text" id="compareHash" class="text-input" placeholder="Enter hash to compare...">
+                            <button id="compareBtn" class="btn btn-outline">Compare</button>
+                        </div>
+                        <div class="comparison-result" id="comparisonResult"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Information Section -->
+    <section class="tool-info-section">
+        <div class="container">
+            <h2 class="section-title">About Hash Generator</h2>
+            <div class="tool-info-content">
+                <p>Our Hash Generator is a comprehensive tool for creating cryptographic hashes using multiple algorithms. Whether you need MD5 for legacy compatibility, SHA-256 for modern security, or other hash functions for specific requirements, this tool provides fast, secure, client-side processing while keeping your data private.</p>
+                
+                <div class="tool-benefits">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🔒</div>
+                        <div class="benefit-content">
+                            <h4>Multiple Algorithms</h4>
+                            <p>Support for MD5, SHA-1, SHA-256, SHA-512, and other popular hash functions</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">⚡</div>
+                        <div class="benefit-content">
+                            <h4>Fast Processing</h4>
+                            <p>Instant hash generation with efficient client-side algorithms</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🛡️</div>
+                        <div class="benefit-content">
+                            <h4>100% Private</h4>
+                            <p>All processing happens locally - your data never leaves your browser</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">📁</div>
+                        <div class="benefit-content">
+                            <h4>File & Text Support</h4>
+                            <p>Hash both text input and uploaded files with drag-and-drop support</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Information Section -->
+    <section class="info-section">
+        <div class="container">
+            <h2 class="section-title">How to Use Hash Generator</h2>
+            <div class="usage-steps">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Enter Text or Select File</h4>
+                        <p>Type text in the input area or select a file to generate hashes for its contents.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Choose Algorithms</h4>
+                        <p>Select which hash algorithms to use: MD5, SHA-1, SHA-256, SHA-384, or SHA-512.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Generate & Copy</h4>
+                        <p>Click "Generate Hashes" to create hashes, then copy the results for use.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-features">
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <h4>Multiple Algorithms</h4>
+                    <p>Support for MD5, SHA-1, SHA-256, SHA-384, and SHA-512 hash functions</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📁</div>
+                    <h4>File Support</h4>
+                    <p>Generate hashes for both text input and uploaded files</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <h4>Multiple Formats</h4>
+                    <p>Output in hexadecimal (upper/lower case) or Base64 format</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🛡️</div>
+                    <h4>Client-Side Processing</h4>
+                    <p>All hashing happens locally - your data never leaves your browser</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Tools Section -->
+    <section class="related-tools-section">
+        <div class="container">
+            <h2 class="section-title">Explore More Security Tools</h2>
+            <div class="related-tools-grid">
+                <a href="../password-strength-analyzer/" class="tool-card">
+                    <div class="tool-card-icon">🔐</div>
+                    <h3>Password Strength Analyzer</h3>
+                    <p>Analyze password security with comprehensive strength testing and breach detection</p>
+                </a>
+                <a href="../password-generator/" class="tool-card">
+                    <div class="tool-card-icon">🔑</div>
+                    <h3>Password Generator</h3>
+                    <p>Generate strong, secure passwords with customizable options and criteria</p>
+                </a>
+                <a href="../totp-generator/" class="tool-card">
+                    <div class="tool-card-icon">⏰</div>
+                    <h3>TOTP Generator</h3>
+                    <p>Generate time-based one-time passwords for two-factor authentication</p>
+                </a>
+                <a href="../text-encryption/" class="tool-card">
+                    <div class="tool-card-icon">🔒</div>
+                    <h3>Text Encryption</h3>
+                    <p>Encrypt and decrypt text using AES encryption with multiple cipher modes</p>
+                </a>
+                <a href="../uuid-generator/" class="tool-card">
+                    <div class="tool-card-icon">🆔</div>
+                    <h3>UUID Generator</h3>
+                    <p>Generate unique identifiers in multiple formats with bulk generation support</p>
+                </a>
+                <a href="/dev-tools/" class="tool-card">
+                    <div class="tool-card-icon">⚙️</div>
+                    <h3>Developer Tools</h3>
+                    <p>Comprehensive suite of development utilities and code helpers</p>
+                </a>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/assets/js/global.js"></script>
+    <script src="app.js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    
+    <!-- Tool Theme Handler -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle tool-specific theme CSS switching
+        const toolThemeLink = document.getElementById('tool-theme-css');
+        if (toolThemeLink) {
+            // Initial theme setup
+            const savedTheme = localStorage.getItem('zapit-theme') || 'light';
+            toolThemeLink.href = savedTheme + '.css';
+            
+            // Listen for theme changes
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                        const theme = document.documentElement.getAttribute('data-theme') || 'light';
+                        toolThemeLink.href = theme + '.css';
+                    }
+                });
+            });
+            
+            observer.observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ['data-theme']
+            });
+        }
+    });
+    </script>
+</body>
+</html>

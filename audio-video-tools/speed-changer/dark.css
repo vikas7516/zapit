@@ -1,0 +1,650 @@
+/* Universal Audio Tools - Dark Theme */
+
+/* Upload Section */
+.upload-section {
+    background: #2c3e50;
+    border: 2px solid #34495e;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.upload-header {
+    margin-bottom: 1.5rem;
+}
+
+.upload-header h3 {
+    color: #ecf0f1;
+    margin-bottom: 0.5rem;
+}
+
+.file-info, .file-count {
+    color: #bdc3c7;
+    font-size: 0.9rem;
+}
+
+.upload-area {
+    border: 2px dashed #7f8c8d;
+    border-radius: 8px;
+    padding: 3rem 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #34495e;
+}
+
+.upload-area:hover {
+    border-color: #3498db;
+    background: #3c536a;
+}
+
+.upload-area.dragover {
+    border-color: #2980b9;
+    background: #2c3e50;
+}
+
+.upload-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.upload-text {
+    color: #ecf0f1;
+    margin-bottom: 0.5rem;
+}
+
+.upload-text strong {
+    color: #3498db;
+}
+
+.upload-formats, .upload-note {
+    color: #bdc3c7;
+    font-size: 0.85rem;
+}
+
+.add-more-section {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.btn-add-more, .btn-clear-all {
+    padding: 0.5rem 1rem;
+    border: 2px solid #3498db;
+    background: #2c3e50;
+    color: #3498db;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.btn-clear-all {
+    border-color: #e74c3c;
+    color: #e74c3c;
+}
+
+.btn-add-more:hover {
+    background: #3498db;
+    color: #ffffff;
+}
+
+.btn-clear-all:hover {
+    background: #e74c3c;
+    color: #ffffff;
+}
+
+/* Main Sections */
+.speed-section, .tracklist-section, .merge-section, .analysis-section, .effects-section, .silence-section, .noise-section {
+    background: #2c3e50;
+    border: 2px solid #34495e;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.speed-header, .tracklist-header, .merge-header, .analysis-header, .effects-header, .silence-header, .noise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.speed-header h3, .tracklist-header h3, .merge-header h3, .analysis-header h3, .effects-header h3, .silence-header h3, .noise-header h3 {
+    color: #ecf0f1;
+    margin: 0;
+}
+
+/* Controls */
+.audio-controls, .merge-controls {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.btn-play, .btn-stop, .btn-play-modified, .btn-play-all, .btn-export, .btn-snapshot, .btn-preview {
+    padding: 0.5rem 1rem;
+    border: 2px solid #3498db;
+    background: #2c3e50;
+    color: #3498db;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.btn-play:hover, .btn-stop:hover, .btn-play-modified:hover, .btn-play-all:hover, .btn-export:hover, .btn-snapshot:hover, .btn-preview:hover {
+    background: #3498db;
+    color: #ffffff;
+}
+
+.btn-export {
+    border-color: #27ae60;
+    color: #27ae60;
+}
+
+.btn-export:hover {
+    background: #27ae60;
+}
+
+/* Speed Controls */
+.speed-controls, .effects-controls, .silence-controls, .noise-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.control-group, .option-group {
+    border: 2px solid #34495e;
+    border-radius: 8px;
+    padding: 1.5rem;
+    background: #34495e;
+}
+
+.control-title, .option-title {
+    color: #ecf0f1;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.speed-slider-container, .pitch-slider-container, .slider-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.speed-slider-container input, .pitch-slider-container input, .slider-container input[type="range"] {
+    width: 100%;
+    height: 6px;
+    background: #4a5f79;
+    border-radius: 3px;
+    outline: none;
+}
+
+.speed-slider-container input::-webkit-slider-thumb, .pitch-slider-container input::-webkit-slider-thumb, .slider-container input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #3498db;
+    cursor: pointer;
+    border: 2px solid #2c3e50;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.speed-display, .pitch-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.speed-value, .pitch-value, .slider-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ecf0f1;
+    min-width: 80px;
+    text-align: center;
+    background: #4a5f79;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: 1px solid #34495e;
+}
+
+.speed-presets, .pitch-presets {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.preset-btn {
+    padding: 0.25rem 0.75rem;
+    border: 1px solid #7f8c8d;
+    background: #34495e;
+    color: #ecf0f1;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.preset-btn:hover, .preset-btn.active {
+    background: #3498db;
+    color: #ffffff;
+    border-color: #3498db;
+}
+
+.control-help, .setting-help {
+    color: #bdc3c7;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+/* Mode Selection */
+.mode-selection {
+    border: 2px solid #34495e;
+    border-radius: 8px;
+    padding: 1.5rem;
+    background: #34495e;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.radio-option {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    cursor: pointer;
+    padding: 0.75rem;
+    border: 2px solid #4a5f79;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background: #4a5f79;
+}
+
+.radio-option:hover {
+    border-color: #3498db;
+    background: #5a7296;
+}
+
+.radio-option input[type="radio"] {
+    margin-right: 0.5rem;
+}
+
+.radio-label {
+    color: #ecf0f1;
+    font-weight: 500;
+}
+
+.radio-option small {
+    color: #bdc3c7;
+    font-size: 0.85rem;
+    margin-left: 1.5rem;
+}
+
+/* Checkbox Groups */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.checkbox-option {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    cursor: pointer;
+    padding: 0.75rem;
+    border: 2px solid #4a5f79;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background: #4a5f79;
+}
+
+.checkbox-option:hover {
+    border-color: #3498db;
+    background: #5a7296;
+}
+
+.checkbox-option input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+.checkbox-label {
+    color: #ecf0f1;
+    font-weight: 500;
+}
+
+.checkbox-option small {
+    color: #bdc3c7;
+    font-size: 0.85rem;
+    margin-left: 1.5rem;
+}
+
+/* Info Cards and Stats */
+.preview-info, .merge-stats, .modification-stats, .processed-stats {
+    margin-top: 2rem;
+}
+
+.info-cards, .track-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.info-card, .stat-item {
+    background: #34495e;
+    border: 2px solid #4a5f79;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.info-label, .stat-item span:first-child {
+    font-size: 0.8rem;
+    color: #bdc3c7;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+.info-value, .stat-item span:last-child {
+    font-size: 1.2rem;
+    color: #ecf0f1;
+    font-weight: bold;
+}
+
+/* Track List */
+.tracks-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.track-item {
+    background: #34495e;
+    border: 2px solid #4a5f79;
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.track-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+}
+
+.track-name {
+    color: #ecf0f1;
+    font-weight: 500;
+}
+
+.track-duration {
+    color: #bdc3c7;
+    font-size: 0.9rem;
+}
+
+.track-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-track-play, .btn-track-remove {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #7f8c8d;
+    background: #34495e;
+    color: #ecf0f1;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.btn-track-remove {
+    border-color: #e74c3c;
+    color: #e74c3c;
+}
+
+.btn-track-play:hover {
+    background: #3498db;
+    color: #ffffff;
+    border-color: #3498db;
+}
+
+.btn-track-remove:hover {
+    background: #e74c3c;
+    color: #ffffff;
+}
+
+/* Waveform */
+.waveform-container {
+    background: #1a252f;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+#waveformCanvas {
+    width: 100%;
+    border-radius: 4px;
+    background: #2c3e50;
+}
+
+.waveform-info {
+    margin-top: 0.5rem;
+    text-align: center;
+    color: #ecf0f1;
+    font-size: 0.9rem;
+}
+
+/* Export Section */
+.export-section {
+    background: #2c3e50;
+    border: 2px solid #34495e;
+    border-radius: 12px;
+    padding: 2rem;
+}
+
+.export-header h3 {
+    color: #ecf0f1;
+    margin-bottom: 1.5rem;
+}
+
+.export-settings {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.setting-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.setting-group label {
+    color: #ecf0f1;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.setting-group select {
+    padding: 0.75rem;
+    border: 2px solid #34495e;
+    border-radius: 6px;
+    background: #34495e;
+    color: #ecf0f1;
+}
+
+.export-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.btn-process, .btn-download {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-process {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: #ffffff;
+}
+
+.btn-process:hover {
+    background: linear-gradient(135deg, #2980b9, #2471a3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+}
+
+.btn-download {
+    background: linear-gradient(135deg, #27ae60, #229954);
+    color: #ffffff;
+}
+
+.btn-download:hover {
+    background: linear-gradient(135deg, #229954, #1e8449);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.4);
+}
+
+.processed-audio-player {
+    background: #34495e;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 2px solid #4a5f79;
+}
+
+.processed-audio-player h4 {
+    color: #ecf0f1;
+    margin-bottom: 1rem;
+}
+
+.processed-audio-player audio {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+/* Progress Indicators */
+.progress-container {
+    background: #34495e;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #4a5f79;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3498db, #2980b9);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+.progress-text {
+    color: #bdc3c7;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .speed-header, .tracklist-header, .merge-header, .analysis-header, .effects-header, .silence-header, .noise-header {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+    
+    .speed-display, .pitch-display {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .export-actions {
+        flex-direction: column;
+    }
+    
+    .btn-process, .btn-download {
+        justify-content: center;
+    }
+    
+    .track-item {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .track-controls {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .upload-section, .speed-section, .tracklist-section, .merge-section, .export-section, .analysis-section, .effects-section, .silence-section, .noise-section {
+        padding: 1rem;
+    }
+    
+    .upload-area {
+        padding: 2rem 1rem;
+    }
+    
+    .control-group, .option-group, .mode-selection {
+        padding: 1rem;
+    }
+    
+    .speed-presets, .pitch-presets {
+        justify-content: center;
+    }
+    
+    .info-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }

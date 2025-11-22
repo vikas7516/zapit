@@ -1,0 +1,34 @@
+/* Color preset styles */
+.color-preset {
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--border-color, #e5e7eb);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.color-preset:hover {
+    transform: scale(1.1);
+    border-color: var(--primary-color, #3b82f6);
+}
+
+.color-preset.white {
+    background-color: #ffffff;
+}
+
+.color-preset.black {
+    background-color: #000000;
+}
+
+.color-preset.red {
+    background-color: #ff0000;
+}
+
+.color-preset.green {
+    background-color: #00ff00;
+}
+
+.color-preset.blue {
+    background-color: #0000ff;
+}

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Cost Calculator - Zapit Financial Tools</title>
+    <meta name="description" content="Calculate fuel costs for trips, daily commutes, and annual driving expenses. Compare fuel efficiency and plan your travel budget accurately.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link rel="canonical" href="https://zapit.me/financial-calculators/fuel-cost-calculator">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="calculator-container">
+            <div class="calculator-header">
+                <h1>⛽ Fuel Cost Calculator</h1>
+                <p>Calculate fuel costs for trips, daily commutes, and annual driving expenses. Compare fuel efficiency and plan your travel budget accurately.</p>
+            </div>
+
+            <div class="calculator-grid">
+                <div class="calculator-card">
+                    <h3>Vehicle Details</h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="fuelEfficiency">Fuel Efficiency (Mileage)</label>
+                        <div class="input-group">
+                            <input type="number" id="fuelEfficiency" class="form-input has-suffix" value="15" min="1" max="50" step="0.1">
+                            <span class="input-suffix">km/l</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="fuelType">Fuel Type</label>
+                        <select id="fuelType" class="form-select">
+                            <option value="petrol">Petrol</option>
+                            <option value="diesel">Diesel</option>
+                            <option value="cng">CNG</option>
+                            <option value="electric">Electric</option>
+                        </select>
+                        <div class="fuel-type-selector">
+                            <button class="fuel-btn active" data-fuel="petrol">Petrol</button>
+                            <button class="fuel-btn" data-fuel="diesel">Diesel</button>
+                            <button class="fuel-btn" data-fuel="cng">CNG</button>
+                            <button class="fuel-btn" data-fuel="electric">Electric</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="fuelPrice">Current Fuel Price</label>
+                        <div class="input-group">
+                            <span class="input-prefix">₹</span>
+                            <input type="number" id="fuelPrice" class="form-input has-prefix has-suffix" value="95" min="0" step="0.1">
+                            <span class="input-suffix" id="priceUnit">/liter</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="vehicleType">Vehicle Type</label>
+                        <select id="vehicleType" class="form-select">
+                            <option value="car">Car</option>
+                            <option value="motorcycle">Motorcycle</option>
+                            <option value="scooter">Scooter</option>
+                            <option value="suv">SUV</option>
+                            <option value="truck">Truck</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="calculator-card">
+                    <h3>Trip Details</h3>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="distance">Distance</label>
+                        <div class="input-group">
+                            <input type="number" id="distance" class="form-input has-suffix" value="100" min="0" step="0.1">
+                            <span class="input-suffix">km</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="tripType">Trip Type</label>
+                        <select id="tripType" class="form-select">
+                            <option value="one-way">One Way</option>
+                            <option value="round-trip">Round Trip</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="passengers">Number of Passengers</label>
+                        <input type="number" id="passengers" class="form-input" value="1" min="1" max="8">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="tollCharges">Toll Charges (Optional)</label>
+                        <div class="input-group">
+                            <span class="input-prefix">₹</span>
+                            <input type="number" id="tollCharges" class="form-input has-prefix" value="0" min="0" step="10">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="parkingCharges">Parking Charges (Optional)</label>
+                        <div class="input-group">
+                            <span class="input-prefix">₹</span>
+                            <input type="number" id="parkingCharges" class="form-input has-prefix" value="0" min="0" step="10">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calculator-card full-width results-section">
+                    <h3>Trip Cost Calculation</h3>
+                    
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <div class="result-label">Fuel Required</div>
+                            <div class="result-value" id="fuelRequired">0L</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Fuel Cost</div>
+                            <div class="result-value" id="fuelCost">₹0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Total Trip Cost</div>
+                            <div class="result-value large" id="totalCost">₹0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Cost Per Person</div>
+                            <div class="result-value" id="costPerPerson">₹0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-label">Cost Per Km</div>
+                            <div class="result-value" id="costPerKm">₹0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="trip-types">
+                        <div class="trip-card" id="dailyCommute">
+                            <div class="trip-icon">🚗</div>
+                            <div class="trip-title">Daily Commute</div>
+                            <div class="trip-cost" id="dailyCost">₹0</div>
+                        </div>
+                        <div class="trip-card" id="weeklyTrip">
+                            <div class="trip-icon">📅</div>
+                            <div class="trip-title">Weekly Cost</div>
+                            <div class="trip-cost" id="weeklyCost">₹0</div>
+                        </div>
+                        <div class="trip-card" id="monthlyTrip">
+                            <div class="trip-icon">🗓️</div>
+                            <div class="trip-title">Monthly Cost</div>
+                            <div class="trip-cost" id="monthlyCost">₹0</div>
+                        </div>
+                        <div class="trip-card" id="yearlyTrip">
+                            <div class="trip-icon">📊</div>
+                            <div class="trip-title">Yearly Cost</div>
+                            <div class="trip-cost" id="yearlyCost">₹0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comparison-section">
+                <h3>Fuel Type Comparison</h3>
+                <div class="comparison-grid" id="fuelComparison">
+                    <!-- Fuel comparisons will be generated here -->
+                </div>
+            </div>
+
+            <div class="annual-projection">
+                <h3>Annual Fuel Expense Projection</h3>
+                <div class="projection-grid">
+                    <div class="projection-card">
+                        <div class="projection-period">Current Year</div>
+                        <div class="projection-amount" id="currentYearCost">₹0</div>
+                    </div>
+                    <div class="projection-card">
+                        <div class="projection-period">With 5% Inflation</div>
+                        <div class="projection-amount" id="inflatedCost">₹0</div>
+                    </div>
+                    <div class="projection-card">
+                        <div class="projection-period">5 Year Total</div>
+                        <div class="projection-amount" id="fiveYearCost">₹0</div>
+                    </div>
+                    <div class="projection-card">
+                        <div class="projection-period">Potential Savings</div>
+                        <div class="projection-amount" id="potentialSavings">₹0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="efficiency-tips">
+                <div class="tips-title">
+                    💡 Fuel Efficiency Tips
+                </div>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-icon">🚗</div>
+                        <div class="tip-title">Maintain Speed</div>
+                        <div class="tip-desc">Drive at steady speeds between 50-80 km/h for optimal fuel efficiency</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">⚙️</div>
+                        <div class="tip-title">Regular Maintenance</div>
+                        <div class="tip-desc">Keep your engine tuned and tires properly inflated for better mileage</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">❄️</div>
+                        <div class="tip-title">Smart AC Usage</div>
+                        <div class="tip-desc">Use AC efficiently - at low speeds, use windows; at high speeds, use AC</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🎯</div>
+                        <div class="tip-title">Plan Routes</div>
+                        <div class="tip-desc">Combine trips and use GPS to find shortest routes and avoid traffic</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">🚦</div>
+                        <div class="tip-title">Smooth Driving</div>
+                        <div class="tip-desc">Avoid sudden acceleration and braking to improve fuel economy</div>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">💨</div>
+                        <div class="tip-title">Reduce Weight</div>
+                        <div class="tip-desc">Remove unnecessary items from your vehicle to reduce fuel consumption</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

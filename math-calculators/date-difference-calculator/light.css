@@ -1,0 +1,913 @@
+/* Date Difference Calculator Light Theme */
+
+/* Tool Layout */
+.tool-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.tool-main {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Calculator Card */
+.calculator-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-light);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.card-header h3 {
+    color: #212529;
+    font-size: 1.3rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Mode Selection */
+.calculation-mode {
+    display: flex;
+    gap: 0.5rem;
+    background: #f8f9fa;
+    padding: 0.5rem;
+    border-radius: 12px;
+    border: 1px solid #dee2e6;
+}
+
+.mode-btn {
+    background: transparent;
+    color: #6c757d;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.mode-btn:hover {
+    background: #e9ecef;
+    color: #495057;
+}
+
+.mode-btn.active {
+    background: #007bff;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+/* Calculation Sections */
+.calculation-section {
+    animation: fadeIn 0.3s ease;
+}
+
+.calculation-section.hidden {
+    display: none;
+}
+
+/* Input Grid */
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-group label {
+    color: #495057;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.date-input, .time-input, .number-input, .text-input {
+    background: #ffffff;
+    border: 2px solid #dee2e6;
+    border-radius: 10px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    color: #212529;
+    transition: all 0.2s ease;
+}
+
+.date-input:focus, .time-input:focus, .number-input:focus, .text-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.time-input {
+    display: none;
+    margin-top: 0.5rem;
+}
+
+.number-input-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.operation-select {
+    background: #ffffff;
+    border: 2px solid #dee2e6;
+    border-radius: 10px;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    color: #212529;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+.operation-select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.number-input {
+    flex: 1;
+}
+
+/* Options Grid */
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Checkbox Styling */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    color: #495057;
+    font-size: 0.9rem;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    border: 2px solid #dee2e6;
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.checkbox-label:hover .checkmark {
+    border-color: #007bff;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark {
+    background: #007bff;
+    border-color: #007bff;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Radio Button Styling */
+.unit-selector {
+    margin-bottom: 1.5rem;
+}
+
+.unit-selector label {
+    color: #495057;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+.radio-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    color: #495057;
+    font-size: 0.9rem;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.radio-label input[type="radio"] {
+    display: none;
+}
+
+.radio-mark {
+    width: 18px;
+    height: 18px;
+    background: #ffffff;
+    border: 2px solid #dee2e6;
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.radio-label:hover .radio-mark {
+    border-color: #007bff;
+}
+
+.radio-label input[type="radio"]:checked + .radio-mark {
+    border-color: #007bff;
+    background: #007bff;
+}
+
+.radio-label input[type="radio"]:checked + .radio-mark::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+}
+
+/* Holiday Options */
+.holiday-options {
+    margin-bottom: 1.5rem;
+}
+
+.holiday-options label {
+    color: #495057;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.custom-holidays {
+    margin-top: 1rem;
+}
+
+.custom-holidays.hidden {
+    display: none;
+}
+
+.custom-holidays label {
+    color: #495057;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* Calculate Button */
+.calculate-btn {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.calculate-btn:hover {
+    background: linear-gradient(135deg, #218838, #1da88a);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+.calculate-btn:active {
+    transform: translateY(0);
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+}
+
+/* Results Card */
+.results-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-light);
+}
+
+.copy-btn {
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+    background: #5a6268;
+    transform: translateY(-1px);
+}
+
+/* Results Content */
+.results-placeholder, .error-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: #6c757d;
+}
+
+.placeholder-icon, .error-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.results-placeholder h4, .error-state h4 {
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+.error-state .error-icon {
+    color: #dc3545;
+}
+
+.error-state h4 {
+    color: #dc3545;
+}
+
+/* Result Summary */
+.result-summary {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.result-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.result-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #007bff;
+    line-height: 1;
+}
+
+.result-unit {
+    font-size: 1.1rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.result-breakdown {
+    color: #495057;
+    font-size: 1rem;
+}
+
+/* Result Details */
+.result-details {
+    margin-bottom: 2rem;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.detail-item {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    border: 1px solid #e9ecef;
+    transition: all 0.2s ease;
+}
+
+.detail-item:hover {
+    background: #e9ecef;
+    transform: translateY(-2px);
+}
+
+.detail-item.highlight {
+    background: linear-gradient(135deg, #e7f3ff, #cce7ff);
+    border-color: #007bff;
+}
+
+.detail-label {
+    display: block;
+    color: #6c757d;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-value {
+    display: block;
+    color: #212529;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.detail-item.highlight .detail-value {
+    color: #007bff;
+}
+
+/* Calculation Summary */
+.calculation-summary {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid #e9ecef;
+}
+
+.calc-step {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.calc-step:last-child {
+    border-bottom: none;
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    border-top: 2px solid #007bff;
+}
+
+.calc-step.result-step {
+    font-weight: 600;
+}
+
+.calc-label {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.calc-value {
+    color: #212529;
+    font-weight: 500;
+}
+
+.result-step .calc-value {
+    color: #007bff;
+    font-size: 1.1rem;
+}
+
+/* Result Dates */
+.result-dates {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid #e9ecef;
+    margin-bottom: 1.5rem;
+}
+
+.date-range {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.date-range:last-child {
+    margin-bottom: 0;
+}
+
+.date-label {
+    color: #6c757d;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.date-value {
+    color: #212529;
+    font-weight: 600;
+    font-family: 'Monaco', 'Menlo', monospace;
+}
+
+/* Result Info */
+.result-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.info-icon {
+    font-size: 1.1rem;
+}
+
+/* Holidays List */
+.holidays-list {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.holidays-list h4 {
+    color: #495057;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.holiday-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.holiday-item {
+    background: #fff3cd;
+    color: #856404;
+    padding: 0.25rem 0.75rem;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    border: 1px solid #ffeaa7;
+}
+
+/* Quick Actions */
+.quick-actions {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-light);
+}
+
+.quick-actions h4 {
+    color: #212529;
+    font-size: 1.1rem;
+    margin: 0 0 1rem 0;
+    font-weight: 600;
+}
+
+.quick-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.75rem;
+}
+
+.quick-btn {
+    background: #f8f9fa;
+    color: #495057;
+    border: 2px solid #dee2e6;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.quick-btn:hover {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+    transform: translateY(-2px);
+}
+
+/* Sidebar */
+.tool-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.info-card {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-light);
+}
+
+.info-card h3 {
+    color: #212529;
+    font-size: 1.1rem;
+    margin: 0 0 1rem 0;
+    font-weight: 600;
+}
+
+/* Feature List */
+.feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.feature-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    transition: all 0.2s ease;
+}
+
+.feature-item:hover {
+    background: #e9ecef;
+    transform: translateY(-1px);
+}
+
+.feature-icon {
+    font-size: 1.5rem;
+    min-width: 32px;
+}
+
+.feature-content h4 {
+    color: #212529;
+    font-size: 0.95rem;
+    margin: 0 0 0.25rem 0;
+    font-weight: 600;
+}
+
+.feature-content p {
+    color: #6c757d;
+    font-size: 0.85rem;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+}
+
+.feature-tag {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #f8f9fa;
+    padding: 0.75rem;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+    font-size: 0.8rem;
+    color: #495057;
+    transition: all 0.2s ease;
+}
+
+.feature-tag:hover {
+    background: #e9ecef;
+    transform: translateY(-1px);
+}
+
+.tag-icon {
+    font-size: 1rem;
+}
+
+/* Use Cases */
+.use-cases {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.use-case {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+}
+
+.use-case h4 {
+    color: #212529;
+    font-size: 0.9rem;
+    margin: 0 0 0.5rem 0;
+    font-weight: 600;
+}
+
+.use-case p {
+    color: #6c757d;
+    font-size: 0.8rem;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Tips List */
+.tips-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.tip-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    color: #495057;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.tip-icon {
+    font-size: 1rem;
+    margin-top: 0.1rem;
+}
+
+/* Notification */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #28a745;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    animation: slideInRight 0.3s ease;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .tool-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .tool-sidebar {
+        order: -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .calculator-card,
+    .results-card {
+        padding: 1.5rem;
+    }
+    
+    .input-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .options-grid,
+    .checkbox-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .calculation-mode {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .mode-btn {
+        justify-content: center;
+    }
+    
+    .detail-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .result-value {
+        font-size: 2rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-buttons {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .calculator-card,
+    .results-card,
+    .quick-actions,
+    .info-card {
+        padding: 1rem;
+    }
+    
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .number-input-group {
+        flex-direction: column;
+    }
+    
+    .radio-group {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .result-value {
+        font-size: 1.8rem;
+    }
+    
+    .quick-buttons {
+        grid-template-columns: 1fr;
+    }
+}

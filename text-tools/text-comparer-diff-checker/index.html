@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Text Comparer &amp; Diff Checker - Text Tools - Zapit</title>
+	<meta name="description" content="Compare two text snippets, highlight differences, and generate a shareable diff. Supports case sensitivity, whitespace normalization, and copy/download options.">
+	<meta property="og:title" content="Text Comparer &amp; Diff Checker - Zapit">
+	<meta property="og:description" content="Instantly find differences between two blocks of text with unified diff output and change stats.">
+	<meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+	<link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+	<link id="tool-theme-css" rel="stylesheet" href="light.css">
+	<link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+	<link rel="canonical" href="https://zapit.me/text-tools/text-comparer-diff-checker">
+	<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+	<link rel="icon" href="/icons/favicon.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+	<link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+	<header class="site-header">
+		<div class="container">
+			<div class="header-nav">
+				<a href="/index.html" class="brand" aria-label="Zapit Home">
+					<img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+					<span class="brand-text">
+						<span class="brand-title">Zapit</span>
+						<span class="brand-tagline">A Zap Away From Done</span>
+					</span>
+				</a>
+				<div class="header-right">
+					<nav class="breadcrumb">
+						<a href="/">Home</a>
+						<span class="separator">/</span>
+						<a href="/text-tools">Text Tools</a>
+						<span class="separator">/</span>
+						<span class="current">Text Comparer &amp; Diff Checker</span>
+					</nav>
+					<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+						<span class="theme-toggle-icon">🌙</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="tool-hero">
+			<div class="container">
+				<div class="tool-hero-content">
+					<div class="tool-icon-large">🆚</div>
+					<h1 class="tool-title">Text Comparer &amp; Diff Checker</h1>
+					<p class="tool-description">Spot changes between two versions of text at a glance. Normalize whitespace, ignore case, and export a unified diff without leaving your browser.</p>
+					<div class="tool-meta">
+						<span class="meta-pill">Unified Diff Output</span>
+						<span class="meta-pill">Whitespace Controls</span>
+						<span class="meta-pill">Copy &amp; Download</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="tool-interface">
+			<div class="container">
+				<div class="tool-layout">
+					<div class="tool-card span-12 compare-card" aria-labelledby="input-heading">
+						<div class="section-header">
+							<h2 id="input-heading">Texts to Compare</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="loadSampleBtn">Load Samples</button>
+								<button type="button" class="btn btn-secondary" id="clearBtn">Clear Both</button>
+								<button type="button" class="btn btn-outline" id="swapBtn">Swap</button>
+							</div>
+						</div>
+						<div class="compare-grid">
+							<div class="compare-panel" aria-labelledby="left-heading">
+								<div class="panel-header">
+									<h3 id="left-heading">Left Text</h3>
+									<button type="button" class="btn btn-outline" id="copyLeftBtn">Copy Left</button>
+								</div>
+								<label class="sr-only" for="leftText">Left text to compare</label>
+								<textarea id="leftText" class="text-input large" placeholder="Paste the original or base text here..."></textarea>
+							</div>
+							<div class="compare-panel" aria-labelledby="right-heading">
+								<div class="panel-header">
+									<h3 id="right-heading">Right Text</h3>
+									<button type="button" class="btn btn-outline" id="copyRightBtn">Copy Right</button>
+								</div>
+								<label class="sr-only" for="rightText">Right text to compare</label>
+								<textarea id="rightText" class="text-input large" placeholder="Paste the updated or target text here..."></textarea>
+							</div>
+						</div>
+						<div class="notification hidden" id="statusBanner" role="status"></div>
+					</div>
+
+					<div class="tool-card span-4" aria-labelledby="options-heading">
+						<div class="section-header">
+							<h2 id="options-heading">Diff Settings</h2>
+						</div>
+						<div class="option-grid">
+							<label class="checkbox">
+								<input type="checkbox" id="ignoreCase">
+								<span>Ignore case differences</span>
+							</label>
+							<label class="checkbox">
+								<input type="checkbox" id="trimWhitespace" checked>
+								<span>Trim lines before comparing</span>
+							</label>
+							<label class="checkbox">
+								<input type="checkbox" id="ignoreWhitespace">
+								<span>Ignore intra-line whitespace changes</span>
+							</label>
+							<label class="checkbox">
+								<input type="checkbox" id="collapseBlankLines" checked>
+								<span>Collapse consecutive blank lines</span>
+							</label>
+							<label class="checkbox">
+								<input type="checkbox" id="showLineNumbers" checked>
+								<span>Show line numbers</span>
+							</label>
+						</div>
+						<div class="button-row">
+							<button type="button" class="btn btn-primary" id="compareBtn">Compare Texts</button>
+							<button type="button" class="btn btn-outline" id="copyDiffBtn">Copy Diff</button>
+						</div>
+					</div>
+
+					<div class="tool-card span-8" aria-labelledby="summary-heading">
+						<div class="section-header">
+							<h2 id="summary-heading">Summary</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="downloadDiffBtn">Download Diff</button>
+							</div>
+						</div>
+						<div class="summary-grid">
+							<div class="summary-card">
+								<span class="summary-label">Added Lines</span>
+								<span class="summary-value" id="addedStat">0</span>
+							</div>
+							<div class="summary-card">
+								<span class="summary-label">Removed Lines</span>
+								<span class="summary-value" id="removedStat">0</span>
+							</div>
+							<div class="summary-card">
+								<span class="summary-label">Unchanged Lines</span>
+								<span class="summary-value" id="unchangedStat">0</span>
+							</div>
+							<div class="summary-card">
+								<span class="summary-label">Similarity</span>
+								<span class="summary-value" id="similarityStat">0%</span>
+							</div>
+							<div class="summary-card">
+								<span class="summary-label">Processing Time</span>
+								<span class="summary-value" id="timeStat">0 ms</span>
+							</div>
+						</div>
+						<div class="summary-note" id="summaryNote"></div>
+					</div>
+
+					<div class="tool-card span-12" aria-labelledby="diff-heading">
+						<div class="section-header">
+							<h2 id="diff-heading">Unified Diff</h2>
+						</div>
+						<pre id="diffOutput" class="diff-output" tabindex="0" aria-live="polite"></pre>
+					</div>
+
+					<div class="tool-card span-12 info-card">
+						<h2>Tips for Accurate Comparisons</h2>
+						<ul class="tips-list">
+							<li><strong>Normalize whitespace</strong> to ignore indentation changes when comparing code or markdown.</li>
+							<li><strong>Ignore case</strong> is ideal for prose updates where capitalization isn’t meaningful.</li>
+							<li><strong>Download diff</strong> to share changes with teammates or keep an audit trail.</li>
+							<li>Unified diff format uses <code>+</code> for additions and <code>-</code> for removals. Unchanged context lines keep alignment for quick review.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<div class="footer-brand-row">
+						<img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+						<span class="footer-brand-text">
+							<h3 class="footer-logo">Zapit</h3>
+							<div class="footer-tagline">A Zap Away From Done</div>
+						</span>
+					</div>
+					<p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+					<div class="footer-copyright">© Zapit. All rights reserved.</div>
+				</div>
+
+				<div class="footer-links">
+					<h4 class="footer-title">Legal</h4>
+					<ul class="footer-list">
+						<li><a href="/privacy.html">Privacy Policy</a></li>
+						<li><a href="/terms.html">Terms of Service</a></li>
+						<li><a href="/contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/js/global.js" defer></script>
+	<script src="app.js" defer></script>
+	<script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+	<script>
+		(function () {
+			const toolTheme = document.getElementById('tool-theme-css');
+			if (!toolTheme) return;
+
+			function applyTheme(theme) {
+				const next = theme === 'dark' ? 'dark.css' : 'light.css';
+				if (toolTheme.getAttribute('href') !== next) {
+					toolTheme.setAttribute('href', next);
+				}
+			}
+
+			const current = document.documentElement.getAttribute('data-theme') || 'light';
+			applyTheme(current);
+
+			const observer = new MutationObserver(function (mutations) {
+				mutations.forEach(function (mutation) {
+					if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+						const theme = document.documentElement.getAttribute('data-theme') || 'light';
+						applyTheme(theme);
+					}
+				});
+			});
+
+			observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+		})();
+	</script>
+</body>
+</html>

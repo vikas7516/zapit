@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Visualizer - Audio & Video Tools - Zapit</title>
+    <meta name="description" content="Visualize audio files with real-time frequency spectrum and waveform display. Upload audio and see beautiful visualizations.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/audio-video-tools/audio-visualizer">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">📊</div>
+                    <h1 class="tool-title">Audio Visualizer</h1>
+                    <p class="tool-description">Visualize audio files with real-time frequency spectrum and waveform display</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-layout">
+                    <!-- Upload Section -->
+                    <div class="upload-section" id="uploadSection">
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-icon">🎵</div>
+                            <div class="upload-text">
+                                <h3>Drop your audio file here</h3>
+                                <p>or <span class="browse-link">click to browse</span></p>
+                                <div class="upload-formats">MP3, WAV, OGG, AAC • Max 50MB</div>
+                            </div>
+                            <input type="file" id="fileInput" accept="audio/*" hidden>
+                        </div>
+                        <div class="upload-error" id="uploadError"></div>
+                    </div>
+
+                    <!-- Controls Section -->
+                    <div class="controls-section hidden" id="controlsSection">
+                        <div class="controls-header">
+                            <h3>Audio Controls</h3>
+                            <button class="btn-secondary" id="resetBtn">Reset</button>
+                        </div>
+
+                        <div class="audio-controls">
+                            <div class="playback-controls">
+                                <button class="btn-icon play-pause" id="playPauseBtn">
+                                    <span class="play-icon">▶️</span>
+                                </button>
+                                <button class="btn-icon" id="stopBtn">⏹️</button>
+                                <div class="volume-control">
+                                    <label for="volumeSlider" class="volume-icon">🔊</label>
+                                    <input type="range" id="volumeSlider" min="0" max="100" value="50" class="volume-slider" aria-label="Volume control">
+                                </div>
+                            </div>
+                            
+                            <div class="progress-container">
+                                <div class="time-display">
+                                    <span id="currentTime">0:00</span>
+                                    <span id="duration">0:00</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" id="progressBar">
+                                        <div class="progress-fill" id="progressFill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="visualization-controls">
+                            <div class="control-group">
+                                <label class="control-label">Visualization Type</label>
+                                <div class="radio-group">
+                                    <label class="radio-option">
+                                        <input type="radio" name="vizType" value="frequency" checked>
+                                        <span class="radio-label">Frequency Bars</span>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="vizType" value="waveform">
+                                        <span class="radio-label">Waveform</span>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="vizType" value="circular">
+                                        <span class="radio-label">Circular</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="control-group">
+                                <label class="control-label" for="sensitivitySlider">Sensitivity</label>
+                                <div class="range-input">
+                                    <input type="range" id="sensitivitySlider" min="1" max="10" value="5">
+                                    <span class="range-value">5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visualization Section -->
+                    <div class="visualization-section hidden" id="visualizationSection">
+                        <div class="visualization-header">
+                            <h3>Audio Visualization</h3>
+                            <div class="audio-info" id="audioInfo"></div>
+                        </div>
+                        <div class="visualization-container">
+                            <canvas id="visualizerCanvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructions Section -->
+        <section class="instructions-section">
+            <div class="container">
+                <h2 class="section-title">How to Use Audio Visualizer</h2>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <div class="instruction-icon">🎵</div>
+                        <h3>Upload Audio</h3>
+                        <p>Drop or select an audio file you want to visualize</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">🎛️</div>
+                        <h3>Choose Visualization</h3>
+                        <p>Select from frequency bars, waveform, or circular display</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">▶️</div>
+                        <h3>Play & Enjoy</h3>
+                        <p>Hit play and watch your music come to life with beautiful visuals</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <h2 class="section-title">Features</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <h4>Privacy Protected</h4>
+                        <p>All processing happens locally in your browser - no uploads to servers</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📊</div>
+                        <h4>Real-time Analysis</h4>
+                        <p>Live frequency analysis using Web Audio API for accurate visualization</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎨</div>
+                        <h4>Multiple Visualizations</h4>
+                        <p>Choose from frequency bars, waveform, or circular spectrum displays</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎵</div>
+                        <h4>Full Audio Control</h4>
+                        <p>Complete playback controls with volume and seek functionality</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

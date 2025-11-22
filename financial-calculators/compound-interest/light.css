@@ -1,0 +1,393 @@
+        /* Compound Interest Calculator Styles */
+        .calculator-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .calculator-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .calculator-header h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .calculator-header p {
+            color: #718096;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .input-section,
+        .results-section {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .input-section h3,
+        .results-section h3 {
+            color: #2d3748;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            color: #4a5568;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .input-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f7fafc;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #38a169;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.1);
+        }
+        
+        .form-input.has-prefix {
+            padding-left: 2.5rem;
+        }
+        
+        .form-input.has-suffix {
+            padding-right: 2.5rem;
+        }
+        
+        .input-prefix,
+        .input-suffix {
+            position: absolute;
+            color: #718096;
+            font-weight: 500;
+            font-size: 0.95rem;
+            pointer-events: none;
+        }
+        
+        .input-prefix {
+            left: 1rem;
+        }
+        
+        .input-suffix {
+            right: 1rem;
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: #f7fafc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .form-select:focus {
+            outline: none;
+            border-color: #38a169;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.1);
+        }
+        
+        .calculate-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #38a169, #48bb78);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .calculate-btn:hover {
+            background: linear-gradient(135deg, #2f855a, #38a169);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(56, 161, 105, 0.3);
+        }
+        
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+        
+        .results-summary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .result-card {
+            background: #f0fff4;
+            border: 2px solid #c6f6d5;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .result-label {
+            color: #4a5568;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .result-value {
+            color: #2d3748;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .result-value.primary {
+            color: #38a169;
+            font-size: 1.8rem;
+        }
+        
+        .chart-container {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .chart-container canvas {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .projection-section {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+        
+        .projection-section h3 {
+            color: #2d3748;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .projection-scroll {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+        
+        .projection-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .projection-table th,
+        .projection-table td {
+            padding: 0.75rem;
+            text-align: right;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .projection-table th {
+            background: #f0fff4;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .projection-table tbody tr:hover {
+            background: #f0fff4;
+        }
+        
+        .projection-table tbody tr:nth-child(5n) {
+            background: #e6fffa;
+            font-weight: 600;
+        }
+        
+        .comparison-section {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+        
+        .investment-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .comparison-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: relative;
+        }
+        
+        .comparison-card.best {
+            border-color: #38a169;
+            background: #f0fff4;
+        }
+        
+        .best-badge {
+            position: absolute;
+            top: -10px;
+            right: 1rem;
+            background: #38a169;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .goal-section {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+        
+        .goal-calculator {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .goal-input {
+            background: #f7fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        
+        .goal-result {
+            background: #f0fff4;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #c6f6d5;
+        }
+        
+        .export-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .export-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid #38a169;
+            background: transparent;
+            color: #38a169;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .export-btn:hover {
+            background: #38a169;
+            color: white;
+        }
+        
+        .info-section {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .info-card {
+            text-align: center;
+            padding: 1.5rem;
+        }
+        
+        .info-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .info-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-desc {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
+        .goal-result-item {
+            margin: 1rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .calculator-grid,
+            .goal-calculator {
+                grid-template-columns: 1fr;
+            }
+            
+            .results-summary {
+                grid-template-columns: 1fr;
+            }
+            
+            .calculator-container {
+                padding: 1rem;
+            }
+            
+            .export-buttons {
+                flex-direction: column;
+            }
+        }

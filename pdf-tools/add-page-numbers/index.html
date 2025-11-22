@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Page Numbers to PDF - ZapIt Tools</title>
+    <meta name="description" content="Add custom page numbers to your PDF documents with flexible positioning, formatting options, and styling controls. Free online PDF page numbering tool.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../assets/css/variables.css">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="light.css">
+    <link rel="stylesheet" href="dark.css">
+    
+    <!-- PDF-lib Library -->
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Add Page Numbers to PDF",
+        "description": "Add custom page numbers to PDF documents with flexible positioning and formatting options",
+        "url": "https://zapit.tools/pdf-tools/add-page-numbers/",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "permissions": "browser-based, no data storage",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "Multiple positioning options",
+            "Custom number formatting",
+            "Font and size controls",
+            "Color customization",
+            "Page range selection",
+            "Starting number options",
+            "Real-time preview"
+        ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <a href="../../" class="nav-brand">
+                    <img src="../../icons/logo.jpg" alt="ZapIt Tools" class="brand-logo">
+                    <span class="brand-text">ZapIt Tools</span>
+                </a>
+                <div class="nav-breadcrumb">
+                    <a href="../">PDF Tools</a>
+                    <span class="breadcrumb-separator">›</span>
+                    <span>Add Page Numbers</span>
+                </div>
+            </div>
+            <div class="nav-right">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Header -->
+            <div class="tool-header">
+                <div class="header-content">
+                    <h1>Add Page Numbers to PDF</h1>
+                    <p class="tool-description">
+                        Add custom page numbers to your PDF documents with flexible positioning, 
+                        formatting options, and styling controls. Choose from multiple positions, 
+                        formats, and customize appearance to match your document style.
+                    </p>
+                </div>
+                <div class="header-visual">
+                    <div class="visual-icon">📄</div>
+                </div>
+            </div>
+
+            <!-- Upload Card -->
+            <div class="upload-card" id="uploadCard">
+                <div class="card-header">
+                    <h3>📁 Select PDF File</h3>
+                </div>
+                <div class="upload-zone" id="uploadZone">
+                    <div class="upload-content">
+                        <div class="upload-icon">📄</div>
+                        <h4>Drop your PDF file here</h4>
+                        <p>or click to browse and select a file</p>
+                        <button type="button" class="browse-btn" id="browseBtn">
+                            <span>📂</span>
+                            Choose File
+                        </button>
+                        <input type="file" id="fileInput" accept=".pdf" title="Select PDF file">
+                    </div>
+                </div>
+                <div class="file-requirements">
+                    <div class="requirement-item">
+                        <span class="req-icon">📄</span>
+                        <span>PDF files only</span>
+                    </div>
+                    <div class="requirement-item">
+                        <span class="req-icon">💾</span>
+                        <span>Max 50MB per file</span>
+                    </div>
+                    <div class="requirement-item">
+                        <span class="req-icon">🔒</span>
+                        <span>Processed locally in browser</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Configuration Card -->
+            <div class="config-card" id="configCard">
+                <div class="card-header">
+                    <h3>⚙️ Page Number Configuration</h3>
+                    <div class="config-actions">
+                        <span class="current-file-name" id="currentFileName"></span>
+                        <button class="action-btn" id="resetConfigBtn" title="Reset Configuration">
+                            <span>🔄</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- File Info Display -->
+                <div class="file-info-display" id="fileInfoDisplay">
+                    <div class="file-info-item">
+                        <span class="info-label">File Name:</span>
+                        <span class="info-value" id="infoFileName">-</span>
+                    </div>
+                    <div class="file-info-item">
+                        <span class="info-label">Total Pages:</span>
+                        <span class="info-value" id="infoPageCount">-</span>
+                    </div>
+                    <div class="file-info-item">
+                        <span class="info-label">File Size:</span>
+                        <span class="info-value" id="infoFileSize">-</span>
+                    </div>
+                    <div class="file-info-item">
+                        <span class="info-label">Modified:</span>
+                        <span class="info-value" id="infoModified">-</span>
+                    </div>
+                </div>
+
+                <!-- Configuration Options -->
+                <div class="config-options">
+                    <!-- Position Settings -->
+                    <div class="option-section">
+                        <h4>📍 Position</h4>
+                        <div class="position-grid">
+                            <button class="position-btn" data-position="top-left">
+                                <span class="position-icon">↖️</span>
+                                <span class="position-text">Top Left</span>
+                            </button>
+                            <button class="position-btn" data-position="top-center">
+                                <span class="position-icon">⬆️</span>
+                                <span class="position-text">Top Center</span>
+                            </button>
+                            <button class="position-btn" data-position="top-right">
+                                <span class="position-icon">↗️</span>
+                                <span class="position-text">Top Right</span>
+                            </button>
+                            <button class="position-btn active" data-position="bottom-left">
+                                <span class="position-icon">↙️</span>
+                                <span class="position-text">Bottom Left</span>
+                            </button>
+                            <button class="position-btn" data-position="bottom-center">
+                                <span class="position-icon">⬇️</span>
+                                <span class="position-text">Bottom Center</span>
+                            </button>
+                            <button class="position-btn" data-position="bottom-right">
+                                <span class="position-icon">↘️</span>
+                                <span class="position-text">Bottom Right</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Format Settings -->
+                    <div class="option-section">
+                        <h4>🔢 Number Format</h4>
+                        <div class="format-options">
+                            <div class="format-row">
+                                <label class="format-label">Format:</label>
+                                <select class="format-select" id="numberFormat" title="Choose number format">
+                                    <option value="number">1, 2, 3, 4...</option>
+                                    <option value="page-of-total">Page 1 of 10</option>
+                                    <option value="number-total">1 / 10</option>
+                                    <option value="roman">i, ii, iii, iv...</option>
+                                    <option value="roman-upper">I, II, III, IV...</option>
+                                    <option value="alpha">a, b, c, d...</option>
+                                    <option value="alpha-upper">A, B, C, D...</option>
+                                </select>
+                            </div>
+                            <div class="format-row">
+                                <label class="format-label">Starting Number:</label>
+                                <input type="number" class="number-input" id="startingNumber" value="1" min="1" title="Enter the starting page number">
+                            </div>
+                            <div class="format-row">
+                                <label class="format-label">Page Range:</label>
+                                <select class="format-select" id="pageRange" title="Select which pages to add numbers to">
+                                    <option value="all">All Pages</option>
+                                    <option value="odd">Odd Pages Only</option>
+                                    <option value="even">Even Pages Only</option>
+                                    <option value="custom">Custom Range</option>
+                                </select>
+                            </div>
+                            <div class="format-row" id="customRangeRow">
+                                <label class="format-label">Custom Range:</label>
+                                <input type="text" class="text-input" id="customRange" placeholder="e.g., 1-5, 8, 10-15">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Style Settings -->
+                    <div class="option-section">
+                        <h4>🎨 Styling</h4>
+                        <div class="style-options">
+                            <div class="style-row">
+                                <label class="style-label">Font Family:</label>
+                                <select class="style-select" id="fontFamily" title="Choose font family for page numbers">
+                                    <option value="helvetica">Helvetica</option>
+                                    <option value="times">Times Roman</option>
+                                    <option value="courier">Courier</option>
+                                </select>
+                            </div>
+                            <div class="style-row">
+                                <label class="style-label">Font Size:</label>
+                                <input type="range" class="size-slider" id="fontSize" min="8" max="24" value="12" title="Adjust font size for page numbers">
+                                <span class="size-value" id="fontSizeValue">12px</span>
+                            </div>
+                            <div class="style-row">
+                                <label class="style-label">Text Color:</label>
+                                <div class="color-picker-group">
+                                    <input type="color" class="color-input" id="textColor" value="#000000" title="Choose text color for page numbers">
+                                    <span class="color-preview" id="colorPreview">#000000</span>
+                                </div>
+                            </div>
+                            <div class="style-row">
+                                <label class="style-label">Opacity:</label>
+                                <input type="range" class="opacity-slider" id="textOpacity" min="10" max="100" value="100" title="Adjust opacity for page numbers">
+                                <span class="opacity-value" id="opacityValue">100%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Margin Settings -->
+                    <div class="option-section">
+                        <h4>📏 Margins</h4>
+                        <div class="margin-options">
+                            <div class="margin-row">
+                                <label class="margin-label">Horizontal Margin:</label>
+                                <input type="range" class="margin-slider" id="marginX" min="10" max="100" value="20" title="Adjust horizontal margin for page numbers">
+                                <span class="margin-value" id="marginXValue">20px</span>
+                            </div>
+                            <div class="margin-row">
+                                <label class="margin-label">Vertical Margin:</label>
+                                <input type="range" class="margin-slider" id="marginY" min="10" max="100" value="20" title="Adjust vertical margin for page numbers">
+                                <span class="margin-value" id="marginYValue">20px</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview Section -->
+                <div class="preview-section" id="previewSection">
+                    <h4>👁️ Preview</h4>
+                    <div class="preview-container">
+                        <div class="preview-page">
+                            <div class="preview-content">
+                                <div class="preview-text">Sample PDF Page Content</div>
+                                <div class="preview-number" id="previewNumber">1</div>
+                            </div>
+                        </div>
+                        <div class="preview-info">
+                            <p>Preview shows how page numbers will appear on your PDF</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apply Actions -->
+                <div class="apply-actions">
+                    <button class="apply-btn" id="applyNumbersBtn">
+                        <span>🔢</span>
+                        Add Page Numbers
+                    </button>
+                    <button class="reset-btn" id="resetBtn">
+                        <span>🔄</span>
+                        Reset Settings
+                    </button>
+                </div>
+            </div>
+
+            <!-- Progress Card -->
+            <div class="progress-card" id="progressCard">
+                <div class="card-header">
+                    <h3>⚡ Adding Page Numbers</h3>
+                </div>
+                <div class="progress-content">
+                    <div class="progress-info">
+                        <div class="progress-text" id="progressText">Preparing document...</div>
+                        <div class="progress-percent" id="progressPercent">0%</div>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="progress-details">
+                        <div class="current-operation" id="currentOperation">Initializing page numbering process...</div>
+                        <div class="numbering-info" id="numberingInfo">
+                            <div class="numbering-item">
+                                <span class="numbering-label">Pages Processed:</span>
+                                <span class="numbering-value" id="pagesProcessed">0</span>
+                            </div>
+                            <div class="numbering-item">
+                                <span class="numbering-label">Current Page:</span>
+                                <span class="numbering-value" id="currentPageNum">-</span>
+                            </div>
+                            <div class="numbering-item">
+                                <span class="numbering-label">Numbers Added:</span>
+                                <span class="numbering-value" id="numbersAdded">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Card -->
+            <div class="results-card" id="resultsCard">
+                <div class="card-header">
+                    <h3>✅ Page Numbers Added Successfully</h3>
+                    <div class="results-actions">
+                        <button class="action-btn" id="newFileBtn" title="Process Another File">
+                            <span>📁</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="results-content">
+                    <div class="success-state">
+                        <div class="success-icon">🎉</div>
+                        <h4>Page numbers added successfully!</h4>
+                        
+                        <!-- Numbering Summary -->
+                        <div class="numbering-summary">
+                            <div class="numbering-stats">
+                                <h5>📊 Numbering Statistics</h5>
+                                <div class="stats-grid">
+                                    <div class="stat-item">
+                                        <div class="stat-icon">📄</div>
+                                        <div class="stat-content">
+                                            <div class="stat-label">Total Pages</div>
+                                            <div class="stat-value" id="resultTotalPages">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-icon">🔢</div>
+                                        <div class="stat-content">
+                                            <div class="stat-label">Numbers Added</div>
+                                            <div class="stat-value" id="resultNumbersAdded">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-icon">📍</div>
+                                        <div class="stat-content">
+                                            <div class="stat-label">Position</div>
+                                            <div class="stat-value" id="resultPosition">-</div>
+                                        </div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-icon">🎨</div>
+                                        <div class="stat-content">
+                                            <div class="stat-label">Format</div>
+                                            <div class="stat-value" id="resultFormat">-</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Configuration Details -->
+                            <div class="config-details">
+                                <h5>⚙️ Applied Configuration</h5>
+                                <div class="details-grid">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Font:</span>
+                                        <span class="detail-value" id="resultFont">-</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Size:</span>
+                                        <span class="detail-value" id="resultSize">-</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Color:</span>
+                                        <span class="detail-value" id="resultColor">-</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Page Range:</span>
+                                        <span class="detail-value" id="resultRange">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Download Section -->
+                        <div class="download-section">
+                            <button class="download-btn" id="downloadBtn">
+                                <span>💾</span>
+                                Download PDF with Page Numbers
+                            </button>
+                            <div class="file-info">
+                                <span>📄 Ready for download</span>
+                                <span>•</span>
+                                <span id="outputFileSize">Calculating size...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- JavaScript -->
+    <script src="../../assets/js/theme.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

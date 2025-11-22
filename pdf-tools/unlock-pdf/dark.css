@@ -1,0 +1,420 @@
+/* PDF Unlocker Dark Theme Styles */
+
+:root {
+    --dark-bg: #1f2937;
+    --dark-card-bg: #374151;
+    --dark-surface: #4b5563;
+    --dark-border: #6b7280;
+    --dark-text-primary: #f9fafb;
+    --dark-text-secondary: #d1d5db;
+    --dark-hover: #4b5563;
+}
+
+[data-theme="dark"] {
+    --bg-color: var(--dark-bg);
+    --card-bg: var(--dark-card-bg);
+    --surface-color: var(--dark-surface);
+    --border-color: var(--dark-border);
+    --text-primary: var(--dark-text-primary);
+    --text-secondary: var(--dark-text-secondary);
+    --hover-color: var(--dark-hover);
+}
+
+/* Upload Card Dark Theme */
+[data-theme="dark"] .upload-card {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+}
+
+[data-theme="dark"] .upload-card.completed {
+    background: linear-gradient(135deg, var(--dark-card-bg) 0%, rgba(34, 197, 94, 0.1) 100%);
+}
+
+[data-theme="dark"] .upload-zone {
+    border-color: var(--dark-border);
+    background: var(--dark-card-bg);
+}
+
+[data-theme="dark"] .upload-zone.drag-over {
+    background: rgba(59, 130, 246, 0.1);
+}
+
+[data-theme="dark"] .upload-zone::before {
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.15), transparent);
+}
+
+[data-theme="dark"] .upload-zone h4 {
+    color: var(--dark-text-primary);
+}
+
+[data-theme="dark"] .upload-zone p {
+    color: var(--dark-text-secondary);
+}
+
+[data-theme="dark"] .browse-btn:hover {
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+[data-theme="dark"] .requirement-item {
+    color: var(--dark-text-secondary);
+}
+
+/* Password Card Dark Theme */
+[data-theme="dark"] .password-card {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+}
+
+[data-theme="dark"] .password-card.completed {
+    background: linear-gradient(135deg, var(--dark-card-bg) 0%, rgba(34, 197, 94, 0.1) 100%);
+}
+
+[data-theme="dark"] .card-header {
+    border-bottom-color: var(--dark-border);
+}
+
+[data-theme="dark"] .card-header h3 {
+    color: var(--dark-text-primary);
+}
+
+[data-theme="dark"] .current-file-name {
+    color: var(--dark-text-secondary);
+}
+
+[data-theme="dark"] .action-btn {
+    background: var(--dark-surface);
+    border-color: var(--dark-border);
+    color: var(--dark-text-primary);
+}
+
+[data-theme="dark"] .action-btn:hover {
+    background: var(--dark-hover);
+}
+
+/* File Info Display Dark Theme */
+[data-theme="dark"] .file-info-display {
+    background: var(--dark-surface);
+    border-color: var(--dark-border);
+}
+
+[data-theme="dark"] .info-label {
+    color: var(--dark-text-secondary);
+}
+
+[data-theme="dark"] .info-value {
+    color: var(--dark-text-primary);
+}
+
+/* Password Section Dark Theme */
+[data-theme="dark"] .password-type {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+}
+
+[data-theme="dark"] .password-type:hover {
+    background: var(--dark-hover);
+}
+
+[data-theme="dark"] .password-type.active {
+    background: rgba(59, 130, 246, 0.1);
+    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.2);
+}
+
+[data-theme="dark"] .password-title {
+    color: var(--dark-text-primary);
+}
+
+[data-theme="dark"] .password-desc {
+    color: var(--dark-text-secondary);
+}
+
+[data-theme="dark"] .password-input {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+    color: var(--dark-text-primary);
+}
+
+[data-theme="dark"] .password-input:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+[data-theme="dark"] .password-input::placeholder {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .password-visibility:hover {
+    background: var(--dark-hover);
+}
+
+[data-theme="dark"] .hint-item {
+    color: var(--dark-text-secondary);
+}
+
+[data-theme="dark"] .unlock-status {
+    background: var(--dark-surface);
+    border-color: var(--dark-border);
+}
+
+/* Progress Card Dark Theme */
+[data-theme="dark"] .progress-card {
+    background: var(--dark-card-bg);
+}
+
+[data-theme="dark"] .progress-card.completed {
+    background: linear-gradient(135deg, var(--dark-card-bg) 0%, rgba(34, 197, 94, 0.1) 100%);
+}
+
+[data-theme="dark"] .progress-text {
+    color: var(--dark-text-primary);
+}
+
+[data-theme="dark"] .progress-bar-container {
+    background: var(--dark-border);
+}
+
+[data-theme="dark"] .current-operation {
+    color: var(--dark-text-primary);
+}
+
+[data-theme="dark"] .unlock-item {
+    background: var(--dark-surface);
+    border-color: var(--dark-border);
+}
+
+[data-theme="dark"] .unlock-label {
+    color: var(--dark-text-secondary);
+}
+
+[data-theme="dark"] .unlock-value {
+    color: var(--dark-text-primary);
+}
+
+/* Results Card Dark Theme */
+[data-theme="dark"] .results-card {
+    background: var(--dark-card-bg);
+}
+
+[data-theme="dark"] .success-state h4 {
+    color: var(--dark-text-primary);
+}
+
+[data-theme="dark"] .unlock-details h5 {
+    color: var(--dark-text-primary);
+}
+
+[data-theme="dark"] .detail-item {
+    background: var(--dark-surface);
+    border-color: var(--dark-border);
+}
+
+[data-theme="dark"] .detail-label {
+    color: var(--dark-text-secondary);
+}
+
+[data-theme="dark"] .detail-value {
+    color: var(--dark-text-primary);
+}
+
+[data-theme="dark"] .security-notice {
+    background: rgba(251, 191, 36, 0.15);
+    border-color: #fbbf24;
+}
+
+[data-theme="dark"] .notice-title {
+    color: var(--dark-text-primary);
+}
+
+[data-theme="dark"] .notice-content p {
+    color: var(--dark-text-primary);
+}
+
+[data-theme="dark"] .file-info {
+    color: var(--dark-text-secondary);
+}
+
+/* Error Card Dark Theme */
+[data-theme="dark"] .error-card {
+    background: var(--dark-card-bg);
+}
+
+[data-theme="dark"] .error-content h4 {
+    color: var(--dark-text-primary);
+}
+
+[data-theme="dark"] .error-message {
+    color: var(--dark-text-secondary);
+}
+
+[data-theme="dark"] .error-suggestions {
+    background: var(--dark-surface);
+}
+
+[data-theme="dark"] .error-suggestions h5 {
+    color: var(--dark-text-primary);
+}
+
+[data-theme="dark"] .suggestion-item {
+    color: var(--dark-text-secondary);
+}
+
+[data-theme="dark"] .retry-btn:hover {
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+/* Toast Dark Theme */
+[data-theme="dark"] .toast {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .toast-message {
+    color: var(--dark-text-primary);
+}
+
+[data-theme="dark"] .toast-close {
+    color: var(--dark-text-secondary);
+}
+
+[data-theme="dark"] .toast-close:hover {
+    background: var(--dark-hover);
+    color: var(--dark-text-primary);
+}
+
+/* Use Cases Dark Theme */
+[data-theme="dark"] .use-case {
+    background: var(--dark-surface);
+}
+
+[data-theme="dark"] .use-case:hover {
+    background: var(--dark-hover);
+}
+
+[data-theme="dark"] .case-content h5 {
+    color: var(--dark-text-primary);
+}
+
+[data-theme="dark"] .case-content p {
+    color: var(--dark-text-secondary);
+}
+
+/* Enhanced hover effects for dark theme */
+[data-theme="dark"] .upload-zone:hover {
+    border-color: var(--primary-color);
+    background: rgba(59, 130, 246, 0.05);
+}
+
+[data-theme="dark"] .unlock-btn:hover:not(:disabled) {
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+[data-theme="dark"] .download-btn:hover {
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+}
+
+/* Focus states for dark theme */
+[data-theme="dark"] .password-type:focus-within {
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+[data-theme="dark"] .password-input:focus {
+    border-color: var(--primary-color);
+}
+
+/* Additional dark theme improvements */
+[data-theme="dark"] .upload-content {
+    color: var(--dark-text-primary);
+}
+
+[data-theme="dark"] .upload-icon {
+    opacity: 0.8;
+}
+
+[data-theme="dark"] .req-icon {
+    opacity: 0.8;
+}
+
+[data-theme="dark"] .password-icon {
+    opacity: 0.9;
+}
+
+[data-theme="dark"] .hint-icon {
+    opacity: 0.9;
+}
+
+[data-theme="dark"] .detail-icon {
+    opacity: 0.9;
+}
+
+[data-theme="dark"] .notice-icon {
+    opacity: 0.9;
+}
+
+[data-theme="dark"] .case-icon {
+    opacity: 0.9;
+}
+
+[data-theme="dark"] .suggestion-icon {
+    opacity: 0.9;
+}
+
+/* Scrollbar Dark Theme */
+[data-theme="dark"] ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+    background: var(--dark-surface);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: var(--dark-border);
+    border-radius: 4px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+
+/* Form elements dark theme enhancements */
+[data-theme="dark"] input[type="password"]:focus,
+[data-theme="dark"] input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Status indicators dark theme */
+[data-theme="dark"] .security-status.protected {
+    color: #fbbf24;
+}
+
+[data-theme="dark"] .security-status.unprotected {
+    color: var(--success-color);
+}
+
+[data-theme="dark"] .security-unlocked {
+    color: var(--success-color);
+}
+
+/* Additional visual enhancements */
+[data-theme="dark"] .password-type.active .password-title {
+    color: var(--primary-color);
+}
+
+[data-theme="dark"] .unlock-btn:disabled {
+    background: var(--dark-surface);
+    color: var(--dark-text-secondary);
+}
+
+[data-theme="dark"] .progress-percent {
+    color: #60a5fa;
+}
+
+[data-theme="dark"] .success-icon {
+    filter: brightness(1.1);
+}
+
+[data-theme="dark"] .error-icon {
+    filter: brightness(1.1);
+}

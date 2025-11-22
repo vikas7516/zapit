@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Unlocker - Zapit Tools</title>
+    <meta name="description" content="Remove passwords from PDF files. Unlock password-protected PDFs by providing the correct password. Secure and private processing in your browser.">
+    <meta name="keywords" content="PDF unlocker, remove PDF password, unlock PDF, PDF password removal, PDF tools">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="PDF Unlocker - Zapit Tools">
+    <meta property="og:description" content="Remove passwords from PDF files. Unlock password-protected PDFs by providing the correct password. Secure and private processing in your browser.">
+    <meta property="og:url" content="https://zapit.tools/pdf-tools/unlock-pdf/">
+    <meta property="og:type" content="website">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../assets/css/variables.css">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="light.css" id="theme-light">
+    <link rel="stylesheet" href="dark.css" id="theme-dark" disabled>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- PDF-lib Library -->
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="../../">
+                        <img src="../../icons/logo.jpg" alt="Zapit Tools" width="32" height="32">
+                        <span>Zapit Tools</span>
+                    </a>
+                </div>
+                <nav class="nav">
+                    <a href="../../">Home</a>
+                    <a href="../">PDF Tools</a>
+                </nav>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="title-icon">🔓</span>
+                        PDF Unlocker
+                    </h1>
+                    <p class="hero-description">
+                        Remove password protection from PDF files. Unlock password-protected documents safely and securely in your browser with complete privacy.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Upload Card -->
+            <section class="upload-card" id="uploadCard">
+                <div class="card-header">
+                    <h3>Upload Protected PDF</h3>
+                    <div class="upload-actions">
+                        <button class="action-btn" id="clearBtn" title="Clear all">🗑️</button>
+                        <button class="action-btn" id="helpBtn" title="Help">❓</button>
+                    </div>
+                </div>
+                
+                <div class="upload-zone" id="uploadZone">
+                    <input type="file" id="fileInput" accept=".pdf" hidden>
+                    <div class="upload-content">
+                        <div class="upload-icon">🔒</div>
+                        <h4>Drag & Drop Protected PDF Here</h4>
+                        <p>or</p>
+                        <button class="browse-btn" id="browseBtn">
+                            <span>📁</span>
+                            Browse Files
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="file-requirements">
+                    <div class="requirement-item">
+                        <span class="req-icon">📄</span>
+                        <span>Password-protected PDFs only</span>
+                    </div>
+                    <div class="requirement-item">
+                        <span class="req-icon">⚖️</span>
+                        <span>Max size: 50MB</span>
+                    </div>
+                    <div class="requirement-item">
+                        <span class="req-icon">🔒</span>
+                        <span>Processed locally</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Password Entry Card -->
+            <section class="password-card hidden" id="passwordCard">
+                <div class="card-header">
+                    <h3>Enter PDF Password</h3>
+                    <div class="password-actions">
+                        <span class="current-file-name" id="currentFileName">No file selected</span>
+                    </div>
+                </div>
+                
+                <div class="file-info-display">
+                    <div class="file-info-item">
+                        <div class="info-label">File Name:</div>
+                        <div class="info-value" id="fileName">-</div>
+                    </div>
+                    <div class="file-info-item">
+                        <div class="info-label">File Size:</div>
+                        <div class="info-value" id="fileSize">0 KB</div>
+                    </div>
+                    <div class="file-info-item">
+                        <div class="info-label">Protection Status:</div>
+                        <div class="info-value security-status protected" id="protectionStatus">Password Protected</div>
+                    </div>
+                    <div class="file-info-item">
+                        <div class="info-label">Encryption:</div>
+                        <div class="info-value" id="encryptionInfo">Detecting...</div>
+                    </div>
+                </div>
+
+                <div class="password-section">
+                    <div class="password-types">
+                        <div class="password-type active" id="userPasswordType">
+                            <div class="password-header">
+                                <div class="password-info">
+                                    <div class="password-title">
+                                        <span class="password-icon">👤</span>
+                                        User Password
+                                    </div>
+                                    <div class="password-desc">Most common password type - try this first</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="password-type" id="ownerPasswordType">
+                            <div class="password-header">
+                                <div class="password-info">
+                                    <div class="password-title">
+                                        <span class="password-icon">👑</span>
+                                        Owner Password
+                                    </div>
+                                    <div class="password-desc">Administrative password for document permissions</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="password-input-section">
+                        <div class="password-field">
+                            <input type="password" id="passwordInput" placeholder="Enter the PDF password" class="password-input" autocomplete="current-password">
+                            <button type="button" class="password-visibility" id="passwordToggle">👁️</button>
+                        </div>
+                        
+                        <div class="password-options">
+                            <div class="password-hints">
+                                <div class="hint-item">
+                                    <span class="hint-icon">💡</span>
+                                    <span>Passwords are case-sensitive</span>
+                                </div>
+                                <div class="hint-item">
+                                    <span class="hint-icon">🔄</span>
+                                    <span>Try both user and owner password options</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="unlock-actions">
+                    <button class="unlock-btn" id="unlockBtn" disabled>
+                        <span>🔓</span>
+                        Unlock PDF
+                    </button>
+                </div>
+                
+                <div class="unlock-status hidden" id="unlockStatus">
+                    <div class="status-message" id="statusMessage"></div>
+                    <div class="status-details" id="statusDetails"></div>
+                </div>
+            </section>
+
+            <!-- Progress Card -->
+            <section class="progress-card hidden" id="progressCard">
+                <div class="card-header">
+                    <h3>Unlocking PDF</h3>
+                </div>
+                
+                <div class="progress-content">
+                    <div class="progress-info">
+                        <span class="progress-text">Processing...</span>
+                        <span class="progress-percent" id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="progress-details">
+                        <div class="current-operation" id="currentOperation">Verifying password...</div>
+                        <div class="unlock-info" id="unlockInfo">
+                            <div class="unlock-item">
+                                <span class="unlock-label">Password Type:</span>
+                                <span class="unlock-value" id="passwordTypeProgress">User Password</span>
+                            </div>
+                            <div class="unlock-item">
+                                <span class="unlock-label">Verification:</span>
+                                <span class="unlock-value" id="verificationProgress">In Progress...</span>
+                            </div>
+                            <div class="unlock-item">
+                                <span class="unlock-label">Decryption:</span>
+                                <span class="unlock-value" id="decryptionProgress">Waiting...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Card -->
+            <section class="results-card hidden" id="resultsCard">
+                <div class="card-header">
+                    <h3>PDF Unlocked Successfully</h3>
+                    <div class="results-actions">
+                        <button class="action-btn" id="newUnlockBtn" title="Unlock another PDF">🔄</button>
+                    </div>
+                </div>
+                
+                <div class="results-content">
+                    <div class="success-state">
+                        <div class="success-icon">🔓</div>
+                        <h4>Password Removed Successfully!</h4>
+                        
+                        <div class="unlock-summary">
+                            <div class="unlock-details">
+                                <h5>Unlock Details:</h5>
+                                <div class="unlock-info-grid">
+                                    <div class="detail-item">
+                                        <span class="detail-icon">🔑</span>
+                                        <div class="detail-content">
+                                            <div class="detail-label">Password Type Used</div>
+                                            <div class="detail-value" id="usedPasswordType">User Password</div>
+                                        </div>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">🛡️</span>
+                                        <div class="detail-content">
+                                            <div class="detail-label">Original Encryption</div>
+                                            <div class="detail-value" id="originalEncryption">256-bit AES</div>
+                                        </div>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">📄</span>
+                                        <div class="detail-content">
+                                            <div class="detail-label">Pages Unlocked</div>
+                                            <div class="detail-value" id="unlockedPages">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-icon">✅</span>
+                                        <div class="detail-content">
+                                            <div class="detail-label">Security Status</div>
+                                            <div class="detail-value security-unlocked">Unlocked</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="security-notice">
+                                <div class="notice-header">
+                                    <span class="notice-icon">⚠️</span>
+                                    <span class="notice-title">Security Notice</span>
+                                </div>
+                                <div class="notice-content">
+                                    <p>The unlocked PDF no longer has password protection. Consider re-protecting it if you need to maintain security.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="download-section">
+                            <button class="download-btn" id="downloadBtn">
+                                <span>⬇️</span>
+                                Download Unlocked PDF
+                            </button>
+                            <div class="file-info">
+                                <span id="downloadFileName">unlocked-file.pdf</span>
+                                <span id="downloadFileSize">0 KB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Error Card -->
+            <section class="error-card hidden" id="errorCard">
+                <div class="card-header">
+                    <h3>Unlock Failed</h3>
+                </div>
+                
+                <div class="error-content">
+                    <div class="error-icon">❌</div>
+                    <h4 id="errorTitle">Incorrect Password</h4>
+                    <div class="error-message" id="errorMessage">
+                        The password you entered is incorrect. Please try again with the correct password.
+                    </div>
+                    
+                    <div class="error-suggestions">
+                        <h5>Suggestions:</h5>
+                        <div class="suggestion-list">
+                            <div class="suggestion-item">
+                                <span class="suggestion-icon">🔄</span>
+                                <span>Try the other password type (User vs Owner)</span>
+                            </div>
+                            <div class="suggestion-item">
+                                <span class="suggestion-icon">🔤</span>
+                                <span>Check for correct capitalization</span>
+                            </div>
+                            <div class="suggestion-item">
+                                <span class="suggestion-icon">⌨️</span>
+                                <span>Verify special characters and numbers</span>
+                            </div>
+                            <div class="suggestion-item">
+                                <span class="suggestion-icon">📝</span>
+                                <span>Contact the document owner if needed</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="error-actions">
+                        <button class="retry-btn" id="retryBtn">
+                            <span>🔄</span>
+                            Try Again
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Info Cards -->
+            <section class="info-card">
+                <h3>How to Unlock PDF Files</h3>
+                <div class="step-list">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Upload Protected PDF</h4>
+                            <p>Drag and drop your password-protected PDF file or click "Browse Files" to select it.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Enter Password</h4>
+                            <p>Type the correct password for the PDF. Try both user and owner password options if needed.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Download Unlocked PDF</h4>
+                            <p>Once unlocked successfully, download your password-free PDF file.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-card">
+                <h3>Password Types Explained</h3>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="feature-icon">👤</div>
+                        <div class="feature-content">
+                            <h4>User Password</h4>
+                            <p>Required to open and view the PDF document. This is the most common type of PDF password protection.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">👑</div>
+                        <div class="feature-content">
+                            <h4>Owner Password</h4>
+                            <p>Administrative password that controls document permissions like printing, editing, and copying.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔄</div>
+                        <div class="feature-content">
+                            <h4>Auto-Detection</h4>
+                            <p>Our tool automatically detects the password type and applies the appropriate unlocking method.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🛡️</div>
+                        <div class="feature-content">
+                            <h4>Privacy Protected</h4>
+                            <p>All password verification and unlocking happens locally in your browser for complete privacy.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-card">
+                <h3>Security & Privacy</h3>
+                <div class="tips-list">
+                    <div class="tip-item">
+                        <div class="tip-icon">🔒</div>
+                        <span>Your passwords and PDF content never leave your device</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">🗑️</div>
+                        <span>All temporary data is automatically cleared after processing</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">⚠️</div>
+                        <span>Only use this tool with PDFs you own or have permission to unlock</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">🔐</div>
+                        <span>Consider re-protecting unlocked PDFs if security is still needed</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">🌐</div>
+                        <span>No internet connection required after page loads</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-card">
+                <h3>Troubleshooting</h3>
+                <div class="use-cases">
+                    <div class="use-case">
+                        <div class="case-icon">❌</div>
+                        <div class="case-content">
+                            <h5>Password Incorrect</h5>
+                            <p>Double-check capitalization, special characters, and try both password types</p>
+                        </div>
+                    </div>
+                    <div class="use-case">
+                        <div class="case-icon">📁</div>
+                        <div class="case-content">
+                            <h5>File Not Protected</h5>
+                            <p>The PDF may not be password-protected or may use unsupported encryption</p>
+                        </div>
+                    </div>
+                    <div class="use-case">
+                        <div class="case-icon">⏱️</div>
+                        <div class="case-content">
+                            <h5>Processing Slow</h5>
+                            <p>Large files may take longer to process - please be patient</p>
+                        </div>
+                    </div>
+                    <div class="use-case">
+                        <div class="case-icon">🔧</div>
+                        <div class="case-content">
+                            <h5>Technical Issues</h5>
+                            <p>Try refreshing the page or using a different browser if problems persist</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>PDF Tools</h4>
+                    <ul>
+                        <li><a href="../pdf-merger/">PDF Merger</a></li>
+                        <li><a href="../pdf-splitter/">PDF Splitter</a></li>
+                        <li><a href="../compress-pdf/">PDF Compressor</a></li>
+                        <li><a href="../protect-pdf/">PDF Protector</a></li>
+                        <li><a href="../unlock-pdf/">PDF Unlocker</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Other Tools</h4>
+                    <ul>
+                        <li><a href="../../image-tools/">Image Tools</a></li>
+                        <li><a href="../../text-tools/">Text Tools</a></li>
+                        <li><a href="../../dev-tools/">Dev Tools</a></li>
+                        <li><a href="../../math-calculators/">Math Calculators</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="../../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../../terms.html">Terms of Service</a></li>
+                        <li><a href="../../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Zapit Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/theme.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

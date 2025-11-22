@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cron Job Generator - Developer Tools - Zapit</title>
+    <meta name="description" content="Generate and parse cron expressions easily. Create scheduled tasks with our intuitive cron job generator and validator.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/dev-tools/cron-job-generator">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">⏲️</div>
+                    <h1 class="tool-title">Cron Job Generator</h1>
+                    <p class="tool-description">Generate and parse cron expressions for scheduled tasks with an intuitive interface</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-card">
+                    <!-- Input Methods -->
+                    <div class="input-section">
+                        <div class="method-tabs">
+                            <button class="tab-btn active" data-tab="visual">Visual Builder</button>
+                            <button class="tab-btn" data-tab="expression">Cron Expression</button>
+                        </div>
+
+                        <!-- Visual Builder -->
+                        <div id="visual-tab" class="tab-content active">
+                            <div class="cron-builder">
+                                <!-- Frequency Type -->
+                                <div class="frequency-section">
+                                    <h4>Frequency</h4>
+                                    <div class="frequency-options">
+                                        <label class="radio-item">
+                                            <input type="radio" name="frequency" value="minute" data-pattern="* * * * *">
+                                            <span class="radio-mark"></span>
+                                            Every minute
+                                        </label>
+                                        <label class="radio-item">
+                                            <input type="radio" name="frequency" value="hourly" data-pattern="0 * * * *">
+                                            <span class="radio-mark"></span>
+                                            Hourly
+                                        </label>
+                                        <label class="radio-item">
+                                            <input type="radio" name="frequency" value="daily" data-pattern="0 0 * * *" checked>
+                                            <span class="radio-mark"></span>
+                                            Daily
+                                        </label>
+                                        <label class="radio-item">
+                                            <input type="radio" name="frequency" value="weekly" data-pattern="0 0 * * 0">
+                                            <span class="radio-mark"></span>
+                                            Weekly
+                                        </label>
+                                        <label class="radio-item">
+                                            <input type="radio" name="frequency" value="monthly" data-pattern="0 0 1 * *">
+                                            <span class="radio-mark"></span>
+                                            Monthly
+                                        </label>
+                                        <label class="radio-item">
+                                            <input type="radio" name="frequency" value="custom" data-pattern="">
+                                            <span class="radio-mark"></span>
+                                            Custom
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Custom Options -->
+                                <div class="custom-options" id="custom-options">
+                                    <div class="cron-fields">
+                                        <div class="field-group">
+                                            <label>Minute (0-59)</label>
+                                            <input type="text" id="minute-field" value="0" placeholder="0, 15, 30, 45 or *">
+                                        </div>
+                                        <div class="field-group">
+                                            <label>Hour (0-23)</label>
+                                            <input type="text" id="hour-field" value="0" placeholder="0, 6, 12, 18 or *">
+                                        </div>
+                                        <div class="field-group">
+                                            <label>Day of Month (1-31)</label>
+                                            <input type="text" id="day-field" value="*" placeholder="1, 15, L or *">
+                                        </div>
+                                        <div class="field-group">
+                                            <label>Month (1-12)</label>
+                                            <input type="text" id="month-field" value="*" placeholder="1, 6, JAN, JUL or *">
+                                        </div>
+                                        <div class="field-group">
+                                            <label>Day of Week (0-7)</label>
+                                            <input type="text" id="dow-field" value="*" placeholder="0, 1, MON, TUE or *">
+                                        </div>
+                                    </div>
+
+                                    <!-- Quick Time Selector -->
+                                    <div class="time-selector">
+                                        <h5>Quick Time Selection</h5>
+                                        <div class="time-inputs">
+                                            <div class="time-input">
+                                                <label for="quick-hour">Hour:</label>
+                                                <select id="quick-hour">
+                                                    <option value="">--</option>
+                                                    <!-- Options will be populated by JS -->
+                                                </select>
+                                            </div>
+                                            <div class="time-input">
+                                                <label>Minute:</label>
+                                                <select id="quick-minute" title="Quick Minute Selector">
+                                                    <option value="">--</option>
+                                                    <!-- Options will be populated by JS -->
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Expression Input -->
+                        <div id="expression-tab" class="tab-content">
+                            <div class="form-group">
+                                <label for="cron-input">Cron Expression:</label>
+                                <input type="text" id="cron-input" placeholder="0 0 * * * (e.g., daily at midnight)" pattern="[0-9\*\-\,\/\s]+">
+                                <small>Enter a 5-field cron expression (minute hour day month day-of-week)</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result Section -->
+                    <div class="result-section">
+                        <h3>Generated Cron Expression</h3>
+                        
+                        <div class="cron-result">
+                            <div class="expression-display">
+                                <div class="expression-value" id="cron-expression">0 0 * * *</div>
+                                <button class="copy-btn" id="copy-expression">Copy</button>
+                            </div>
+                            
+                            <div class="expression-breakdown">
+                                <div class="field-explanation">
+                                    <span class="field-value" id="minute-desc">0</span>
+                                    <span class="field-label">Minute</span>
+                                </div>
+                                <div class="field-explanation">
+                                    <span class="field-value" id="hour-desc">0</span>
+                                    <span class="field-label">Hour</span>
+                                </div>
+                                <div class="field-explanation">
+                                    <span class="field-value" id="day-desc">*</span>
+                                    <span class="field-label">Day</span>
+                                </div>
+                                <div class="field-explanation">
+                                    <span class="field-value" id="month-desc">*</span>
+                                    <span class="field-label">Month</span>
+                                </div>
+                                <div class="field-explanation">
+                                    <span class="field-value" id="dow-desc">*</span>
+                                    <span class="field-label">Day of Week</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="human-readable">
+                            <h4>Human Readable</h4>
+                            <p id="human-description">Runs daily at 12:00 AM (midnight)</p>
+                        </div>
+
+                        <div class="next-runs">
+                            <h4>Next 5 Execution Times</h4>
+                            <ul id="next-executions">
+                                <!-- Populated by JavaScript -->
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Common Presets -->
+                    <div class="presets-section">
+                        <h3>Common Cron Expressions</h3>
+                        <div class="preset-grid">
+                            <button class="preset-btn" data-cron="* * * * *">
+                                <strong>* * * * *</strong>
+                                <span>Every minute</span>
+                            </button>
+                            <button class="preset-btn" data-cron="0 * * * *">
+                                <strong>0 * * * *</strong>
+                                <span>Every hour</span>
+                            </button>
+                            <button class="preset-btn" data-cron="0 0 * * *">
+                                <strong>0 0 * * *</strong>
+                                <span>Daily at midnight</span>
+                            </button>
+                            <button class="preset-btn" data-cron="0 12 * * *">
+                                <strong>0 12 * * *</strong>
+                                <span>Daily at noon</span>
+                            </button>
+                            <button class="preset-btn" data-cron="0 0 * * 0">
+                                <strong>0 0 * * 0</strong>
+                                <span>Weekly on Sunday</span>
+                            </button>
+                            <button class="preset-btn" data-cron="0 0 1 * *">
+                                <strong>0 0 1 * *</strong>
+                                <span>Monthly on 1st</span>
+                            </button>
+                            <button class="preset-btn" data-cron="0 9 * * 1-5">
+                                <strong>0 9 * * 1-5</strong>
+                                <span>Weekdays at 9 AM</span>
+                            </button>
+                            <button class="preset-btn" data-cron="*/15 * * * *">
+                                <strong>*/15 * * * *</strong>
+                                <span>Every 15 minutes</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Panel -->
+                <div class="info-panel">
+                    <h3>About Cron Expressions</h3>
+                    <p>Cron is a time-based job scheduler in Unix-like operating systems. Cron expressions are used to configure cron jobs to run at specific times or intervals.</p>
+                    
+                    <div class="cron-format">
+                        <h4>Cron Expression Format</h4>
+                        <div class="format-diagram">
+                            <div class="format-field">
+                                <strong>*</strong>
+                                <span>Minute</span>
+                                <small>0-59</small>
+                            </div>
+                            <div class="format-field">
+                                <strong>*</strong>
+                                <span>Hour</span>
+                                <small>0-23</small>
+                            </div>
+                            <div class="format-field">
+                                <strong>*</strong>
+                                <span>Day</span>
+                                <small>1-31</small>
+                            </div>
+                            <div class="format-field">
+                                <strong>*</strong>
+                                <span>Month</span>
+                                <small>1-12</small>
+                            </div>
+                            <div class="format-field">
+                                <strong>*</strong>
+                                <span>Day of Week</span>
+                                <small>0-7</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="special-chars">
+                        <h4>Special Characters</h4>
+                        <ul>
+                            <li><strong>*</strong> - Matches any value</li>
+                            <li><strong>,</strong> - Separates multiple values (e.g., 1,3,5)</li>
+                            <li><strong>-</strong> - Defines ranges (e.g., 1-5)</li>
+                            <li><strong>/</strong> - Defines steps (e.g., */5 = every 5)</li>
+                            <li><strong>L</strong> - Last day of month (day field only)</li>
+                            <li><strong>W</strong> - Nearest weekday (day field only)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

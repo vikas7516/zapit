@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Analyzer - Security Tools - Zapit</title>
+    <meta name="description" content="Analyze password strength, check for common passwords, and get security recommendations. Test your password security with detailed analysis.">
+    <meta name="keywords" content="password strength, password security, password analyzer, password checker, security audit">
+    <meta property="og:title" content="Password Strength Analyzer - Zapit">
+    <meta property="og:description" content="Analyze password strength and get security recommendations">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    
+    <!-- CSS -->
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/security-tools/password-strength-analyzer">
+    
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb">
+                        <a href="/">Home</a>
+                        <span class="separator">/</span>
+                        <a href="/security-tools">Security Tools</a>
+                        <span class="separator">/</span>
+                        <span class="current">Password Strength Analyzer</span>
+                    </nav>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <span class="theme-toggle-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                <div class="tool-icon">🔍</div>
+                <h1 class="tool-title">Password Strength Analyzer</h1>
+                <p class="tool-description">
+                    Analyze password strength, check for common passwords, and get detailed security recommendations to improve your password security.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Interface -->
+    <section class="tool-interface">
+        <div class="container">
+            <div class="password-analyzer">
+                
+                <!-- Password Input Section -->
+                <div class="analyzer-section">
+                    <h2>🔐 Password Analysis</h2>
+                    <div class="password-input-group">
+                        <div class="password-field">
+                            <input type="password" id="passwordInput" placeholder="Enter password to analyze" 
+                                   class="password-input" autocomplete="new-password">
+                            <button type="button" id="togglePassword" class="toggle-password" aria-label="Toggle password visibility">
+                                👁️
+                            </button>
+                        </div>
+                        <button id="analyzeBtn" class="analyze-btn">
+                            🔍 Analyze Password
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Strength Meter -->
+                <div class="analyzer-section">
+                    <div id="strengthMeter" class="strength-meter hidden">
+                        <h3>Strength Score</h3>
+                        <div class="strength-bar">
+                            <div id="strengthFill" class="strength-fill"></div>
+                            <span id="strengthScore" class="strength-score">0/100</span>
+                        </div>
+                        <div id="strengthLevel" class="strength-level">Not Analyzed</div>
+                    </div>
+                </div>
+
+                <!-- Analysis Results -->
+                <div class="analyzer-section">
+                    <div id="analysisResults" class="analysis-results hidden">
+                        <h3>📊 Detailed Analysis</h3>
+                        
+                        <div class="analysis-grid">
+                            <div class="analysis-card">
+                                <h4>📏 Length</h4>
+                                <div id="lengthAnalysis" class="analysis-content"></div>
+                            </div>
+                            
+                            <div class="analysis-card">
+                                <h4>🔤 Character Types</h4>
+                                <div id="characterAnalysis" class="analysis-content"></div>
+                            </div>
+                            
+                            <div class="analysis-card">
+                                <h4>🔄 Pattern Detection</h4>
+                                <div id="patternAnalysis" class="analysis-content"></div>
+                            </div>
+                            
+                            <div class="analysis-card">
+                                <h4>⚠️ Common Passwords</h4>
+                                <div id="commonAnalysis" class="analysis-content"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Recommendations -->
+                <div class="analyzer-section">
+                    <div id="recommendations" class="recommendations hidden">
+                        <h3>💡 Security Recommendations</h3>
+                        <div id="recommendationsList" class="recommendations-list"></div>
+                    </div>
+                </div>
+
+                <!-- Password Tips -->
+                <div class="analyzer-section">
+                    <div class="security-tips">
+                        <h3>🛡️ Password Security Tips</h3>
+                        <div class="tips-grid">
+                            <div class="tip-card">
+                                <div class="tip-icon">📏</div>
+                                <h4>Length Matters</h4>
+                                <p>Use at least 12 characters. Longer passwords are exponentially harder to crack.</p>
+                            </div>
+                            
+                            <div class="tip-card">
+                                <div class="tip-icon">🔤</div>
+                                <h4>Mix Character Types</h4>
+                                <p>Include uppercase, lowercase, numbers, and special characters for better security.</p>
+                            </div>
+                            
+                            <div class="tip-card">
+                                <div class="tip-icon">🚫</div>
+                                <h4>Avoid Common Patterns</h4>
+                                <p>Don't use dictionary words, personal information, or predictable patterns.</p>
+                            </div>
+                            
+                            <div class="tip-card">
+                                <div class="tip-icon">🔄</div>
+                                <h4>Use Unique Passwords</h4>
+                                <p>Never reuse passwords across different accounts or services.</p>
+                            </div>
+                            
+                            <div class="tip-card">
+                                <div class="tip-icon">📱</div>
+                                <h4>Enable 2FA</h4>
+                                <p>Add two-factor authentication for an extra layer of security.</p>
+                            </div>
+                            
+                            <div class="tip-card">
+                                <div class="tip-icon">🔐</div>
+                                <h4>Use Password Managers</h4>
+                                <p>Let password managers generate and store unique, strong passwords.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Information -->
+    <section class="tool-info">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>🔍 What is Password Strength Analysis?</h3>
+                    <p>Password strength analysis evaluates how secure your password is against various attack methods including brute force, dictionary attacks, and pattern recognition. Our analyzer checks multiple factors including length, character diversity, common patterns, and known compromised passwords to give you a comprehensive security assessment.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>📊 How It Works</h3>
+                    <p>Our algorithm analyzes your password against multiple criteria: character length and diversity, common password databases, pattern detection (like keyboard walks or repeated sequences), and entropy calculation. The result is a comprehensive score that indicates how long it would take attackers to crack your password using different methods.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>🛡️ Security & Privacy</h3>
+                    <p>Your password is never sent to our servers - all analysis happens locally in your browser using JavaScript. The password is not stored, logged, or transmitted anywhere. This ensures complete privacy while providing accurate security analysis.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>📈 Improvement Tips</h3>
+                    <p>Based on your password analysis, you'll receive specific recommendations to improve security. These may include increasing length, adding character diversity, avoiding common patterns, or using passphrase techniques. Follow these suggestions to create passwords that are both secure and memorable.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Use -->
+    <section class="how-to-use">
+        <div class="container">
+            <h2>📝 How to Use the Password Strength Analyzer</h2>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Enter Password</h3>
+                        <p>Type or paste the password you want to analyze into the input field. Use the eye icon to toggle visibility.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Analyze</h3>
+                        <p>Click "Analyze Password" to run the comprehensive security analysis on your password.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Review Results</h3>
+                        <p>Check the strength score, detailed analysis, and security recommendations provided.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Improve Security</h3>
+                        <p>Follow the recommendations to create a stronger, more secure password.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cross-Site Promotion -->
+    <section class="cross-promotion">
+        <div class="container">
+            <h2>🔧 Related Security Tools</h2>
+            <div class="tools-grid">
+                <a href="/security-tools/password-generator" class="tool-card">
+                    <div class="tool-icon">🔐</div>
+                    <h3 class="tool-name">Password Generator</h3>
+                    <p class="tool-desc">Generate strong, secure passwords with customizable options</p>
+                </a>
+                
+                <a href="/security-tools/hash-generator" class="tool-card">
+                    <div class="tool-icon">🔗</div>
+                    <h3 class="tool-name">Hash Generator</h3>
+                    <p class="tool-desc">Generate cryptographic hashes for password verification</p>
+                </a>
+                
+                <a href="/security-tools/text-encryption" class="tool-card">
+                    <div class="tool-icon">🔒</div>
+                    <h3 class="tool-name">Text Encryption</h3>
+                    <p class="tool-desc">Encrypt and decrypt sensitive text data securely</p>
+                </a>
+                
+                <a href="/security-tools/totp-generator" class="tool-card">
+                    <div class="tool-icon">⏱️</div>
+                    <h3 class="tool-name">TOTP Generator</h3>
+                    <p class="tool-desc">Generate time-based one-time passwords for 2FA</p>
+                </a>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/assets/js/global.js"></script>
+    <script src="app.js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    
+    <!-- Tool Theme Handler -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle tool-specific theme CSS switching
+        const toolThemeLink = document.getElementById('tool-theme-css');
+        if (toolThemeLink) {
+            // Initial theme setup
+            const savedTheme = localStorage.getItem('zapit-theme') || 'light';
+            toolThemeLink.href = savedTheme + '.css';
+            
+            // Listen for theme changes
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                        const theme = document.documentElement.getAttribute('data-theme') || 'light';
+                        toolThemeLink.href = theme + '.css';
+                    }
+                });
+            });
+            
+            observer.observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ['data-theme']
+            });
+        }
+    });
+    </script>
+</body>
+</html>

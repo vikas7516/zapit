@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Word Frequency Counter - Text Tools - Zapit</title>
+	<meta name="description" content="Analyze word frequency in your text. Filter stop words, compare segments, and export results instantly.">
+	<meta property="og:title" content="Word Frequency Counter - Zapit">
+	<meta property="og:description" content="Instantly compute word occurrences, highlight top keywords, and download results in CSV or JSON.">
+	<meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+	<link rel="canonical" href="https://zapit.me/text-tools/word-frequency-counter">
+	<link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+	<link id="tool-theme-css" rel="stylesheet" href="light.css">
+	<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+	<link rel="icon" href="/icons/favicon.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="stylesheet" href="/assets/elements/theme-toggle.css">
+</head>
+<body class="tools-page">
+	<header class="site-header">
+		<div class="container">
+			<div class="header-nav">
+				<a href="/index.html" class="brand" aria-label="Zapit Home">
+					<img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+					<span class="brand-text">
+						<span class="brand-title">Zapit</span>
+						<span class="brand-tagline">A Zap Away From Done</span>
+					</span>
+				</a>
+				<div class="header-right">
+					<nav class="breadcrumb">
+						<a href="/">Home</a>
+						<span class="separator">/</span>
+						<a href="/text-tools">Text Tools</a>
+						<span class="separator">/</span>
+						<span class="current">Word Frequency Counter</span>
+					</nav>
+					<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+						<span class="theme-toggle-icon">🌙</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="tool-hero">
+			<div class="container">
+				<div class="tool-hero-content">
+					<div class="tool-icon-large">📊</div>
+					<h1 class="tool-title">Word Frequency Counter</h1>
+					<p class="tool-description">Quickly count word occurrences, highlight top keywords, and compare frequency across sections. Export your analysis as CSV or JSON.</p>
+					<div class="tool-meta">
+						<span class="meta-pill">Stop Word Filter</span>
+						<span class="meta-pill">Top Keywords</span>
+						<span class="meta-pill">Export CSV/JSON</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="tool-interface">
+			<div class="container">
+				<div class="tool-layout">
+					<div class="tool-card span-7" aria-labelledby="input-heading">
+						<div class="section-header">
+							<h2 id="input-heading">Input Text</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="loadSampleBtn">Load Sample</button>
+								<button type="button" class="btn btn-secondary" id="clearBtn">Clear</button>
+							</div>
+						</div>
+						<label for="inputText" class="sr-only">Text to analyze</label>
+						<textarea id="inputText" class="text-input large" maxlength="20000" placeholder="Paste or type your content here..." aria-describedby="inputHelp"></textarea>
+						<div class="helper-row" id="inputHelp">
+							<span class="helper-text" id="charCount">0 / 20000 characters</span>
+							<span class="helper-text" id="wordCount">0 words</span>
+						</div>
+						<div class="notification hidden" id="statusBanner" role="status"></div>
+					</div>
+
+					<div class="tool-card span-5" aria-labelledby="options-heading">
+						<div class="section-header">
+							<h2 id="options-heading">Analysis Options</h2>
+						</div>
+						<div class="options-stack">
+							<div class="field">
+								<label for="minFrequencyInput">Minimum frequency</label>
+								<input type="number" min="1" max="999" id="minFrequencyInput" class="text-input compact" value="1">
+							</div>
+							<div class="field">
+								<label for="maxResultsInput">Limit results</label>
+								<input type="number" min="10" max="500" id="maxResultsInput" class="text-input compact" value="100">
+							</div>
+							<div class="toggle-grid">
+								<label class="checkbox">
+									<input type="checkbox" id="ignoreCommonToggle" checked>
+									<span>Ignore common stop words</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="caseSensitiveToggle">
+									<span>Case sensitive</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="showPercentToggle" checked>
+									<span>Show % of total</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="includeNumbersToggle">
+									<span>Include numeric tokens</span>
+								</label>
+							</div>
+							<div class="field">
+								<label for="sortSelect">Sort results by</label>
+								<select id="sortSelect" class="select-input">
+									<option value="frequency">Highest frequency</option>
+									<option value="alphabetical">Alphabetical</option>
+									<option value="length">Longest words</option>
+								</select>
+							</div>
+							<div class="button-row">
+								<button type="button" class="btn btn-primary" id="analyzeBtn">Analyze</button>
+								<button type="button" class="btn btn-outline" id="downloadCsvBtn">Download CSV</button>
+								<button type="button" class="btn btn-outline" id="downloadJsonBtn">Download JSON</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="tool-card span-12" aria-labelledby="results-heading">
+						<div class="section-header">
+							<h2 id="results-heading">Frequency Results</h2>
+							<div class="toolbar">
+								<span class="badge" id="resultCountBadge">0 unique</span>
+								<span class="badge muted" id="highestWordBadge">Top: —</span>
+								<button type="button" class="btn btn-outline btn-xs" id="copyTableBtn">Copy Table</button>
+							</div>
+						</div>
+						<div class="results-wrapper" role="region" aria-live="polite">
+							<table class="results-table" id="resultsTable">
+								<thead>
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col">Word</th>
+										<th scope="col">Count</th>
+										<th scope="col">% of total</th>
+									</tr>
+								</thead>
+								<tbody id="resultsBody">
+									<tr class="placeholder">
+										<td colspan="4">Add text and run analysis to see word frequencies.</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class="tool-card span-5 stats-card" aria-labelledby="stats-heading">
+						<div class="section-header">
+							<h2 id="stats-heading">Analysis Summary</h2>
+						</div>
+						<div class="stats-grid">
+							<div class="stat-item">
+								<span class="stat-label">Total words</span>
+								<span class="stat-value" id="totalWordsStat">0</span>
+							</div>
+							<div class="stat-item">
+								<span class="stat-label">Unique words</span>
+								<span class="stat-value" id="uniqueWordsStat">0</span>
+							</div>
+							<div class="stat-item">
+								<span class="stat-label">Ignored stop words</span>
+								<span class="stat-value" id="ignoredWordsStat">0</span>
+							</div>
+							<div class="stat-item">
+								<span class="stat-label">Analysis time</span>
+								<span class="stat-value" id="analysisTimeStat">0 ms</span>
+							</div>
+						</div>
+						<p class="stats-note" id="statsNote" role="status" aria-live="polite">Awaiting input.</p>
+					</div>
+
+					<div class="tool-card span-7 info-card" aria-labelledby="insights-heading">
+						<div class="section-header">
+							<h2 id="insights-heading">Insights &amp; Tips</h2>
+						</div>
+						<ul class="tips-list" id="tipsList">
+							<li>Use the stop-word filter to remove filler terms and surface meaningful keywords quickly.</li>
+							<li>Quickly export your findings as CSV to chart results, or JSON for further automation.</li>
+							<li>Adjust minimum frequency to focus on words that matter to your analysis.</li>
+							<li>Compare different sections by running the tool multiple times and exporting each result set.</li>
+							<li>Include numbers to track counts like “2024” or “100%” when numeric data matters.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<div class="footer-brand-row">
+						<img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+						<span class="footer-brand-text">
+							<h3 class="footer-logo">Zapit</h3>
+							<div class="footer-tagline">A Zap Away From Done</div>
+						</span>
+					</div>
+					<p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+					<div class="footer-copyright">© Zapit. All rights reserved.</div>
+				</div>
+				<div class="footer-links">
+					<h4 class="footer-title">Legal</h4>
+					<ul class="footer-list">
+						<li><a href="/privacy.html">Privacy Policy</a></li>
+						<li><a href="/terms.html">Terms of Service</a></li>
+						<li><a href="/contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/js/global.js" defer></script>
+	<script src="app.js" defer></script>
+	<script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+	<script>
+		(function () {
+			const toolTheme = document.getElementById('tool-theme-css');
+			if (!toolTheme) return;
+
+			function applyTheme(theme) {
+				const next = theme === 'dark' ? 'dark.css' : 'light.css';
+				if (toolTheme.getAttribute('href') !== next) {
+					toolTheme.setAttribute('href', next);
+				}
+			}
+
+			const current = document.documentElement.getAttribute('data-theme') || 'light';
+			applyTheme(current);
+
+			const observer = new MutationObserver(function (mutations) {
+				mutations.forEach(function (mutation) {
+					if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+						const theme = document.documentElement.getAttribute('data-theme') || 'light';
+						applyTheme(theme);
+					}
+				});
+			});
+
+			observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+		})();
+	</script>
+</body>
+</html>

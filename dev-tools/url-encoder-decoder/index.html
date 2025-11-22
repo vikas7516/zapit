@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Encoder/Decoder - Developer Tools - Zapit</title>
+    <meta name="description" content="Encode and decode URLs, query parameters, and URI components with validation and analysis tools.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/dev-tools/url-encoder-decoder">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">🔗</div>
+                    <h1 class="tool-title">URL Encoder/Decoder</h1>
+                    <p class="tool-description">Encode and decode URLs, query parameters, and URI components</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-card">
+                    <!-- Input Section -->
+                    <div class="input-section">
+                        <div class="section-header">
+                            <h3>Input</h3>
+                            <div class="header-actions">
+                                <button id="load-sample" class="btn btn-outline">Load Sample</button>
+                                <button id="clear-input" class="btn btn-outline">Clear</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="url-input">Enter URL or text to encode/decode:</label>
+                            <textarea id="url-input" placeholder="Enter URL or text here..." rows="4"></textarea>
+                            <div class="input-info">
+                                <span class="char-count">Characters: <span id="char-count">0</span></span>
+                                <span class="url-status" id="url-status">Enter text</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="actions-section">
+                        <div class="action-group">
+                            <button id="encode-btn" class="btn btn-primary">Encode</button>
+                            <button id="decode-btn" class="btn btn-secondary">Decode</button>
+                            <button id="validate-btn" class="btn btn-outline">Validate URL</button>
+                        </div>
+                        <div class="encoding-options">
+                            <h4>Encoding Options</h4>
+                            <div class="options-grid">
+                                <label class="option-checkbox">
+                                    <input type="checkbox" id="encode-spaces">
+                                    <span>Encode spaces as %20 (not +)</span>
+                                </label>
+                                <label class="option-checkbox">
+                                    <input type="checkbox" id="encode-reserved" checked>
+                                    <span>Encode reserved characters</span>
+                                </label>
+                                <label class="option-checkbox">
+                                    <input type="checkbox" id="encode-unsafe">
+                                    <span>Encode unsafe characters</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Output Section -->
+                    <div class="output-section">
+                        <div class="section-header">
+                            <h3>Output</h3>
+                            <div class="header-actions">
+                                <button id="copy-output" class="btn btn-outline">Copy</button>
+                                <button id="clear-output" class="btn btn-outline">Clear</button>
+                            </div>
+                        </div>
+                        <div class="output-container">
+                            <textarea id="url-output" readonly placeholder="Output will appear here..."></textarea>
+                            <div class="output-info">
+                                <span class="output-length">Length: <span id="output-length">0</span></span>
+                                <span class="size-change" id="size-change"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- URL Analysis -->
+                    <div class="analysis-section">
+                        <div class="section-header">
+                            <h3>URL Analysis</h3>
+                            <button id="analyze-url" class="btn btn-outline">Analyze URL</button>
+                        </div>
+                        <div class="url-parts" id="url-parts">
+                            <div class="part-item">
+                                <span class="part-label">Protocol:</span>
+                                <span class="part-value" id="protocol">-</span>
+                            </div>
+                            <div class="part-item">
+                                <span class="part-label">Host:</span>
+                                <span class="part-value" id="host">-</span>
+                            </div>
+                            <div class="part-item">
+                                <span class="part-label">Port:</span>
+                                <span class="part-value" id="port">-</span>
+                            </div>
+                            <div class="part-item">
+                                <span class="part-label">Path:</span>
+                                <span class="part-value" id="path">-</span>
+                            </div>
+                            <div class="part-item">
+                                <span class="part-label">Query:</span>
+                                <span class="part-value" id="query">-</span>
+                            </div>
+                            <div class="part-item">
+                                <span class="part-label">Fragment:</span>
+                                <span class="part-value" id="fragment">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Query Parameters -->
+                    <div class="params-section">
+                        <div class="section-header">
+                            <h3>Query Parameters</h3>
+                            <div class="header-actions">
+                                <button id="extract-params" class="btn btn-outline">Extract</button>
+                                <button id="build-url" class="btn btn-outline">Build URL</button>
+                            </div>
+                        </div>
+                        <div class="params-container">
+                            <div class="params-editor" id="params-editor">
+                                <div class="no-params">No query parameters found</div>
+                            </div>
+                            <button id="add-param" class="btn btn-outline add-param-btn">Add Parameter</button>
+                        </div>
+                        <div class="built-url-section">
+                            <h4>Built URL</h4>
+                            <div class="built-url-container">
+                                <input type="text" id="built-url" readonly placeholder="URL will be built here..." />
+                                <button id="copy-built-url" class="btn btn-outline">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Batch Processing -->
+                    <div class="batch-section">
+                        <div class="section-header">
+                            <h3>Batch Processing</h3>
+                            <div class="header-actions">
+                                <button id="process-batch" class="btn btn-primary">Process All</button>
+                                <button id="clear-batch" class="btn btn-outline">Clear</button>
+                            </div>
+                        </div>
+                        <div class="batch-content">
+                            <div class="batch-input-group">
+                                <label for="batch-input">URLs/Text (one per line):</label>
+                                <textarea id="batch-input" placeholder="Enter multiple URLs or text strings, one per line..." rows="6"></textarea>
+                            </div>
+                            <div class="batch-options">
+                                <label class="batch-option">
+                                    <input type="radio" name="batch-operation" value="encode" checked>
+                                    <span>Encode All</span>
+                                </label>
+                                <label class="batch-option">
+                                    <input type="radio" name="batch-operation" value="decode">
+                                    <span>Decode All</span>
+                                </label>
+                            </div>
+                            <div class="batch-results">
+                                <h4>Results</h4>
+                                <div class="batch-output" id="batch-output">
+                                    <div class="no-results">Enter URLs and click "Process All" to see results</div>
+                                </div>
+                                <button id="copy-batch-results" class="btn btn-outline">Copy All Results</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="quick-section">
+                        <h3>Quick Actions</h3>
+                        <div class="quick-grid">
+                            <button class="quick-btn" data-action="encode-query">Encode Query String</button>
+                            <button class="quick-btn" data-action="decode-query">Decode Query String</button>
+                            <button class="quick-btn" data-action="encode-path">Encode Path Component</button>
+                            <button class="quick-btn" data-action="decode-path">Decode Path Component</button>
+                            <button class="quick-btn" data-action="encode-fragment">Encode Fragment</button>
+                            <button class="quick-btn" data-action="decode-fragment">Decode Fragment</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Panel -->
+                <div class="info-panel">
+                    <h3>About URL Encoding</h3>
+                    <p>URL encoding (also known as percent encoding) is a mechanism to encode information in a Uniform Resource Identifier (URI) under certain circumstances. It converts characters into a format that can be transmitted over the Internet.</p>
+                    
+                    <div class="encoding-rules">
+                        <h4>Encoding Rules</h4>
+                        <ul>
+                            <li><strong>Reserved Characters:</strong> : / ? # [ ] @ ! $ & ' ( ) * + , ; =</li>
+                            <li><strong>Unsafe Characters:</strong> Space, ", <, >, #, %, {, }, |, \, ^, ~, [, ], `</li>
+                            <li><strong>Encoding Format:</strong> % followed by two hexadecimal digits</li>
+                            <li><strong>Space Encoding:</strong> Can be %20 or + (in query strings)</li>
+                        </ul>
+                    </div>
+
+                    <div class="common-encodings">
+                        <h4>Common Character Encodings</h4>
+                        <div class="encoding-examples">
+                            <div class="encoding-item">
+                                <code>Space</code> → <code>%20</code> or <code>+</code>
+                            </div>
+                            <div class="encoding-item">
+                                <code>!</code> → <code>%21</code>
+                            </div>
+                            <div class="encoding-item">
+                                <code>"</code> → <code>%22</code>
+                            </div>
+                            <div class="encoding-item">
+                                <code>#</code> → <code>%23</code>
+                            </div>
+                            <div class="encoding-item">
+                                <code>$</code> → <code>%24</code>
+                            </div>
+                            <div class="encoding-item">
+                                <code>%</code> → <code>%25</code>
+                            </div>
+                            <div class="encoding-item">
+                                <code>&</code> → <code>%26</code>
+                            </div>
+                            <div class="encoding-item">
+                                <code>'</code> → <code>%27</code>
+                            </div>
+                            <div class="encoding-item">
+                                <code>(</code> → <code>%28</code>
+                            </div>
+                            <div class="encoding-item">
+                                <code>)</code> → <code>%29</code>
+                            </div>
+                            <div class="encoding-item">
+                                <code>+</code> → <code>%2B</code>
+                            </div>
+                            <div class="encoding-item">
+                                <code>,</code> → <code>%2C</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="url-components">
+                        <h4>URL Components</h4>
+                        <div class="component-example">
+                            <code>https://example.com:8080/path/to/resource?param1=value1&param2=value2#section</code>
+                        </div>
+                        <ul>
+                            <li><strong>Protocol:</strong> https://</li>
+                            <li><strong>Host:</strong> example.com</li>
+                            <li><strong>Port:</strong> :8080</li>
+                            <li><strong>Path:</strong> /path/to/resource</li>
+                            <li><strong>Query:</strong> ?param1=value1&param2=value2</li>
+                            <li><strong>Fragment:</strong> #section</li>
+                        </ul>
+                    </div>
+
+                    <div class="use-cases">
+                        <h4>When to Use URL Encoding</h4>
+                        <ul>
+                            <li><strong>Form Data:</strong> When submitting forms with special characters</li>
+                            <li><strong>Query Parameters:</strong> For search terms and filter values</li>
+                            <li><strong>API Requests:</strong> When passing data in URL parameters</li>
+                            <li><strong>File Names:</strong> For files with spaces or special characters</li>
+                            <li><strong>Internationalization:</strong> For non-ASCII characters in URLs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

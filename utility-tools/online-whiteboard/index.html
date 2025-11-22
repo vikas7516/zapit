@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Online Whiteboard - Utility Tools - Zapit</title>
+	<meta name="description" content="Sketch, annotate, and export your ideas with a lightweight online whiteboard featuring undo, redo, custom backgrounds, and text notes.">
+	<meta property="og:title" content="Online Whiteboard - Zapit">
+	<meta property="og:description" content="Draw, highlight, add text, and download your board instantly.">
+	<meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+	<link rel="canonical" href="https://zapit.me/utility-tools/online-whiteboard">
+	<link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+	<link id="tool-theme-css" rel="stylesheet" href="light.css">
+	<link rel="stylesheet" href="/assets/elements/theme-toggle.css">
+	<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+	<link rel="icon" href="/icons/favicon.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+	<link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+	<header class="site-header">
+		<div class="container">
+			<div class="header-nav">
+				<a href="/index.html" class="brand" aria-label="Zapit Home">
+					<img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+					<span class="brand-text">
+						<span class="brand-title">Zapit</span>
+						<span class="brand-tagline">A Zap Away From Done</span>
+					</span>
+				</a>
+				<div class="header-right">
+					<nav class="breadcrumb">
+						<a href="/">Home</a>
+						<span class="separator">/</span>
+						<a href="/utility-tools">Utility Tools</a>
+						<span class="separator">/</span>
+						<span class="current">Online Whiteboard</span>
+					</nav>
+					<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+						<span class="theme-toggle-icon">🌙</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="tool-hero">
+			<div class="container">
+				<div class="tool-hero-content">
+					<div class="tool-icon-large">🧑‍🎨</div>
+					<h1 class="tool-title">Online Whiteboard</h1>
+					<p class="tool-description">Capture brainstorms, annotate screenshots, and sketch UI flows with a fluid drawing surface. Swap tools on the fly, undo mistakes, and export snapshots in seconds.</p>
+					<div class="tool-meta">
+						<span class="meta-pill">Highlighter &amp; Text</span>
+						<span class="meta-pill">Undo / Redo History</span>
+						<span class="meta-pill">Download &amp; Copy</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="tool-interface">
+			<div class="container">
+				<div class="tool-layout">
+					<div class="tool-card span-4" aria-labelledby="controls-heading">
+						<div class="section-header">
+							<h2 id="controls-heading">Board Controls</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="undoBtn" disabled>Undo</button>
+								<button type="button" class="btn btn-outline" id="redoBtn" disabled>Redo</button>
+								<button type="button" class="btn btn-secondary" id="clearBtn">Clear</button>
+							</div>
+						</div>
+
+						<div class="panel-group">
+							<div class="panel">
+								<h3>Tools</h3>
+								<div class="tool-buttons" role="radiogroup" aria-label="Drawing tools">
+									<button type="button" class="tool-button active" data-tool="pen">✏️ Pen</button>
+									<button type="button" class="tool-button" data-tool="highlighter">🖍️ Highlighter</button>
+									<button type="button" class="tool-button" data-tool="eraser">🧽 Eraser</button>
+									<button type="button" class="tool-button" data-tool="text">🔤 Text</button>
+								</div>
+							</div>
+
+							<div class="panel">
+								<h3>Styles</h3>
+								<label class="field">
+									<span>Stroke color</span>
+									<input type="color" id="colorPicker" value="#1d4ed8">
+								</label>
+								<label class="field">
+									<span>Stroke size</span>
+									<input type="range" id="sizeSlider" min="2" max="36" value="6">
+									<span class="range-value" id="sizeValue">6 px</span>
+								</label>
+								<label class="field">
+									<span>Text size</span>
+									<input type="range" id="textSizeSlider" min="12" max="64" value="24">
+									<span class="range-value" id="textSizeValue">24 px</span>
+								</label>
+								<label class="field">
+									<span>Highlighter opacity</span>
+									<input type="range" id="highlightOpacity" min="0.1" max="0.8" step="0.05" value="0.35">
+									<span class="range-value" id="highlightValue">35%</span>
+								</label>
+							</div>
+
+							<div class="panel">
+								<h3>Background</h3>
+								<label class="field">
+									<span>Board color</span>
+									<input type="color" id="boardColor" value="#ffffff">
+								</label>
+								<label class="field">
+									<span>Pattern</span>
+									<select id="patternSelect" class="text-input">
+										<option value="plain">Plain</option>
+										<option value="grid" selected>Grid</option>
+										<option value="dots">Dots</option>
+										<option value="isometric">Isometric</option>
+									</select>
+								</label>
+								<label class="field">
+									<span>Guides visibility</span>
+									<label class="toggle">
+										<input type="checkbox" id="showGuides" checked>
+										<span>Show guide overlay</span>
+									</label>
+								</label>
+							</div>
+
+							<div class="panel">
+								<h3>Export</h3>
+								<div class="button-group">
+									<button type="button" class="btn btn-primary" id="downloadBtn">Download PNG</button>
+									<button type="button" class="btn btn-outline" id="copyBtn">Copy to clipboard</button>
+								</div>
+								<div class="helper-text" id="exportStatus" role="status"></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="tool-card span-8 board-card" aria-labelledby="board-heading">
+						<div class="section-header">
+							<h2 id="board-heading">Workspace</h2>
+							<div class="toolbar">
+								<span class="board-meta" id="boardMeta">Resolution: —</span>
+							</div>
+						</div>
+						<div class="board-wrapper" id="boardWrapper">
+							<canvas id="boardCanvas" width="1200" height="800" aria-label="Interactive whiteboard"></canvas>
+							<div class="text-editor" id="textEditor" contenteditable="true" aria-hidden="true"></div>
+							<div class="board-guides" id="boardGuides"></div>
+						</div>
+						<div class="board-shortcuts">
+							<span>Shortcuts: <kbd>Ctrl/Cmd</kbd>+<kbd>Z</kbd> to undo • <kbd>Ctrl/Cmd</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd> or <kbd>Ctrl/Cmd</kbd>+<kbd>Y</kbd> to redo • <kbd>Delete</kbd> to clear board</span>
+						</div>
+					</div>
+
+					<div class="tool-card span-12 info-card" aria-labelledby="tips-heading">
+						<div class="section-header">
+							<h2 id="tips-heading">Creative Tips</h2>
+						</div>
+						<div class="tips-grid">
+							<div class="tip-block">
+								<h3>Structure your flow</h3>
+								<p>Use the grid or isometric backgrounds to align UI layouts, architecture diagrams, and whiteboard interviews without visual clutter.</p>
+							</div>
+							<div class="tip-block">
+								<h3>Highlight ideas</h3>
+								<p>Switch to the highlighter to emphasize key sections—opacity controls keep text underneath legible.</p>
+							</div>
+							<div class="tip-block">
+								<h3>Share instantly</h3>
+								<p>Copy the board to your clipboard for drop-in sharing or download a PNG snapshot to attach in docs and sprint reports.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<div class="footer-brand-row">
+						<img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+						<span class="footer-brand-text">
+							<h3 class="footer-logo">Zapit</h3>
+							<div class="footer-tagline">A Zap Away From Done</div>
+						</span>
+					</div>
+					<p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+					<div class="footeropyright">© Zapit. All rights reserved.</div>
+				</div>
+				<div class="footer-links">
+					<h4 class="footer-title">Legal</h4>
+					<ul class="footer-list">
+						<li><a href="/privacy.html">Privacy Policy</a></li>
+						<li><a href="/terms.html">Terms of Service</a></li>
+						<li><a href="/contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/js/global.js" defer></script>
+	<script src="app.js" defer></script>
+	<script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+	<script>
+		(function () {
+			const toolTheme = document.getElementById('tool-theme-css');
+			if (!toolTheme) return;
+			function applyTheme(theme) {
+				const next = theme === 'dark' ? 'dark.css' : 'light.css';
+				if (toolTheme.getAttribute('href') !== next) {
+					toolTheme.setAttribute('href', next);
+				}
+			}
+			const current = document.documentElement.getAttribute('data-theme') || 'light';
+			applyTheme(current);
+			const observer = new MutationObserver((mutations) => {
+				mutations.forEach((mutation) => {
+					if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+						const theme = document.documentElement.getAttribute('data-theme') || 'light';
+						applyTheme(theme);
+					}
+				});
+			});
+			observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+		})();
+	</script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator - Health & Fitness - Zapit</title>
+    <meta name="description" content="Calculate your Body Mass Index (BMI) instantly. Get your BMI category, health insights, and personalized recommendations.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link rel="canonical" href="https://zapit.me/health-fitness-calculators/bmi-calculator">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">⚖️</div>
+                    <h1 class="tool-title">BMI Calculator</h1>
+                    <p class="tool-description">Calculate your Body Mass Index and get insights about your health category</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-container">
+                    <!-- BMI Calculator Form -->
+                    <div class="calculator-panel">
+                        <h3>Calculate Your BMI</h3>
+                        
+                        <div class="unit-toggle">
+                            <button id="metricBtn" class="unit-btn active">Metric</button>
+                            <button id="imperialBtn" class="unit-btn">Imperial</button>
+                        </div>
+
+                        <div class="input-section">
+                            <!-- Metric Inputs -->
+                            <div id="metricInputs" class="input-group">
+                                <div class="input-row">
+                                    <label for="heightCm">Height:</label>
+                                    <div class="input-with-unit">
+                                        <input type="number" id="heightCm" placeholder="170" min="50" max="250" step="0.1">
+                                        <span class="unit">cm</span>
+                                    </div>
+                                </div>
+                                <div class="input-row">
+                                    <label for="weightKg">Weight:</label>
+                                    <div class="input-with-unit">
+                                        <input type="number" id="weightKg" placeholder="70" min="20" max="300" step="0.1">
+                                        <span class="unit">kg</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Imperial Inputs -->
+                            <div id="imperialInputs" class="input-group hidden">
+                                <div class="input-row">
+                                    <label for="heightFt">Height:</label>
+                                    <div class="height-imperial">
+                                        <div class="input-with-unit">
+                                            <input type="number" id="heightFt" placeholder="5" min="3" max="8" step="1">
+                                            <span class="unit">ft</span>
+                                        </div>
+                                        <div class="input-with-unit">
+                                            <input type="number" id="heightIn" placeholder="7" min="0" max="11" step="1">
+                                            <span class="unit">in</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-row">
+                                    <label for="weightLbs">Weight:</label>
+                                    <div class="input-with-unit">
+                                        <input type="number" id="weightLbs" placeholder="154" min="50" max="700" step="0.1">
+                                        <span class="unit">lbs</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button id="calculateBtn" class="calculate-btn">Calculate BMI</button>
+                        </div>
+                    </div>
+
+                    <!-- Results Panel -->
+                    <div id="resultsPanel" class="results-panel hidden">
+                        <h3>Your BMI Results</h3>
+                        <div class="bmi-display">
+                            <div class="bmi-value">
+                                <span id="bmiValue">0.0</span>
+                                <span class="bmi-unit">BMI</span>
+                            </div>
+                            <div id="bmiCategory" class="bmi-category"></div>
+                        </div>
+
+                        <div class="bmi-chart">
+                            <div class="chart-bar">
+                                <div class="chart-section underweight" data-range="< 18.5">
+                                    <span class="chart-label">Underweight</span>
+                                </div>
+                                <div class="chart-section normal" data-range="18.5 - 24.9">
+                                    <span class="chart-label">Normal</span>
+                                </div>
+                                <div class="chart-section overweight" data-range="25.0 - 29.9">
+                                    <span class="chart-label">Overweight</span>
+                                </div>
+                                <div class="chart-section obese" data-range="≥ 30.0">
+                                    <span class="chart-label">Obese</span>
+                                </div>
+                            </div>
+                            <div id="bmiIndicator" class="bmi-indicator"></div>
+                        </div>
+
+                        <div id="healthInsights" class="health-insights">
+                            <h4>Health Insights</h4>
+                            <div id="insightsContent"></div>
+                        </div>
+
+                        <div class="actions">
+                            <button id="recalculateBtn" class="secondary-btn">Recalculate</button>
+                            <button id="shareBtn" class="primary-btn">Share Results</button>
+                        </div>
+                    </div>
+
+                    <!-- Information Panel -->
+                    <div class="info-panel">
+                        <h3>About BMI</h3>
+                        <div class="info-content">
+                            <p>Body Mass Index (BMI) is a measure of body fat based on height and weight. It's a screening tool that can indicate whether a person has a healthy body weight.</p>
+                            
+                            <div class="bmi-categories">
+                                <h4>BMI Categories</h4>
+                                <div class="category-list">
+                                    <div class="category-item underweight">
+                                        <span class="category-range">Below 18.5</span>
+                                        <span class="category-name">Underweight</span>
+                                    </div>
+                                    <div class="category-item normal">
+                                        <span class="category-range">18.5 - 24.9</span>
+                                        <span class="category-name">Normal Weight</span>
+                                    </div>
+                                    <div class="category-item overweight">
+                                        <span class="category-range">25.0 - 29.9</span>
+                                        <span class="category-name">Overweight</span>
+                                    </div>
+                                    <div class="category-item obese">
+                                        <span class="category-range">30.0 and above</span>
+                                        <span class="category-name">Obese</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="disclaimer">
+                                <h4>Important Note</h4>
+                                <p>BMI is a screening tool and not a diagnostic measure. It doesn't directly measure body fat and may not be accurate for athletes, elderly, or pregnant women. Consult healthcare professionals for comprehensive health assessment.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/assets/js/script.js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

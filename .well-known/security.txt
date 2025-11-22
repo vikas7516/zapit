@@ -1,0 +1,3 @@
+Contact: mailto:security@zapit.me
+Policy: https://zapit.me/terms.html
+Preferred-Languages: en

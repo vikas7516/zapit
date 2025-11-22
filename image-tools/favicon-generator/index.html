@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Generator - Image Tools - Zapit</title>
+    <meta name="description"
+        content="Create perfect favicons for your website. Generate .ico and PNG icons in all standard sizes (16x16, 32x32, 192x192, 512x512) from any image.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/image-tools/favicon-generator">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+</head>
+
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <span class="tool-icon-large">🎨</span>
+                    <h1 class="tool-title">Favicon Generator</h1>
+                    <p class="tool-description">
+                        Convert any image into a complete set of favicons for your website.
+                        Generates standard .ico and PNG formats for all devices.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-layout">
+                    <!-- Upload Section -->
+                    <div class="upload-section" id="uploadSection">
+                        <div class="upload-area" id="uploadArea">
+                            <span class="upload-icon">📁</span>
+                            <div class="upload-text">
+                                <h3>Drop your image here</h3>
+                                <p>or <span class="browse-link" id="browseLink">browse files</span> to convert</p>
+                                <div class="upload-formats">
+                                    Supports JPEG, PNG, WebP, SVG (Square images recommended)
+                                </div>
+                            </div>
+                            <input type="file" id="fileInput" accept="image/*" class="hidden"
+                                aria-label="Select image file">
+                        </div>
+                        <div class="upload-error" id="uploadError"></div>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div class="results-section hidden" id="resultsSection">
+                        <div class="results-layout">
+                            <!-- Preview Section -->
+                            <div class="preview-section">
+                                <div class="preview-header">
+                                    <h3>Preview</h3>
+                                </div>
+                                <div class="preview-container">
+                                    <img id="previewImage" alt="Favicon preview">
+                                </div>
+                                <div style="margin-top: 1rem; text-align: center;">
+                                    <p class="preview-info">Preview shows 512x512 version</p>
+                                </div>
+                            </div>
+
+                            <!-- Configuration & Download -->
+                            <div class="controls-section">
+                                <div class="controls-header">
+                                    <h3>Generated Icons</h3>
+                                </div>
+
+                                <div class="compression-options">
+                                    <div class="option-group">
+                                        <label class="option-label">Included Sizes:</label>
+                                        <div class="radio-group" style="flex-direction: column; gap: 0.5rem;">
+                                            <div class="radio-option">
+                                                <input type="checkbox" checked disabled> 16x16 (favicon.ico)
+                                            </div>
+                                            <div class="radio-option">
+                                                <input type="checkbox" checked disabled> 32x32 (favicon-32x32.png)
+                                            </div>
+                                            <div class="radio-option">
+                                                <input type="checkbox" checked disabled> 180x180 (apple-touch-icon.png)
+                                            </div>
+                                            <div class="radio-option">
+                                                <input type="checkbox" checked disabled> 192x192
+                                                (android-chrome-192x192.png)
+                                            </div>
+                                            <div class="radio-option">
+                                                <input type="checkbox" checked disabled> 512x512
+                                                (android-chrome-512x512.png)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="compression-results">
+                                    <div class="result-item">
+                                        <span class="result-label">Total Files:</span>
+                                        <span class="result-value">5 icons + manifest</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="action-buttons">
+                            <button class="btn-primary" id="downloadBtn">
+                                <span class="btn-icon">📦</span>
+                                Download All (ZIP)
+                            </button>
+                            <button class="btn-secondary" id="processAnotherBtn">
+                                <span class="btn-icon">🔄</span>
+                                Convert Another
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructions Section -->
+        <section class="instructions-section">
+            <div class="container">
+                <h2 class="section-title">How to Use</h2>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <span class="instruction-icon">📤</span>
+                        <h3>Upload Image</h3>
+                        <p>Upload your logo or image. Square images (1:1 aspect ratio) work best.</p>
+                    </div>
+                    <div class="instruction-item">
+                        <span class="instruction-icon">⚡</span>
+                        <h3>Auto-Generate</h3>
+                        <p>We automatically resize and format your image into all standard favicon sizes.</p>
+                    </div>
+                    <div class="instruction-item">
+                        <span class="instruction-icon">💾</span>
+                        <h3>Download ZIP</h3>
+                        <p>Download a ZIP file containing all icons and a site.webmanifest file.</p>
+                    </div>
+                    <div class="instruction-item">
+                        <span class="instruction-icon">💻</span>
+                        <h3>Install</h3>
+                        <p>Upload the files to your website root and add the HTML tags to your head.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <div class="footer-brand-row">
+                            <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                            <span class="footer-brand-text">
+                                <h3 class="footer-logo">Zapit</h3>
+                                <div class="footer-tagline">A Zap Away From Done</div>
+                            </span>
+                        </div>
+                        <p class="footer-description">Free, fast, and private online tools for everyone. No registration
+                            required.</p>
+                        <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                    </div>
+
+                    <div class="footer-links">
+                        <h4 class="footer-title">Legal</h4>
+                        <ul class="footer-list">
+                            <li><a href="/privacy.html">Privacy Policy</a></li>
+                            <li><a href="/terms.html">Terms of Service</a></li>
+                            <li><a href="/contact.html">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="/assets/js/header.js" defer></script>
+    <script src="/assets/elements/theme-toggle.js" defer></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

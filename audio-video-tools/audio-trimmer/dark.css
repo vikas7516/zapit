@@ -1,0 +1,693 @@
+/* Audio Trimmer Tool - Dark Theme */
+:root {
+    /* Tool-specific colors for dark theme */
+    --audio-trimmer-primary: #3498db;
+    --audio-trimmer-primary-hover: #2980b9;
+    --audio-trimmer-secondary: #2ecc71;
+    --audio-trimmer-warning: #f39c12;
+    --audio-trimmer-danger: #e74c3c;
+    --audio-trimmer-bg: #2c3e50;
+    --audio-trimmer-card-bg: #34495e;
+    --audio-trimmer-border: #4a5f7a;
+    --audio-trimmer-text: #ecf0f1;
+    --audio-trimmer-text-light: #bdc3c7;
+    --audio-trimmer-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    --audio-trimmer-hover: #3d4f63;
+    
+    /* Waveform colors */
+    --waveform-bg: #4a5f7a;
+    --waveform-line: #3498db;
+    --waveform-selection: rgba(52, 152, 219, 0.3);
+    --waveform-selection-border: #3498db;
+    --playhead-color: #e74c3c;
+}
+
+/* Tool Layout */
+.tool-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Upload Section */
+.upload-section {
+    background: var(--audio-trimmer-card-bg);
+    border: 1px solid var(--audio-trimmer-border);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: var(--audio-trimmer-shadow);
+}
+
+.upload-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--audio-trimmer-border);
+}
+
+.upload-header h3 {
+    color: var(--audio-trimmer-text);
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.file-info {
+    background: var(--audio-trimmer-primary);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.upload-area {
+    border: 3px dashed var(--audio-trimmer-border);
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--audio-trimmer-bg);
+}
+
+.upload-area:hover {
+    border-color: var(--audio-trimmer-primary);
+    background: var(--audio-trimmer-hover);
+}
+
+.upload-area.dragover {
+    border-color: var(--audio-trimmer-secondary);
+    background: rgba(46, 204, 113, 0.1);
+}
+
+.upload-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.7;
+}
+
+.upload-text {
+    margin: 0 0 0.5rem 0;
+    color: var(--audio-trimmer-text);
+    font-size: 1.1rem;
+}
+
+.upload-formats {
+    margin: 0;
+    color: var(--audio-trimmer-text-light);
+    font-size: 0.9rem;
+}
+
+.upload-progress {
+    margin-top: 1rem;
+}
+
+.progress-bar {
+    height: 8px;
+    background: var(--audio-trimmer-border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--audio-trimmer-primary);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    text-align: center;
+    color: var(--audio-trimmer-text-light);
+    font-size: 0.9rem;
+}
+
+/* Waveform Section */
+.waveform-section {
+    background: var(--audio-trimmer-card-bg);
+    border: 1px solid var(--audio-trimmer-border);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: var(--audio-trimmer-shadow);
+}
+
+.waveform-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--audio-trimmer-border);
+}
+
+.waveform-header h3 {
+    color: var(--audio-trimmer-text);
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.playback-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-play,
+.btn-pause,
+.btn-stop {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-play {
+    background: var(--audio-trimmer-secondary);
+    color: white;
+}
+
+.btn-play:hover {
+    background: #27ae60;
+}
+
+.btn-pause {
+    background: var(--audio-trimmer-warning);
+    color: white;
+}
+
+.btn-pause:hover {
+    background: #e67e22;
+}
+
+.btn-stop {
+    background: var(--audio-trimmer-danger);
+    color: white;
+}
+
+.btn-stop:hover {
+    background: #c0392b;
+}
+
+.waveform-container {
+    position: relative;
+    margin: 2rem 0;
+    border: 2px solid var(--audio-trimmer-border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--waveform-bg);
+}
+
+#waveformCanvas {
+    display: block;
+    width: 100%;
+    height: 200px;
+    cursor: crosshair;
+}
+
+.selection-overlay {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background: var(--waveform-selection);
+    border-left: 2px solid var(--waveform-selection-border);
+    border-right: 2px solid var(--waveform-selection-border);
+    pointer-events: none;
+    display: none;
+}
+
+.playhead {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: var(--playhead-color);
+    pointer-events: none;
+    display: none;
+}
+
+.time-info {
+    display: flex;
+    justify-content: space-between;
+    color: var(--audio-trimmer-text-light);
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
+/* Trim Controls */
+.trim-controls {
+    background: var(--audio-trimmer-card-bg);
+    border: 1px solid var(--audio-trimmer-border);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: var(--audio-trimmer-shadow);
+}
+
+.trim-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--audio-trimmer-border);
+}
+
+.trim-header h3 {
+    color: var(--audio-trimmer-text);
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.btn-reset {
+    background: var(--audio-trimmer-text-light);
+    color: var(--audio-trimmer-bg);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-reset:hover {
+    background: var(--audio-trimmer-text);
+}
+
+.trim-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.time-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.time-input-group label {
+    font-weight: 600;
+    color: var(--audio-trimmer-text);
+    font-size: 0.95rem;
+}
+
+.time-input-group input {
+    padding: 0.75rem;
+    border: 2px solid var(--audio-trimmer-border);
+    border-radius: 8px;
+    background: var(--audio-trimmer-bg);
+    color: var(--audio-trimmer-text);
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease;
+}
+
+.time-input-group input:focus {
+    outline: none;
+    border-color: var(--audio-trimmer-primary);
+}
+
+.time-unit {
+    color: var(--audio-trimmer-text-light);
+    font-size: 0.9rem;
+    margin-top: -0.3rem;
+}
+
+.duration-display {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 1rem;
+    background: var(--audio-trimmer-bg);
+    border-radius: 8px;
+    border: 1px solid var(--audio-trimmer-border);
+}
+
+.selection-duration {
+    font-weight: 600;
+    color: var(--audio-trimmer-primary);
+    font-size: 1.1rem;
+}
+
+.trim-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.btn-preview,
+.btn-trim {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-preview {
+    background: var(--audio-trimmer-warning);
+    color: white;
+}
+
+.btn-preview:hover {
+    background: #e67e22;
+    transform: translateY(-2px);
+}
+
+.btn-trim {
+    background: var(--audio-trimmer-primary);
+    color: white;
+}
+
+.btn-trim:hover {
+    background: var(--audio-trimmer-primary-hover);
+    transform: translateY(-2px);
+}
+
+/* Export Section */
+.export-section {
+    background: var(--audio-trimmer-card-bg);
+    border: 1px solid var(--audio-trimmer-border);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: var(--audio-trimmer-shadow);
+}
+
+.export-header h3 {
+    color: var(--audio-trimmer-text);
+    margin: 0 0 2rem 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--audio-trimmer-border);
+}
+
+.export-settings {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.setting-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.setting-group label {
+    font-weight: 600;
+    color: var(--audio-trimmer-text);
+    font-size: 0.95rem;
+}
+
+.setting-group select {
+    padding: 0.75rem;
+    border: 2px solid var(--audio-trimmer-border);
+    border-radius: 8px;
+    background: var(--audio-trimmer-bg);
+    color: var(--audio-trimmer-text);
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease;
+}
+
+.setting-group select:focus {
+    outline: none;
+    border-color: var(--audio-trimmer-primary);
+}
+
+.setting-group select option {
+    background: var(--audio-trimmer-bg);
+    color: var(--audio-trimmer-text);
+}
+
+.export-actions {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.btn-download {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--audio-trimmer-secondary);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-download:hover {
+    background: #27ae60;
+    transform: translateY(-2px);
+}
+
+.trimmed-audio-player {
+    background: var(--audio-trimmer-bg);
+    border: 1px solid var(--audio-trimmer-border);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.trimmed-audio-player h4 {
+    margin: 0 0 1rem 0;
+    color: var(--audio-trimmer-text);
+}
+
+.trimmed-audio-player audio {
+    width: 100%;
+    filter: invert(0.9);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .tool-layout {
+        gap: 1.5rem;
+    }
+    
+    .upload-section,
+    .waveform-section,
+    .trim-controls,
+    .export-section {
+        padding: 1.5rem;
+    }
+    
+    .waveform-header,
+    .trim-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    
+    .playback-controls {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .trim-inputs,
+    .export-settings {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .trim-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn-preview,
+    .btn-trim,
+    .btn-download {
+        min-width: 200px;
+    }
+    
+    #waveformCanvas {
+        height: 150px;
+    }
+}
+
+/* Instructions Section */
+.instructions-section {
+    background: linear-gradient(135deg, var(--audio-trimmer-bg) 0%, var(--audio-trimmer-card-bg) 100%);
+    padding: 4rem 0;
+    margin: 3rem 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--audio-trimmer-border);
+}
+
+.section-title {
+    color: var(--audio-trimmer-text);
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--audio-trimmer-primary), var(--audio-trimmer-secondary));
+    border-radius: 2px;
+}
+
+.instructions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.instruction-item {
+    background: var(--audio-trimmer-card-bg);
+    border: 1px solid var(--audio-trimmer-border);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.instruction-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--audio-trimmer-primary), var(--audio-trimmer-secondary));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.instruction-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    border-color: var(--audio-trimmer-primary);
+    background: var(--audio-trimmer-hover);
+}
+
+.instruction-item:hover::before {
+    opacity: 1;
+}
+
+.instruction-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    filter: grayscale(0.3);
+    transition: filter 0.3s ease;
+}
+
+.instruction-item:hover .instruction-icon {
+    filter: grayscale(0);
+}
+
+.instruction-item h3 {
+    color: var(--audio-trimmer-text);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+}
+
+.instruction-item:hover h3 {
+    color: var(--audio-trimmer-primary);
+}
+
+.instruction-item p {
+    color: var(--audio-trimmer-text-light);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Enhanced Mobile Responsiveness for Instructions */
+@media (max-width: 768px) {
+    .instructions-section {
+        padding: 2.5rem 0;
+        margin: 2rem 0;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+    
+    .instructions-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .instruction-item {
+        padding: 1.5rem;
+    }
+    
+    .instruction-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .instruction-item h3 {
+        font-size: 1.2rem;
+    }
+    
+    .instruction-item p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .instructions-section {
+        padding: 2rem 0;
+        margin: 1.5rem 0;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .instruction-item {
+        padding: 1.25rem;
+    }
+    
+    .instruction-icon {
+        font-size: 2.2rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .instruction-item h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .instruction-item p {
+        font-size: 0.85rem;
+    }
+}

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silence Remover - Remove Silent Parts from Audio | Zapit</title>
+    <meta name="description" content="Automatically detect and remove silent parts from audio files. Customize silence threshold and minimum duration settings.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../../assets/css/header.css">
+    <link rel="stylesheet" href="../../assets/css/footer.css">
+    
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="light.css" id="theme-style">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header"></header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="tool-header">
+            <h1>🔇 Silence Remover</h1>
+            <p>Automatically detect and remove silent parts from audio files with intelligent processing</p>
+        </div>
+
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <div class="upload-header">
+                <h3>📁 Upload Audio File</h3>
+                <p class="file-info" id="fileInfo">Select an audio file to analyze and process</p>
+            </div>
+            
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">🎵</div>
+                <div class="upload-text" id="uploadText">
+                    <strong>Click to upload</strong> or drag & drop your audio file here
+                </div>
+                <div class="upload-formats">Supports: MP3, WAV, OGG, M4A, FLAC</div>
+                <div class="upload-note">Maximum file size: 100MB</div>
+            </div>
+            
+            <input type="file" id="fileInput" accept="audio/*" class="file-input" aria-label="Select audio file for silence removal">
+        </section>
+
+        <!-- Silence Detection Section -->
+        <section class="silence-section hidden" id="silenceSection">
+            <div class="silence-header">
+                <h3>🔍 Silence Detection Settings</h3>
+                <div class="audio-controls">
+                    <button id="btnPlay" class="btn-play">▶️ Play Original</button>
+                    <button id="btnStop" class="btn-stop">⏹️ Stop</button>
+                    <button id="btnPreview" class="btn-preview">👂 Preview Processed</button>
+                    <button id="btnExport" class="btn-export">📤 Export</button>
+                </div>
+            </div>
+
+            <div class="silence-controls">
+                <!-- Threshold Settings -->
+                <div class="control-group">
+                    <label class="control-title">🎚️ Silence Threshold</label>
+                    <div class="slider-container">
+                        <label>Threshold Level (dB)</label>
+                        <input type="range" id="silenceThreshold" min="-60" max="-10" step="1" value="-40" aria-label="Silence threshold level in decibels">
+                        <span class="slider-value" id="silenceThresholdValue">-40 dB</span>
+                        <div class="control-help">Audio below this level is considered silence</div>
+                    </div>
+                    <div class="slider-container">
+                        <label>Look Ahead</label>
+                        <input type="range" id="lookAhead" min="10" max="500" step="10" value="100" aria-label="Look ahead time in milliseconds">
+                        <span class="slider-value" id="lookAheadValue">100 ms</span>
+                        <div class="control-help">How far ahead to look when detecting silence</div>
+                    </div>
+                    <div class="slider-container">
+                        <label>Adaptive Threshold</label>
+                        <input type="range" id="adaptiveThreshold" min="0" max="100" step="5" value="20" aria-label="Adaptive threshold sensitivity percentage">
+                        <span class="slider-value" id="adaptiveThresholdValue">20%</span>
+                        <div class="control-help">Adaptive adjustment sensitivity</div>
+                    </div>
+                    <div class="slider-container">
+                        <label>Noise Floor</label>
+                        <input type="range" id="noiseFloor" min="-80" max="-40" step="1" value="-60" aria-label="Noise floor level in decibels">
+                        <span class="slider-value" id="noiseFloorValue">-60 dB</span>
+                        <div class="control-help">Estimated background noise level</div>
+                    </div>
+                </div>
+
+                <!-- Duration Settings -->
+                <div class="control-group">
+                    <label class="control-title">⏱️ Duration Settings</label>
+                    <div class="slider-container">
+                        <label>Minimum Silence Duration</label>
+                        <input type="range" id="minSilenceDuration" min="0.1" max="5" step="0.1" value="0.5" aria-label="Minimum silence duration in seconds">
+                        <span class="slider-value" id="minSilenceDurationValue">0.5s</span>
+                        <div class="control-help">Only remove silence longer than this duration</div>
+                    </div>
+                    <div class="slider-container">
+                        <label>Keep Padding</label>
+                        <input type="range" id="keepPadding" min="0" max="1" step="0.05" value="0.1" aria-label="Padding duration to keep in seconds">
+                        <span class="slider-value" id="keepPaddingValue">0.1s</span>
+                        <div class="control-help">Leave this much silence at the start and end of cuts</div>
+                    </div>
+                </div>
+
+                <!-- Processing Options -->
+                <div class="control-group">
+                    <label class="control-title">⚙️ Processing Options</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="removeLeadingTrailing" checked class="checkbox-label" aria-label="Remove leading and trailing silence">
+                            <span class="checkbox-label">Remove Leading/Trailing Silence</span>
+                            <small>Remove silence at the beginning and end of the audio</small>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="preserveShort" class="checkbox-label" aria-label="Preserve short pauses">
+                            <span class="checkbox-label">Preserve Short Pauses</span>
+                            <small>Keep intentional short pauses in speech and music</small>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="smartMode" checked class="checkbox-label" aria-label="Enable smart mode">
+                            <span class="checkbox-label">Smart Mode</span>
+                            <small>Use intelligent filtering for better results</small>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="smoothTransitions" checked class="checkbox-label" aria-label="Enable smooth transitions">
+                            <span class="checkbox-label">Smooth Transitions</span>
+                            <small>Apply fade in/out to prevent audio clicks</small>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="preserveGaps" class="checkbox-label" aria-label="Preserve natural gaps">
+                            <span class="checkbox-label">Preserve Natural Gaps</span>
+                            <small>Keep short pauses that are part of speech/music</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Settings -->
+                <div class="control-group">
+                    <label class="control-title">🔧 Advanced Settings</label>
+                    <div class="slider-container">
+                        <label>Analysis Window Size</label>
+                        <input type="range" id="windowSize" min="10" max="100" step="5" value="50" aria-label="Analysis window size">
+                        <span class="slider-value" id="windowSizeValue">50ms</span>
+                        <div class="control-help">Size of audio chunks for analysis (smaller = more precise)</div>
+                    </div>
+                    <div class="slider-container">
+                        <label>Fade Duration</label>
+                        <input type="range" id="fadeDuration" min="1" max="50" step="1" value="5" aria-label="Fade duration">
+                        <span class="slider-value" id="fadeDurationValue">5ms</span>
+                        <div class="control-help">Length of fade in/out for smooth transitions</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis Results -->
+            <div class="analysis-section" id="analysisSection">
+                <div class="analysis-header">
+                    <h4>📊 Silence Analysis</h4>
+                    <button id="btnDetect" class="btn-process">🔍 Analyze Audio</button>
+                </div>
+                <div class="info-cards" id="analysisResults">
+                    <div class="info-card">
+                        <div class="info-label">Total Silence</div>
+                        <div class="info-value" id="totalSilence">--</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Silence Percentage</div>
+                        <div class="info-value" id="silencePercentage">--</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Regions Found</div>
+                        <div class="info-value" id="regionsCount">--</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">New Duration</div>
+                        <div class="info-value" id="newDuration">--</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Waveform Visualization -->
+            <div class="waveform-container">
+                <canvas id="waveformCanvas" width="800" height="200"></canvas>
+                <div class="waveform-info">Waveform visualization with silence regions highlighted in red</div>
+            </div>
+
+            <!-- Silence Regions List -->
+            <div class="regions-section hidden" id="regionsSection">
+                <div class="regions-header">
+                    <h4>📋 Detected Silence Regions</h4>
+                    <div class="region-controls">
+                        <button id="btnSelectAll" class="btn-track-play">✅ Select All</button>
+                        <button id="btnDeselectAll" class="btn-track-remove">❌ Deselect All</button>
+                    </div>
+                </div>
+                <div class="regions-container" id="regionsContainer">
+                    <!-- Silence regions will be populated here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Export Section -->
+        <section class="export-section hidden" id="exportSection">
+            <div class="export-header">
+                <h3>💾 Export Processed Audio</h3>
+            </div>
+
+            <div class="export-settings">
+                <div class="setting-group">
+                    <label for="exportFormat">Output Format</label>
+                    <select id="exportFormat">
+                        <option value="wav">WAV (Uncompressed)</option>
+                        <option value="mp3">MP3 (Compressed)</option>
+                    </select>
+                    <div class="setting-help">WAV provides highest quality, MP3 creates smaller files</div>
+                </div>
+
+                <div class="setting-group">
+                    <label for="exportQuality">Quality</label>
+                    <select id="exportQuality">
+                        <option value="high">High (48kHz/24-bit)</option>
+                        <option value="standard" selected>Standard (44.1kHz/16-bit)</option>
+                        <option value="web">Web (44.1kHz/16-bit MP3)</option>
+                    </select>
+                    <div class="setting-help">Higher quality means larger file size</div>
+                </div>
+
+                <div class="setting-group">
+                    <label for="exportNormalize">Normalize Output</label>
+                    <select id="exportNormalize">
+                        <option value="none">No Normalization</option>
+                        <option value="peak" selected>Peak Normalization</option>
+                        <option value="rms">RMS Normalization</option>
+                    </select>
+                    <div class="setting-help">Ensures consistent output levels</div>
+                </div>
+            </div>
+
+            <div class="export-actions">
+                <button id="btnProcess" class="btn-process">
+                    ✂️ Remove Silence
+                </button>
+                <button id="btnDownload" class="btn-download hidden">
+                    💾 Download Processed Audio
+                </button>
+            </div>
+
+            <div class="processed-audio-player hidden" id="processedAudioContainer">
+                <h4>🎵 Processed Audio Preview</h4>
+                <audio id="processedAudioPlayer" controls></audio>
+                <div class="processed-stats" id="processedStats">
+                    <div class="info-cards">
+                        <div class="info-card">
+                            <div class="info-label">Final Duration</div>
+                            <div class="info-value" id="finalDuration">--</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-label">Compression Ratio</div>
+                            <div class="info-value" id="compressionRatio">--</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-label">Regions Removed</div>
+                            <div class="info-value" id="regionsRemoved">--</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-label">File Size</div>
+                            <div class="info-value" id="finalFileSize">--</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Indicator -->
+            <div class="progress-container hidden" id="progressContainer">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">Processing audio...</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer"></footer>
+
+    <!-- Scripts -->
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

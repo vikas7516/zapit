@@ -1,0 +1,114 @@
+        /* Dark theme for Loan EMI Calculator */
+        [data-theme="dark"] .calculator-container {
+            background: #1a202c;
+        }
+        
+        [data-theme="dark"] .calculator-header h1 {
+            color: #f7fafc;
+        }
+        
+        [data-theme="dark"] .calculator-header p {
+            color: #a0aec0;
+        }
+        
+        [data-theme="dark"] .input-section,
+        [data-theme="dark"] .results-section,
+        [data-theme="dark"] .amortization-section,
+        [data-theme="dark"] .comparison-section,
+        [data-theme="dark"] .info-section {
+            background: #2d3748;
+            border: 1px solid #4a5568;
+        }
+        
+        [data-theme="dark"] .form-label {
+            color: #e2e8f0;
+        }
+        
+        [data-theme="dark"] .form-input {
+            background: #4a5568;
+            border-color: #718096;
+            color: #f7fafc;
+        }
+        
+        [data-theme="dark"] .form-input:focus {
+            background: #2d3748;
+            border-color: #63b3ed;
+        }
+        
+        [data-theme="dark"] .input-prefix,
+        [data-theme="dark"] .input-suffix {
+            color: #a0aec0;
+        }
+        
+        [data-theme="dark"] .result-card {
+            background: #4a5568;
+            color: #e2e8f0;
+        }
+        
+        [data-theme="dark"] .result-label {
+            color: #a0aec0;
+        }
+        
+        [data-theme="dark"] .result-value {
+            color: #f7fafc;
+        }
+        
+        [data-theme="dark"] .result-value.primary {
+            color: #63b3ed;
+        }
+        
+        [data-theme="dark"] .result-value.success {
+            color: #68d391;
+        }
+        
+        [data-theme="dark"] .result-value.warning {
+            color: #f6e05e;
+        }
+        
+        [data-theme="dark"] .chart-container {
+            background: #4a5568;
+        }
+        
+        [data-theme="dark"] .amortization-table th {
+            background: #4a5568;
+            color: #f7fafc;
+        }
+        
+        [data-theme="dark"] .amortization-table th,
+        [data-theme="dark"] .amortization-table td {
+            border-bottom-color: #4a5568;
+            color: #e2e8f0;
+        }
+        
+        [data-theme="dark"] .amortization-table tbody tr:hover {
+            background: #4a5568;
+        }
+        
+        [data-theme="dark"] .comparison-card {
+            background: #2d3748;
+            border-color: #4a5568;
+            color: #e2e8f0;
+        }
+        
+        [data-theme="dark"] .comparison-card.best {
+            border-color: #68d391;
+            background: #1a2d1a;
+        }
+        
+        [data-theme="dark"] .export-btn {
+            border-color: #63b3ed;
+            color: #63b3ed;
+        }
+        
+        [data-theme="dark"] .export-btn:hover {
+            background: #63b3ed;
+            color: #1a202c;
+        }
+        
+        [data-theme="dark"] .info-title {
+            color: #f7fafc;
+        }
+        
+        [data-theme="dark"] .info-card {
+            color: #a0aec0;
+        }

@@ -1,0 +1,319 @@
+/* Percentage Calculator - Dark Theme */
+
+/* Mode Selection - Dark Theme */
+.dark .mode-selection h2 {
+    color: var(--dark-text);
+}
+
+.dark .mode-card {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+}
+
+.dark .mode-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.dark .mode-card.active {
+    border-color: var(--primary-color);
+    background: rgba(59, 130, 246, 0.1);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+}
+
+.dark .mode-card h3 {
+    color: var(--dark-text);
+}
+
+.dark .mode-card p {
+    color: var(--dark-text-muted);
+}
+
+.dark .mode-example {
+    background: var(--dark-bg-secondary);
+    color: var(--primary-color);
+}
+
+/* Calculator Section - Dark Theme */
+.dark .calc-form {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+}
+
+.dark .form-header h3 {
+    color: var(--dark-text);
+}
+
+.dark .form-header p {
+    color: var(--dark-text-muted);
+}
+
+.dark .form-row label {
+    color: var(--dark-text);
+}
+
+.dark .form-row input {
+    background: var(--dark-bg-primary);
+    border-color: var(--dark-border);
+    color: var(--dark-text);
+}
+
+.dark .form-row input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Result Display - Dark Theme */
+.dark .result-display {
+    background: var(--dark-bg-secondary);
+}
+
+.dark .result-main {
+    color: var(--primary-color);
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.dark .result-explanation {
+    color: var(--dark-text-muted);
+}
+
+.dark .result-breakdown {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+    color: var(--dark-text);
+}
+
+.dark .result-empty {
+    color: var(--dark-text-muted);
+}
+
+/* Common Calculations - Dark Theme */
+.dark .common-calculations h3 {
+    color: var(--dark-text);
+}
+
+.dark .common-card {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+}
+
+.dark .common-card h4 {
+    color: var(--dark-text);
+}
+
+/* Tip Calculator - Dark Theme */
+.dark .tip-input label {
+    color: var(--dark-text);
+}
+
+.dark .tip-input input {
+    background: var(--dark-bg-primary);
+    border-color: var(--dark-border);
+    color: var(--dark-text);
+}
+
+.dark .tip-btn {
+    background: var(--dark-bg-primary);
+    border-color: var(--dark-border);
+    color: var(--dark-text);
+}
+
+.dark .tip-btn:hover,
+.dark .tip-btn.active {
+    background: var(--primary-color);
+    color: var(--dark-text);
+    border-color: var(--primary-color);
+}
+
+.dark .tip-result {
+    background: var(--dark-bg-secondary);
+}
+
+.dark .tip-amount {
+    color: var(--primary-color);
+}
+
+.dark .tip-total {
+    color: var(--dark-text);
+}
+
+/* Discount Calculator - Dark Theme */
+.dark .discount-input label {
+    color: var(--dark-text);
+}
+
+.dark .discount-input input {
+    background: var(--dark-bg-primary);
+    border-color: var(--dark-border);
+    color: var(--dark-text);
+}
+
+.dark .discount-result {
+    background: var(--dark-bg-secondary);
+}
+
+.dark .discount-amount {
+    color: #ef4444;
+}
+
+.dark .discount-final {
+    color: var(--primary-color);
+}
+
+/* Tax Calculator - Dark Theme */
+.dark .tax-input label {
+    color: var(--dark-text);
+}
+
+.dark .tax-input input {
+    background: var(--dark-bg-primary);
+    border-color: var(--dark-border);
+    color: var(--dark-text);
+}
+
+.dark .tax-result {
+    background: var(--dark-bg-secondary);
+}
+
+.dark .tax-amount {
+    color: var(--primary-color);
+}
+
+.dark .tax-total {
+    color: var(--dark-text);
+}
+
+/* Calculation History - Dark Theme */
+.dark .history-header h3 {
+    color: var(--dark-text);
+}
+
+.dark .clear-history-btn {
+    background: var(--dark-bg-primary);
+    border-color: var(--dark-border);
+    color: var(--dark-text-muted);
+}
+
+.dark .clear-history-btn:hover {
+    background: #ef4444;
+    color: white;
+    border-color: #ef4444;
+}
+
+.dark .history-list {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+}
+
+.dark .history-empty {
+    color: var(--dark-text-muted);
+}
+
+.dark .history-item {
+    border-bottom-color: var(--dark-border);
+}
+
+.dark .history-item:hover {
+    background: var(--dark-hover-bg);
+}
+
+.dark .history-calculation {
+    color: var(--dark-text);
+}
+
+.dark .history-result {
+    color: var(--primary-color);
+}
+
+.dark .history-time {
+    color: var(--dark-text-muted);
+}
+
+/* Formula List - Dark Theme */
+.dark .formula-item {
+    background: var(--dark-hover-bg);
+    color: var(--dark-text);
+}
+
+/* Reference List - Dark Theme */
+.dark .reference-item {
+    background: var(--dark-hover-bg);
+}
+
+.dark .ref-percent {
+    color: var(--primary-color);
+}
+
+.dark .ref-decimal {
+    color: var(--dark-text);
+}
+
+.dark .ref-fraction {
+    color: var(--dark-text-muted);
+}
+
+/* Dark mode specific enhancements */
+.dark .mode-card {
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
+.dark .calc-form {
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+}
+
+.dark .common-card {
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+}
+
+.dark .history-list {
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
+/* Icon glow effects */
+.dark .mode-icon {
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.1));
+}
+
+.dark .mode-card.active .mode-icon {
+    filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.3));
+}
+
+/* Enhanced focus states */
+.dark .form-row input:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.dark .tip-input input:focus,
+.dark .discount-input input:focus,
+.dark .tax-input input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+/* Smooth transitions */
+.dark .mode-card,
+.dark .calc-form,
+.dark .common-card,
+.dark .history-item,
+.dark .tip-btn {
+    transition: all 0.3s ease;
+}
+
+/* Loading states */
+.dark .loading-skeleton {
+    background: linear-gradient(90deg, 
+        var(--dark-border) 25%, 
+        rgba(255, 255, 255, 0.1) 50%, 
+        var(--dark-border) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Barcode Generator - Utility Tools - Zapit</title>
+	<meta name="description" content="Create crisp barcodes instantly. Support for Code 39 with optional check digit, adjustable sizes, and downloadable PNG previews.">
+	<meta property="og:title" content="Barcode Generator - Zapit">
+	<meta property="og:description" content="Generate printable barcodes with customizable dimensions and export options.">
+	<meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+	<link rel="canonical" href="https://zapit.me/utility-tools/barcode-generator">
+	<link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+	<link id="tool-theme-css" rel="stylesheet" href="light.css">
+	<link rel="stylesheet" href="/assets/elements/theme-toggle.css">
+	<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+	<link rel="icon" href="/icons/favicon.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+	<link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+	<header class="site-header">
+		<div class="container">
+			<div class="header-nav">
+				<a href="/index.html" class="brand" aria-label="Zapit Home">
+					<img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+					<span class="brand-text">
+						<span class="brand-title">Zapit</span>
+						<span class="brand-tagline">A Zap Away From Done</span>
+					</span>
+				</a>
+				<div class="header-right">
+					<nav class="breadcrumb">
+						<a href="/">Home</a>
+						<span class="separator">/</span>
+						<a href="/utility-tools">Utility Tools</a>
+						<span class="separator">/</span>
+						<span class="current">Barcode Generator</span>
+					</nav>
+					<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+						<span class="theme-toggle-icon">🌙</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="tool-hero">
+			<div class="container">
+				<div class="tool-hero-content">
+					<div class="tool-icon-large">📦</div>
+					<h1 class="tool-title">Barcode Generator</h1>
+					<p class="tool-description">Quickly produce print-ready Code 39 barcodes. Tweak dimensions, add quiet zones, copy the data, and export as PNG without leaving your browser.</p>
+					<div class="tool-meta">
+						<span class="meta-pill">Code 39 Encoding</span>
+						<span class="meta-pill">PNG Download</span>
+						<span class="meta-pill">Offline &amp; Private</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="tool-interface">
+			<div class="container">
+				<div class="tool-layout">
+					<div class="tool-card span-7" aria-labelledby="config-heading">
+						<div class="section-header">
+							<h2 id="config-heading">Barcode Configuration</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="loadDemoBtn">Load Demo</button>
+								<button type="button" class="btn btn-secondary" id="resetBtn">Reset</button>
+							</div>
+						</div>
+						<div class="input-grid">
+							<label class="field">
+								<span>Barcode text</span>
+								<input type="text" id="barcodeInput" class="text-input" maxlength="60" placeholder="Type value to encode (A-Z, 0-9, -.$/+%)">
+								<span class="helper-text">Unsupported characters are stripped automatically.</span>
+							</label>
+							<div class="field-row">
+								<label class="field">
+									<span>Bar height (px)</span>
+									<input type="number" id="barHeightInput" class="text-input" min="40" max="240" value="140">
+								</label>
+								<label class="field">
+									<span>Narrow bar width (px)</span>
+									<input type="number" id="barWidthInput" class="text-input" min="1" max="6" value="2">
+								</label>
+								<label class="field">
+									<span>Quiet zone (px)</span>
+									<input type="number" id="quietZoneInput" class="text-input" min="0" max="40" value="12">
+								</label>
+							</div>
+						</div>
+						<div class="checkbox-grid">
+							<label class="checkbox">
+								<input type="checkbox" id="uppercaseToggle" checked>
+								<span>Uppercase automatically</span>
+							</label>
+							<label class="checkbox">
+								<input type="checkbox" id="checkDigitToggle">
+								<span>Add Code 39 check digit</span>
+							</label>
+							<label class="checkbox">
+								<input type="checkbox" id="showTextToggle" checked>
+								<span>Show human-readable text</span>
+							</label>
+						</div>
+						<div class="button-row">
+							<button type="button" class="btn btn-primary" id="generateBtn">Generate Barcode</button>
+							<button type="button" class="btn btn-outline" id="copyDataBtn">Copy Data</button>
+						</div>
+						<div class="notification hidden" id="statusBanner" role="status"></div>
+					</div>
+
+					<div class="tool-card span-5" aria-labelledby="insights-heading">
+						<div class="section-header">
+							<h2 id="insights-heading">Insights</h2>
+						</div>
+						<div class="stats-grid">
+							<div class="stat-card">
+								<span class="stat-label">Encoded length</span>
+								<span class="stat-value" id="lengthStat">0</span>
+							</div>
+							<div class="stat-card">
+								<span class="stat-label">Check digit</span>
+								<span class="stat-value" id="checkDigitStat">–</span>
+							</div>
+							<div class="stat-card">
+								<span class="stat-label">Image width</span>
+								<span class="stat-value" id="widthStat">0 px</span>
+							</div>
+						</div>
+						<p class="helper-text">Code 39 supports uppercase letters, digits, and the characters - . $ / + %. Start/stop characters are added automatically.</p>
+						<ul class="tip-list" id="tipList">
+							<li>Keep text under 40 characters for optimal scanner reliability.</li>
+							<li>Increase quiet zone for packaging or shelf labels.</li>
+							<li>Enable the check digit when your workflow requires added integrity.</li>
+						</ul>
+					</div>
+
+					<div class="tool-card span-12" aria-labelledby="preview-heading">
+						<div class="section-header">
+							<h2 id="preview-heading">Preview &amp; Export</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="downloadBtn">Download PNG</button>
+								<button type="button" class="btn btn-outline" id="copyImageBtn">Copy Image</button>
+							</div>
+						</div>
+						<div class="preview-wrapper" id="previewWrapper">
+							<canvas id="barcodeCanvas" width="640" height="200" aria-label="Barcode preview"></canvas>
+							<div class="preview-text" id="textPreview"></div>
+						</div>
+					</div>
+
+					<div class="tool-card span-12 info-card" aria-labelledby="details-heading">
+						<div class="section-header">
+							<h2 id="details-heading">Barcode Tips</h2>
+						</div>
+						<div class="info-grid">
+							<div class="info-block">
+								<h3>Code 39 basics</h3>
+								<p>Every symbol starts and ends with the * character. Each character uses 9 bars/spaces (3 wide, 6 narrow). The ratio between wide and narrow bars is typically 3:1.</p>
+							</div>
+							<div class="info-block">
+								<h3>Quiet zone guidance</h3>
+								<p>Leave blank space (quiet zone) equal to at least 10 narrow bars on both sides. Increase the value when the barcode sits near borders or artwork.</p>
+							</div>
+							<div class="info-block">
+								<h3>Printing best practices</h3>
+								<p>Use high-contrast colors (dark bars on light background) and export at 300 DPI when printing to labels or packaging.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<div class="footer-brand-row">
+						<img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+						<span class="footer-brand-text">
+							<h3 class="footer-logo">Zapit</h3>
+							<div class="footer-tagline">A Zap Away From Done</div>
+						</span>
+					</div>
+					<p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+					<div class="footeropyright">© Zapit. All rights reserved.</div>
+				</div>
+				<div class="footer-links">
+					<h4 class="footer-title">Legal</h4>
+					<ul class="footer-list">
+						<li><a href="/privacy.html">Privacy Policy</a></li>
+						<li><a href="/terms.html">Terms of Service</a></li>
+						<li><a href="/contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/js/global.js" defer></script>
+	<script src="app.js" defer></script>
+	<script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+	<script>
+		(function () {
+			const toolTheme = document.getElementById('tool-theme-css');
+			if (!toolTheme) return;
+
+			function applyTheme(theme) {
+				const next = theme === 'dark' ? 'dark.css' : 'light.css';
+				if (toolTheme.getAttribute('href') !== next) {
+					toolTheme.setAttribute('href', next);
+				}
+			}
+
+			const current = document.documentElement.getAttribute('data-theme') || 'light';
+			applyTheme(current);
+
+			const observer = new MutationObserver(function (mutations) {
+				mutations.forEach(function (mutation) {
+					if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+						const theme = document.documentElement.getAttribute('data-theme') || 'light';
+						applyTheme(theme);
+					}
+				});
+			});
+
+			observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+		})();
+	</script>
+</body>
+</html>

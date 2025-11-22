@@ -1,0 +1,118 @@
+/* Dark theme overrides for Fuel Cost Calculator */
+.dark-theme .calculator-card {
+    background: #2d3748;
+    color: #e2e8f0;
+}
+
+.dark-theme .calculator-header h1 {
+    color: #e2e8f0;
+}
+
+.dark-theme .calculator-header p {
+    color: #cbd5e0;
+}
+
+.dark-theme .form-label {
+    color: #cbd5e0;
+}
+
+.dark-theme .form-input {
+    background: #4a5568;
+    border-color: #718096;
+    color: #e2e8f0;
+}
+
+.dark-theme .form-input:focus {
+    border-color: #d69e2e;
+    background: #2d3748;
+}
+
+.dark-theme .form-select {
+    background: #4a5568;
+    border-color: #718096;
+    color: #e2e8f0;
+}
+
+.dark-theme .form-select:focus {
+    border-color: #d69e2e;
+    background: #2d3748;
+}
+
+.dark-theme .fuel-btn {
+    background: #4a5568;
+    border-color: #718096;
+    color: #e2e8f0;
+}
+
+.dark-theme .fuel-btn:hover,
+.dark-theme .fuel-btn.active {
+    border-color: #d69e2e;
+    background: #d69e2e;
+    color: white;
+}
+
+.dark-theme .comparison-section {
+    background: #2d3748;
+    color: #e2e8f0;
+}
+
+.dark-theme .comparison-card {
+    background: #4a5568;
+    border-color: #718096;
+}
+
+.dark-theme .comparison-title {
+    color: #e2e8f0;
+}
+
+.dark-theme .metric-value {
+    color: #e2e8f0;
+}
+
+.dark-theme .metric-label {
+    color: #cbd5e0;
+}
+
+.dark-theme .comparison-metric {
+    border-bottom-color: #718096;
+}
+
+.dark-theme .comparison-metric:last-child {
+    border-top-color: #718096;
+}
+
+.dark-theme .efficiency-tips {
+    background: #22543d;
+    border-color: #68d391;
+}
+
+.dark-theme .tip-card {
+    background: #2d3748;
+    color: #e2e8f0;
+}
+
+.dark-theme .tip-title {
+    color: #68d391;
+}
+
+.dark-theme .tip-desc {
+    color: #cbd5e0;
+}
+
+.dark-theme .annual-projection {
+    background: #2d3748;
+    color: #e2e8f0;
+}
+
+.dark-theme .projection-card {
+    background: #4a5568;
+    border-color: #718096;
+}
+
+.dark-theme .projection-amount {
+    color: #e2e8f0;
+}
+
+.dark-theme .projection-period {
+    color: #cbd5e0;
+}

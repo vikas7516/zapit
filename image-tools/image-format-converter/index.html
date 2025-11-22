@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Format Converter - Image Tools - Zapit</title>
+    <meta name="description" content="Convert images between different formats like JPEG, PNG, WebP, BMP, and more. Free online image format converter with quality settings.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/image-tools/image-format-converter">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">🔄</div>
+                    <h1 class="tool-title">Image Format Converter</h1>
+                    <p class="tool-description">Convert images between different formats like JPEG, PNG, WebP, BMP, and more</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+                        Convert images between different formats (JPEG, PNG, WebP, BMP) with quality control. 
+                        Perfect for optimizing images for web use or changing file types.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Tool Interface -->
+            <div class="tool-container">
+                <!-- Upload Section -->
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📁</div>
+                        <h3>Select or Drop Image</h3>
+                        <p>Support for JPEG, PNG, WebP, BMP, GIF files up to 50MB</p>
+                        <button type="button" class="btn-primary" id="browseBtn">
+                            <span>Browse Files</span>
+                        </button>
+                        <input type="file" id="fileInput" accept="image/*" hidden>
+                    </div>
+                    <div class="upload-error" id="uploadError"></div>
+                </div>
+
+                <!-- Conversion Settings -->
+                <div class="settings-section" id="settingsSection">
+                    <h3>Conversion Settings</h3>
+                    
+                    <div class="settings-grid">
+                        <!-- Output Format -->
+                        <div class="setting-group">
+                            <label class="setting-label">Output Format</label>
+                            <div class="format-options">
+                                <button type="button" class="format-btn active" data-format="jpeg" id="jpegBtn">
+                                    <span class="format-icon">🖼️</span>
+                                    <span class="format-name">JPEG</span>
+                                    <span class="format-desc">Smaller file size</span>
+                                </button>
+                                <button type="button" class="format-btn" data-format="png" id="pngBtn">
+                                    <span class="format-icon">🖼️</span>
+                                    <span class="format-name">PNG</span>
+                                    <span class="format-desc">Transparency support</span>
+                                </button>
+                                <button type="button" class="format-btn" data-format="webp" id="webpBtn">
+                                    <span class="format-icon">🌐</span>
+                                    <span class="format-name">WebP</span>
+                                    <span class="format-desc">Modern format</span>
+                                </button>
+                                <button type="button" class="format-btn" data-format="bmp" id="bmpBtn">
+                                    <span class="format-icon">📄</span>
+                                    <span class="format-name">BMP</span>
+                                    <span class="format-desc">Uncompressed</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Quality Settings -->
+                        <div class="setting-group" id="qualityGroup">
+                            <label for="qualitySlider" class="setting-label">
+                                Quality: <span id="qualityValue">90%</span>
+                            </label>
+                            <div class="slider-container">
+                                <input type="range" id="qualitySlider" min="10" max="100" value="90" class="slider">
+                                <div class="slider-labels">
+                                    <span>10%</span>
+                                    <span>50%</span>
+                                    <span>100%</span>
+                                </div>
+                            </div>
+                            <p class="setting-hint">Higher quality = larger file size</p>
+                        </div>
+
+                        <!-- Background Color (for formats without transparency) -->
+                        <div class="setting-group" id="backgroundGroup">
+                            <label for="backgroundColor" class="setting-label">Background Color</label>
+                            <div class="color-input-container">
+                                <input type="color" id="backgroundColor" value="#ffffff" class="color-input">
+                                <div class="color-presets">
+                                    <button type="button" class="color-preset white" data-color="#ffffff" title="White"></button>
+                                    <button type="button" class="color-preset black" data-color="#000000" title="Black"></button>
+                                    <button type="button" class="color-preset red" data-color="#ff0000" title="Red"></button>
+                                    <button type="button" class="color-preset green" data-color="#00ff00" title="Green"></button>
+                                    <button type="button" class="color-preset blue" data-color="#0000ff" title="Blue"></button>
+                                </div>
+                            </div>
+                            <p class="setting-hint">Used when converting from transparent formats</p>
+                        </div>
+
+                        <!-- Resize Options -->
+                        <div class="setting-group">
+                            <label class="setting-label">
+                                <input type="checkbox" id="enableResize" class="checkbox">
+                                Resize Image
+                            </label>
+                            <div class="resize-options" id="resizeOptions">
+                                <div class="resize-controls">
+                                    <div class="input-group">
+                                        <label for="resizeWidth">Width (px)</label>
+                                        <input type="number" id="resizeWidth" min="1" max="10000" placeholder="Auto">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="resizeHeight">Height (px)</label>
+                                        <input type="number" id="resizeHeight" min="1" max="10000" placeholder="Auto">
+                                    </div>
+                                </div>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="maintainAspectRatio" checked class="checkbox">
+                                    Maintain aspect ratio
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Convert Button -->
+                    <div class="action-section">
+                        <button type="button" class="btn-primary btn-large" id="convertBtn">
+                            <span>Convert Image</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="results-section hidden" id="resultsSection">
+                    <h3>Conversion Results</h3>
+                    
+                    <div class="comparison-container">
+                        <!-- Original Image -->
+                        <div class="image-comparison">
+                            <div class="image-card">
+                                <div class="image-header">
+                                    <h4>Original</h4>
+                                    <span class="image-info" id="originalInfo">-</span>
+                                </div>
+                                <div class="image-preview">
+                                    <img id="originalImage" alt="Original image">
+                                </div>
+                            </div>
+
+                            <!-- Converted Image -->
+                            <div class="image-card">
+                                <div class="image-header">
+                                    <h4>Converted</h4>
+                                    <span class="image-info" id="convertedInfo">-</span>
+                                </div>
+                                <div class="image-preview">
+                                    <img id="convertedImage" alt="Converted image">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- File Size Comparison -->
+                        <div class="size-comparison" id="sizeComparison">
+                            <div class="size-bar-container">
+                                <div class="size-bar">
+                                    <div class="size-bar-original" id="originalSizeBar"></div>
+                                    <div class="size-bar-converted" id="convertedSizeBar"></div>
+                                </div>
+                                <div class="size-labels">
+                                    <span class="size-label original">Original: <span id="originalSize">-</span></span>
+                                    <span class="size-label converted">Converted: <span id="convertedSize">-</span></span>
+                                </div>
+                            </div>
+                            <div class="size-change" id="sizeChange"></div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="result-actions">
+                        <button type="button" class="btn-primary" id="downloadBtn">
+                            <span>📥 Download Converted Image</span>
+                        </button>
+                        <button type="button" class="btn-secondary" id="convertAnotherBtn">
+                            <span>🔄 Convert Another Image</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="features-section">
+                <h2>Image Format Converter Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <h3>Multiple Formats</h3>
+                        <p>Convert between JPEG, PNG, WebP, BMP, and GIF formats with full quality control.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚙️</div>
+                        <h3>Quality Control</h3>
+                        <p>Adjust compression quality for optimal balance between file size and image quality.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Background Options</h3>
+                        <p>Set custom background colors when converting from transparent formats.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📏</div>
+                        <h3>Optional Resizing</h3>
+                        <p>Resize images during conversion with aspect ratio preservation options.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Size Comparison</h3>
+                        <p>Visual comparison of original and converted file sizes with percentage changes.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Privacy First</h3>
+                        <p>All conversions happen in your browser. No files are uploaded to our servers.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Section -->
+            <div class="info-section">
+                <h2>About Image Format Conversion</h2>
+                <div class="info-content">
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h3>JPEG Format</h3>
+                            <p>Best for photographs and images with many colors. Uses lossy compression for smaller file sizes but doesn't support transparency.</p>
+                        </div>
+                        <div class="info-card">
+                            <h3>PNG Format</h3>
+                            <p>Perfect for images with transparency, text, or sharp edges. Uses lossless compression and supports alpha channel.</p>
+                        </div>
+                        <div class="info-card">
+                            <h3>WebP Format</h3>
+                            <p>Modern format developed by Google. Offers better compression than JPEG and PNG while supporting both transparency and animation.</p>
+                        </div>
+                        <div class="info-card">
+                            <h3>BMP Format</h3>
+                            <p>Uncompressed bitmap format. Results in larger files but perfect quality. Mainly used for compatibility with older systems.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ZapIt Tools</h3>
+                    <p>Professional image format conversion made simple. Convert, optimize, and download your images instantly.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Image Tools</h4>
+                    <a href="../image-compressor/">Image Compressor</a>
+                    <a href="../image-resizer/">Image Resizer</a>
+                    <a href="../add-watermark/">Add Watermark</a>
+                    <a href="../image-to-base64/">Image to Base64</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Other Tools</h4>
+                    <a href="../../dev-tools/">Dev Tools</a>
+                    <a href="../../text-tools/">Text Tools</a>
+                    <a href="../../unit-converters/">Converters</a>
+                    <a href="../../utility-fun-tools/">Utility Tools</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ZapIt Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

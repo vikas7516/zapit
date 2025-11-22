@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Compressor - Image Tools - Zapit</title>
+    <meta name="description" content="Compress and optimize your images to reduce file size while maintaining quality. Supports JPEG, PNG, and WebP formats with adjustable compression settings.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/image-tools/image-compressor">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">🗜️</div>
+                    <h1 class="tool-title">Image Compressor</h1>
+                    <p class="tool-description">Compress and optimize your images to reduce file size while maintaining quality</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+            </div>
+            
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <span class="theme-toggle-icon">🌙</span>
+                </button>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Tool Hero -->
+    <section class="tool-hero">
+        <div class="container">
+            <div class="tool-hero-content">
+                <span class="tool-icon-large">🗜️</span>
+                <h1 class="tool-title">Image Compressor</h1>
+                <p class="tool-description">
+                    Reduce image file sizes while maintaining quality. Optimize JPEG, PNG, and WebP images 
+                    with customizable compression settings for web and storage.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Interface -->
+    <section class="tool-interface">
+        <div class="container">
+            <div class="tool-layout">
+                <!-- Upload Section -->
+                <div class="upload-section" id="uploadSection">
+                    <div class="upload-area" id="uploadArea">
+                        <span class="upload-icon">📁</span>
+                        <div class="upload-text">
+                            <h3>Drop your image here</h3>
+                            <p>or <span class="browse-link" id="browseLink">browse files</span> to compress</p>
+                            <div class="upload-formats">
+                                Supports JPEG, PNG, WebP, BMP, GIF (up to 50MB)
+                            </div>
+                        </div>
+                        <input type="file" id="fileInput" accept="image/*" class="hidden" aria-label="Select image file to compress">
+                    </div>
+                    <div class="upload-error" id="uploadError"></div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="results-section hidden" id="resultsSection">
+                    <div class="results-layout">
+                        <!-- Image Preview -->
+                        <div class="preview-section">
+                            <div class="preview-header">
+                                <h3>Original Image</h3>
+                                <div class="preview-info" id="originalInfo">
+                                    Loading...
+                                </div>
+                            </div>
+                            <div class="preview-container">
+                                <img id="originalImage" alt="Original image preview">
+                            </div>
+                        </div>
+
+                        <!-- Compression Controls -->
+                        <div class="controls-section">
+                            <div class="controls-header">
+                                <h3>Compression Settings</h3>
+                            </div>
+                            
+                            <div class="compression-options">
+                                <!-- Output Format -->
+                                <div class="option-group">
+                                    <label class="option-label">Output Format</label>
+                                    <div class="radio-group">
+                                        <div class="radio-option">
+                                            <input type="radio" id="formatOriginal" name="outputFormat" value="original" checked>
+                                            <label for="formatOriginal" class="radio-label">Keep Original</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="formatJPEG" name="outputFormat" value="jpeg">
+                                            <label for="formatJPEG" class="radio-label">JPEG</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="formatWebP" name="outputFormat" value="webp">
+                                            <label for="formatWebP" class="radio-label">WebP</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Quality Control -->
+                                <div class="option-group">
+                                    <label class="option-label">Quality Level</label>
+                                    <div class="quality-control">
+                                        <span class="quality-label">Low</span>
+                                        <input type="range" id="qualitySlider" min="10" max="100" value="80" aria-label="Image quality slider">
+                                        <span class="quality-label">High</span>
+                                        <div class="quality-value" id="qualityValue">80%</div>
+                                    </div>
+                                    <div class="quality-note">
+                                        Higher quality = larger file size
+                                    </div>
+                                </div>
+
+                                <!-- Resize Options -->
+                                <div class="option-group">
+                                    <label class="option-label">
+                                        <input type="checkbox" id="enableResize"> Resize Image
+                                    </label>
+                                    <div class="resize-controls hidden" id="resizeControls">
+                                        <div class="resize-method">
+                                            <label class="resize-method-label">Resize by:</label>
+                                            <div class="resize-method-options">
+                                                <div class="radio-option">
+                                                    <input type="radio" id="resizePercent" name="resizeMethod" value="percentage" checked>
+                                                    <label for="resizePercent" class="radio-label">Percentage</label>
+                                                </div>
+                                                <div class="radio-option">
+                                                    <input type="radio" id="resizePixels" name="resizeMethod" value="pixels">
+                                                    <label for="resizePixels" class="radio-label">Dimensions</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="resize-inputs">
+                                            <div class="percentage-inputs" id="percentageInputs">
+                                                <input type="range" id="scaleSlider" min="10" max="100" value="75" aria-label="Scale percentage">
+                                                <span class="scale-value" id="scaleValue">75%</span>
+                                            </div>
+                                            <div class="dimension-inputs hidden" id="dimensionInputs">
+                                                <div class="dimension-group">
+                                                    <label for="newWidth">Width:</label>
+                                                    <input type="number" id="newWidth" min="1" placeholder="Width">
+                                                </div>
+                                                <div class="dimension-group">
+                                                    <label for="newHeight">Height:</label>
+                                                    <input type="number" id="newHeight" min="1" placeholder="Height">
+                                                </div>
+                                                <label class="aspect-ratio-label">
+                                                    <input type="checkbox" id="maintainAspectRatio" checked> Maintain aspect ratio
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Compression Results -->
+                            <div class="compression-results" id="compressionResults">
+                                <div class="result-item">
+                                    <span class="result-label">Original Size:</span>
+                                    <span class="result-value" id="originalSize">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Compressed Size:</span>
+                                    <span class="result-value" id="compressedSize">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Size Reduction:</span>
+                                    <span class="result-value" id="sizeReduction">-</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Compression Ratio:</span>
+                                    <span class="result-value" id="compressionRatio">-</span>
+                                </div>
+                            </div>
+
+                            <!-- Compressed Preview -->
+                            <div class="compressed-preview">
+                                <div class="preview-header">
+                                    <h4>Compressed Preview</h4>
+                                </div>
+                                <div class="preview-container">
+                                    <img id="compressedImage" alt="Compressed image preview">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="btn-primary" id="downloadBtn">
+                            <span class="btn-icon">💾</span>
+                            Download Compressed Image
+                        </button>
+                        <button class="btn-secondary" id="processAnotherBtn">
+                            <span class="btn-icon">🔄</span>
+                            Compress Another Image
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instructions Section -->
+    <section class="instructions-section">
+        <div class="container">
+            <h2 class="section-title">How to Compress Images</h2>
+            <div class="instructions-grid">
+                <div class="instruction-item">
+                    <span class="instruction-icon">📤</span>
+                    <h3>Upload Image</h3>
+                    <p>Drop your image file or click to browse. Supports all major image formats up to 50MB.</p>
+                </div>
+                <div class="instruction-item">
+                    <span class="instruction-icon">⚙️</span>
+                    <h3>Adjust Settings</h3>
+                    <p>Choose output format, quality level, and optionally resize your image for optimal compression.</p>
+                </div>
+                <div class="instruction-item">
+                    <span class="instruction-icon">📊</span>
+                    <h3>Preview Results</h3>
+                    <p>See the compressed image preview and file size reduction before downloading.</p>
+                </div>
+                <div class="instruction-item">
+                    <span class="instruction-icon">💾</span>
+                    <h3>Download</h3>
+                    <p>Download your optimized image with reduced file size and customized settings.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compression Tips -->
+    <section class="examples-section">
+        <div class="container">
+            <h2 class="section-title">Compression Tips</h2>
+            <div class="examples-grid">
+                <div class="example-item">
+                    <h4>📷 Photos & Complex Images</h4>
+                    <p>Use JPEG format with 70-85% quality for photographs and images with many colors. This provides the best balance between quality and file size.</p>
+                </div>
+                <div class="example-item">
+                    <h4>🎨 Graphics & Simple Images</h4>
+                    <p>Use WebP format for graphics, logos, and images with fewer colors. WebP provides excellent compression with minimal quality loss.</p>
+                </div>
+                <div class="example-item">
+                    <h4>🌐 Web Optimization</h4>
+                    <p>For web use, aim for images under 500KB. Consider resizing large images to web-appropriate dimensions (1920px max width).</p>
+                </div>
+                <div class="example-item">
+                    <h4>💾 Storage Optimization</h4>
+                    <p>For archival purposes, use 90-95% quality to maintain high image quality while still achieving significant file size reduction.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Compression Features</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <span class="feature-icon">🔒</span>
+                    <h4>Privacy Protected</h4>
+                    <p>All compression happens in your browser. Your images never leave your device.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <h4>Fast Processing</h4>
+                    <p>Instant compression with real-time preview and file size calculations.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🎛️</span>
+                    <h4>Advanced Controls</h4>
+                    <p>Fine-tune quality, format, and dimensions for perfect optimization.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">📱</span>
+                    <h4>Mobile Friendly</h4>
+                    <p>Works seamlessly on desktop, tablet, and mobile devices.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🆓</span>
+                    <h4>Completely Free</h4>
+                    <p>No limits, no watermarks, no registration required.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🌐</span>
+                    <h4>Multiple Formats</h4>
+                    <p>Support for JPEG, PNG, WebP, BMP, and GIF formats.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="../../index.html" class="footer-logo">
+                        <span class="footer-logo-icon">⚡</span>
+                        <span class="footer-logo-text">ZapIt</span>
+                    </a>
+                    <p class="footer-description">
+                        Fast, free, and powerful online tools for developers, designers, and content creators.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Image Tools</h4>
+                        <a href="../image-compressor/">Image Compressor</a>
+                        <a href="../image-resizer/">Image Resizer</a>
+                        <a href="../image-format-converter/">Format Converter</a>
+                        <a href="../color-picker-palette-extractor/">Color Picker</a>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Quick Tools</h4>
+                        <a href="../../dev-tools/base64-encoder-decoder/">Base64 Encode/Decode</a>
+                        <a href="../../dev-tools/json-formatter-validator/">JSON Formatter</a>
+                        <a href="../../text-tools/case-converter/">Case Converter</a>
+                        <a href="../../math-calculators/percentage-calculator/">Percentage Calculator</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 ZapIt Tools. Built for productivity and creativity.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/theme.js"></script>
+    <script src="../../assets/js/navigation.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Trimmer - Audio & Video Tools - Zapit</title>
+    <meta name="description" content="Trim and cut audio files with precision using Web Audio API. No upload required - everything happens in your browser.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/audio-video-tools/audio-trimmer">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">✂️</div>
+                    <h1 class="tool-title">Audio Trimmer</h1>
+                    <p class="tool-description">Trim and cut audio files with precision controls and real-time waveform visualization</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-layout">
+                    <!-- Upload Section -->
+                    <div class="upload-section">
+                        <div class="upload-header">
+                            <h3>Load Audio File</h3>
+                            <div class="file-info" id="fileInfo">No file selected</div>
+                        </div>
+
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-icon">🎵</div>
+                            <p class="upload-text">
+                                <strong>Click to select audio file</strong> or drag and drop
+                            </p>
+                            <p class="upload-formats">Supports: MP3, WAV, M4A, OGG, FLAC</p>
+                            <input type="file" id="audioFileInput" accept="audio/*" hidden>
+                        </div>
+
+                        <div class="upload-progress hidden" id="uploadProgress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                            <div class="progress-text" id="progressText">Loading...</div>
+                        </div>
+                    </div>
+
+                    <!-- Waveform Section -->
+                    <div class="waveform-section hidden" id="waveformSection">
+                        <div class="waveform-header">
+                            <h3>Audio Waveform</h3>
+                            <div class="playback-controls">
+                                <button class="btn-play" id="playBtn">▶️ Play</button>
+                                <button class="btn-pause hidden" id="pauseBtn">⏸️ Pause</button>
+                                <button class="btn-stop" id="stopBtn">⏹️ Stop</button>
+                            </div>
+                        </div>
+
+                        <div class="waveform-container">
+                            <canvas id="waveformCanvas"></canvas>
+                            <div class="selection-overlay" id="selectionOverlay"></div>
+                            <div class="playhead" id="playhead"></div>
+                        </div>
+
+                        <div class="time-info">
+                            <span class="current-time" id="currentTime">00:00</span>
+                            <span class="duration" id="duration">00:00</span>
+                        </div>
+                    </div>
+
+                    <!-- Trim Controls -->
+                    <div class="trim-controls hidden" id="trimControls">
+                        <div class="trim-header">
+                            <h3>Trim Settings</h3>
+                            <button class="btn-reset" id="resetBtn">Reset Selection</button>
+                        </div>
+
+                        <div class="trim-inputs">
+                            <div class="time-input-group">
+                                <label for="startTime">Start Time</label>
+                                <input type="number" id="startTime" min="0" step="0.1" placeholder="0.0">
+                                <span class="time-unit">seconds</span>
+                            </div>
+
+                            <div class="time-input-group">
+                                <label for="endTime">End Time</label>
+                                <input type="number" id="endTime" min="0" step="0.1" placeholder="0.0">
+                                <span class="time-unit">seconds</span>
+                            </div>
+
+                            <div class="duration-display">
+                                <span class="selection-duration">Selection: <span id="selectionDuration">0.0s</span></span>
+                            </div>
+                        </div>
+
+                        <div class="trim-actions">
+                            <button class="btn-preview" id="previewBtn">🔊 Preview Selection</button>
+                            <button class="btn-trim" id="trimBtn">✂️ Trim Audio</button>
+                        </div>
+                    </div>
+
+                    <!-- Export Section -->
+                    <div class="export-section hidden" id="exportSection">
+                        <div class="export-header">
+                            <h3>Export Options</h3>
+                        </div>
+
+                        <div class="export-settings">
+                            <div class="setting-group">
+                                <label for="exportFormat">Output Format</label>
+                                <select id="exportFormat">
+                                    <option value="wav">WAV (Uncompressed)</option>
+                                    <option value="mp3">MP3 (Compressed)</option>
+                                    <option value="webm">WebM</option>
+                                </select>
+                            </div>
+
+                            <div class="setting-group">
+                                <label for="exportQuality">Quality</label>
+                                <select id="exportQuality">
+                                    <option value="high">High (44.1kHz)</option>
+                                    <option value="medium" selected>Medium (22kHz)</option>
+                                    <option value="low">Low (16kHz)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="export-actions">
+                            <button class="btn-download" id="downloadBtn">⬇️ Download Trimmed Audio</button>
+                        </div>
+
+                        <div class="export-info">
+                            <div class="trimmed-audio-player hidden" id="trimmedPlayer">
+                                <h4>Trimmed Audio Preview</h4>
+                                <audio controls id="trimmedAudio"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructions Section -->
+        <section class="instructions-section">
+            <div class="container">
+                <h2 class="section-title">How to Use Audio Trimmer</h2>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <div class="instruction-icon">📁</div>
+                        <h3>Upload Audio</h3>
+                        <p>Select or drag an audio file to load it into the trimmer</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">🎯</div>
+                        <h3>Select Region</h3>
+                        <p>Click and drag on the waveform to select the part you want to keep</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">⏱️</div>
+                        <h3>Fine-tune Times</h3>
+                        <p>Use precise time inputs for exact start and end points</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">⬇️</div>
+                        <h3>Download Result</h3>
+                        <p>Preview and download your trimmed audio file</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <h2 class="section-title">Features</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🌊</div>
+                        <h4>Visual Waveform</h4>
+                        <p>See your audio waveform for precise editing and selection</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <h4>Precision Control</h4>
+                        <p>Frame-accurate trimming with millisecond precision</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔊</div>
+                        <h4>Real-time Preview</h4>
+                        <p>Preview your selection before trimming to ensure accuracy</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <h4>Privacy Protected</h4>
+                        <p>All processing happens locally - your files never leave your device</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

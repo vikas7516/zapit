@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noise Reducer - Remove Background Noise from Audio | Zapit</title>
+    <meta name="description" content="Reduce background noise from audio files using advanced spectral subtraction and adaptive filtering techniques.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-touch-icon.png">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../../assets/css/header.css">
+    <link rel="stylesheet" href="../../assets/css/footer.css">
+    
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="light.css" id="theme-style">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header"></header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="tool-header">
+            <h1>🔧 Noise Reducer</h1>
+            <p>Remove background noise from audio files using advanced spectral subtraction and adaptive filtering</p>
+        </div>
+
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <div class="upload-header">
+                <h3>📁 Upload Audio File</h3>
+                <p class="file-info" id="fileInfo">Select an audio file to analyze and clean</p>
+            </div>
+            
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">🎵</div>
+                <div class="upload-text" id="uploadText">
+                    <strong>Click to upload</strong> or drag & drop your audio file here
+                </div>
+                <div class="upload-formats">Supports: MP3, WAV, OGG, M4A, FLAC</div>
+                <div class="upload-note">Maximum file size: 100MB</div>
+            </div>
+            
+            <input type="file" id="fileInput" accept="audio/*" class="file-input" aria-label="Select audio file for noise reduction">
+        </section>
+
+        <!-- Noise Reduction Section -->
+        <section class="noise-section hidden" id="noiseSection">
+            <div class="noise-header">
+                <h3>🎛️ Noise Reduction Settings</h3>
+                <div class="audio-controls">
+                    <button id="btnPlay" class="btn-play">▶️ Play Original</button>
+                    <button id="btnStop" class="btn-stop">⏹️ Stop</button>
+                    <button id="btnPreview" class="btn-preview">🔊 Preview Cleaned</button>
+                    <button id="btnExport" class="btn-export">📤 Export</button>
+                </div>
+            </div>
+
+            <div class="noise-controls">
+                <!-- Noise Profile -->
+                <div class="control-group">
+                    <label class="control-title">🎯 Noise Profile</label>
+                    <div class="option-group">
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="noise-profile" value="auto" checked aria-label="Auto-detect noise profile">
+                                <span class="radio-label">Auto-Detect Noise</span>
+                                <small>Automatically identify background noise from quiet sections</small>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="noise-profile" value="manual" aria-label="Manual noise profile selection">
+                                <span class="radio-label">Manual Selection</span>
+                                <small>Select a specific section of audio containing only noise</small>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="noise-profile" value="preset" aria-label="Preset noise profile">
+                                <span class="radio-label">Preset Profile</span>
+                                <small>Use common noise types (hiss, hum, broadband)</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preset-selection hidden" id="presetSelection">
+                        <label>Preset Type</label>
+                        <select id="noisePreset" aria-label="Noise preset type">
+                            <option value="hiss">Tape Hiss</option>
+                            <option value="hum">AC Hum (50/60Hz)</option>
+                            <option value="broadband">Broadband Noise</option>
+                            <option value="wind">Wind Noise</option>
+                            <option value="fan">Fan Noise</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Reduction Settings -->
+                <div class="control-group">
+                    <label class="control-title">🎚️ Reduction Settings</label>
+                    <div class="slider-container">
+                        <label>Noise Reduction Amount</label>
+                        <input type="range" id="reductionAmount" min="1" max="20" step="1" value="12" aria-label="Noise reduction amount">
+                        <span class="slider-value" id="reductionAmountValue">12 dB</span>
+                        <div class="control-help">How much noise to remove (higher = more aggressive)</div>
+                    </div>
+                    <div class="slider-container">
+                        <label>Sensitivity</label>
+                        <input type="range" id="sensitivity" min="0.1" max="2" step="0.1" value="1" aria-label="Noise detection sensitivity">
+                        <span class="slider-value" id="sensitivityValue">1.0</span>
+                        <div class="control-help">How sensitive the detection is (higher = more noise detected)</div>
+                    </div>
+                    <div class="slider-container">
+                        <label>Frequency Smoothing</label>
+                        <input type="range" id="smoothing" min="1" max="10" step="1" value="3" aria-label="Frequency smoothing">
+                        <span class="slider-value" id="smoothingValue">3</span>
+                        <div class="control-help">Smooth frequency response to avoid artifacts</div>
+                    </div>
+                </div>
+
+                <!-- Advanced Settings -->
+                <div class="control-group">
+                    <label class="control-title">⚙️ Advanced Settings</label>
+                    <div class="slider-container">
+                        <label>Attack Time</label>
+                        <input type="range" id="attackTime" min="1" max="100" step="1" value="10" aria-label="Noise reduction attack time">
+                        <span class="slider-value" id="attackTimeValue">10 ms</span>
+                        <div class="control-help">How quickly noise reduction starts</div>
+                    </div>
+                    <div class="slider-container">
+                        <label>Release Time</label>
+                        <input type="range" id="releaseTime" min="10" max="1000" step="10" value="100" aria-label="Noise reduction release time">
+                        <span class="slider-value" id="releaseTimeValue">100 ms</span>
+                        <div class="control-help">How quickly noise reduction stops</div>
+                    </div>
+                    <div class="slider-container">
+                        <label>Preserve Speech</label>
+                        <input type="range" id="speechPreservation" min="0" max="100" step="5" value="70" aria-label="Speech preservation percentage">
+                        <span class="slider-value" id="speechPreservationValue">70%</span>
+                        <div class="control-help">Protect speech frequencies from over-processing</div>
+                    </div>
+                </div>
+
+                <!-- Processing Options -->
+                <div class="control-group">
+                    <label class="control-title">🔧 Processing Options</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="adaptiveMode" checked class="checkbox-label" aria-label="Enable adaptive mode">
+                            <span class="checkbox-label">Adaptive Mode</span>
+                            <small>Continuously adapt to changing noise conditions</small>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="preserveTransients" checked class="checkbox-label" aria-label="Preserve transients">
+                            <span class="checkbox-label">Preserve Transients</span>
+                            <small>Protect sudden sounds like drums and percussions</small>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="highQuality" class="checkbox-label" aria-label="Enable high quality mode">
+                            <span class="checkbox-label">High Quality Mode</span>
+                            <small>Use slower but higher quality processing (takes longer)</small>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="musicMode" class="checkbox-label" aria-label="Enable music mode">
+                            <span class="checkbox-label">Music Mode</span>
+                            <small>Optimize for musical content rather than speech</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter Settings -->
+                <div class="control-group">
+                    <label class="control-title">🎛️ Spectral Filtering</label>
+                    <div class="slider-container">
+                        <label>Low Frequency Cutoff</label>
+                        <input type="range" id="lowCutoff" min="20" max="200" step="5" value="60" aria-label="Low frequency cutoff">
+                        <span class="slider-value" id="lowCutoffValue">60 Hz</span>
+                        <div class="control-help">Remove very low frequencies (rumble, hum)</div>
+                    </div>
+                    <div class="slider-container">
+                        <label>High Frequency Cutoff</label>
+                        <input type="range" id="highCutoff" min="5000" max="20000" step="100" value="15000" aria-label="High frequency cutoff">
+                        <span class="slider-value" id="highCutoffValue">15000 Hz</span>
+                        <div class="control-help">Remove very high frequencies (hiss, digital noise)</div>
+                    </div>
+                    <div class="slider-container">
+                        <label>Gate Threshold</label>
+                        <input type="range" id="gateThreshold" min="-60" max="-20" step="1" value="-45" aria-label="Gate threshold">
+                        <span class="slider-value" id="gateThresholdValue">-45 dB</span>
+                        <div class="control-help">Below this level, apply maximum noise reduction</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-time Analysis -->
+            <div class="analysis-section" id="analysisSection">
+                <div class="analysis-header">
+                    <h4>📊 Noise Analysis</h4>
+                    <button id="btnAnalyze" class="btn-process">🔍 Analyze Noise</button>
+                </div>
+                <div class="info-cards" id="analysisResults">
+                    <div class="info-card">
+                        <div class="info-label">Noise Floor</div>
+                        <div class="info-value" id="noiseFloor">--</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">SNR (Signal/Noise)</div>
+                        <div class="info-value" id="signalToNoise">--</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Dominant Frequency</div>
+                        <div class="info-value" id="dominantFreq">--</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Noise Type</div>
+                        <div class="info-value" id="noiseType">--</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spectrum Visualization -->
+            <div class="waveform-container">
+                <canvas id="spectrumCanvas" width="800" height="300"></canvas>
+                <div class="waveform-info">Frequency spectrum: Blue = Original, Red = Noise Profile, Green = Cleaned</div>
+            </div>
+
+            <!-- Manual Noise Selection -->
+            <div class="regions-section hidden" id="manualSelection">
+                <div class="regions-header">
+                    <h4>🎯 Manual Noise Selection</h4>
+                    <div class="region-controls">
+                        <button id="btnSelectNoise" class="btn-track-play">📍 Select Noise Sample</button>
+                        <button id="btnClearSelection" class="btn-track-remove">🗑️ Clear Selection</button>
+                    </div>
+                </div>
+                <div class="waveform-container">
+                    <canvas id="waveformCanvas" width="800" height="150"></canvas>
+                    <div class="waveform-info">Click and drag to select a region containing only noise</div>
+                </div>
+                <div class="selection-info hidden" id="selectionInfo">
+                    <div class="info-cards">
+                        <div class="info-card">
+                            <div class="info-label">Selection Start</div>
+                            <div class="info-value" id="selectionStart">--</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-label">Selection Duration</div>
+                            <div class="info-value" id="selectionDuration">--</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-label">Avg. Level</div>
+                            <div class="info-value" id="selectionLevel">--</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-label">Quality Score</div>
+                            <div class="info-value" id="qualityScore">--</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Export Section -->
+        <section class="export-section hidden" id="exportSection">
+            <div class="export-header">
+                <h3>💾 Export Cleaned Audio</h3>
+            </div>
+
+            <div class="export-settings">
+                <div class="setting-group">
+                    <label for="exportFormat">Output Format</label>
+                    <select id="exportFormat">
+                        <option value="wav">WAV (Uncompressed)</option>
+                        <option value="mp3">MP3 (Compressed)</option>
+                    </select>
+                    <div class="setting-help">WAV provides highest quality, MP3 creates smaller files</div>
+                </div>
+
+                <div class="setting-group">
+                    <label for="exportQuality">Quality</label>
+                    <select id="exportQuality">
+                        <option value="high">High (48kHz/24-bit)</option>
+                        <option value="standard" selected>Standard (44.1kHz/16-bit)</option>
+                        <option value="web">Web (44.1kHz/16-bit MP3)</option>
+                    </select>
+                    <div class="setting-help">Higher quality means larger file size</div>
+                </div>
+
+                <div class="setting-group">
+                    <label for="postProcessing">Post-Processing</label>
+                    <select id="postProcessing">
+                        <option value="none">None</option>
+                        <option value="normalize" selected>Normalize</option>
+                        <option value="enhance">Enhance + Normalize</option>
+                    </select>
+                    <div class="setting-help">Additional processing after noise reduction</div>
+                </div>
+            </div>
+
+            <div class="export-actions">
+                <button id="btnProcess" class="btn-process">
+                    🧹 Clean Audio
+                </button>
+                <button id="btnDownload" class="btn-download hidden">
+                    💾 Download Cleaned Audio
+                </button>
+            </div>
+
+            <div class="processed-audio-player hidden" id="processedAudioContainer">
+                <h4>🎵 Cleaned Audio Preview</h4>
+                <audio id="processedAudioPlayer" controls></audio>
+                <div class="processed-stats" id="processedStats">
+                    <div class="info-cards">
+                        <div class="info-card">
+                            <div class="info-label">Noise Reduced</div>
+                            <div class="info-value" id="noiseReduced">--</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-label">New SNR</div>
+                            <div class="info-value" id="newSNR">--</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-label">Processing Time</div>
+                            <div class="info-value" id="processingTime">--</div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-label">Quality Score</div>
+                            <div class="info-value" id="finalQuality">--</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Indicator -->
+            <div class="progress-container hidden" id="progressContainer">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">Analyzing audio...</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer"></footer>
+
+    <!-- Scripts -->
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

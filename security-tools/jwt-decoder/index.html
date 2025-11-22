@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JWT Decoder - Security Tools - Zapit</title>
+    <meta name="description" content="Decode and verify JSON Web Tokens (JWT). Analyze JWT headers, payloads, and signatures with detailed information display.">
+    <meta property="og:title" content="JWT Decoder - Zapit">
+    <meta property="og:description" content="Decode and verify JSON Web Tokens (JWT) with detailed analysis">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/security-tools/jwt-decoder">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb">
+                        <a href="/">Home</a>
+                        <span class="separator">/</span>
+                        <a href="/security-tools">Security Tools</a>
+                        <span class="separator">/</span>
+                        <span class="current">JWT Decoder</span>
+                    </nav>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <span class="theme-toggle-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                <div class="tool-icon-large">🎫</div>
+                <h1 class="tool-title">JWT Decoder</h1>
+                <p class="tool-description">Decode and verify JSON Web Tokens with detailed analysis</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Interface -->
+    <section class="tool-interface">
+        <div class="container">
+            <div class="tool-container">
+                <!-- Input Panel -->
+                <div class="input-panel">
+                    <h3>JWT Token Input</h3>
+                    <div class="jwt-input-section">
+                        <label for="jwtInput" class="input-label">JSON Web Token:</label>
+                        <textarea id="jwtInput" class="jwt-input" placeholder="Paste your JWT token here (e.g., eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...)" rows="6"></textarea>
+                        
+                        <div class="input-actions">
+                            <button id="decodeBtn" class="btn btn-primary">Decode JWT</button>
+                            <button id="clearBtn" class="btn btn-outline">Clear</button>
+                            <button id="generateSampleBtn" class="btn btn-outline">Generate Sample JWT</button>
+                        </div>
+                        
+                        <div class="jwt-status" id="jwtStatus"></div>
+                    </div>
+                </div>
+
+                <!-- Decoded Sections -->
+                <div class="decoded-sections hidden" id="decodedSections">
+                    <!-- Header Section -->
+                    <div class="section-panel">
+                        <div class="section-header">
+                            <h3>Header</h3>
+                            <div class="section-actions">
+                                <button onclick="jwtDecoder.copySection('header')" class="btn btn-outline btn-sm">📋 Copy</button>
+                                <button onclick="jwtDecoder.formatSection('header')" class="btn btn-outline btn-sm">🎨 Format</button>
+                            </div>
+                        </div>
+                        <div class="section-content">
+                            <div class="raw-section">
+                                <label>Encoded:</label>
+                                <div class="encoded-value" id="headerEncoded"></div>
+                            </div>
+                            <div class="decoded-section">
+                                <label>Decoded:</label>
+                                <pre class="decoded-value" id="headerDecoded"></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payload Section -->
+                    <div class="section-panel">
+                        <div class="section-header">
+                            <h3>Payload</h3>
+                            <div class="section-actions">
+                                <button onclick="jwtDecoder.copySection('payload')" class="btn btn-outline btn-sm">📋 Copy</button>
+                                <button onclick="jwtDecoder.formatSection('payload')" class="btn btn-outline btn-sm">🎨 Format</button>
+                            </div>
+                        </div>
+                        <div class="section-content">
+                            <div class="raw-section">
+                                <label>Encoded:</label>
+                                <div class="encoded-value" id="payloadEncoded"></div>
+                            </div>
+                            <div class="decoded-section">
+                                <label>Decoded:</label>
+                                <pre class="decoded-value" id="payloadDecoded"></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Signature Section -->
+                    <div class="section-panel">
+                        <div class="section-header">
+                            <h3>Signature</h3>
+                            <div class="section-actions">
+                                <button onclick="jwtDecoder.copySection('signature')" class="btn btn-outline btn-sm">📋 Copy</button>
+                            </div>
+                        </div>
+                        <div class="section-content">
+                            <div class="raw-section">
+                                <label>Signature:</label>
+                                <div class="encoded-value" id="signatureValue"></div>
+                            </div>
+                            <div class="signature-info">
+                                <p class="signature-note">
+                                    🛡️ Signature verification requires the secret key and cannot be performed client-side for security reasons.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JWT Information Panel -->
+                <div class="info-panel hidden" id="infoPanel">
+                    <h3>Token Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Algorithm:</label>
+                            <span id="tokenAlgorithm">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Type:</label>
+                            <span id="tokenType">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Issued At:</label>
+                            <span id="tokenIssuedAt">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Expires At:</label>
+                            <span id="tokenExpiresAt">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Not Before:</label>
+                            <span id="tokenNotBefore">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Subject:</label>
+                            <span id="tokenSubject">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Audience:</label>
+                            <span id="tokenAudience">-</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Issuer:</label>
+                            <span id="tokenIssuer">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="token-status-info">
+                        <div class="status-item" id="expirationStatus"></div>
+                        <div class="status-item" id="validityStatus"></div>
+                    </div>
+                </div>
+
+                <!-- Signature Verification Panel -->
+                <div class="verification-panel hidden" id="verificationPanel">
+                    <h3>Signature Verification</h3>
+                    <div class="verification-section">
+                        <div class="verification-warning">
+                            <div class="warning-icon">⚠️</div>
+                            <div class="warning-content">
+                                <h4>Security Notice</h4>
+                                <p>Signature verification with secret keys should only be performed server-side. This tool can only decode and display JWT contents.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="verification-info">
+                            <h4>How JWT Verification Works:</h4>
+                            <ol>
+                                <li>The server uses the secret key to verify the signature</li>
+                                <li>If verification succeeds, the token is authentic</li>
+                                <li>If verification fails, the token may be tampered with</li>
+                                <li>Always verify JWTs on your server before trusting the contents</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Information Section -->
+    <section class="tool-info-section">
+        <div class="container">
+            <h2 class="section-title">About JWT Decoder</h2>
+            <div class="tool-info-content">
+                <p>Our JWT Decoder is a comprehensive tool for analyzing and understanding JSON Web Tokens. Whether you're debugging authentication issues, exploring token structure, or learning about JWT format, this tool provides detailed insights into every component of your tokens while maintaining complete privacy.</p>
+                
+                <div class="tool-benefits">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🔒</div>
+                        <div class="benefit-content">
+                            <h4>100% Client-Side</h4>
+                            <p>All decoding happens in your browser - tokens never leave your device for maximum security</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🔍</div>
+                        <div class="benefit-content">
+                            <h4>Complete Analysis</h4>
+                            <p>Decode header, payload, and signature with detailed claim information and time validation</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">⚡</div>
+                        <div class="benefit-content">
+                            <h4>Instant Results</h4>
+                            <p>Fast Base64 decoding with real-time validation and formatted JSON display</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">📱</div>
+                        <div class="benefit-content">
+                            <h4>Mobile Friendly</h4>
+                            <p>Responsive design works perfectly on desktop, tablet, and mobile devices</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Information Section -->
+    <section class="info-section">
+        <div class="container">
+            <h2 class="section-title">How to Use JWT Decoder</h2>
+            <div class="usage-steps">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Paste JWT Token</h4>
+                        <p>Copy and paste your JWT token into the input field. The token should start with "eyJ".</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Decode Token</h4>
+                        <p>Click "Decode JWT" to parse the token and display its header, payload, and signature components.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Analyze Contents</h4>
+                        <p>Review the decoded information including claims, expiration times, and algorithm details.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-features">
+                <div class="feature-item">
+                    <div class="feature-icon">🔍</div>
+                    <h4>Complete Analysis</h4>
+                    <p>Decode header, payload, and display signature information with claim details</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⏰</div>
+                    <h4>Time Validation</h4>
+                    <p>Check token expiration, issued at, and not before timestamps</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📋</div>
+                    <h4>Easy Copying</h4>
+                    <p>Copy individual sections or formatted JSON with one click</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🛡️</div>
+                    <h4>Client-Side Only</h4>
+                    <p>All decoding happens locally - your tokens never leave your browser</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Tools Section -->
+    <section class="related-tools-section">
+        <div class="container">
+            <h2 class="section-title">Explore More Security Tools</h2>
+            <div class="related-tools-grid">
+                <a href="../password-strength-analyzer/" class="tool-card">
+                    <div class="tool-card-icon">🔐</div>
+                    <h3>Password Strength Analyzer</h3>
+                    <p>Analyze password security with comprehensive strength testing and breach detection</p>
+                </a>
+                <a href="../totp-generator/" class="tool-card">
+                    <div class="tool-card-icon">⏰</div>
+                    <h3>TOTP Generator</h3>
+                    <p>Generate time-based one-time passwords for two-factor authentication</p>
+                </a>
+                <a href="../text-encryption/" class="tool-card">
+                    <div class="tool-card-icon">🔒</div>
+                    <h3>Text Encryption</h3>
+                    <p>Encrypt and decrypt text using AES encryption with multiple cipher modes</p>
+                </a>
+                <a href="../uuid-generator/" class="tool-card">
+                    <div class="tool-card-icon">🆔</div>
+                    <h3>UUID Generator</h3>
+                    <p>Generate unique identifiers in multiple formats with bulk generation support</p>
+                </a>
+                <a href="../random-generator/" class="tool-card">
+                    <div class="tool-card-icon">🎲</div>
+                    <h3>Random Generator</h3>
+                    <p>Generate cryptographically secure random values in various formats</p>
+                </a>
+                <a href="/dev-tools/" class="tool-card">
+                    <div class="tool-card-icon">⚙️</div>
+                    <h3>Developer Tools</h3>
+                    <p>Comprehensive suite of development utilities and code helpers</p>
+                </a>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/assets/js/global.js"></script>
+    <script src="app.js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    
+    <!-- Tool Theme Handler -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle tool-specific theme CSS switching
+        const toolThemeLink = document.getElementById('tool-theme-css');
+        if (toolThemeLink) {
+            // Initial theme setup
+            const savedTheme = localStorage.getItem('zapit-theme') || 'light';
+            toolThemeLink.href = savedTheme + '.css';
+            
+            // Listen for theme changes
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                        const theme = document.documentElement.getAttribute('data-theme') || 'light';
+                        toolThemeLink.href = theme + '.css';
+                    }
+                });
+            });
+            
+            observer.observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ['data-theme']
+            });
+        }
+    });
+    </script>
+</body>
+</html>

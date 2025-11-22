@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Rotator - Zapit Tools</title>
+    <meta name="description" content="Rotate PDF pages individually or in batches. Fix page orientation, rotate clockwise or counterclockwise with precise control over each page.">
+    <meta name="keywords" content="PDF rotator, rotate PDF pages, PDF page rotation, fix PDF orientation, PDF tools">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="PDF Rotator - Zapit Tools">
+    <meta property="og:description" content="Rotate PDF pages individually or in batches. Fix page orientation, rotate clockwise or counterclockwise with precise control over each page.">
+    <meta property="og:url" content="https://zapit.tools/pdf-tools/rotate-pdf/">
+    <meta property="og:type" content="website">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../assets/css/variables.css">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="light.css" id="theme-light">
+    <link rel="stylesheet" href="dark.css" id="theme-dark" disabled>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- PDF-lib Library -->
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="../../">
+                        <img src="../../icons/logo.jpg" alt="Zapit Tools" width="32" height="32">
+                        <span>Zapit Tools</span>
+                    </a>
+                </div>
+                <nav class="nav">
+                    <a href="../../">Home</a>
+                    <a href="../">PDF Tools</a>
+                </nav>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="title-icon">🔄</span>
+                        PDF Rotator
+                    </h1>
+                    <p class="hero-description">
+                        Rotate PDF pages individually or in batches. Fix page orientation issues, rotate clockwise or counterclockwise with precise control over each page in your document.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Upload Card -->
+            <section class="upload-card" id="uploadCard">
+                <div class="card-header">
+                    <h3>Upload PDF File</h3>
+                    <div class="upload-actions">
+                        <button class="action-btn" id="clearBtn" title="Clear all">🗑️</button>
+                        <button class="action-btn" id="helpBtn" title="Help">❓</button>
+                    </div>
+                </div>
+                
+                <div class="upload-zone" id="uploadZone">
+                    <input type="file" id="fileInput" accept=".pdf" hidden>
+                    <div class="upload-content">
+                        <div class="upload-icon">📄</div>
+                        <h4>Drag & Drop PDF File Here</h4>
+                        <p>or</p>
+                        <button class="browse-btn" id="browseBtn">
+                            <span>📁</span>
+                            Browse Files
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="file-requirements">
+                    <div class="requirement-item">
+                        <span class="req-icon">📄</span>
+                        <span>PDF files only</span>
+                    </div>
+                    <div class="requirement-item">
+                        <span class="req-icon">⚖️</span>
+                        <span>Max size: 50MB</span>
+                    </div>
+                    <div class="requirement-item">
+                        <span class="req-icon">🔒</span>
+                        <span>Processed locally</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rotation Controls Card -->
+            <section class="rotation-card hidden" id="rotationCard">
+                <div class="card-header">
+                    <h3>Rotation Controls</h3>
+                    <div class="rotation-actions">
+                        <span class="current-file-name" id="currentFileName">No file selected</span>
+                    </div>
+                </div>
+                
+                <div class="file-info-display">
+                    <div class="file-info-item">
+                        <div class="info-label">File Name:</div>
+                        <div class="info-value" id="fileName">-</div>
+                    </div>
+                    <div class="file-info-item">
+                        <div class="info-label">File Size:</div>
+                        <div class="info-value" id="fileSize">0 KB</div>
+                    </div>
+                    <div class="file-info-item">
+                        <div class="info-label">Total Pages:</div>
+                        <div class="info-value" id="pageCount">0</div>
+                    </div>
+                    <div class="file-info-item">
+                        <div class="info-label">Pages Selected:</div>
+                        <div class="info-value" id="selectedCount">0</div>
+                    </div>
+                </div>
+
+                <div class="rotation-controls">
+                    <div class="control-section">
+                        <h4>Batch Operations</h4>
+                        <div class="batch-controls">
+                            <div class="batch-buttons">
+                                <button class="batch-btn" id="selectAllBtn">
+                                    <span>✅</span>
+                                    Select All
+                                </button>
+                                <button class="batch-btn" id="selectNoneBtn">
+                                    <span>❌</span>
+                                    Select None
+                                </button>
+                                <button class="batch-btn" id="selectEvenBtn">
+                                    <span>2️⃣</span>
+                                    Even Pages
+                                </button>
+                                <button class="batch-btn" id="selectOddBtn">
+                                    <span>1️⃣</span>
+                                    Odd Pages
+                                </button>
+                            </div>
+                            
+                            <div class="rotation-buttons">
+                                <button class="rotation-btn" id="rotateLeft90Btn" title="Rotate selected pages 90° counterclockwise">
+                                    <span class="rotation-icon">↺</span>
+                                    <span class="rotation-text">90° Left</span>
+                                </button>
+                                <button class="rotation-btn" id="rotateRight90Btn" title="Rotate selected pages 90° clockwise">
+                                    <span class="rotation-icon">↻</span>
+                                    <span class="rotation-text">90° Right</span>
+                                </button>
+                                <button class="rotation-btn" id="rotate180Btn" title="Rotate selected pages 180°">
+                                    <span class="rotation-icon">🔄</span>
+                                    <span class="rotation-text">180°</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-section">
+                        <h4>Individual Page Control</h4>
+                        <div class="page-navigation">
+                            <div class="nav-controls">
+                                <button class="nav-btn" id="prevPageBtn" disabled>
+                                    <span>◀</span>
+                                    Previous
+                                </button>
+                                <div class="page-indicator">
+                                    <span>Page </span>
+                                    <input type="number" id="currentPageInput" min="1" value="1" class="page-input" title="Current page number">
+                                    <span> of </span>
+                                    <span id="totalPages">0</span>
+                                </div>
+                                <button class="nav-btn" id="nextPageBtn" disabled>
+                                    Next
+                                    <span>▶</span>
+                                </button>
+                            </div>
+                            
+                            <div class="individual-rotation">
+                                <button class="individual-btn" id="currentRotateLeft">
+                                    <span>↺</span>
+                                    90° Left
+                                </button>
+                                <button class="individual-btn" id="currentRotateRight">
+                                    <span>↻</span>
+                                    90° Right
+                                </button>
+                                <button class="individual-btn" id="currentRotate180">
+                                    <span>🔄</span>
+                                    180°
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pages-grid-container">
+                    <div class="pages-grid" id="pagesGrid">
+                        <!-- Page thumbnails will be populated here -->
+                    </div>
+                </div>
+                
+                <div class="apply-actions">
+                    <button class="apply-btn" id="applyRotationBtn" disabled>
+                        <span>🔄</span>
+                        Apply Rotations
+                    </button>
+                    <button class="reset-btn" id="resetRotationBtn" disabled>
+                        <span>🔄</span>
+                        Reset All
+                    </button>
+                </div>
+            </section>
+
+            <!-- Progress Card -->
+            <section class="progress-card hidden" id="progressCard">
+                <div class="card-header">
+                    <h3>Applying Rotations</h3>
+                </div>
+                
+                <div class="progress-content">
+                    <div class="progress-info">
+                        <span class="progress-text">Processing...</span>
+                        <span class="progress-percent" id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="progress-details">
+                        <div class="current-operation" id="currentOperation">Preparing pages...</div>
+                        <div class="rotation-info" id="rotationInfo">
+                            <div class="rotation-item">
+                                <span class="rotation-label">Pages Processing:</span>
+                                <span class="rotation-value" id="pagesProgress">0 / 0</span>
+                            </div>
+                            <div class="rotation-item">
+                                <span class="rotation-label">Current Page:</span>
+                                <span class="rotation-value" id="currentPageProgress">-</span>
+                            </div>
+                            <div class="rotation-item">
+                                <span class="rotation-label">Rotation Applied:</span>
+                                <span class="rotation-value" id="rotationApplied">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Card -->
+            <section class="results-card hidden" id="resultsCard">
+                <div class="card-header">
+                    <h3>Rotation Complete</h3>
+                    <div class="results-actions">
+                        <button class="action-btn" id="newRotationBtn" title="Rotate another PDF">🔄</button>
+                    </div>
+                </div>
+                
+                <div class="results-content">
+                    <div class="success-state">
+                        <div class="success-icon">🔄</div>
+                        <h4>Pages Rotated Successfully!</h4>
+                        
+                        <div class="rotation-summary">
+                            <div class="rotation-stats">
+                                <h5>Rotation Summary:</h5>
+                                <div class="stats-grid">
+                                    <div class="stat-item">
+                                        <span class="stat-icon">📄</span>
+                                        <div class="stat-content">
+                                            <div class="stat-label">Total Pages</div>
+                                            <div class="stat-value" id="totalPagesResult">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-icon">🔄</span>
+                                        <div class="stat-content">
+                                            <div class="stat-label">Pages Rotated</div>
+                                            <div class="stat-value" id="rotatedPagesResult">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-icon">↻</span>
+                                        <div class="stat-content">
+                                            <div class="stat-label">90° Clockwise</div>
+                                            <div class="stat-value" id="clockwiseCount">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-icon">↺</span>
+                                        <div class="stat-content">
+                                            <div class="stat-label">90° Counter-clockwise</div>
+                                            <div class="stat-value" id="counterClockwiseCount">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-icon">🔄</span>
+                                        <div class="stat-content">
+                                            <div class="stat-label">180° Rotations</div>
+                                            <div class="stat-value" id="flip180Count">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-icon">📊</span>
+                                        <div class="stat-content">
+                                            <div class="stat-label">Unchanged Pages</div>
+                                            <div class="stat-value" id="unchangedCount">0</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="rotation-details">
+                                <h5>Page-by-Page Details:</h5>
+                                <div class="details-list" id="detailsList">
+                                    <!-- Rotation details will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="download-section">
+                            <button class="download-btn" id="downloadBtn">
+                                <span>⬇️</span>
+                                Download Rotated PDF
+                            </button>
+                            <div class="file-info">
+                                <span id="downloadFileName">rotated-file.pdf</span>
+                                <span id="downloadFileSize">0 KB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Info Cards -->
+            <section class="info-card">
+                <h3>How to Rotate PDF Pages</h3>
+                <div class="step-list">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Upload Your PDF</h4>
+                            <p>Drag and drop your PDF file or click "Browse Files" to select it from your device.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Select Pages to Rotate</h4>
+                            <p>Use batch controls to select multiple pages or click individual pages in the preview grid.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Choose Rotation Angle</h4>
+                            <p>Rotate pages 90° left, 90° right, or 180°. Preview changes before applying.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Apply & Download</h4>
+                            <p>Apply the rotations and download your corrected PDF with properly oriented pages.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-card">
+                <h3>Rotation Features</h3>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="feature-icon">🔄</div>
+                        <div class="feature-content">
+                            <h4>Multiple Rotation Angles</h4>
+                            <p>Rotate pages 90° clockwise, 90° counterclockwise, or flip 180° to fix any orientation issue.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📄</div>
+                        <div class="feature-content">
+                            <h4>Individual Page Control</h4>
+                            <p>Navigate through pages one by one and apply different rotations to each page as needed.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✅</div>
+                        <div class="feature-content">
+                            <h4>Batch Operations</h4>
+                            <p>Select all pages, even/odd pages, or custom selections for efficient bulk rotation operations.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">👁️</div>
+                        <div class="feature-content">
+                            <h4>Visual Preview</h4>
+                            <p>See page thumbnails with rotation indicators before applying changes to ensure perfect results.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-card">
+                <h3>Rotation Tips</h3>
+                <div class="tips-list">
+                    <div class="tip-item">
+                        <div class="tip-icon">🎯</div>
+                        <span>Use the page grid to visually identify pages that need rotation</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">⚡</div>
+                        <span>Batch select even/odd pages for documents with alternating orientations</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">🔄</div>
+                        <span>Use "Reset All" to undo changes and start over if needed</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">📱</div>
+                        <span>90° rotations are perfect for fixing scanned documents from mobile phones</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">🖥️</div>
+                        <span>All processing happens locally in your browser for privacy and speed</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-card">
+                <h3>Common Use Cases</h3>
+                <div class="use-cases">
+                    <div class="use-case">
+                        <div class="case-icon">📱</div>
+                        <div class="case-content">
+                            <h5>Scanned Documents</h5>
+                            <p>Fix orientation of documents scanned with phone cameras or scanners</p>
+                        </div>
+                    </div>
+                    <div class="use-case">
+                        <div class="case-icon">📄</div>
+                        <div class="case-content">
+                            <h5>Mixed Orientations</h5>
+                            <p>Correct PDFs with mixed portrait and landscape page orientations</p>
+                        </div>
+                    </div>
+                    <div class="use-case">
+                        <div class="case-icon">🖨️</div>
+                        <div class="case-content">
+                            <h5>Print Preparation</h5>
+                            <p>Ensure all pages have correct orientation before printing or sharing</p>
+                        </div>
+                    </div>
+                    <div class="use-case">
+                        <div class="case-icon">📚</div>
+                        <div class="case-content">
+                            <h5>Book Digitization</h5>
+                            <p>Fix alternating page orientations in digitized books and magazines</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>PDF Tools</h4>
+                    <ul>
+                        <li><a href="../pdf-merger/">PDF Merger</a></li>
+                        <li><a href="../pdf-splitter/">PDF Splitter</a></li>
+                        <li><a href="../compress-pdf/">PDF Compressor</a></li>
+                        <li><a href="../protect-pdf/">PDF Protector</a></li>
+                        <li><a href="../unlock-pdf/">PDF Unlocker</a></li>
+                        <li><a href="../rotate-pdf/">PDF Rotator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Other Tools</h4>
+                    <ul>
+                        <li><a href="../../image-tools/">Image Tools</a></li>
+                        <li><a href="../../text-tools/">Text Tools</a></li>
+                        <li><a href="../../dev-tools/">Dev Tools</a></li>
+                        <li><a href="../../math-calculators/">Math Calculators</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="../../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../../terms.html">Terms of Service</a></li>
+                        <li><a href="../../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Zapit Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/theme.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

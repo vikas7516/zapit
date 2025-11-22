@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Compressor - Zapit Tools</title>
+    <meta name="description" content="Compress PDF files to reduce file size while maintaining quality. Browser-based, secure, and free PDF compression tool.">
+    <meta name="keywords" content="PDF compressor, compress PDF, reduce PDF size, PDF optimizer, PDF tools">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="PDF Compressor - Zapit Tools">
+    <meta property="og:description" content="Compress PDF files to reduce file size while maintaining quality. Browser-based, secure, and free PDF compression tool.">
+    <meta property="og:url" content="https://zapit.tools/pdf-tools/compress-pdf/">
+    <meta property="og:type" content="website">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../assets/css/variables.css">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="light.css" id="theme-light">
+    <link rel="stylesheet" href="dark.css" id="theme-dark" disabled>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- PDF-lib Library -->
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="../../">
+                        <img src="../../icons/logo.jpg" alt="Zapit Tools" width="32" height="32">
+                        <span>Zapit Tools</span>
+                    </a>
+                </div>
+                <nav class="nav">
+                    <a href="../../">Home</a>
+                    <a href="../">PDF Tools</a>
+                </nav>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="title-icon">🗜️</span>
+                        PDF Compressor
+                    </h1>
+                    <p class="hero-description">
+                        Reduce PDF file size while maintaining quality. Optimize your documents for web sharing, email attachments, or storage efficiency.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Upload Card -->
+            <section class="upload-card" id="uploadCard">
+                <div class="card-header">
+                    <h3>Upload PDF File</h3>
+                    <div class="upload-actions">
+                        <button class="action-btn" id="clearBtn" title="Clear all">🗑️</button>
+                        <button class="action-btn" id="helpBtn" title="Help">❓</button>
+                    </div>
+                </div>
+                
+                <div class="upload-zone" id="uploadZone">
+                    <input type="file" id="fileInput" accept=".pdf" hidden>
+                    <div class="upload-content">
+                        <div class="upload-icon">📄</div>
+                        <h4>Drag & Drop PDF File Here</h4>
+                        <p>or</p>
+                        <button class="browse-btn" id="browseBtn">
+                            <span>📁</span>
+                            Browse Files
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="file-requirements">
+                    <div class="requirement-item">
+                        <span class="req-icon">📄</span>
+                        <span>PDF files only</span>
+                    </div>
+                    <div class="requirement-item">
+                        <span class="req-icon">⚖️</span>
+                        <span>Max size: 100MB</span>
+                    </div>
+                    <div class="requirement-item">
+                        <span class="req-icon">🔒</span>
+                        <span>Processed locally</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Card -->
+            <section class="settings-card hidden" id="settingsCard">
+                <div class="card-header">
+                    <h3>Compression Settings</h3>
+                    <div class="settings-actions">
+                        <span class="current-file-name" id="currentFileName">No file selected</span>
+                    </div>
+                </div>
+                
+                <div class="file-info-display">
+                    <div class="file-info-item">
+                        <div class="info-label">Original Size:</div>
+                        <div class="info-value" id="originalSize">0 KB</div>
+                    </div>
+                    <div class="file-info-item">
+                        <div class="info-label">Pages:</div>
+                        <div class="info-value" id="pageCount">0</div>
+                    </div>
+                    <div class="file-info-item">
+                        <div class="info-label">Estimated Size:</div>
+                        <div class="info-value" id="estimatedSize">0 KB</div>
+                    </div>
+                    <div class="file-info-item">
+                        <div class="info-label">Compression:</div>
+                        <div class="info-value compression-ratio" id="compressionRatio">0%</div>
+                    </div>
+                </div>
+
+                <div class="compression-options">
+                    <div class="quality-section">
+                        <h4>Compression Quality</h4>
+                        <div class="quality-presets">
+                            <button class="preset-btn active" data-quality="high">
+                                <div class="preset-icon">🔥</div>
+                                <div class="preset-info">
+                                    <div class="preset-name">High Quality</div>
+                                    <div class="preset-desc">Minimal compression</div>
+                                </div>
+                            </button>
+                            <button class="preset-btn" data-quality="medium">
+                                <div class="preset-icon">⚖️</div>
+                                <div class="preset-info">
+                                    <div class="preset-name">Balanced</div>
+                                    <div class="preset-desc">Good quality & size</div>
+                                </div>
+                            </button>
+                            <button class="preset-btn" data-quality="low">
+                                <div class="preset-icon">🗜️</div>
+                                <div class="preset-info">
+                                    <div class="preset-name">High Compression</div>
+                                    <div class="preset-desc">Maximum compression</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="advanced-options" id="advancedOptions">
+                        <div class="advanced-toggle">
+                            <button class="toggle-btn" id="advancedToggle">
+                                <span>⚙️</span>
+                                Advanced Options
+                                <span class="toggle-arrow">▼</span>
+                            </button>
+                        </div>
+                        
+                        <div class="advanced-content hidden" id="advancedContent">
+                            <div class="option-group">
+                                <label for="imageQuality">Image Quality (0-100):</label>
+                                <div class="slider-container">
+                                    <input type="range" id="imageQuality" min="10" max="100" value="85" class="quality-slider">
+                                    <span class="slider-value" id="imageQualityValue">85</span>
+                                </div>
+                            </div>
+                            
+                            <div class="option-group">
+                                <label for="imageResolution">Image Resolution:</label>
+                                <select id="imageResolution" class="resolution-select">
+                                    <option value="300">300 DPI (High)</option>
+                                    <option value="150" selected>150 DPI (Medium)</option>
+                                    <option value="72">72 DPI (Web)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="option-checkboxes">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="removeMetadata" checked>
+                                    <span class="checkmark"></span>
+                                    Remove metadata
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="optimizeImages" checked>
+                                    <span class="checkmark"></span>
+                                    Optimize images
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="removeAnnotations">
+                                    <span class="checkmark"></span>
+                                    Remove annotations
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="compress-actions">
+                    <button class="compress-btn" id="compressBtn">
+                        <span>🗜️</span>
+                        Compress PDF
+                    </button>
+                </div>
+            </section>
+
+            <!-- Progress Card -->
+            <section class="progress-card hidden" id="progressCard">
+                <div class="card-header">
+                    <h3>Compressing PDF</h3>
+                </div>
+                
+                <div class="progress-content">
+                    <div class="progress-info">
+                        <span class="progress-text">Processing...</span>
+                        <span class="progress-percent" id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="progress-details">
+                        <div class="current-operation" id="currentOperation">Initializing...</div>
+                        <div class="compression-stats" id="compressionStats">
+                            <div class="stat-item">
+                                <span class="stat-label">Original:</span>
+                                <span class="stat-value" id="originalSizeProgress">0 KB</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Current:</span>
+                                <span class="stat-value" id="currentSizeProgress">0 KB</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Reduction:</span>
+                                <span class="stat-value reduction" id="reductionProgress">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Card -->
+            <section class="results-card hidden" id="resultsCard">
+                <div class="card-header">
+                    <h3>Compression Complete</h3>
+                    <div class="results-actions">
+                        <button class="action-btn" id="newCompressionBtn" title="Compress another PDF">🔄</button>
+                    </div>
+                </div>
+                
+                <div class="results-content">
+                    <div class="success-state">
+                        <div class="success-icon">✅</div>
+                        <h4>PDF Compressed Successfully!</h4>
+                        
+                        <div class="compression-summary">
+                            <div class="size-comparison">
+                                <div class="size-item original">
+                                    <div class="size-label">Original Size</div>
+                                    <div class="size-value" id="finalOriginalSize">0 KB</div>
+                                </div>
+                                <div class="size-arrow">→</div>
+                                <div class="size-item compressed">
+                                    <div class="size-label">Compressed Size</div>
+                                    <div class="size-value" id="finalCompressedSize">0 KB</div>
+                                </div>
+                            </div>
+                            
+                            <div class="savings-info">
+                                <div class="savings-item">
+                                    <span class="savings-label">Size Reduction:</span>
+                                    <span class="savings-value" id="finalReduction">0%</span>
+                                </div>
+                                <div class="savings-item">
+                                    <span class="savings-label">Space Saved:</span>
+                                    <span class="savings-value" id="spaceSaved">0 KB</span>
+                                </div>
+                                <div class="savings-item">
+                                    <span class="savings-label">Quality Level:</span>
+                                    <span class="savings-value" id="qualityLevel">High</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="download-section">
+                            <button class="download-btn" id="downloadBtn">
+                                <span>⬇️</span>
+                                Download Compressed PDF
+                            </button>
+                            <div class="file-info">
+                                <span id="downloadFileName">compressed-file.pdf</span>
+                                <span id="downloadFileSize">0 KB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Info Cards -->
+            <section class="info-card">
+                <h3>How to Compress PDF Files</h3>
+                <div class="step-list">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Upload Your PDF</h4>
+                            <p>Drag and drop your PDF file or click "Browse Files" to select it from your device.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Choose Compression Level</h4>
+                            <p>Select from High Quality, Balanced, or High Compression presets, or customize advanced settings.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Download Compressed PDF</h4>
+                            <p>Download your optimized PDF with reduced file size while maintaining visual quality.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-card">
+                <h3>Compression Features</h3>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-content">
+                            <h4>100% Secure & Private</h4>
+                            <p>All compression happens in your browser. Your files never leave your device.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-content">
+                            <h4>Fast Processing</h4>
+                            <p>Instant compression with real-time size estimation and progress tracking.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-content">
+                            <h4>Quality Control</h4>
+                            <p>Advanced options to balance file size reduction with visual quality preservation.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-content">
+                            <h4>Detailed Analytics</h4>
+                            <p>Real-time compression statistics and before/after size comparison.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-card">
+                <h3>Compression Tips</h3>
+                <div class="tips-list">
+                    <div class="tip-item">
+                        <div class="tip-icon">💡</div>
+                        <span>Use "Balanced" mode for the best compromise between file size and quality</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">🖼️</div>
+                        <span>PDFs with many images compress more effectively than text-only documents</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">📏</div>
+                        <span>Reducing image resolution to 150 DPI is usually sufficient for digital viewing</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">🗃️</div>
+                        <span>Removing metadata can provide additional size reduction without affecting content</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">🎯</div>
+                        <span>For email attachments, aim for files under 10MB for better compatibility</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-card">
+                <h3>Common Use Cases</h3>
+                <div class="use-cases">
+                    <div class="use-case">
+                        <div class="case-icon">📧</div>
+                        <span>Prepare documents for email attachments</span>
+                    </div>
+                    <div class="use-case">
+                        <div class="case-icon">☁️</div>
+                        <span>Optimize files for cloud storage</span>
+                    </div>
+                    <div class="use-case">
+                        <div class="case-icon">🌐</div>
+                        <span>Reduce load times for web documents</span>
+                    </div>
+                    <div class="use-case">
+                        <div class="case-icon">💾</div>
+                        <span>Save storage space on devices</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>PDF Tools</h4>
+                    <ul>
+                        <li><a href="../pdf-merger/">PDF Merger</a></li>
+                        <li><a href="../pdf-splitter/">PDF Splitter</a></li>
+                        <li><a href="../compress-pdf/">PDF Compressor</a></li>
+                        <li><a href="../protect-pdf/">PDF Protector</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Other Tools</h4>
+                    <ul>
+                        <li><a href="../../image-tools/">Image Tools</a></li>
+                        <li><a href="../../text-tools/">Text Tools</a></li>
+                        <li><a href="../../dev-tools/">Dev Tools</a></li>
+                        <li><a href="../../math-calculators/">Math Calculators</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="../../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../../terms.html">Terms of Service</a></li>
+                        <li><a href="../../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Zapit Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/theme.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Protector - Zapit Tools</title>
+    <meta name="description" content="Password protect PDF files with encryption. Add security to your documents with user and owner passwords, and set document permissions.">
+    <meta name="keywords" content="PDF protector, password protect PDF, encrypt PDF, PDF security, PDF tools">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="PDF Protector - Zapit Tools">
+    <meta property="og:description" content="Password protect PDF files with encryption. Add security to your documents with user and owner passwords, and set document permissions.">
+    <meta property="og:url" content="https://zapit.tools/pdf-tools/protect-pdf/">
+    <meta property="og:type" content="website">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/x-icon" href="../../icons/favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../assets/css/variables.css">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="light.css" id="theme-light">
+    <link rel="stylesheet" href="dark.css" id="theme-dark" disabled>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- PDF-lib Library -->
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="../../">
+                        <img src="../../icons/logo.jpg" alt="Zapit Tools" width="32" height="32">
+                        <span>Zapit Tools</span>
+                    </a>
+                </div>
+                <nav class="nav">
+                    <a href="../../">Home</a>
+                    <a href="../">PDF Tools</a>
+                </nav>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="title-icon">🔒</span>
+                        PDF Protector
+                    </h1>
+                    <p class="hero-description">
+                        Secure your PDF documents with password protection and encryption. Set user permissions and protect sensitive information with advanced security features.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Upload Card -->
+            <section class="upload-card" id="uploadCard">
+                <div class="card-header">
+                    <h3>Upload PDF File</h3>
+                    <div class="upload-actions">
+                        <button class="action-btn" id="clearBtn" title="Clear all">🗑️</button>
+                        <button class="action-btn" id="helpBtn" title="Help">❓</button>
+                    </div>
+                </div>
+                
+                <div class="upload-zone" id="uploadZone">
+                    <input type="file" id="fileInput" accept=".pdf" hidden>
+                    <div class="upload-content">
+                        <div class="upload-icon">🔓</div>
+                        <h4>Drag & Drop PDF File Here</h4>
+                        <p>or</p>
+                        <button class="browse-btn" id="browseBtn">
+                            <span>📁</span>
+                            Browse Files
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="file-requirements">
+                    <div class="requirement-item">
+                        <span class="req-icon">📄</span>
+                        <span>PDF files only</span>
+                    </div>
+                    <div class="requirement-item">
+                        <span class="req-icon">⚖️</span>
+                        <span>Max size: 50MB</span>
+                    </div>
+                    <div class="requirement-item">
+                        <span class="req-icon">🔒</span>
+                        <span>Processed locally</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Security Settings Card -->
+            <section class="security-card hidden" id="securityCard">
+                <div class="card-header">
+                    <h3>Security Settings</h3>
+                    <div class="settings-actions">
+                        <span class="current-file-name" id="currentFileName">No file selected</span>
+                    </div>
+                </div>
+                
+                <div class="file-info-display">
+                    <div class="file-info-item">
+                        <div class="info-label">File Name:</div>
+                        <div class="info-value" id="fileName">-</div>
+                    </div>
+                    <div class="file-info-item">
+                        <div class="info-label">File Size:</div>
+                        <div class="info-value" id="fileSize">0 KB</div>
+                    </div>
+                    <div class="file-info-item">
+                        <div class="info-label">Pages:</div>
+                        <div class="info-value" id="pageCount">0</div>
+                    </div>
+                    <div class="file-info-item">
+                        <div class="info-label">Current Security:</div>
+                        <div class="info-value security-status" id="securityStatus">None</div>
+                    </div>
+                </div>
+
+                <div class="security-options">
+                    <div class="password-section">
+                        <h4>Password Protection</h4>
+                        <div class="password-types">
+                            <div class="password-type">
+                                <div class="password-header">
+                                    <label class="password-toggle">
+                                        <input type="checkbox" id="enableUserPassword">
+                                        <span class="toggle-slider"></span>
+                                        <div class="password-info">
+                                            <div class="password-title">
+                                                <span class="password-icon">👤</span>
+                                                User Password
+                                            </div>
+                                            <div class="password-desc">Required to open the PDF</div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="password-input-group hidden" id="userPasswordGroup">
+                                    <div class="password-field">
+                                        <input type="password" id="userPassword" placeholder="Enter user password" class="password-input">
+                                        <button type="button" class="password-visibility" id="userPasswordToggle">👁️</button>
+                                    </div>
+                                    <div class="password-strength" id="userPasswordStrength">
+                                        <div class="strength-bar">
+                                            <div class="strength-fill"></div>
+                                        </div>
+                                        <span class="strength-text">Password strength</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="password-type">
+                                <div class="password-header">
+                                    <label class="password-toggle">
+                                        <input type="checkbox" id="enableOwnerPassword">
+                                        <span class="toggle-slider"></span>
+                                        <div class="password-info">
+                                            <div class="password-title">
+                                                <span class="password-icon">👑</span>
+                                                Owner Password
+                                            </div>
+                                            <div class="password-desc">Required to modify permissions</div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="password-input-group hidden" id="ownerPasswordGroup">
+                                    <div class="password-field">
+                                        <input type="password" id="ownerPassword" placeholder="Enter owner password" class="password-input">
+                                        <button type="button" class="password-visibility" id="ownerPasswordToggle">👁️</button>
+                                    </div>
+                                    <div class="password-strength" id="ownerPasswordStrength">
+                                        <div class="strength-bar">
+                                            <div class="strength-fill"></div>
+                                        </div>
+                                        <span class="strength-text">Password strength</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="permissions-section">
+                        <h4>Document Permissions</h4>
+                        <div class="permissions-grid">
+                            <label class="permission-item">
+                                <input type="checkbox" id="allowPrinting" checked>
+                                <span class="permission-icon">🖨️</span>
+                                <div class="permission-info">
+                                    <div class="permission-title">Allow Printing</div>
+                                    <div class="permission-desc">Users can print the document</div>
+                                </div>
+                            </label>
+                            
+                            <label class="permission-item">
+                                <input type="checkbox" id="allowModifying" checked>
+                                <span class="permission-icon">✏️</span>
+                                <div class="permission-info">
+                                    <div class="permission-title">Allow Modifying</div>
+                                    <div class="permission-desc">Users can edit the document</div>
+                                </div>
+                            </label>
+                            
+                            <label class="permission-item">
+                                <input type="checkbox" id="allowCopying" checked>
+                                <span class="permission-icon">📋</span>
+                                <div class="permission-info">
+                                    <div class="permission-title">Allow Copying</div>
+                                    <div class="permission-desc">Users can copy text and images</div>
+                                </div>
+                            </label>
+                            
+                            <label class="permission-item">
+                                <input type="checkbox" id="allowAnnotating" checked>
+                                <span class="permission-icon">📝</span>
+                                <div class="permission-info">
+                                    <div class="permission-title">Allow Annotating</div>
+                                    <div class="permission-desc">Users can add comments and annotations</div>
+                                </div>
+                            </label>
+                            
+                            <label class="permission-item">
+                                <input type="checkbox" id="allowFillForms" checked>
+                                <span class="permission-icon">📊</span>
+                                <div class="permission-info">
+                                    <div class="permission-title">Allow Form Filling</div>
+                                    <div class="permission-desc">Users can fill form fields</div>
+                                </div>
+                            </label>
+                            
+                            <label class="permission-item">
+                                <input type="checkbox" id="allowExtractText" checked>
+                                <span class="permission-icon">🔍</span>
+                                <div class="permission-info">
+                                    <div class="permission-title">Allow Text Extraction</div>
+                                    <div class="permission-desc">Users can extract text for accessibility</div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="permission-presets">
+                            <h5>Quick Presets</h5>
+                            <div class="preset-buttons">
+                                <button class="preset-btn" id="presetNone">
+                                    <span class="preset-icon">🔓</span>
+                                    <span>No Restrictions</span>
+                                </button>
+                                <button class="preset-btn" id="presetReadOnly">
+                                    <span class="preset-icon">👁️</span>
+                                    <span>Read Only</span>
+                                </button>
+                                <button class="preset-btn" id="presetStrict">
+                                    <span class="preset-icon">🔒</span>
+                                    <span>Maximum Security</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="encryption-section">
+                        <h4>Encryption Settings</h4>
+                        <div class="encryption-options">
+                            <div class="encryption-level">
+                                <label for="encryptionLevel">Encryption Level:</label>
+                                <select id="encryptionLevel" class="encryption-select">
+                                    <option value="128">128-bit RC4 (Standard)</option>
+                                    <option value="256" selected>256-bit AES (Recommended)</option>
+                                </select>
+                            </div>
+                            <div class="encryption-info">
+                                <div class="info-item">
+                                    <span class="info-icon">🛡️</span>
+                                    <span>256-bit AES encryption provides maximum security for your documents</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="protect-actions">
+                    <button class="protect-btn" id="protectBtn" disabled>
+                        <span>🔒</span>
+                        Protect PDF
+                    </button>
+                </div>
+            </section>
+
+            <!-- Progress Card -->
+            <section class="progress-card hidden" id="progressCard">
+                <div class="card-header">
+                    <h3>Protecting PDF</h3>
+                </div>
+                
+                <div class="progress-content">
+                    <div class="progress-info">
+                        <span class="progress-text">Processing...</span>
+                        <span class="progress-percent" id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="progress-details">
+                        <div class="current-operation" id="currentOperation">Initializing security...</div>
+                        <div class="security-info" id="securityInfo">
+                            <div class="security-item">
+                                <span class="security-label">Encryption:</span>
+                                <span class="security-value" id="encryptionProgress">Preparing...</span>
+                            </div>
+                            <div class="security-item">
+                                <span class="security-label">Permissions:</span>
+                                <span class="security-value" id="permissionsProgress">Configuring...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Card -->
+            <section class="results-card hidden" id="resultsCard">
+                <div class="card-header">
+                    <h3>Protection Complete</h3>
+                    <div class="results-actions">
+                        <button class="action-btn" id="newProtectionBtn" title="Protect another PDF">🔄</button>
+                    </div>
+                </div>
+                
+                <div class="results-content">
+                    <div class="success-state">
+                        <div class="success-icon">🔒</div>
+                        <h4>PDF Protected Successfully!</h4>
+                        
+                        <div class="protection-summary">
+                            <div class="security-applied">
+                                <h5>Security Applied:</h5>
+                                <div class="applied-security" id="appliedSecurity">
+                                    <!-- Security details will be populated here -->
+                                </div>
+                            </div>
+                            
+                            <div class="permission-summary">
+                                <h5>Document Permissions:</h5>
+                                <div class="permission-list" id="permissionList">
+                                    <!-- Permission details will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="download-section">
+                            <button class="download-btn" id="downloadBtn">
+                                <span>⬇️</span>
+                                Download Protected PDF
+                            </button>
+                            <div class="file-info">
+                                <span id="downloadFileName">protected-file.pdf</span>
+                                <span id="downloadFileSize">0 KB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Info Cards -->
+            <section class="info-card">
+                <h3>How to Protect PDF Files</h3>
+                <div class="step-list">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Upload Your PDF</h4>
+                            <p>Drag and drop your PDF file or click "Browse Files" to select it from your device.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Configure Security</h4>
+                            <p>Set user and owner passwords, choose document permissions, and select encryption level.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Download Protected PDF</h4>
+                            <p>Download your secured PDF with password protection and permission restrictions applied.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-card">
+                <h3>Security Features</h3>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="feature-icon">🔐</div>
+                        <div class="feature-content">
+                            <h4>256-bit AES Encryption</h4>
+                            <p>Industry-standard encryption to protect your documents from unauthorized access.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">👤</div>
+                        <div class="feature-content">
+                            <h4>Dual Password Protection</h4>
+                            <p>Set separate user and owner passwords for different levels of document access.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚙️</div>
+                        <div class="feature-content">
+                            <h4>Granular Permissions</h4>
+                            <p>Control printing, editing, copying, annotations, and form filling permissions.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🛡️</div>
+                        <div class="feature-content">
+                            <h4>Browser-Based Security</h4>
+                            <p>All encryption happens locally in your browser for maximum privacy and security.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-card">
+                <h3>Security Tips</h3>
+                <div class="tips-list">
+                    <div class="tip-item">
+                        <div class="tip-icon">🔑</div>
+                        <span>Use strong passwords with a mix of letters, numbers, and special characters</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">👑</div>
+                        <span>Owner passwords should be different from user passwords for better security</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">🎯</div>
+                        <span>Choose permissions based on how you want recipients to use the document</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">🔒</div>
+                        <span>256-bit AES encryption is recommended for sensitive documents</span>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">📝</div>
+                        <span>Keep a record of your passwords in a secure password manager</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-card">
+                <h3>Common Use Cases</h3>
+                <div class="use-cases">
+                    <div class="use-case">
+                        <div class="case-icon">📄</div>
+                        <span>Protect confidential business documents</span>
+                    </div>
+                    <div class="use-case">
+                        <div class="case-icon">📊</div>
+                        <span>Secure financial reports and statements</span>
+                    </div>
+                    <div class="use-case">
+                        <div class="case-icon">📋</div>
+                        <span>Control access to contracts and agreements</span>
+                    </div>
+                    <div class="use-case">
+                        <div class="case-icon">🎓</div>
+                        <span>Protect educational materials and assessments</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>PDF Tools</h4>
+                    <ul>
+                        <li><a href="../pdf-merger/">PDF Merger</a></li>
+                        <li><a href="../pdf-splitter/">PDF Splitter</a></li>
+                        <li><a href="../compress-pdf/">PDF Compressor</a></li>
+                        <li><a href="../protect-pdf/">PDF Protector</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Other Tools</h4>
+                    <ul>
+                        <li><a href="../../image-tools/">Image Tools</a></li>
+                        <li><a href="../../text-tools/">Text Tools</a></li>
+                        <li><a href="../../dev-tools/">Dev Tools</a></li>
+                        <li><a href="../../math-calculators/">Math Calculators</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="../../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../../terms.html">Terms of Service</a></li>
+                        <li><a href="../../contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Zapit Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/theme.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

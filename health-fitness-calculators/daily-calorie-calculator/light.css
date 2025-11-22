@@ -1,0 +1,406 @@
+/* Daily Calorie Calculator - Light Theme */
+
+/* Step Indicator */
+.step-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.step.active {
+    opacity: 1;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--border-color);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.step.active .step-number {
+    background: var(--primary-color);
+    color: white;
+}
+
+.step-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.step.active .step-label {
+    color: var(--text-color);
+}
+
+/* Step Content */
+.step-content {
+    display: none;
+}
+
+.step-content.active {
+    display: block;
+}
+
+.step-description {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Activity Options */
+.activity-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.activity-option {
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--card-bg);
+}
+
+.activity-option:hover {
+    border-color: var(--primary-color);
+    background: var(--hover-bg);
+}
+
+.activity-option.selected {
+    border-color: var(--primary-color);
+    background: var(--primary-color-alpha);
+}
+
+.activity-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.activity-icon {
+    font-size: 2rem;
+}
+
+.activity-info {
+    flex: 1;
+}
+
+.activity-name {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.activity-multiplier {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.activity-description {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Goal Options */
+.goal-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.goal-option {
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--card-bg);
+}
+
+.goal-option:hover {
+    border-color: var(--primary-color);
+    background: var(--hover-bg);
+}
+
+.goal-option.selected {
+    border-color: var(--primary-color);
+    background: var(--primary-color-alpha);
+}
+
+.goal-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.goal-name {
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.goal-description {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+/* Weight Change Section */
+.weight-change-section {
+    margin-bottom: 2rem;
+}
+
+.weight-change-section.hidden {
+    display: none;
+}
+
+.weight-change-section label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.weight-change-section select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--text-color);
+}
+
+/* Step Navigation */
+.step-navigation {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.step-btn {
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+}
+
+.step-btn:not(.secondary) {
+    background: var(--primary-color);
+    color: white;
+}
+
+.step-btn:not(.secondary):hover {
+    background: var(--primary-dark);
+}
+
+.step-btn.secondary {
+    background: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.step-btn.secondary:hover {
+    background: var(--hover-bg);
+}
+
+/* Calories Display */
+.calories-display {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.bmr-section, .tdee-section, .goal-section {
+    text-align: center;
+    padding: 2rem;
+    border-radius: 12px;
+    background: var(--bg-secondary);
+}
+
+.calorie-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.calorie-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.calorie-value.primary {
+    color: var(--primary-color);
+}
+
+.calorie-value.goal {
+    color: var(--success-color, #059669);
+}
+
+.calorie-description {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+/* Macros Breakdown */
+.macros-breakdown {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+}
+
+.macros-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.macro-item {
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: 8px;
+    position: relative;
+}
+
+.macro-item.protein {
+    background: linear-gradient(135deg, #fef3c7, #f59e0b);
+    color: #92400e;
+}
+
+.macro-item.carbs {
+    background: linear-gradient(135deg, #dcfce7, #22c55e);
+    color: #166534;
+}
+
+.macro-item.fats {
+    background: linear-gradient(135deg, #fed7d7, #ef4444);
+    color: #991b1b;
+}
+
+.macro-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.macro-name {
+    font-weight: 600;
+}
+
+.macro-percentage {
+    font-size: 0.875rem;
+    opacity: 0.8;
+}
+
+.macro-grams {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.macro-calories {
+    font-size: 0.875rem;
+    opacity: 0.8;
+}
+
+/* Recommendations */
+.recommendations {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+}
+
+.tip-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: var(--card-bg);
+    border-radius: 8px;
+}
+
+.tip-icon {
+    font-size: 1.2rem;
+    margin-top: 0.1rem;
+}
+
+.tip-content h5 {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.tip-content p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .step-indicator {
+        gap: 1rem;
+    }
+    
+    .activity-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .goal-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .calories-display {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .macros-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .step-navigation {
+        flex-direction: column;
+    }
+}

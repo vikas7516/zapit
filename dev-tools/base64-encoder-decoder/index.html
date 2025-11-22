@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 Encoder / Decoder - Developer Tools - Zapit</title>
+    <meta name="description" content="Encode or decode Base64 strings and files. Support for text, images, and other file types with instant conversion.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/dev-tools/base64-encoder-decoder">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">🔐</div>
+                    <h1 class="tool-title">Base64 Encoder / Decoder</h1>
+                    <p class="tool-description">Encode or decode Base64 strings and files with instant conversion</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-card">
+                    <div class="tool-tabs">
+                        <button class="tab-btn active" data-tab="text">Text</button>
+                        <button class="tab-btn" data-tab="file">File</button>
+                    </div>
+
+                    <!-- Text Tab -->
+                    <div id="text-tab" class="tab-content active">
+                        <div class="form-group">
+                            <label for="text-input">Text Input:</label>
+                            <textarea id="text-input" placeholder="Enter text to encode or Base64 string to decode..."></textarea>
+                        </div>
+
+                        <div class="button-group">
+                            <button id="encode-text" class="btn btn-primary">Encode to Base64</button>
+                            <button id="decode-text" class="btn btn-secondary">Decode from Base64</button>
+                            <button id="clear-text" class="btn btn-outline">Clear</button>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="text-output">Output:</label>
+                            <textarea id="text-output" readonly></textarea>
+                            <button id="copy-text" class="btn btn-outline copy-btn">Copy</button>
+                        </div>
+                    </div>
+
+                    <!-- File Tab -->
+                    <div id="file-tab" class="tab-content">
+                        <div class="file-upload-area" id="file-upload-area">
+                            <div class="upload-icon">📁</div>
+                            <p>Drag & drop a file here or click to browse</p>
+                            <label for="file-input" class="visually-hidden">Choose file to encode or decode</label>
+                            <input type="file" id="file-input" accept="*/*" title="Choose file to encode or decode" placeholder="Select a file">
+                        </div>
+
+                        <div class="file-info" id="file-info">
+                            <p><strong>File:</strong> <span id="file-name"></span></p>
+                            <p><strong>Size:</strong> <span id="file-size"></span></p>
+                            <p><strong>Type:</strong> <span id="file-type"></span></p>
+                        </div>
+
+                        <div class="button-group">
+                            <button id="encode-file" class="btn btn-primary" disabled>Encode File to Base64</button>
+                            <button id="decode-file" class="btn btn-secondary" disabled>Decode Base64 to File</button>
+                            <button id="clear-file" class="btn btn-outline">Clear</button>
+                        </div>
+
+                        <div class="form-group" id="file-output-area">
+                            <label for="file-output">Base64 Output:</label>
+                            <textarea id="file-output" readonly></textarea>
+                            <button id="copy-file" class="btn btn-outline copy-btn">Copy</button>
+                            <button id="download-file" class="btn btn-outline">Download File</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Panel -->
+                <div class="info-panel">
+                    <h3>About Base64 Encoding</h3>
+                    <p>Base64 is a binary-to-text encoding scheme that represents binary data in an ASCII string format. It's commonly used for encoding data in email, URLs, and web applications.</p>
+                    
+                    <div class="info-features">
+                        <div class="feature-item">
+                            <h4>🔒 Secure</h4>
+                            <p>All processing happens locally in your browser</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>⚡ Fast</h4>
+                            <p>Instant encoding and decoding</p>
+                        </div>
+                        <div class="feature-item">
+                            <h4>📱 Universal</h4>
+                            <p>Works with text and any file type</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

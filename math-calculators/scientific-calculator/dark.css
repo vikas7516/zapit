@@ -1,0 +1,238 @@
+/* Scientific Calculator Dark Theme */
+
+[data-theme="dark"] .calculator {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .calculator-display {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .display-secondary {
+    color: #adb5bd;
+}
+
+[data-theme="dark"] .display-main {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .display-info {
+    color: #adb5bd;
+}
+
+[data-theme="dark"] .angle-mode {
+    background: #1a365d;
+    color: #63b3ed;
+}
+
+[data-theme="dark"] .memory-indicator {
+    background: #744210;
+    color: #f6e05e;
+}
+
+[data-theme="dark"] .control-btn {
+    background: #495057;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .control-btn:hover {
+    background: #5a6268;
+}
+
+[data-theme="dark"] .calc-btn {
+    background: #2d2d2d;
+    color: #ffffff;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .calc-btn:hover {
+    background: #404040;
+    border-color: #505050;
+}
+
+[data-theme="dark"] .number-btn {
+    background: #343a40;
+    border-color: #495057;
+}
+
+[data-theme="dark"] .number-btn:hover {
+    background: #495057;
+    border-color: #5a6268;
+}
+
+[data-theme="dark"] .operator-btn {
+    background: linear-gradient(135deg, #0d6efd, #084298);
+    border-color: #084298;
+}
+
+[data-theme="dark"] .operator-btn:hover {
+    background: linear-gradient(135deg, #084298, #052c65);
+}
+
+[data-theme="dark"] .equals-btn {
+    background: linear-gradient(135deg, #198754, #0f5132);
+    border-color: #0f5132;
+}
+
+[data-theme="dark"] .equals-btn:hover {
+    background: linear-gradient(135deg, #0f5132, #0a3622);
+}
+
+[data-theme="dark"] .function-btn {
+    background: linear-gradient(135deg, #7c3aed, #4c1d95);
+    border-color: #4c1d95;
+}
+
+[data-theme="dark"] .function-btn:hover {
+    background: linear-gradient(135deg, #4c1d95, #3730a3);
+}
+
+[data-theme="dark"] .trig-btn {
+    background: linear-gradient(135deg, #f59e0b, #b45309);
+    border-color: #b45309;
+}
+
+[data-theme="dark"] .trig-btn:hover {
+    background: linear-gradient(135deg, #b45309, #92400e);
+}
+
+[data-theme="dark"] .memory-btn {
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    border-color: #b91c1c;
+}
+
+[data-theme="dark"] .memory-btn:hover {
+    background: linear-gradient(135deg, #b91c1c, #991b1b);
+}
+
+[data-theme="dark"] .history-panel {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .history-header {
+    border-bottom-color: #404040;
+}
+
+[data-theme="dark"] .history-header h3 {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .clear-history-btn {
+    background: #dc2626;
+}
+
+[data-theme="dark"] .clear-history-btn:hover {
+    background: #b91c1c;
+}
+
+[data-theme="dark"] .history-list::-webkit-scrollbar-thumb {
+    background: #404040;
+}
+
+[data-theme="dark"] .history-empty {
+    color: #6b7280;
+}
+
+[data-theme="dark"] .history-item {
+    background: #2d2d2d;
+    border-color: #404040;
+}
+
+[data-theme="dark"] .history-item:hover {
+    background: #404040;
+    border-color: #505050;
+}
+
+[data-theme="dark"] .history-expression {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .history-time {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .info-card {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+[data-theme="dark"] .info-card h3 {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .info-card h4 {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .function-item {
+    border-bottom-color: #374151;
+}
+
+[data-theme="dark"] .function-key {
+    background: #1e3a8a;
+    color: #93c5fd;
+}
+
+[data-theme="dark"] .function-desc {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .shortcut-item,
+[data-theme="dark"] .constant-item,
+[data-theme="dark"] .mode-item {
+    border-bottom-color: #374151;
+}
+
+[data-theme="dark"] .shortcut-key {
+    background: #374151;
+    color: #d1d5db;
+    border-color: #4b5563;
+}
+
+[data-theme="dark"] .shortcut-desc {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .constant-symbol {
+    color: #a78bfa;
+}
+
+[data-theme="dark"] .constant-value {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .constant-desc {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .mode-name {
+    background: #1e3a8a;
+    color: #93c5fd;
+}
+
+[data-theme="dark"] .mode-desc {
+    color: #9ca3af;
+}
+
+/* Dark Theme Hover Effects */
+[data-theme="dark"] .calc-btn:active,
+[data-theme="dark"] .control-btn:active {
+    transform: scale(0.95);
+}
+
+/* Dark Theme Scrollbar Customization */
+[data-theme="dark"] .history-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+[data-theme="dark"] .history-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+[data-theme="dark"] .history-list::-webkit-scrollbar-thumb {
+    background: #404040;
+    border-radius: 4px;
+}

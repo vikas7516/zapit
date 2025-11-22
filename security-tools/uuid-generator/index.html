@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UUID Generator - Security Tools - Zapit</title>
+    <meta name="description" content="Generate unique identifiers (UUIDs) in multiple formats. Support for UUID v1, v4, NIL, and bulk generation with various output formats.">
+    <meta property="og:title" content="UUID Generator - Zapit">
+    <meta property="og:description" content="Generate unique identifiers (UUIDs) with multiple formats and bulk generation">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link rel="stylesheet" href="/assets/css/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/security-tools/uuid-generator">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+</head>
+<body class="tools-page">
+    <main>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb">
+                        <a href="/">Home</a>
+                        <span class="separator">/</span>
+                        <a href="/security-tools">Security Tools</a>
+                        <span class="separator">/</span>
+                        <span class="current">UUID Generator</span>
+                    </nav>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <span class="theme-toggle-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tool Header -->
+    <section class="tool-hero">
+        <div class="container">
+            <div class="tool-hero-content">
+                <div class="tool-icon-large">🆔</div>
+                <h1 class="tool-title">UUID Generator</h1>
+                <p class="tool-description">Generate unique identifiers in multiple formats with bulk generation support</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Interface -->
+    <section class="tool-interface">
+        <div class="container">
+            <div class="tool-container">
+                <!-- Generator Options -->
+                <div class="options-panel">
+                    <h3>UUID Generation Options</h3>
+                    
+                    <div class="uuid-types">
+                        <h4>UUID Version:</h4>
+                        <div class="type-options">
+                            <label class="type-option">
+                                <input type="radio" name="uuidVersion" value="v4" checked>
+                                <span class="option-content">
+                                    <strong>UUID v4 (Random)</strong>
+                                    <small>Completely random UUID (recommended)</small>
+                                </span>
+                            </label>
+                            <label class="type-option">
+                                <input type="radio" name="uuidVersion" value="v1">
+                                <span class="option-content">
+                                    <strong>UUID v1 (Time-based)</strong>
+                                    <small>Based on timestamp and MAC address</small>
+                                </span>
+                            </label>
+                            <label class="type-option">
+                                <input type="radio" name="uuidVersion" value="nil">
+                                <span class="option-content">
+                                    <strong>NIL UUID</strong>
+                                    <small>All zeros (00000000-0000-0000-0000-000000000000)</small>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="generation-options">
+                        <h4>Generation Settings:</h4>
+                        <div class="settings-grid">
+                            <div class="setting-item">
+                                <label for="uuidCount">Number of UUIDs:</label>
+                                <div class="number-input-group">
+                                    <input type="number" id="uuidCount" min="1" max="1000" value="1">
+                                    <div class="quick-amounts">
+                                        <button onclick="uuidGenerator.setCount(1)" class="btn btn-outline btn-xs">1</button>
+                                        <button onclick="uuidGenerator.setCount(10)" class="btn btn-outline btn-xs">10</button>
+                                        <button onclick="uuidGenerator.setCount(100)" class="btn btn-outline btn-xs">100</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <label for="outputFormat">Output Format:</label>
+                                <select id="outputFormat">
+                                    <option value="standard">Standard (with hyphens)</option>
+                                    <option value="simple">Simple (no hyphens)</option>
+                                    <option value="uppercase">Uppercase</option>
+                                    <option value="braces">With Braces {}</option>
+                                    <option value="urn">URN Format</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="generation-actions">
+                        <button id="generateBtn" class="btn btn-primary">🎲 Generate UUIDs</button>
+                        <button id="regenerateBtn" class="btn btn-outline">🔄 Regenerate</button>
+                        <button id="clearBtn" class="btn btn-outline">🗑️ Clear</button>
+                    </div>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="results-panel">
+                    <div class="results-header">
+                        <h3>Generated UUIDs</h3>
+                        <div class="results-actions">
+                            <button id="copyAllBtn" class="btn btn-outline btn-sm" disabled>📋 Copy All</button>
+                            <button id="copyListBtn" class="btn btn-outline btn-sm" disabled>📝 Copy as List</button>
+                            <button id="downloadBtn" class="btn btn-outline btn-sm" disabled>💾 Download</button>
+                        </div>
+                    </div>
+                    
+                    <div class="results-content">
+                        <div class="results-placeholder" id="resultsPlaceholder">
+                            <div class="placeholder-icon">🆔</div>
+                            <p>Click "Generate UUIDs" to create unique identifiers</p>
+                        </div>
+                        
+                        <div class="uuid-results" id="uuidResults"></div>
+                    </div>
+                    
+                    <div class="results-info" id="resultsInfo"></div>
+                </div>
+
+                <!-- UUID Information Panel -->
+                <div class="info-panel">
+                    <h3>UUID Information</h3>
+                    <div class="uuid-info-grid">
+                        <div class="info-card">
+                            <h4>UUID v4 (Random)</h4>
+                            <p>Generated using cryptographically strong random numbers. Contains 122 bits of randomness, making collisions extremely unlikely.</p>
+                            <div class="info-example">
+                                <strong>Example:</strong> f47ac10b-58cc-4372-a567-0e02b2c3d479
+                            </div>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h4>UUID v1 (Time-based)</h4>
+                            <p>Contains timestamp and node information. Guarantees uniqueness across time and space but may reveal information about the generating system.</p>
+                            <div class="info-example">
+                                <strong>Example:</strong> 6ba7b810-9dad-11d1-80b4-00c04fd430c8
+                            </div>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h4>NIL UUID</h4>
+                            <p>Special UUID with all bits set to zero. Used to represent the absence of a value or as a placeholder.</p>
+                            <div class="info-example">
+                                <strong>Value:</strong> 00000000-0000-0000-0000-000000000000
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Validation Panel -->
+                <div class="validation-panel">
+                    <h3>UUID Validation</h3>
+                    <div class="validation-section">
+                        <label for="validateInput">Validate UUID:</label>
+                        <div class="validate-input-group">
+                            <input type="text" id="validateInput" placeholder="Enter UUID to validate..." class="validate-input">
+                            <button id="validateBtn" class="btn btn-outline">✓ Validate</button>
+                        </div>
+                        <div class="validation-result" id="validationResult"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Information Section -->
+    <section class="tool-info-section">
+        <div class="container">
+            <h2 class="section-title">About UUID Generator</h2>
+            <div class="tool-info-content">
+                <p>Our UUID Generator is a comprehensive tool for creating and validating Universally Unique Identifiers (UUIDs). Whether you need random UUIDs for database keys, session tokens, or system identifiers, this tool provides multiple UUID versions and formats to meet your specific requirements.</p>
+                
+                <div class="tool-benefits">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🔒</div>
+                        <div class="benefit-content">
+                            <h4>Cryptographically Secure</h4>
+                            <p>Uses secure random number generation for UUID v4 to ensure unpredictability and uniqueness</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">⚡</div>
+                        <div class="benefit-content">
+                            <h4>High Performance</h4>
+                            <p>Generate up to 1000 UUIDs instantly with efficient client-side processing</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🎯</div>
+                        <div class="benefit-content">
+                            <h4>Standards Compliant</h4>
+                            <p>Follows RFC 4122 specifications for proper UUID format and structure</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🛠️</div>
+                        <div class="benefit-content">
+                            <h4>Developer Friendly</h4>
+                            <p>Multiple output formats including standard, simple, uppercase, braces, and URN</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Information Section -->
+    <section class="info-section">
+        <div class="container">
+            <h2 class="section-title">How to Use UUID Generator</h2>
+            <div class="usage-steps">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Choose UUID Type</h4>
+                        <p>Select UUID v4 for random IDs, v1 for time-based IDs, or NIL for zero UUID.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Set Options</h4>
+                        <p>Configure the number of UUIDs to generate and choose your preferred output format.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Generate & Copy</h4>
+                        <p>Click generate to create UUIDs, then copy individual IDs or the entire list.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-features">
+                <div class="feature-item">
+                    <div class="feature-icon">🎲</div>
+                    <h4>Multiple Versions</h4>
+                    <p>Support for UUID v1, v4, and NIL with proper standards compliance</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <h4>Bulk Generation</h4>
+                    <p>Generate up to 1000 UUIDs at once with efficient processing</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎨</div>
+                    <h4>Multiple Formats</h4>
+                    <p>Output in standard, simple, uppercase, braces, or URN formats</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✓</div>
+                    <h4>UUID Validation</h4>
+                    <p>Built-in validator to check UUID format and version compliance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Tools Section -->
+    <section class="related-tools-section">
+        <div class="container">
+            <h2 class="section-title">Explore More Security Tools</h2>
+            <div class="related-tools-grid">
+                <a href="../password-strength-analyzer/" class="tool-card">
+                    <div class="tool-card-icon">🔐</div>
+                    <h3>Password Strength Analyzer</h3>
+                    <p>Analyze password security with comprehensive strength testing and breach detection</p>
+                </a>
+                <a href="../totp-generator/" class="tool-card">
+                    <div class="tool-card-icon">⏰</div>
+                    <h3>TOTP Generator</h3>
+                    <p>Generate time-based one-time passwords for two-factor authentication</p>
+                </a>
+                <a href="../text-encryption/" class="tool-card">
+                    <div class="tool-card-icon">🔒</div>
+                    <h3>Text Encryption</h3>
+                    <p>Encrypt and decrypt text using AES encryption with multiple cipher modes</p>
+                </a>
+                <a href="../random-generator/" class="tool-card">
+                    <div class="tool-card-icon">🎲</div>
+                    <h3>Random Generator</h3>
+                    <p>Generate cryptographically secure random values in various formats</p>
+                </a>
+                <a href="../jwt-decoder/" class="tool-card">
+                    <div class="tool-card-icon">🎫</div>
+                    <h3>JWT Decoder</h3>
+                    <p>Decode and analyze JSON Web Tokens with signature verification</p>
+                </a>
+                <a href="/dev-tools/" class="tool-card">
+                    <div class="tool-card-icon">⚙️</div>
+                    <h3>Developer Tools</h3>
+                    <p>Comprehensive suite of development utilities and code helpers</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/assets/js/global.js"></script>
+    <script src="app.js"></script>
+    
+    <!-- Theme Handler -->
+    <script>
+        // Theme management for tools
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('zapit-theme') || 'light';
+            const siteThemeCss = document.getElementById('site-theme-css');
+            const toolThemeCss = document.getElementById('tool-theme-css');
+            
+            if (siteThemeCss) {
+                siteThemeCss.href = savedTheme === 'dark' ? '/assets/css/darkstyle.css' : '/assets/css/style.css';
+            }
+            if (toolThemeCss) {
+                toolThemeCss.href = savedTheme + '.css';
+            }
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+
+        // Initialize theme on load
+        initializeTheme();
+
+        // Listen for theme changes from the external toggle
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                    const newTheme = document.documentElement.getAttribute('data-theme');
+                    const siteThemeCss = document.getElementById('site-theme-css');
+                    const toolThemeCss = document.getElementById('tool-theme-css');
+                    
+                    if (siteThemeCss && newTheme) {
+                        siteThemeCss.href = newTheme === 'dark' ? '/assets/css/darkstyle.css' : '/assets/css/style.css';
+                    }
+                    if (toolThemeCss && newTheme) {
+                        toolThemeCss.href = newTheme + '.css';
+                    }
+                }
+            });
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme']
+        });
+    </script>
+    
+    <!-- External Theme Toggle -->
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+</body>
+</html>

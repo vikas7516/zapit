@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amortization Calculator - ZapIt Tools</title>
+    <meta name="description" content="Calculate loan amortization schedules, monthly payments, and interest breakdowns. Professional loan calculator with detailed payment schedules and extra payment analysis.">
+    <meta name="keywords" content="amortization calculator, loan calculator, mortgage calculator, payment schedule, loan amortization table">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Amortization Calculator - ZapIt Tools">
+    <meta property="og:description" content="Calculate loan amortization schedules, monthly payments, and interest breakdowns. Professional loan calculator with detailed payment schedules and extra payment analysis.">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+    <link rel="apple-touch-icon" href="../../icons/apple-touch-icon.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../assets/css/variables.css">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="light.css">
+    <link rel="stylesheet" href="dark.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../../" class="nav-brand">
+                <img src="../../icons/logo.jpg" alt="ZapIt Tools" class="nav-logo">
+                <span>ZapIt Tools</span>
+            </a>
+            <div class="nav-menu">
+                <a href="../../" class="nav-link">Home</a>
+                <a href="../" class="nav-link">Math Calculators</a>
+                <button class="theme-toggle" id="themeToggle">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Amortization Calculator</h1>
+                <p class="hero-description">
+                    Calculate detailed loan amortization schedules with monthly payment breakdowns, 
+                    total interest calculations, and extra payment analysis. Perfect for mortgages, 
+                    auto loans, and personal loans.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">📊</span>
+                        <span class="stat-label">Payment Schedule</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">💰</span>
+                        <span class="stat-label">Interest Analysis</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">⚡</span>
+                        <span class="stat-label">Extra Payments</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <main class="container">
+        <div class="tool-layout">
+            <div class="tool-main">
+                <!-- Loan Input Section -->
+                <div class="calculator-card">
+                    <div class="card-header">
+                        <h3>Loan Details</h3>
+                        <div class="loan-type-selector">
+                            <select id="loanType" class="loan-type-select" title="Select loan type">
+                                <option value="mortgage">Mortgage</option>
+                                <option value="auto">Auto Loan</option>
+                                <option value="personal">Personal Loan</option>
+                                <option value="student">Student Loan</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-section">
+                        <div class="input-grid">
+                            <div class="input-group">
+                                <label for="loanAmount">Loan Amount</label>
+                                <div class="currency-input">
+                                    <span class="currency-symbol">$</span>
+                                    <input type="number" id="loanAmount" class="amount-input" placeholder="300,000" min="0" step="1000">
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="interestRate">Annual Interest Rate</label>
+                                <div class="rate-input">
+                                    <input type="number" id="interestRate" class="rate-input-field" placeholder="3.5" min="0" max="50" step="0.01">
+                                    <span class="rate-symbol">%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="loanTerm">Loan Term</label>
+                                <div class="term-input">
+                                    <input type="number" id="loanTerm" class="term-input-field" placeholder="30" min="1" max="50" step="1">
+                                    <select id="termUnit" class="term-unit-select" title="Term unit">
+                                        <option value="years">Years</option>
+                                        <option value="months">Months</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="startDate">Start Date</label>
+                                <input type="date" id="startDate" class="date-input">
+                            </div>
+                        </div>
+
+                        <!-- Extra Payment Section -->
+                        <div class="extra-payment-section">
+                            <div class="section-header">
+                                <h4>Extra Payments (Optional)</h4>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="enableExtraPayments" title="Enable extra payment options">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            
+                            <div class="extra-payment-inputs hidden" id="extraPaymentInputs">
+                                <div class="extra-payment-grid">
+                                    <div class="input-group">
+                                        <label for="extraMonthly">Extra Monthly Payment</label>
+                                        <div class="currency-input">
+                                            <span class="currency-symbol">$</span>
+                                            <input type="number" id="extraMonthly" class="amount-input" placeholder="200" min="0" step="50">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="input-group">
+                                        <label for="extraYearly">Extra Yearly Payment</label>
+                                        <div class="currency-input">
+                                            <span class="currency-symbol">$</span>
+                                            <input type="number" id="extraYearly" class="amount-input" placeholder="5000" min="0" step="500">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="input-group">
+                                        <label for="oneTimeExtra">One-time Extra Payment</label>
+                                        <div class="currency-input">
+                                            <span class="currency-symbol">$</span>
+                                            <input type="number" id="oneTimeExtra" class="amount-input" placeholder="10000" min="0" step="1000">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="input-group">
+                                        <label for="oneTimeDate">One-time Payment Date</label>
+                                        <input type="date" id="oneTimeDate" class="date-input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="calculate-btn" id="calculateBtn">
+                            <span class="btn-icon">🧮</span>
+                            Calculate Amortization
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Summary -->
+                <div class="results-summary-card">
+                    <div class="card-header">
+                        <h3>Payment Summary</h3>
+                        <div class="summary-actions">
+                            <button class="action-btn" id="exportBtn" title="Export to CSV">📊</button>
+                            <button class="action-btn" id="printBtn" title="Print Schedule">🖨️</button>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-content" id="summaryContent">
+                        <div class="summary-placeholder">
+                            <div class="placeholder-icon">💰</div>
+                            <h4>Ready to Calculate</h4>
+                            <p>Enter loan details above to see payment summary and amortization schedule</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Amortization Schedule -->
+                <div class="schedule-card">
+                    <div class="card-header">
+                        <h3>Amortization Schedule</h3>
+                        <div class="schedule-controls">
+                            <select id="scheduleView" class="view-select" title="Schedule view">
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly Summary</option>
+                            </select>
+                            <button class="control-btn" id="toggleDetails">Show Details</button>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-content" id="scheduleContent">
+                        <div class="schedule-placeholder">
+                            <div class="placeholder-icon">📅</div>
+                            <h4>Amortization Schedule</h4>
+                            <p>Detailed payment schedule will appear here after calculation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Information Panel -->
+            <div class="tool-sidebar">
+                <div class="info-card">
+                    <h3>Quick Loan Presets</h3>
+                    <div class="preset-buttons">
+                        <button class="preset-btn" data-preset="mortgage">
+                            <span class="preset-icon">🏠</span>
+                            <div class="preset-info">
+                                <span class="preset-name">30-Year Mortgage</span>
+                                <span class="preset-desc">$400K, 6.5%, 30 years</span>
+                            </div>
+                        </button>
+                        <button class="preset-btn" data-preset="auto">
+                            <span class="preset-icon">🚗</span>
+                            <div class="preset-info">
+                                <span class="preset-name">Auto Loan</span>
+                                <span class="preset-desc">$35K, 4.5%, 5 years</span>
+                            </div>
+                        </button>
+                        <button class="preset-btn" data-preset="personal">
+                            <span class="preset-icon">💳</span>
+                            <div class="preset-info">
+                                <span class="preset-name">Personal Loan</span>
+                                <span class="preset-desc">$15K, 8.5%, 3 years</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Loan Comparison</h3>
+                    <div class="comparison-section" id="comparisonSection">
+                        <p class="comparison-prompt">Calculate a loan to see comparison options</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Key Features</h3>
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <span class="feature-icon">📊</span>
+                            <div class="feature-content">
+                                <h4>Detailed Schedule</h4>
+                                <p>Complete payment-by-payment breakdown with principal and interest</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">💰</span>
+                            <div class="feature-content">
+                                <h4>Extra Payment Analysis</h4>
+                                <p>See how extra payments reduce total interest and loan term</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">📈</span>
+                            <div class="feature-content">
+                                <h4>Visual Charts</h4>
+                                <p>Interactive charts showing payment breakdown over time</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">📋</span>
+                            <div class="feature-content">
+                                <h4>Export & Print</h4>
+                                <p>Download schedules as CSV or print for records</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Loan Terms Guide</h3>
+                    <div class="terms-list">
+                        <div class="term-item">
+                            <h4>Principal</h4>
+                            <p>The original loan amount borrowed</p>
+                        </div>
+                        <div class="term-item">
+                            <h4>Interest</h4>
+                            <p>The cost of borrowing money, calculated as a percentage</p>
+                        </div>
+                        <div class="term-item">
+                            <h4>Amortization</h4>
+                            <p>The process of paying off debt through regular payments</p>
+                        </div>
+                        <div class="term-item">
+                            <h4>PMI/Insurance</h4>
+                            <p>Additional costs that may be included in monthly payments</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Tips for Borrowers</h3>
+                    <div class="tips-list">
+                        <div class="tip-item">
+                            <span class="tip-icon">💡</span>
+                            <span>Make extra principal payments early to save significantly on interest</span>
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">📅</span>
+                            <span>Consider bi-weekly payments instead of monthly to pay off loans faster</span>
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">🔍</span>
+                            <span>Shop around for the best interest rates from multiple lenders</span>
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">💰</span>
+                            <span>A larger down payment reduces loan amount and monthly payments</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ZapIt Tools</h3>
+                    <p>Professional amortization calculator for accurate loan analysis, payment scheduling, and financial planning.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Math Tools</h4>
+                    <ul>
+                        <li><a href="../age-calculator/">Age Calculator</a></li>
+                        <li><a href="../percentage-calculator/">Percentage Calculator</a></li>
+                        <li><a href="../scientific-calculator/">Scientific Calculator</a></li>
+                        <li><a href="../date-difference-calculator/">Date Calculator</a></li>
+                        <li><a href="../inflation-calculator/">Inflation Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="../../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../../terms.html">Terms of Service</a></li>
+                        <li><a href="../../contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ZapIt Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/theme.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Address Lookup - Security Tools - Zapit</title>
+    <meta name="description"
+        content="Find your IP address and location instantly. Lookup any IP address to see its ISP, city, country, and map coordinates. Free and fast.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/security-tools/ip-lookup">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <span class="tool-icon-large">🌐</span>
+                    <h1 class="tool-title">IP Address Lookup</h1>
+                    <p class="tool-description">
+                        Instantly check your public IP address, location, and ISP. Lookup details for any IP address.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-layout">
+                    <!-- Input Section -->
+                    <div class="upload-section" style="padding: 2rem;">
+                        <div class="controls-header">
+                            <h3>Lookup IP</h3>
+                        </div>
+
+                        <div class="compression-options">
+                            <div class="option-group" style="flex-direction: row; gap: 1rem;">
+                                <input type="text" id="ipInput" placeholder="Enter IP address (leave empty for yours)"
+                                    style="flex: 1; padding: 0.5rem; border: 1px solid var(--tool-input-border); border-radius: 4px; background: var(--tool-input-bg); color: var(--tool-text);">
+                                <button id="lookupBtn" class="btn-primary"
+                                    style="width: auto; padding: 0.5rem 1.5rem;">Lookup</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div class="results-section hidden" id="resultsSection">
+                        <div class="results-layout">
+                            <!-- Map Section -->
+                            <div class="preview-section">
+                                <div class="preview-header">
+                                    <h3>Location Map</h3>
+                                </div>
+                                <div class="preview-container" style="padding: 0; overflow: hidden;">
+                                    <div id="map" style="width: 100%; height: 300px;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Details Section -->
+                            <div class="controls-section">
+                                <div class="controls-header">
+                                    <h3>IP Details</h3>
+                                </div>
+
+                                <div class="compression-results" id="detailsContainer">
+                                    <!-- Dynamic Details -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructions Section -->
+        <section class="instructions-section">
+            <div class="container">
+                <h2 class="section-title">How to Use</h2>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <span class="instruction-icon">📍</span>
+                        <h3>My IP</h3>
+                        <p>Simply load the page to see your current public IP address and location.</p>
+                    </div>
+                    <div class="instruction-item">
+                        <span class="instruction-icon">🔍</span>
+                        <h3>Lookup</h3>
+                        <p>Enter any IPv4 or IPv6 address to find its geographical location.</p>
+                    </div>
+                    <div class="instruction-item">
+                        <span class="instruction-icon">🗺️</span>
+                        <h3>Map View</h3>
+                        <p>See the approximate location of the IP address on an interactive map.</p>
+                    </div>
+                    <div class="instruction-item">
+                        <span class="instruction-icon">📡</span>
+                        <h3>ISP Info</h3>
+                        <p>Identify the Internet Service Provider (ISP) associated with the IP.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <div class="footer-brand-row">
+                            <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                            <span class="footer-brand-text">
+                                <h3 class="footer-logo">Zapit</h3>
+                                <div class="footer-tagline">A Zap Away From Done</div>
+                            </span>
+                        </div>
+                        <p class="footer-description">Free, fast, and private online tools for everyone. No registration
+                            required.</p>
+                        <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                    </div>
+
+                    <div class="footer-links">
+                        <h4 class="footer-title">Legal</h4>
+                        <ul class="footer-list">
+                            <li><a href="/privacy.html">Privacy Policy</a></li>
+                            <li><a href="/terms.html">Terms of Service</a></li>
+                            <li><a href="/contact.html">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="/assets/js/header.js" defer></script>
+    <script src="/assets/elements/theme-toggle.js" defer></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

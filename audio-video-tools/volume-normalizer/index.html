@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volume Normalizer - Audio & Video Tools - Zapit</title>
+    <meta name="description" content="Normalize audio volume levels to ensure consistent loudness across your audio files. Professional audio level optimization.">
+    <meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+    <link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+    <link rel="canonical" href="https://zapit.me/audio-video-tools/volume-normalizer">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/index.html" class="brand" aria-label="Zapit Home">
+                    <img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+                    <span class="brand-text">
+                        <span class="brand-title">Zapit</span>
+                        <span class="brand-tagline">A Zap Away From Done</span>
+                    </span>
+                </a>
+                <div class="header-right">
+                    <nav class="breadcrumb" id="breadcrumb"></nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tool Hero -->
+        <section class="tool-hero">
+            <div class="container">
+                <div class="tool-hero-content">
+                    <div class="tool-icon-large">🔊</div>
+                    <h1 class="tool-title">Volume Normalizer</h1>
+                    <p class="tool-description">Normalize audio volume levels for consistent loudness across your audio files</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Interface -->
+        <section class="tool-interface">
+            <div class="container">
+                <div class="tool-layout">
+                    <!-- Upload Section -->
+                    <div class="upload-section">
+                        <div class="upload-header">
+                            <h3>Load Audio File</h3>
+                            <div class="file-info" id="fileInfo">No file selected</div>
+                        </div>
+
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-icon">🎵</div>
+                            <p class="upload-text">
+                                <strong>Click to select audio file</strong> or drag and drop
+                            </p>
+                            <p class="upload-formats">Supports: MP3, WAV, M4A, OGG, FLAC</p>
+                            <input type="file" id="audioFileInput" accept="audio/*" hidden>
+                        </div>
+
+                        <div class="upload-progress hidden" id="uploadProgress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                            <div class="progress-text" id="progressText">Loading...</div>
+                        </div>
+                    </div>
+
+                    <!-- Analysis Section -->
+                    <div class="analysis-section hidden" id="analysisSection">
+                        <div class="analysis-header">
+                            <h3>Audio Analysis</h3>
+                            <div class="audio-controls">
+                                <button class="btn-play" id="playBtn">▶️ Play Original</button>
+                                <button class="btn-stop" id="stopBtn">⏹️ Stop</button>
+                            </div>
+                        </div>
+
+                        <div class="audio-stats">
+                            <div class="stat-card">
+                                <div class="stat-label">Peak Level</div>
+                                <div class="stat-value" id="peakLevel">-</div>
+                                <div class="stat-unit">dBFS</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">RMS Level</div>
+                                <div class="stat-value" id="rmsLevel">-</div>
+                                <div class="stat-unit">dBFS</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">LUFS</div>
+                                <div class="stat-value" id="lufsLevel">-</div>
+                                <div class="stat-unit">LUFS</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">Dynamic Range</div>
+                                <div class="stat-value" id="dynamicRange">-</div>
+                                <div class="stat-unit">dB</div>
+                            </div>
+                        </div>
+
+                        <div class="waveform-container">
+                            <canvas id="waveformCanvas" width="800" height="200"></canvas>
+                            <div class="waveform-info">
+                                <span>Original Audio Waveform</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Normalization Settings -->
+                    <div class="normalize-section hidden" id="normalizeSection">
+                        <div class="normalize-header">
+                            <h3>Normalization Settings</h3>
+                        </div>
+
+                        <div class="normalize-options">
+                            <div class="option-group">
+                                <label class="option-title">Normalization Type</label>
+                                <div class="radio-group">
+                                    <label class="radio-option">
+                                        <input type="radio" name="normalizeType" value="peak" checked>
+                                        <span class="radio-label">Peak Normalization</span>
+                                        <small>Normalize to peak level</small>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="normalizeType" value="rms">
+                                        <span class="radio-label">RMS Normalization</span>
+                                        <small>Normalize to average level</small>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="normalizeType" value="lufs">
+                                        <span class="radio-label">LUFS Normalization</span>
+                                        <small>Broadcast standard loudness</small>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="setting-group">
+                                <label for="targetLevel">Target Level</label>
+                                <div class="slider-container">
+                                    <input type="range" id="targetLevel" min="-30" max="0" value="-3" step="0.1" aria-label="Target normalization level">
+                                    <div class="slider-value" id="targetLevelValue">-3.0 dB</div>
+                                </div>
+                                <small class="setting-help">Peak: 0dB max, RMS: -12dB typical, LUFS: -23dB broadcast</small>
+                            </div>
+
+                            <div class="setting-group">
+                                <label for="limiterThreshold">Limiter Threshold</label>
+                                <div class="slider-container">
+                                    <input type="range" id="limiterThreshold" min="-10" max="0" value="-1" step="0.1" aria-label="Limiter threshold">
+                                    <div class="slider-value" id="limiterThresholdValue">-1.0 dB</div>
+                                </div>
+                                <small class="setting-help">Prevents clipping by limiting peaks</small>
+                            </div>
+
+                            <div class="checkbox-group">
+                                <label class="checkbox-option">
+                                    <input type="checkbox" id="preserveDynamics" checked>
+                                    <span class="checkbox-label">Preserve Dynamic Range</span>
+                                    <small>Maintain the difference between loud and quiet parts</small>
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" id="fadeInOut">
+                                    <span class="checkbox-label">Add Fade In/Out</span>
+                                    <small>Add smooth fade transitions</small>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="normalize-preview">
+                            <div class="preview-info">
+                                <h4>Normalization Preview</h4>
+                                <div class="gain-info">
+                                    <span>Gain Adjustment: </span>
+                                    <span id="gainAdjustment" class="gain-value">+0.0 dB</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Export Section -->
+                    <div class="export-section hidden" id="exportSection">
+                        <div class="export-header">
+                            <h3>Export Normalized Audio</h3>
+                        </div>
+
+                        <div class="export-settings">
+                            <div class="setting-group">
+                                <label for="exportFormat">Output Format</label>
+                                <select id="exportFormat">
+                                    <option value="wav">WAV (Uncompressed)</option>
+                                    <option value="webm">WebM</option>
+                                </select>
+                            </div>
+
+                            <div class="setting-group">
+                                <label for="exportQuality">Sample Rate</label>
+                                <select id="exportQuality">
+                                    <option value="48000">48 kHz (Professional)</option>
+                                    <option value="44100" selected>44.1 kHz (CD Quality)</option>
+                                    <option value="22050">22 kHz (Medium)</option>
+                                    <option value="16000">16 kHz (Low)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="export-actions">
+                            <button class="btn-process" id="processBtn">🔊 Normalize Audio</button>
+                            <button class="btn-download hidden" id="downloadBtn">⬇️ Download Normalized Audio</button>
+                        </div>
+
+                        <div class="export-info">
+                            <div class="processed-audio-player hidden" id="processedPlayer">
+                                <h4>Normalized Audio Preview</h4>
+                                <audio controls id="processedAudio"></audio>
+                                <div class="normalized-stats" id="normalizedStats">
+                                    <div class="stat-item">
+                                        <span>New Peak:</span>
+                                        <span id="newPeak">-</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span>New RMS:</span>
+                                        <span id="newRms">-</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span>Gain Applied:</span>
+                                        <span id="appliedGain">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructions Section -->
+        <section class="instructions-section">
+            <div class="container">
+                <h2 class="section-title">How to Use Volume Normalizer</h2>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <div class="instruction-icon">📁</div>
+                        <h3>Upload Audio</h3>
+                        <p>Select or drag an audio file to analyze its volume levels</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">📊</div>
+                        <h3>Analyze Levels</h3>
+                        <p>Review peak, RMS, and LUFS measurements of your audio</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">⚙️</div>
+                        <h3>Configure Settings</h3>
+                        <p>Choose normalization type and target level for your needs</p>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon">⬇️</div>
+                        <h3>Download Result</h3>
+                        <p>Process and download your volume-normalized audio</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <h2 class="section-title">Features</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">📏</div>
+                        <h4>Multiple Standards</h4>
+                        <p>Peak, RMS, and LUFS normalization for different use cases</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎚️</div>
+                        <h4>Smart Limiting</h4>
+                        <p>Built-in limiter prevents clipping during normalization</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📈</div>
+                        <h4>Real-time Analysis</h4>
+                        <p>Instant audio level analysis with detailed measurements</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <h4>Privacy Protected</h4>
+                        <p>All processing happens locally - your files never leave your device</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-row">
+                        <img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+                        <span class="footer-brand-text">
+                            <h3 class="footer-logo">Zapit</h3>
+                            <div class="footer-tagline">A Zap Away From Done</div>
+                        </span>
+                    </div>
+                    <p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+                    <div class="footer-copyright">© Zapit. All rights reserved.</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-list">
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

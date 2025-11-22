@@ -1,0 +1,61 @@
+/* BMI Calculator - Dark Theme */
+
+/* Dark theme variables */
+:root[data-theme="dark"] {
+    --card-bg: #1f2937;
+    --border-color: #374151;
+    --bg-secondary: #111827;
+    --text-color: #f9fafb;
+    --text-muted: #9ca3af;
+    --primary-color: #3b82f6;
+    --primary-dark: #2563eb;
+    --primary-color-alpha: rgba(59, 130, 246, 0.1);
+    --hover-bg: #374151;
+    --warning-color: #fbbf24;
+}
+
+/* Dark theme specific adjustments */
+:root[data-theme="dark"] .bmi-category.underweight {
+    background: rgba(2, 119, 189, 0.2);
+    color: #60a5fa;
+}
+
+:root[data-theme="dark"] .bmi-category.normal {
+    background: rgba(46, 125, 50, 0.2);
+    color: #68d391;
+}
+
+:root[data-theme="dark"] .bmi-category.overweight {
+    background: rgba(245, 124, 0, 0.2);
+    color: #fbbf24;
+}
+
+:root[data-theme="dark"] .bmi-category.obese {
+    background: rgba(198, 40, 40, 0.2);
+    color: #f87171;
+}
+
+:root[data-theme="dark"] .category-item.underweight {
+    background: rgba(2, 119, 189, 0.2);
+    color: #60a5fa;
+}
+
+:root[data-theme="dark"] .category-item.normal {
+    background: rgba(46, 125, 50, 0.2);
+    color: #68d391;
+}
+
+:root[data-theme="dark"] .category-item.overweight {
+    background: rgba(245, 124, 0, 0.2);
+    color: #fbbf24;
+}
+
+:root[data-theme="dark"] .category-item.obese {
+    background: rgba(198, 40, 40, 0.2);
+    color: #f87171;
+}
+
+:root[data-theme="dark"] .bmi-indicator {
+    background: var(--text-color);
+    border-color: var(--card-bg);
+}

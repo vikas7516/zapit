@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Text Case Converter - Text Tools - Zapit</title>
+	<meta name="description" content="Convert text to uppercase, lowercase, title case, sentence case, camel case, and more. Apply smart cleanup, copy, or download the result instantly.">
+	<meta property="og:title" content="Text Case Converter - Zapit">
+	<meta property="og:description" content="One-stop case converter with smart options, previews, and quick actions.">
+	<meta property="og:image" content="https://zapit.me/icons/favicon-512.png">
+	<link id="site-theme-css" rel="stylesheet" href="/assets/css/style.css">
+	<link id="tool-theme-css" rel="stylesheet" href="light.css">
+	<link id="theme-toggle-css" rel="stylesheet" href="/assets/elements/theme-toggle.css">
+	<link rel="canonical" href="https://zapit.me/text-tools/text-case-converter">
+	<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+	<link rel="icon" href="/icons/favicon.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+	<link rel="manifest" href="/site.webmanifest">
+</head>
+<body class="tools-page">
+	<header class="site-header">
+		<div class="container">
+			<div class="header-nav">
+				<a href="/index.html" class="brand" aria-label="Zapit Home">
+					<img src="/icons/logo.jpg" alt="Zapit" class="logo-img" />
+					<span class="brand-text">
+						<span class="brand-title">Zapit</span>
+						<span class="brand-tagline">A Zap Away From Done</span>
+					</span>
+				</a>
+				<div class="header-right">
+					<nav class="breadcrumb">
+						<a href="/">Home</a>
+						<span class="separator">/</span>
+						<a href="/text-tools">Text Tools</a>
+						<span class="separator">/</span>
+						<span class="current">Text Case Converter</span>
+					</nav>
+					<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+						<span class="theme-toggle-icon">🌙</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="tool-hero">
+			<div class="container">
+				<div class="tool-hero-content">
+					<div class="tool-icon-large">🔤</div>
+					<h1 class="tool-title">Text Case Converter</h1>
+					<p class="tool-description">Switch between uppercase, lowercase, title case, camel case, and more with zero fuss. Tidy spacing automatically and keep a live preview of the original.</p>
+					<div class="tool-meta">
+						<span class="meta-pill">13+ Case Styles</span>
+						<span class="meta-pill">Smart Cleanup</span>
+						<span class="meta-pill">Copy &amp; Download</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="tool-interface">
+			<div class="container">
+				<div class="tool-layout">
+					<div class="tool-card span-7" aria-labelledby="input-heading">
+						<div class="section-header">
+							<h2 id="input-heading">Input Text</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-outline" id="loadSampleBtn">Load Sample</button>
+								<button type="button" class="btn btn-secondary" id="clearBtn">Clear</button>
+							</div>
+						</div>
+						<label class="sr-only" for="sourceText">Paste the text you want to convert</label>
+						<textarea id="sourceText" class="text-input large" placeholder="Paste or type your text here..." aria-describedby="input-help"></textarea>
+						<p class="helper-text" id="input-help">Supports up to 200,000 characters. Case conversion happens entirely in your browser.</p>
+						<div class="settings-panel" role="group" aria-labelledby="settings-heading">
+							<h3 class="settings-title" id="settings-heading">Smart Cleanup</h3>
+							<div class="option-grid">
+								<label class="checkbox">
+									<input type="checkbox" id="trimBefore" checked>
+									<span>Trim text before converting</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="normalizeWhitespace" checked>
+									<span>Collapse repeated spaces and tidy line breaks</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="preserveAccents" checked>
+									<span>Preserve accented characters (á, ü, ñ)</span>
+								</label>
+								<label class="checkbox">
+									<input type="checkbox" id="autoUpdate">
+									<span>Auto convert while typing</span>
+								</label>
+							</div>
+						</div>
+						<div class="notification hidden" id="statusBanner" role="status"></div>
+					</div>
+
+					<div class="tool-card span-5" aria-labelledby="options-heading">
+						<div class="section-header">
+							<h2 id="options-heading">Conversion Options</h2>
+						</div>
+						<div class="primary-action">
+							<label for="primaryTransform" class="primary-label">Primary transform</label>
+							<div class="primary-control">
+								<select id="primaryTransform" class="select-input">
+									<option value="sentence">Sentence case</option>
+									<option value="title">Title Case (AP style)</option>
+									<option value="upper">UPPERCASE</option>
+									<option value="lower">lowercase</option>
+									<option value="capitalize">Capitalize Each Word</option>
+									<option value="toggle">tOGGLE cASE</option>
+									<option value="camel">camelCase</option>
+									<option value="pascal">PascalCase</option>
+									<option value="snake">snake_case</option>
+									<option value="kebab">kebab-case</option>
+								</select>
+								<button type="button" class="btn btn-primary" id="applyPrimaryBtn">Apply Transform</button>
+							</div>
+						</div>
+
+						<h3 class="quick-heading">Quick conversions</h3>
+						<div class="transform-grid">
+							<button type="button" class="transform-btn" data-transform="upper">UPPERCASE</button>
+							<button type="button" class="transform-btn" data-transform="lower">lowercase</button>
+							<button type="button" class="transform-btn" data-transform="title">Title Case</button>
+							<button type="button" class="transform-btn" data-transform="sentence">Sentence case</button>
+							<button type="button" class="transform-btn" data-transform="capitalize">Capitalize Words</button>
+							<button type="button" class="transform-btn" data-transform="toggle">tOGGLE cASE</button>
+							<button type="button" class="transform-btn" data-transform="alternating">Alternating CaSe</button>
+							<button type="button" class="transform-btn" data-transform="camel">camelCase</button>
+							<button type="button" class="transform-btn" data-transform="pascal">PascalCase</button>
+							<button type="button" class="transform-btn" data-transform="snake">snake_case</button>
+							<button type="button" class="transform-btn" data-transform="kebab">kebab-case</button>
+							<button type="button" class="transform-btn" data-transform="constant">CONSTANT_CASE</button>
+						</div>
+
+						<div class="button-row">
+							<button type="button" class="btn btn-outline" id="copyOriginalBtn">Copy Original</button>
+							<button type="button" class="btn btn-secondary" id="swapBtn">Swap Input &amp; Output</button>
+						</div>
+					</div>
+
+					<div class="tool-card span-12" aria-labelledby="results-heading">
+						<div class="section-header">
+							<h2 id="results-heading">Results</h2>
+							<div class="toolbar">
+								<button type="button" class="btn btn-secondary" id="copyResultBtn">Copy Result</button>
+								<button type="button" class="btn btn-outline" id="downloadBtn">Download</button>
+								<button type="button" class="btn btn-outline" id="replaceInputBtn">Replace Input</button>
+							</div>
+						</div>
+						<div class="results-grid">
+							<div class="result-panel">
+								<div class="result-header">
+									<h3>Converted Text</h3>
+									<span class="badge" id="modeBadge">Sentence case</span>
+								</div>
+								<pre id="resultOutput" class="result-output" tabindex="0"></pre>
+							</div>
+							<div class="result-panel">
+								<div class="result-header">
+									<h3>Original Preview (read-only)</h3>
+									<span class="badge muted" id="lengthBadge">0 characters</span>
+								</div>
+								<pre id="originalPreview" class="result-output" tabindex="0"></pre>
+							</div>
+						</div>
+						<div class="stats-grid">
+							<div class="stat-card">
+								<span class="stat-label">Words</span>
+								<span class="stat-value" id="wordStat">0</span>
+							</div>
+							<div class="stat-card">
+								<span class="stat-label">Sentences</span>
+								<span class="stat-value" id="sentenceStat">0</span>
+							</div>
+							<div class="stat-card">
+								<span class="stat-label">Uppercase Letters</span>
+								<span class="stat-value" id="upperStat">0</span>
+							</div>
+							<div class="stat-card">
+								<span class="stat-label">Processing Time</span>
+								<span class="stat-value" id="timeStat">0 ms</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="tool-card span-12 info-card">
+						<h2>Tips for Perfect Formatting</h2>
+						<ul class="tips-list">
+							<li><strong>Sentence case</strong> capitalizes the first letter after punctuation like <code>.</code>, <code>?</code>, or <code>!</code>—ideal for paragraphs.</li>
+							<li><strong>Title Case</strong> follows common style-guide exceptions ("and", "of", "the") unless they start or end the headline.</li>
+							<li><strong>Swap Input &amp; Output</strong> to keep refining text with multiple transformations in a row.</li>
+							<li><strong>Smart cleanup</strong> removes trailing spaces and tidy line breaks so your result is publish-ready.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="site-footer">
+		<div class="container">
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<div class="footer-brand-row">
+						<img src="/icons/logo.jpg" alt="Zapit" class="footer-logo-img" />
+						<span class="footer-brand-text">
+							<h3 class="footer-logo">Zapit</h3>
+							<div class="footer-tagline">A Zap Away From Done</div>
+						</span>
+					</div>
+					<p class="footer-description">Free, fast, and private online tools for everyone. No registration required.</p>
+					<div class="footer-copyright">© Zapit. All rights reserved.</div>
+				</div>
+
+				<div class="footer-links">
+					<h4 class="footer-title">Legal</h4>
+					<ul class="footer-list">
+						<li><a href="/privacy.html">Privacy Policy</a></li>
+						<li><a href="/terms.html">Terms of Service</a></li>
+						<li><a href="/contact.html">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/js/global.js" defer></script>
+	<script src="app.js" defer></script>
+	<script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+	<script>
+		(function () {
+			const toolTheme = document.getElementById('tool-theme-css');
+			if (!toolTheme) return;
+
+			function applyTheme(theme) {
+				const next = theme === 'dark' ? 'dark.css' : 'light.css';
+				if (toolTheme.getAttribute('href') !== next) {
+					toolTheme.setAttribute('href', next);
+				}
+			}
+
+			const current = document.documentElement.getAttribute('data-theme') || 'light';
+			applyTheme(current);
+
+			const observer = new MutationObserver(function (mutations) {
+				mutations.forEach(function (mutation) {
+					if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+						const theme = document.documentElement.getAttribute('data-theme') || 'light';
+						applyTheme(theme);
+					}
+				});
+			});
+
+			observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+		})();
+	</script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Savings Calculator | Zapit</title>
+    <meta name="description" content="Plan your retirement with our comprehensive savings calculator. Get personalized projections, scenario analysis, and milestone tracking with accurate compound interest calculations.">
+    <meta name="keywords" content="retirement calculator, savings calculator, compound interest, retirement planning, financial planning, investment calculator">
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link id="tool-theme-css" rel="stylesheet" href="light.css">
+    <link rel="canonical" href="https://zapit.me/financial-calculators/retirement-savings">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+    <link rel="icon" href="/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+</head>
+<body class="tools-page">
+    <header class="site-header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="/" class="logo">Zapit</a>
+                <nav class="main-nav">
+                    <a href="/text-tools">Text Tools</a>
+                    <a href="/image-tools">Image Tools</a>
+                    <a href="/audio-video-tools">Audio/Video Tools</a>
+                    <a href="/pdf-tools">PDF Tools</a>
+                    <a href="/dev-tools">Dev Tools</a>
+                    <a href="/financial-calculators" class="active">Financial Calculators</a>
+                    <a href="/unit-converters">Unit Converters</a>
+                    <a href="/math-calculators">Math Calculators</a>
+                    <a href="/health-fitness-calculators">Health & Fitness</a>
+                    <a href="/security-tools">Security Tools</a>
+                    <a href="/utility-fun-tools">Utility & Fun Tools</a>
+                </nav>
+                <div class="theme-toggle" aria-label="Toggle dark mode" role="button" tabindex="0">
+                    <div class="theme-toggle-track">
+                        <div class="theme-toggle-thumb"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="/">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="/financial-calculators">Financial Calculators</a>
+                <span class="breadcrumb-separator">/</span>
+                <span>Retirement Savings Calculator</span>
+            </div>
+        </div>
+
+        <div class="calculator-container">
+            <h1>Retirement Savings Calculator</h1>
+            <p>Plan your retirement with our comprehensive savings calculator. Get personalized projections, scenario analysis, and milestone tracking.</p>
+            
+            <div class="form-section">
+                <h2>Personal Information</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="currentAge">Current Age:</label>
+                        <input type="number" id="currentAge" min="18" max="80" value="30">
+                    </div>
+                    <div class="form-group">
+                        <label for="retirementAge">Retirement Age:</label>
+                        <input type="number" id="retirementAge" min="50" max="100" value="65">
+                    </div>
+                </div>
+                
+                <h2>Financial Details</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="currentSavings">Current Savings ($):</label>
+                        <input type="number" id="currentSavings" min="0" value="10000">
+                    </div>
+                    <div class="form-group">
+                        <label for="monthlyContribution">Monthly Contribution ($):</label>
+                        <input type="number" id="monthlyContribution" min="0" value="500">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expectedReturn">Expected Annual Return (%):</label>
+                        <input type="number" id="expectedReturn" min="0" max="20" step="0.1" value="7">
+                    </div>
+                    <div class="form-group">
+                        <label for="inflationRate">Inflation Rate (%):</label>
+                        <input type="number" id="inflationRate" min="0" max="10" step="0.1" value="3">
+                    </div>
+                </div>
+                
+                <button id="calculateBtn" class="calculate-btn">Calculate Retirement Savings</button>
+            </div>
+            
+            <div class="results-section hidden" id="resultsSection">
+                <h2>Retirement Projection</h2>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <div class="result-label">Total Savings at Retirement</div>
+                        <div class="result-value" id="totalSavings">-</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Total Contributions</div>
+                        <div class="result-value" id="totalContributions">-</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Investment Growth</div>
+                        <div class="result-value" id="investmentGrowth">-</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Years to Retirement</div>
+                        <div class="result-value" id="yearsToRetirement">-</div>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="growthChart" width="800" height="400"></canvas>
+                </div>
+                
+                <div class="recommendation-section">
+                    <h3>Personalized Recommendations</h3>
+                    <div id="recommendations"></div>
+                </div>
+                
+                <div class="scenario-analysis">
+                    <h3>Scenario Analysis</h3>
+                    <div class="scenario-tabs">
+                        <button class="scenario-tab active" data-scenario="realistic">Realistic (7%)</button>
+                        <button class="scenario-tab" data-scenario="conservative">Conservative (5%)</button>
+                        <button class="scenario-tab" data-scenario="optimistic">Optimistic (9%)</button>
+                    </div>
+                    <div class="scenario-results" id="scenarioResults"></div>
+                </div>
+                
+                <div class="milestone-section">
+                    <h3>Savings Milestones</h3>
+                    <div class="milestone-timeline" id="milestoneTimeline"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Zapit</h3>
+                    <p>Your all-in-one toolkit for productivity and creativity. Free, fast, and always improving.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Tools</h4>
+                    <ul>
+                        <li><a href="/text-tools">Text Tools</a></li>
+                        <li><a href="/image-tools">Image Tools</a></li>
+                        <li><a href="/dev-tools">Developer Tools</a></li>
+                        <li><a href="/financial-calculators">Financial Calculators</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="/contact">Contact Us</a></li>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Zapit. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/header.js" defer data-role="header-js"></script>
+    <script src="/assets/js/global.js" data-role="global-js"></script>
+    <script src="/assets/elements/theme-toggle.js" defer data-role="theme-js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

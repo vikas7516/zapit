@@ -1,0 +1,436 @@
+/* Inflation Calculator Dark Theme */
+
+[data-theme="dark"] .calculator-card {
+    background: #2d3748;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .card-header {
+    border-bottom-color: #4a5568;
+}
+
+[data-theme="dark"] .card-header h3 {
+    color: #f7fafc;
+}
+
+/* Mode Selection */
+[data-theme="dark"] .calculation-mode {
+    background: #4a5568;
+}
+
+[data-theme="dark"] .mode-btn {
+    color: #cbd5e0;
+}
+
+[data-theme="dark"] .mode-btn:hover {
+    background: #5a6478;
+    color: #f7fafc;
+}
+
+[data-theme="dark"] .mode-btn.active {
+    background: #3182ce;
+    color: white;
+    box-shadow: 0 2px 4px rgba(49, 130, 206, 0.4);
+}
+
+/* Input Fields */
+[data-theme="dark"] .input-group label {
+    color: #e2e8f0;
+}
+
+[data-theme="dark"] .currency-symbol,
+[data-theme="dark"] .rate-symbol {
+    color: #cbd5e0;
+}
+
+[data-theme="dark"] .amount-input,
+[data-theme="dark"] .rate-input-field,
+[data-theme="dark"] .year-input {
+    background: #4a5568;
+    border-color: #5a6478;
+    color: #f7fafc;
+}
+
+[data-theme="dark"] .amount-input:focus,
+[data-theme="dark"] .rate-input-field:focus,
+[data-theme="dark"] .year-input:focus {
+    border-color: #3182ce;
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
+}
+
+[data-theme="dark"] .amount-input::placeholder,
+[data-theme="dark"] .rate-input-field::placeholder,
+[data-theme="dark"] .year-input::placeholder {
+    color: #a0aec0;
+}
+
+/* Calculate Button */
+[data-theme="dark"] .calculate-btn {
+    background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
+}
+
+[data-theme="dark"] .calculate-btn:hover {
+    box-shadow: 0 8px 25px rgba(49, 130, 206, 0.4);
+}
+
+/* Results Card */
+[data-theme="dark"] .results-card {
+    background: #2d3748;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .action-btn {
+    background: #4a5568;
+    border-color: #5a6478;
+    color: #e2e8f0;
+}
+
+[data-theme="dark"] .action-btn:hover {
+    background: #5a6478;
+}
+
+/* Results Content */
+[data-theme="dark"] .results-placeholder {
+    color: #a0aec0;
+}
+
+[data-theme="dark"] .results-placeholder h4 {
+    color: #e2e8f0;
+}
+
+[data-theme="dark"] .error-state {
+    color: #fc8181;
+}
+
+[data-theme="dark"] .error-state h4 {
+    color: #fc8181;
+}
+
+/* Results Summary */
+[data-theme="dark"] .result-primary {
+    background: linear-gradient(135deg, #4a5568 0%, #5a6478 100%);
+    border-color: #5a6478;
+}
+
+[data-theme="dark"] .amount-label {
+    color: #cbd5e0;
+}
+
+[data-theme="dark"] .amount-value {
+    color: #63b3ed;
+}
+
+[data-theme="dark"] .amount-context {
+    color: #cbd5e0;
+}
+
+[data-theme="dark"] .result-item {
+    background: #4a5568;
+    border-color: #5a6478;
+}
+
+[data-theme="dark"] .result-label {
+    color: #cbd5e0;
+}
+
+[data-theme="dark"] .result-value {
+    color: #f7fafc;
+}
+
+[data-theme="dark"] .result-value.negative {
+    color: #fc8181;
+}
+
+[data-theme="dark"] .result-value.positive {
+    color: #68d391;
+}
+
+/* Analysis Section */
+[data-theme="dark"] .analysis-section {
+    background: #4a5568;
+    border-color: #5a6478;
+}
+
+[data-theme="dark"] .analysis-section h4 {
+    color: #f7fafc;
+}
+
+[data-theme="dark"] .analysis-content p {
+    color: #e2e8f0;
+}
+
+/* Projection Table */
+[data-theme="dark"] .projection-table h4 {
+    color: #f7fafc;
+}
+
+[data-theme="dark"] .table-container {
+    background: #2d3748;
+    border-color: #5a6478;
+}
+
+[data-theme="dark"] .projection-table th {
+    background: #4a5568;
+    color: #f7fafc;
+    border-bottom-color: #5a6478;
+}
+
+[data-theme="dark"] .projection-table td {
+    border-bottom-color: #4a5568;
+    color: #e2e8f0;
+}
+
+[data-theme="dark"] .projection-table tr:hover {
+    background: #4a5568;
+}
+
+[data-theme="dark"] .table-summary td {
+    color: #cbd5e0;
+}
+
+[data-theme="dark"] .table-final td {
+    background: #4a5568;
+}
+
+/* Historical Data Card */
+[data-theme="dark"] .historical-data-card {
+    background: #2d3748;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .data-view-select {
+    background: #4a5568;
+    border-color: #5a6478;
+    color: #f7fafc;
+}
+
+[data-theme="dark"] .loading-historical {
+    color: #a0aec0;
+}
+
+/* Historical Tables */
+[data-theme="dark"] .historical-table table {
+    background: #2d3748;
+    border-color: #5a6478;
+}
+
+[data-theme="dark"] .historical-table th {
+    background: #4a5568;
+    color: #f7fafc;
+    border-bottom-color: #5a6478;
+}
+
+[data-theme="dark"] .historical-table td {
+    border-bottom-color: #4a5568;
+    color: #e2e8f0;
+}
+
+[data-theme="dark"] .historical-table tr:hover {
+    background: #4a5568;
+}
+
+[data-theme="dark"] .historical-table .positive {
+    color: #fc8181;
+}
+
+[data-theme="dark"] .historical-table .negative {
+    color: #68d391;
+}
+
+/* Decades Data */
+[data-theme="dark"] .decade-item {
+    background: #4a5568;
+    border-color: #5a6478;
+}
+
+[data-theme="dark"] .decade-period {
+    color: #f7fafc;
+}
+
+[data-theme="dark"] .decade-rate.positive {
+    color: #fc8181;
+}
+
+[data-theme="dark"] .decade-rate.negative {
+    color: #68d391;
+}
+
+[data-theme="dark"] .decade-note {
+    color: #cbd5e0;
+}
+
+/* Events Data */
+[data-theme="dark"] .event-item {
+    background: #4a5568;
+    border-color: #5a6478;
+}
+
+[data-theme="dark"] .event-year {
+    color: #cbd5e0;
+}
+
+[data-theme="dark"] .event-rate.positive {
+    color: #fc8181;
+}
+
+[data-theme="dark"] .event-rate.negative {
+    color: #68d391;
+}
+
+[data-theme="dark"] .event-name {
+    color: #f7fafc;
+}
+
+[data-theme="dark"] .event-impact {
+    color: #cbd5e0;
+}
+
+/* Information Cards */
+[data-theme="dark"] .info-card {
+    background: #2d3748;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .info-card h3 {
+    color: #f7fafc;
+}
+
+/* Example Buttons */
+[data-theme="dark"] .example-btn {
+    background: #4a5568;
+    border-color: #5a6478;
+}
+
+[data-theme="dark"] .example-btn:hover {
+    background: #5a6478;
+    border-color: #3182ce;
+}
+
+[data-theme="dark"] .example-name {
+    color: #f7fafc;
+}
+
+[data-theme="dark"] .example-desc {
+    color: #cbd5e0;
+}
+
+/* Economic Stats */
+[data-theme="dark"] .stat-item {
+    background: #4a5568;
+    border-color: #5a6478;
+}
+
+[data-theme="dark"] .stat-item .stat-label {
+    color: #cbd5e0;
+}
+
+[data-theme="dark"] .stat-item .stat-value {
+    color: #63b3ed;
+}
+
+[data-theme="dark"] .stat-item .stat-date {
+    color: #a0aec0;
+}
+
+/* Concept List */
+[data-theme="dark"] .concept-item h4 {
+    color: #f7fafc;
+}
+
+[data-theme="dark"] .concept-item p {
+    color: #e2e8f0;
+}
+
+/* Impact Examples */
+[data-theme="dark"] .impact-item {
+    border-color: #5a6478;
+}
+
+[data-theme="dark"] .impact-item.positive {
+    background: rgba(104, 211, 145, 0.1);
+    border-color: rgba(104, 211, 145, 0.3);
+}
+
+[data-theme="dark"] .impact-item.negative {
+    background: rgba(252, 129, 129, 0.1);
+    border-color: rgba(252, 129, 129, 0.3);
+}
+
+[data-theme="dark"] .impact-item.neutral {
+    background: rgba(160, 174, 192, 0.1);
+    border-color: rgba(160, 174, 192, 0.3);
+}
+
+[data-theme="dark"] .impact-content h4 {
+    color: #f7fafc;
+}
+
+[data-theme="dark"] .impact-content p {
+    color: #e2e8f0;
+}
+
+/* Tips List */
+[data-theme="dark"] .tip-item {
+    background: #4a5568;
+    border-color: #5a6478;
+}
+
+[data-theme="dark"] .tip-item span:last-child {
+    color: #e2e8f0;
+}
+
+/* Scrollbar Styling */
+[data-theme="dark"] .table-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+[data-theme="dark"] .table-container::-webkit-scrollbar-track {
+    background: #4a5568;
+    border-radius: 4px;
+}
+
+[data-theme="dark"] .table-container::-webkit-scrollbar-thumb {
+    background: #718096;
+    border-radius: 4px;
+}
+
+[data-theme="dark"] .table-container::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+}
+
+/* Input Focus Glow */
+[data-theme="dark"] .amount-input:focus,
+[data-theme="dark"] .rate-input-field:focus,
+[data-theme="dark"] .year-input:focus {
+    background: #4a5568;
+}
+
+/* Animation Enhancements */
+[data-theme="dark"] .result-primary {
+    animation: darkResultFade 0.5s ease-out;
+}
+
+@keyframes darkResultFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+        background: #5a6478;
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        background: linear-gradient(135deg, #4a5568 0%, #5a6478 100%);
+    }
+}
+
+/* Enhanced hover effects for dark theme */
+[data-theme="dark"] .example-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .action-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}

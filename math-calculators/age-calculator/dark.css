@@ -1,0 +1,202 @@
+/* Age Calculator - Dark Theme */
+
+/* Main Age Display - Dark Theme */
+.dark .main-age-display {
+    background: var(--dark-bg-secondary);
+}
+
+.dark .age-item {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+}
+
+.dark .age-value {
+    color: var(--dark-text);
+}
+
+.dark .age-label {
+    color: var(--dark-text-muted);
+}
+
+.dark .age-unit {
+    color: var(--dark-text-muted);
+}
+
+/* Birthday Section - Dark Theme */
+.dark .birthday-section {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+}
+
+.dark .birthday-section h3 {
+    color: var(--dark-text);
+}
+
+.dark .birthday-next {
+    color: var(--primary-color);
+}
+
+.dark .birthday-age {
+    color: var(--dark-text-muted);
+}
+
+.dark .countdown-item {
+    background: var(--dark-bg-secondary);
+}
+
+.dark .countdown-number {
+    color: var(--primary-color);
+}
+
+.dark .countdown-label {
+    color: var(--dark-text-muted);
+}
+
+/* Info Cards - Dark Theme */
+.dark .info-card {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+}
+
+.dark .info-card h4 {
+    color: var(--dark-text);
+}
+
+.dark .zodiac-name,
+.dark .generation-name {
+    color: var(--primary-color);
+}
+
+.dark .zodiac-dates,
+.dark .generation-years,
+.dark .zodiac-description,
+.dark .generation-description {
+    color: var(--dark-text-muted);
+}
+
+/* Life Statistics - Dark Theme */
+.dark .life-stats h3 {
+    color: var(--dark-text);
+}
+
+.dark .stat-card {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+}
+
+.dark .stat-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dark .stat-number {
+    color: var(--primary-color);
+}
+
+.dark .stat-label {
+    color: var(--dark-text-muted);
+}
+
+/* Birth Day Information - Dark Theme */
+.dark .birth-day-info {
+    background: var(--dark-bg-secondary);
+}
+
+.dark .birth-day-info h3 {
+    color: var(--dark-text);
+}
+
+.dark .birth-item {
+    background: var(--dark-card-bg);
+}
+
+.dark .birth-label {
+    color: var(--dark-text-muted);
+}
+
+.dark .birth-value {
+    color: var(--primary-color);
+}
+
+/* Zodiac List - Dark Theme */
+.dark .zodiac-item {
+    background: var(--dark-hover-bg);
+    color: var(--dark-text);
+}
+
+/* Dark mode specific enhancements */
+.dark .age-number {
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.dark .birthday-icon,
+.dark .zodiac-icon,
+.dark .generation-icon,
+.dark .stat-icon {
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.1));
+}
+
+.dark .age-celebration {
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+}
+
+.dark .stat-card {
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
+.dark .age-item,
+.dark .countdown-item {
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+}
+
+/* Animated elements in dark mode */
+.dark .countdown-number {
+    text-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+}
+
+.dark .zodiac-name,
+.dark .generation-name,
+.dark .birth-value {
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+}
+
+/* Form elements - Dark Theme */
+.dark input[type="date"] {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-border);
+    color: var(--dark-text);
+}
+
+.dark input[type="date"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Loading states */
+.dark .loading-skeleton {
+    background: linear-gradient(90deg, 
+        var(--dark-border) 25%, 
+        rgba(255, 255, 255, 0.1) 50%, 
+        var(--dark-border) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Smooth transitions */
+.dark .age-item,
+.dark .stat-card,
+.dark .birth-item,
+.dark .countdown-item {
+    transition: all 0.3s ease;
+}
+
+.dark .stat-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-color);
+}
